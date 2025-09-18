@@ -23,10 +23,10 @@ const DFaithSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-            D.FAITH – kurz erklärt
+            D.FAITH Ökosystem – kurz erklärt
           </h2>
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Likes, Kommentare, Shares – dein Support bringt dir Token. Frühere Musik, exklusive Vorteile, einfache Auszahlung.
+            Likes, Kommentare, Shares – dein Support bringt dir Tokens. Frühere Musik, exklusive Vorteile, einfache Auszahlung.
           </p>
         </motion.div>
 

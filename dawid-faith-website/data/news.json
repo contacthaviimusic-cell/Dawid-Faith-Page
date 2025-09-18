@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1758217302493-gbictm",
+    "title": "Neue Single 'Digital Dreams' ab sofort verfügbar",
+    "excerpt": "Dawid Faith's neuester Track kombiniert futuristische Beats mit emotionalen Vocals und nimmt dich mit auf eine Reise durch die digitale Zukunft.",
+    "date": "2024-12-15",
+    "readTime": "3 min",
+    "category": "Musik Release",
+    "image": "/dawid-faith-bg.jpg",
+    "featured": true
+  },
+  {
+    "id": "1758217302493-p9jwga",
+    "title": "D.INVEST Token Launch - Frühe Investoren gesucht",
+    "excerpt": "Werde Teil der Revolution! Die ersten 1000 Token-Inhaber erhalten exklusive Vorteile und lebenslangen VIP-Zugang zu allen Events.",
+    "date": "2024-12-10",
+    "readTime": "5 min",
+    "category": "Blockchain",
+    "image": "/dinvest-token.png",
+    "featured": false
+  },
+  {
+    "id": "1758217302493-kix4d8",
+    "title": "Exklusives Live-Konzert in Berlin angekündigt",
+    "excerpt": "Das erste Live-Konzert im neuen Jahr wird ein unvergessliches Erlebnis mit 360°-Sound, holographischen Visuals und Überraschungsgästen.",
+    "date": "2024-12-08",
+    "readTime": "4 min",
+    "category": "Events",
+    "image": "/dawid-faith.jpg",
+    "featured": false
+  }
+]

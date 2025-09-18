@@ -1,46 +1,46 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Calendar, Clock, ArrowRight, Star, Music, Headphones, Users } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, Star, Music, Headphones, Users, X } from 'lucide-react';
+import type { NewsItem } from '@/types/news';
 
 const NewsSection = () => {
-  const newsItems = [
-    {
-      id: 1,
-      title: "Neue Single 'Digital Dreams' ab sofort verfügbar",
-      excerpt: "Dawid Faith's neuester Track kombiniert futuristische Beats mit emotionalen Vocals und nimmt dich mit auf eine Reise durch die digitale Zukunft.",
-      date: "2024-12-15",
-      readTime: "3 min",
-      category: "Musik Release",
-      image: "/dawid-faith-bg.jpg",
-      featured: true,
-      icon: Music
-    },
-    {
-      id: 2,
-      title: "D.INVEST Token Launch - Frühe Investoren gesucht",
-      excerpt: "Werde Teil der Revolution! Die ersten 1000 Token-Inhaber erhalten exklusive Vorteile und lebenslangen VIP-Zugang zu allen Events.",
-      date: "2024-12-10",
-      readTime: "5 min",
-      category: "Blockchain",
-      image: "/dinvest-token.png",
-      featured: false,
-      icon: Star
-    },
-    {
-      id: 3,
-      title: "Exklusives Live-Konzert in Berlin angekündigt",
-      excerpt: "Das erste Live-Konzert im neuen Jahr wird ein unvergessliches Erlebnis mit 360°-Sound, holographischen Visuals und Überraschungsgästen.",
-      date: "2024-12-08",
-      readTime: "4 min",
-      category: "Events",
-      image: "/dawid-faith.jpg",
-      featured: false,
-      icon: Headphones
-    }
-  ];
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedArticle, setSelectedArticle] = useState<NewsItem | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const res = await fetch('/api/news', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Fehler beim Laden');
+        const data = (await res.json()) as NewsItem[];
+        if (mounted) {
+          setNewsItems(data);
+          setError(null);
+        }
+      } catch (e: any) {
+        if (mounted) setError(e.message || 'Fehler');
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const iconFor = useMemo(() => ({
+    'Musik Release': Music,
+    Musik: Music,
+    Blockchain: Star,
+    Events: Headphones,
+    Community: Users,
+  }), []);
 
   return (
     <section id="news" className="relative py-20 px-4 bg-gradient-to-b from-slate-900/30 to-purple-900/10">
@@ -73,7 +73,9 @@ const NewsSection = () => {
           viewport={{ once: true }}
           className="mb-12"
         >
-          {newsItems.filter(item => item.featured).map((item) => (
+          {newsItems.filter(item => item.featured).map((item) => {
+            const Icon = iconFor[item.category as keyof typeof iconFor] || Star;
+            return (
             <div
               key={item.id}
               className="relative bg-gradient-to-br from-purple-900/40 to-pink-900/40 backdrop-blur-md rounded-3xl overflow-hidden border border-purple-500/20 shadow-2xl group hover:scale-[1.02] transition-all duration-500"
@@ -97,7 +99,7 @@ const NewsSection = () => {
                 <div className="p-8 lg:p-12 flex flex-col justify-center">
                   <div className="flex items-center gap-4 mb-4">
                     <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
-                      <item.icon size={16} />
+                      <Icon size={16} />
                       {item.category}
                     </span>
                     <div className="flex items-center gap-2 text-gray-400 text-sm">
@@ -121,6 +123,7 @@ const NewsSection = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => setSelectedArticle(item)}
                     className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-full font-semibold text-lg shadow-lg transition-all duration-300 flex items-center gap-2 w-fit"
                   >
                     Mehr lesen
@@ -129,7 +132,7 @@ const NewsSection = () => {
                 </div>
               </div>
             </div>
-          ))}
+          );})}
         </motion.div>
 
         {/* News Grid */}
@@ -140,7 +143,9 @@ const NewsSection = () => {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8"
         >
-          {newsItems.filter(item => !item.featured).map((item, index) => (
+          {newsItems.filter(item => !item.featured).map((item, index) => {
+            const Icon = iconFor[item.category as keyof typeof iconFor] || Star;
+            return (
             <motion.article
               key={item.id}
               initial={{ opacity: 0, y: 30 }}
@@ -159,7 +164,7 @@ const NewsSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div className="absolute top-4 left-4">
                   <span className="bg-black/50 backdrop-blur-md text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
-                    <item.icon size={14} />
+                    <Icon size={14} />
                     {item.category}
                   </span>
                 </div>
@@ -188,6 +193,7 @@ const NewsSection = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => setSelectedArticle(item)}
                   className="text-purple-400 hover:text-purple-300 font-semibold text-sm flex items-center gap-2 transition-colors"
                 >
                   Weiterlesen
@@ -195,9 +201,183 @@ const NewsSection = () => {
                 </motion.button>
               </div>
             </motion.article>
-          ))}
+          );})}
         </motion.div>
       </div>
+
+      {/* Article Modal */}
+      {selectedArticle && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="bg-gradient-to-br from-slate-900 to-purple-900/50 backdrop-blur-md rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-purple-500/20 shadow-2xl"
+          >
+            {/* Header */}
+            <div className="relative h-64 md:h-80">
+              <Image
+                src={selectedArticle.image}
+                alt={selectedArticle.title}
+                fill
+                className="object-cover rounded-t-3xl"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-t-3xl"></div>
+              
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedArticle(null)}
+                className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors"
+              >
+                <X size={24} />
+              </button>
+
+              {/* Article Meta */}
+              <div className="absolute bottom-4 left-6 right-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
+                    {iconFor[selectedArticle.category as keyof typeof iconFor] && 
+                      React.createElement(iconFor[selectedArticle.category as keyof typeof iconFor] || Star, { size: 14 })}
+                    {selectedArticle.category}
+                  </span>
+                  {selectedArticle.featured && (
+                    <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                      Featured
+                    </span>
+                  )}
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                  {selectedArticle.title}
+                </h2>
+                <div className="flex items-center gap-4 text-gray-300 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Calendar size={16} />
+                    {new Date(selectedArticle.date).toLocaleDateString('de-DE')}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock size={16} />
+                    {selectedArticle.readTime}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 md:p-8">
+              <div className="prose prose-lg prose-invert max-w-none">
+                <p className="text-xl text-gray-300 leading-relaxed mb-6">
+                  {selectedArticle.excerpt}
+                </p>
+                
+                {/* Extended Content based on category */}
+                {selectedArticle.category === 'Musik Release' && (
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-bold text-white mb-4">Über den Release</h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      &quot;Digital Dreams&quot; markiert einen wichtigen Meilenstein in Dawid Faiths künstlerischer Entwicklung. 
+                      Der Track wurde in den legendären Abbey Road Studios aufgenommen und kombiniert modernste 
+                      Produktionstechniken mit zeitlosen melodischen Elementen.
+                    </p>
+                    <p className="text-gray-300 leading-relaxed">
+                      Die Single ist ab sofort auf allen gängigen Streaming-Plattformen verfügbar und wird 
+                      exklusiv für D.FAITH Token-Inhaber in limitierter Vinyl-Edition veröffentlicht.
+                    </p>
+                    <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
+                      <h4 className="text-lg font-semibold text-purple-300 mb-3">Streaming Links</h4>
+                      <div className="flex flex-wrap gap-3">
+                        <button className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium">Spotify</button>
+                        <button className="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium">YouTube</button>
+                        <button className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium">Apple Music</button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {selectedArticle.category === 'Blockchain' && (
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-bold text-white mb-4">Token Details</h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      Der D.INVEST Token revolutioniert die Art, wie Fans an Dawid Faiths Erfolg teilhaben können. 
+                      Als Utility-Token bietet er exklusive Vorteile und Zugang zu limitierten Inhalten.
+                    </p>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="bg-slate-800/50 p-4 rounded-xl">
+                        <h4 className="text-purple-300 font-semibold mb-2">Token-Vorteile</h4>
+                        <ul className="text-gray-300 text-sm space-y-1">
+                          <li>• VIP-Zugang zu Konzerten</li>
+                          <li>• Exklusive Merchandise</li>
+                          <li>• Meet & Greet Möglichkeiten</li>
+                          <li>• Früher Zugang zu neuen Releases</li>
+                        </ul>
+                      </div>
+                      <div className="bg-slate-800/50 p-4 rounded-xl">
+                        <h4 className="text-purple-300 font-semibold mb-2">Technische Daten</h4>
+                        <ul className="text-gray-300 text-sm space-y-1">
+                          <li>• Ethereum Blockchain</li>
+                          <li>• ERC-20 Standard</li>
+                          <li>• Limitierte Auflage: 10.000</li>
+                          <li>• Smart Contract verifiziert</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {selectedArticle.category === 'Events' && (
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-bold text-white mb-4">Event-Details</h3>
+                    <p className="text-gray-300 leading-relaxed">
+                      Das Berlin-Konzert wird ein einmaliges Erlebnis mit modernster Technik und einer 
+                      360°-Bühneninszenierung. Erlebe Dawid Faith live in einer völlig neuen Dimension.
+                    </p>
+                    <div className="bg-blue-900/30 p-6 rounded-2xl border border-blue-500/20">
+                      <h4 className="text-lg font-semibold text-blue-300 mb-4">Konzert-Info</h4>
+                      <div className="grid md:grid-cols-2 gap-4 text-gray-300">
+                        <div>
+                          <p className="font-medium">Datum & Zeit</p>
+                          <p className="text-sm">15. Januar 2025, 20:00 Uhr</p>
+                        </div>
+                        <div>
+                          <p className="font-medium">Location</p>
+                          <p className="text-sm">Mercedes-Benz Arena Berlin</p>
+                        </div>
+                        <div>
+                          <p className="font-medium">Tickets</p>
+                          <p className="text-sm">Ab 45€ - VIP ab 150€</p>
+                        </div>
+                        <div>
+                          <p className="font-medium">Support Act</p>
+                          <p className="text-sm">Wird noch bekannt gegeben</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-4 mt-8 pt-6 border-t border-gray-700">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
+                >
+                  Teilen
+                  <ArrowRight size={16} />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setSelectedArticle(null)}
+                  className="border border-gray-600 text-gray-300 hover:text-white px-6 py-3 rounded-full font-semibold"
+                >
+                  Schließen
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </section>
   );
 };
