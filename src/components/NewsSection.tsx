@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Calendar, Clock, ArrowRight, Star, Music, Headphones, Users, X } from 'lucide-react';
 import type { NewsItem } from '@/types/news';
+import NewsDetailRenderer from '@/components/news';
 
 const NewsSection = () => {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
@@ -277,154 +278,8 @@ const NewsSection = () => {
 
             {/* Content */}
             <div className="p-6 md:p-8">
-              <div className="prose prose-lg prose-invert max-w-none">
-                <p className="text-xl text-gray-300 leading-relaxed mb-6">
-                  {selectedArticle.excerpt}
-                </p>
-                
-                {/* Extended Content based on category */}
-                {selectedArticle.category === 'Musik Release' && selectedArticle.title.includes('D.FAITH Token Launch') && (
-                  <div className="space-y-6">
-                    <h3 className="text-2xl font-bold text-white mb-4">D.FAITH App Features</h3>
-                    <p className="text-gray-300 leading-relaxed">
-                      Die D.FAITH App revolutioniert das Fan-Engagement durch Blockchain-Technologie. Fans können jetzt durch 
-                      ihre natürlichen Social Media Aktivitäten D.FAITH Token verdienen und diese gegen exklusive Rewards eintauschen.
-                    </p>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="bg-slate-800/50 p-4 rounded-xl">
-                        <h4 className="text-purple-300 font-semibold mb-2">App-Features</h4>
-                        <ul className="text-gray-300 text-sm space-y-1">
-                          <li>• Instagram/TikTok Integration</li>
-                          <li>• Automatische EXP-Sammlung</li>
-                          <li>• Live Leaderboard-System</li>
-                          <li>• Cross-Platform Tracking</li>
-                        </ul>
-                      </div>
-                      <div className="bg-slate-800/50 p-4 rounded-xl">
-                        <h4 className="text-purple-300 font-semibold mb-2">Token-Rewards</h4>
-                        <ul className="text-gray-300 text-sm space-y-1">
-                          <li>• Like: 10 EXP → D.FAITH</li>
-                          <li>• Kommentar: 10 EXP → D.FAITH</li>
-                          <li>• Share: 10 EXP → D.FAITH</li>
-                          <li>• Live-Konzert: 150 EXP → D.FAITH</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
-                      <h4 className="text-lg font-semibold text-purple-300 mb-3">D.FAITH Exklusiv Shop</h4>
-                      <p className="text-gray-300 text-sm mb-3">
-                        Nutze deine verdienten D.FAITH Token im exklusiven Shop für neue Songs, limitierte Merchandise, 
-                        signierte Editionen und Konzert-Tickets - alles 20-50% günstiger als normale Preise!
-                      </p>
-                      <div className="flex flex-wrap gap-3">
-                        <span className="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium">Live auf Base Chain</span>
-                        <span className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium">Fan-Rewards</span>
-                        <span className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium">Exklusiv Shop</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {selectedArticle.category === 'Musik Release' && selectedArticle.title.includes('Maria') && (
-                  <div className="space-y-6">
-                    <h3 className="text-2xl font-bold text-white mb-4">Über den Release</h3>
-                    <p className="text-gray-300 leading-relaxed">
-                      &quot;Maria&quot; und &quot;Znikła&quot; markieren den Beginn von Dawid Faith&apos;s musikalischer Reise. 
-                      Die beiden Tracks wurden mit viel Leidenschaft und emotionaler Tiefe komponiert und zeigen 
-                      verschiedene Facetten seiner künstlerischen Vision.
-                    </p>
-                    <p className="text-gray-300 leading-relaxed">
-                      Als seine ersten beiden Singles setzen diese Songs den Grundstein für das was noch kommen wird. 
-                      Erlebe sie zuerst live beim Release-Konzert bei Katys Garage in Dresden Neustadt.
-                    </p>
-                    <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
-                      <h4 className="text-lg font-semibold text-purple-300 mb-3">Premiere Songs</h4>
-                      <div className="flex flex-wrap gap-3">
-                        <span className="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium">Maria</span>
-                        <span className="bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-medium">Znikła</span>
-                        <span className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium">Live Premiere</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {selectedArticle.category === 'Blockchain' && (
-                  <div className="space-y-6">
-                    <h3 className="text-2xl font-bold text-white mb-4">D.INVEST Token Details</h3>
-                    <p className="text-gray-300 leading-relaxed">
-                      Der D.INVEST Token ist der Investment-Token des D.FAITH Ökosystems. Mit einem festen Preis von 5€ pro Token 
-                      und einer Total Supply von nur 10.000 Token bietet er eine einzigartige Möglichkeit, am Erfolg von Dawid Faith teilzuhaben.
-                    </p>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="bg-slate-800/50 p-4 rounded-xl">
-                        <h4 className="text-purple-300 font-semibold mb-2">Token-Details</h4>
-                        <ul className="text-gray-300 text-sm space-y-1">
-                          <li>• Preis: 5,00€ pro Token (fest)</li>
-                          <li>• Total Supply: 10.000 Token</li>
-                          <li>• Gesamtkapital: 50.000€</li>
-                          <li>• Live auf Base Chain</li>
-                        </ul>
-                      </div>
-                      <div className="bg-slate-800/50 p-4 rounded-xl">
-                        <h4 className="text-purple-300 font-semibold mb-2">Staking-Rewards</h4>
-                        <ul className="text-gray-300 text-sm space-y-1">
-                          <li>• 0,1 D.FAITH pro Woche (Initial)</li>
-                          <li>• 6-Stufen Halving-System</li>
-                          <li>• Bis zu 104% ROI möglich</li>
-                          <li>• Automatische Smart Contract Ausschüttung</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
-                      <h4 className="text-lg font-semibold text-purple-300 mb-3">Investment-Möglichkeit</h4>
-                      <p className="text-gray-300 text-sm mb-3">
-                        Durch das Staking von D.INVEST Token erhältst du wöchentliche D.FAITH Rewards. Das 6-Stufen Halving-System 
-                        sorgt für kontinuierliche Verknappung und potenzielle Wertsteigerung.
-                      </p>
-                      <div className="flex flex-wrap gap-3">
-                        <span className="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium">Fixed Price: 5€</span>
-                        <span className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium">Weekly Rewards</span>
-                        <span className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium">High ROI Potential</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {selectedArticle.category === 'Events' && (
-                  <div className="space-y-6">
-                    <h3 className="text-2xl font-bold text-white mb-4">Event-Details</h3>
-                    <p className="text-gray-300 leading-relaxed">
-                      Das Release-Konzert wird ein einmaliges Erlebnis mit den ersten beiden Songs von Dawid Faith. 
-                      Erlebe &apos;Maria&apos; und &apos;Znikła&apos; live in einer intimen Atmosphäre bei Katys Garage in Dresden Neustadt.
-                    </p>
-                    <div className="bg-blue-900/30 p-6 rounded-2xl border border-blue-500/20">
-                      <h4 className="text-lg font-semibold text-blue-300 mb-4">Konzert-Info</h4>
-                      <div className="grid md:grid-cols-2 gap-4 text-gray-300">
-                        <div>
-                          <p className="font-medium">Datum & Zeit</p>
-                          <p className="text-sm">15. November 2025, 19:00 Uhr</p>
-                        </div>
-                        <div>
-                          <p className="font-medium">Location</p>
-                          <p className="text-sm">Katys Garage in Dresden Neustadt</p>
-                        </div>
-                        <div>
-                          <p className="font-medium">Songs</p>
-                          <p className="text-sm">Maria & Znikła (Premiere)</p>
-                        </div>
-                        <div>
-                          <p className="font-medium">Besonderheit</p>
-                          <p className="text-sm">Dawid Faith&apos;s erste Songs live</p>
-                        </div>
-                      </div>
-                      <div className="mt-4 pt-4 border-t border-blue-500/20">
-                        <p className="text-gray-300 text-sm">
-                          Am 15. November um 19:00 Uhr bei Katys Garage in Dresden Neustadt erwartet dich ein unvergesslicher Abend voller Musik, Emotionen und Überraschungen. Feiere mit uns den Beginn von Dawid Faith&apos;s musikalischer Reise! Erlebe &apos;Maria&apos; und &apos;Znikła&apos; zum ersten Mal live in einer intimen Atmosphäre.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
+              {/* Modulares News-Detail-System */}
+              <NewsDetailRenderer article={selectedArticle} />
 
               {/* Action Buttons */}
               <div className="flex gap-4 mt-8 pt-6 border-t border-gray-700">
