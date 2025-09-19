@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import NewsSection from '../components/NewsSection';
 import DFaithSection from '../components/DFaithSection';
+import MusicSection from '../components/MusicSection';
 import SocialMediaWidget from '../components/SocialMediaWidget';
 
 export default function Home() {
@@ -165,46 +166,8 @@ export default function Home() {
         {/* D.FAITH Ecosystem Section */}
         <DFaithSection />
 
-        {/* Musik Section */}
-        <section id="musik" className="py-20 px-4 relative bg-gradient-to-b from-purple-900/10 to-slate-900/20">
-          <div className="max-w-6xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="mb-12"
-            >
-              <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Musik
-              </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Entdecke Dawid Faiths neueste Tracks, Alben und exklusive Releases. 
-                Erlebe Musik in einer völlig neuen Dimension.
-              </p>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 backdrop-blur-md rounded-2xl p-8 border border-purple-500/20"
-            >
-              <h3 className="text-2xl font-bold mb-4 text-white">Kommende Releases</h3>
-              <p className="text-gray-300 mb-6">
-                Bleib dran für die neuesten Musikveröffentlichungen und exklusive Previews.
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-full font-semibold shadow-lg transition-all duration-300"
-              >
-                Musik entdecken
-              </motion.button>
-            </motion.div>
-          </div>
-        </section>
+        {/* Music Section */}
+        <MusicSection />
 
         {/* Konzerte Section */}
         <section id="konzerte" className="py-20 px-4 relative bg-gradient-to-b from-slate-900/20 to-purple-900/10">
