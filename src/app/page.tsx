@@ -130,6 +130,16 @@ export default function Home() {
                       whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(147, 51, 234, 0.6)" }}
                       whileTap={{ scale: 0.95 }}
                       className="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2"
+                      onClick={() => {
+                        // Scroll to news section first
+                        const el = document.querySelector('#news');
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Then trigger news modal open after scroll
+                        setTimeout(() => {
+                          const event = new CustomEvent('openReleaseNews');
+                          window.dispatchEvent(event);
+                        }, 800);
+                      }}
                     >
                       <Play size={20} />
                       Einladung zum Release Konzert

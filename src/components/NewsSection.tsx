@@ -29,6 +29,24 @@ const NewsSection = () => {
     };
   }, []);
 
+  // Listen for custom event to open release news
+  useEffect(() => {
+    const handleOpenReleaseNews = () => {
+      // Find the release concert news item
+      const releaseNews = newsItems.find(item => 
+        item.title.includes('Release-Konzert') && item.title.includes('Maria')
+      );
+      if (releaseNews) {
+        setSelectedArticle(releaseNews);
+      }
+    };
+
+    window.addEventListener('openReleaseNews', handleOpenReleaseNews);
+    return () => {
+      window.removeEventListener('openReleaseNews', handleOpenReleaseNews);
+    };
+  }, [newsItems]);
+
   const iconFor = useMemo(() => ({
     'Musik Release': Music,
     Musik: Music,
