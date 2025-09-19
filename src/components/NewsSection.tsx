@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Calendar, Clock, ArrowRight, Star, Music, Headphones, Users, X } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, Star, Music, Headphones, Users, X, Share2 } from 'lucide-react';
 import type { NewsItem } from '@/types/news';
 import NewsDetailRenderer from '@/components/news';
 
@@ -47,6 +47,92 @@ const NewsSection = () => {
       window.removeEventListener('openReleaseNews', handleOpenReleaseNews);
     };
   }, [newsItems]);
+
+  // Share functionality
+  const shareNews = async (article: NewsItem) => {
+    const shareData = {
+      title: article.title,
+      text: article.excerpt,
+      url: `${window.location.origin}#news`,
+    };
+
+    // Check if Web Share API is supported
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (error) {
+        console.log('Error sharing:', error);
+        // Fallback to clipboard
+        fallbackShare(article);
+      }
+    } else {
+      // Fallback for browsers without Web Share API
+      fallbackShare(article);
+    }
+  };
+
+  // Share functionality
+  const shareNews = async (article: NewsItem) => {
+    const shareData = {
+      title: `🎵 ${article.title}`,
+      text: article.excerpt,
+      url: `${window.location.origin}#news`,
+    };
+
+    // Check if Web Share API is supported (mainly mobile devices)
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (error) {
+        console.log('Error sharing:', error);
+        // Continue to fallback options
+      }
+    }
+
+    // Desktop/Fallback: Show sharing options
+    showShareOptions(article);
+  };
+
+  const showShareOptions = (article: NewsItem) => {
+    const shareText = encodeURIComponent(`🎵 ${article.title}\n\n${article.excerpt}\n\nMehr erfahren:`);
+    const shareUrl = encodeURIComponent(`${window.location.origin}#news`);
+    
+    // Social media sharing URLs
+    const shareUrls = {
+      twitter: `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`,
+      whatsapp: `https://wa.me/?text=${shareText}%20${shareUrl}`,
+      telegram: `https://t.me/share/url?url=${shareUrl}&text=${shareText}`,
+    };
+
+    // For now, use the most common sharing method
+    if (confirm('News teilen? Öffnet in einem neuen Tab.')) {
+      // Open WhatsApp share (most used on mobile)
+      if (/Mobi|Android/i.test(navigator.userAgent)) {
+        window.open(shareUrls.whatsapp, '_blank');
+      } else {
+        // Desktop: Copy to clipboard and offer Twitter
+        const fullText = `🎵 ${article.title}\n\n${article.excerpt}\n\nMehr erfahren: ${window.location.origin}#news`;
+        copyToClipboard(fullText);
+      }
+    }
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('✅ Link wurde in die Zwischenablage kopiert! Du kannst ihn jetzt in sozialen Medien teilen.');
+    }).catch(() => {
+      // Fallback for older browsers
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      alert('✅ Link wurde in die Zwischenablage kopiert! Du kannst ihn jetzt in sozialen Medien teilen.');
+    });
+  };
 
   const iconFor = useMemo(() => ({
     'Musik Release': Music,
@@ -286,10 +372,11 @@ const NewsSection = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => shareNews(selectedArticle)}
                   className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
                 >
                   Teilen
-                  <ArrowRight size={16} />
+                  <Share2 size={16} />
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
