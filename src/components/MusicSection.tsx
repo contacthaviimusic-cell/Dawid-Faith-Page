@@ -1,15 +1,14 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Play, Pause, Volume2, Download, Music, Video, Smartphone } from 'lucide-react';
+import { Music, Video, Smartphone, ExternalLink } from 'lucide-react';
 
 interface Song {
   id: string;
   title: string;
   image: string;
-  audio: string;
   video: string;
   description: string;
 }
@@ -19,45 +18,20 @@ const songs: Song[] = [
     id: 'maria',
     title: 'Maria',
     image: '/musik/maria/Maria.jpg',
-    audio: '/musik/maria/Maria.mp3',
     video: '/musik/maria/Maria Vid1.mp4',
-    description: 'Ein emotionaler Track, der die Geschichte von Maria erzählt'
+    description: 'Eine herzzerreißende Ballade über Einsamkeit, verlorene Liebe und die schmerzhafte Erkenntnis des Alleinseins'
   },
   {
     id: 'znikla',
     title: 'Znikła',
     image: '/musik/znikla/Znikła pic.jpg',
-    audio: '/musik/znikla/Znikła.mp3',
     video: '/musik/znikla/Znikłą Vid1.mp4',
-    description: 'Eine intensive Reise durch Verlust und Hoffnung'
+    description: 'Die polnische Version - eine intensive Reise durch Verlust, Sehnsucht und die Suche nach dem was verschwunden ist'
   }
 ];
 
 const MusicSection = () => {
-  const [playingSong, setPlayingSong] = useState<string | null>(null);
   const [showVideo, setShowVideo] = useState<string | null>(null);
-  const audioRefs = useRef<{ [key: string]: HTMLAudioElement | null }>({});
-
-  const togglePlay = (songId: string) => {
-    const audio = audioRefs.current[songId];
-    if (!audio) return;
-
-    if (playingSong === songId) {
-      audio.pause();
-      setPlayingSong(null);
-    } else {
-      // Pause any currently playing song
-      Object.values(audioRefs.current).forEach(a => a?.pause());
-      setPlayingSong(songId);
-      audio.play();
-    }
-  };
-
-  const handleAudioEnd = (songId: string) => {
-    if (playingSong === songId) {
-      setPlayingSong(null);
-    }
-  };
 
   return (
     <section id="music" className="relative py-20 px-4 bg-gradient-to-b from-purple-900/10 to-slate-900/30 overflow-hidden">
@@ -77,11 +51,11 @@ const MusicSection = () => {
             Musik Vorschau
           </h2>
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Entdecke exklusive Tracks bereits jetzt. Vollversion verfügbar in der D.FAITH App.
+            Schaue dir die Video-Vorschauen an und besuche die D.FAITH Webapp für exklusive Songs vor dem Release.
           </p>
           <div className="flex items-center justify-center gap-2 mt-4">
             <Smartphone className="w-5 h-5 text-purple-400" />
-            <span className="text-purple-300 text-sm">Verfügbar in der D.FAITH App</span>
+            <span className="text-purple-300 text-sm">Songs verfügbar in der D.FAITH Webapp</span>
           </div>
         </motion.div>
 
@@ -106,16 +80,12 @@ const MusicSection = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 
-                {/* Play Button Overlay */}
+                {/* Video Play Button Overlay */}
                 <button
-                  onClick={() => togglePlay(song.id)}
+                  onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
                   className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-purple-500 hover:bg-purple-400 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
                 >
-                  {playingSong === song.id ? (
-                    <Pause className="w-8 h-8 text-white" />
-                  ) : (
-                    <Play className="w-8 h-8 text-white ml-1" />
-                  )}
+                  <Video className="w-8 h-8 text-white" />
                 </button>
 
                 {/* Title Overlay */}
@@ -127,18 +97,6 @@ const MusicSection = () => {
 
               {/* Song Controls */}
               <div className="p-6">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="flex items-center gap-2 text-gray-300">
-                    <Volume2 className="w-4 h-4" />
-                    <span className="text-sm">Audio Vorschau</span>
-                  </div>
-                  {playingSong === song.id && (
-                    <div className="flex-1 h-1 bg-gray-700 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse" />
-                    </div>
-                  )}
-                </div>
-
                 {/* Action Buttons */}
                 <div className="flex gap-3">
                   {/* Video Trailer Button */}
@@ -147,13 +105,13 @@ const MusicSection = () => {
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]"
                   >
                     <Video className="w-4 h-4" />
-                    {showVideo === song.id ? 'Video schließen' : 'Video Trailer'}
+                    {showVideo === song.id ? 'Video schließen' : 'Video ansehen'}
                   </button>
 
-                  {/* D.FAITH App Download */}
+                  {/* D.FAITH Webapp Button */}
                   <button className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]">
-                    <Download className="w-4 h-4" />
-                    D.FAITH App
+                    <ExternalLink className="w-4 h-4" />
+                    D.FAITH Webapp
                   </button>
                 </div>
 
@@ -170,29 +128,19 @@ const MusicSection = () => {
                       controls
                       className="w-full h-64 object-cover"
                       poster={song.image}
+                      preload="metadata"
                     >
                       <source src={song.video} type="video/mp4" />
                       Dein Browser unterstützt keine Videos.
                     </video>
                   </motion.div>
                 )}
-
-                {/* Hidden Audio Element */}
-                <audio
-                  ref={(el) => {
-                    audioRefs.current[song.id] = el;
-                  }}
-                  onEnded={() => handleAudioEnd(song.id)}
-                  preload="none"
-                >
-                  <source src={song.audio} type="audio/mpeg" />
-                </audio>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* App Download CTA */}
+        {/* Webapp Download CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -203,16 +151,16 @@ const MusicSection = () => {
           <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 rounded-2xl border border-purple-500/20 backdrop-blur-sm p-8">
             <div className="flex items-center justify-center gap-3 mb-4">
               <Music className="w-8 h-8 text-purple-400" />
-              <h3 className="text-2xl font-bold text-white">Vollversionen verfügbar</h3>
+              <h3 className="text-2xl font-bold text-white">Exklusive Songs vor Release</h3>
             </div>
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Lade die D.FAITH App herunter und genieße die kompletten Songs sowie exklusive Inhalte. 
+              Besuche die D.FAITH Webapp und höre die kompletten Songs bereits vor dem offiziellen Release. 
               Verdiene Tokens durch deine Interaktionen und unterstütze Dawid Faith direkt.
             </p>
             <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-8 py-4 rounded-xl text-white font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg">
               <div className="flex items-center gap-3">
-                <Smartphone className="w-6 h-6" />
-                D.FAITH App herunterladen
+                <ExternalLink className="w-6 h-6" />
+                D.FAITH Webapp besuchen
               </div>
             </button>
           </div>
