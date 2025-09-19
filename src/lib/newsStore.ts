@@ -1,6 +1,5 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { put, list } from '@vercel/blob';
 import { NewsItem, NewsCreateInput, NewsUpdateInput } from '@/types/news';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -8,8 +7,8 @@ const DATA_FILE = path.join(DATA_DIR, 'news.json');
 const BLOB_PATH = 'data/news.json';
 
 function shouldUseBlob() {
-  // Prefer blob in production/Vercel or when token is present
-  return !!process.env.BLOB_READ_WRITE_TOKEN || process.env.VERCEL === '1';
+  // Always use local JSON file instead of blob storage
+  return false;
 }
 
 function seedItems(): NewsItem[] {
@@ -56,46 +55,35 @@ async function ensureFile() {
     await fs.mkdir(DATA_DIR, { recursive: true });
     await fs.access(DATA_FILE);
   } catch {
-    const seed: NewsItem[] = [];
-    await fs.writeFile(DATA_FILE, JSON.stringify(seed, null, 2), 'utf8');
+    // Initialize with existing data from the committed file, or seed data if empty
+    const existingData = await getInitialData();
+    await fs.writeFile(DATA_FILE, JSON.stringify(existingData, null, 2), 'utf8');
   }
 }
 
-export async function getAllNews(): Promise<NewsItem[]> {
-  if (shouldUseBlob()) {
-    // Try to find blob; if not present, initialize with empty array
-    const blobs = await list({ prefix: BLOB_PATH });
-    const existing = blobs.blobs.find((b) => b.pathname === BLOB_PATH);
-    if (!existing) {
-      await put(BLOB_PATH, JSON.stringify(seedItems(), null, 2), {
-        access: 'public',
-        contentType: 'application/json',
-        token: process.env.BLOB_READ_WRITE_TOKEN,
-      });
-      return seedItems();
-    }
-    const res = await fetch(existing.url);
-    const items = ((await res.json()) as NewsItem[]) || [];
-    if (items.length === 0) {
-      const seeded = seedItems();
-      await put(BLOB_PATH, JSON.stringify(seeded, null, 2), {
-        access: 'public',
-        contentType: 'application/json',
-        token: process.env.BLOB_READ_WRITE_TOKEN,
-      });
-      return seeded.sort((a, b) => (a.date < b.date ? 1 : -1));
-    }
-    return items.sort((a, b) => (a.date < b.date ? 1 : -1));
-  } else {
-    await ensureFile();
+async function getInitialData(): Promise<NewsItem[]> {
+  // Try to read existing file first, fallback to seed data
+  try {
     const raw = await fs.readFile(DATA_FILE, 'utf8');
-    let items = JSON.parse(raw) as NewsItem[];
-    if (!Array.isArray(items) || items.length === 0) {
-      items = seedItems();
-      await fs.writeFile(DATA_FILE, JSON.stringify(items, null, 2), 'utf8');
+    const parsed = JSON.parse(raw) as NewsItem[];
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      return parsed;
     }
-    return items.sort((a, b) => (a.date < b.date ? 1 : -1));
+  } catch {
+    // File doesn't exist or is invalid
   }
+  return seedItems();
+}
+
+export async function getAllNews(): Promise<NewsItem[]> {
+  await ensureFile();
+  const raw = await fs.readFile(DATA_FILE, 'utf8');
+  let items = JSON.parse(raw) as NewsItem[];
+  if (!Array.isArray(items) || items.length === 0) {
+    items = await getInitialData();
+    await fs.writeFile(DATA_FILE, JSON.stringify(items, null, 2), 'utf8');
+  }
+  return items.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
 export async function createNews(input: NewsCreateInput): Promise<NewsItem> {
@@ -103,15 +91,7 @@ export async function createNews(input: NewsCreateInput): Promise<NewsItem> {
   const id = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const item: NewsItem = { id, ...input };
   items.push(item);
-  if (shouldUseBlob()) {
-    await put(BLOB_PATH, JSON.stringify(items, null, 2), {
-      access: 'public',
-      contentType: 'application/json',
-      token: process.env.BLOB_READ_WRITE_TOKEN,
-    });
-  } else {
-    await fs.writeFile(DATA_FILE, JSON.stringify(items, null, 2), 'utf8');
-  }
+  await fs.writeFile(DATA_FILE, JSON.stringify(items, null, 2), 'utf8');
   return item;
 }
 
@@ -121,15 +101,7 @@ export async function updateNews(update: NewsUpdateInput): Promise<NewsItem | nu
   if (idx === -1) return null;
   const merged = { ...items[idx], ...update } as NewsItem;
   items[idx] = merged;
-  if (shouldUseBlob()) {
-    await put(BLOB_PATH, JSON.stringify(items, null, 2), {
-      access: 'public',
-      contentType: 'application/json',
-      token: process.env.BLOB_READ_WRITE_TOKEN,
-    });
-  } else {
-    await fs.writeFile(DATA_FILE, JSON.stringify(items, null, 2), 'utf8');
-  }
+  await fs.writeFile(DATA_FILE, JSON.stringify(items, null, 2), 'utf8');
   return merged;
 }
 
@@ -138,15 +110,7 @@ export async function deleteNews(id: string): Promise<boolean> {
   const next = items.filter((n) => n.id !== id);
   const changed = next.length !== items.length;
   if (changed) {
-    if (shouldUseBlob()) {
-      await put(BLOB_PATH, JSON.stringify(next, null, 2), {
-        access: 'public',
-        contentType: 'application/json',
-        token: process.env.BLOB_READ_WRITE_TOKEN,
-      });
-    } else {
-      await fs.writeFile(DATA_FILE, JSON.stringify(next, null, 2), 'utf8');
-    }
+    await fs.writeFile(DATA_FILE, JSON.stringify(next, null, 2), 'utf8');
   }
   return changed;
 }
