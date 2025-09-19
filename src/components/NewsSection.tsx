@@ -330,7 +330,7 @@ const NewsSection = () => {
                       <div className="grid md:grid-cols-2 gap-4 text-gray-300">
                         <div>
                           <p className="font-medium">Datum & Zeit</p>
-                          <p className="text-sm">15. November 2024, 19:00 Uhr</p>
+                          <p className="text-sm">15. November 2025, 19:00 Uhr</p>
                         </div>
                         <div>
                           <p className="font-medium">Location</p>
@@ -342,8 +342,13 @@ const NewsSection = () => {
                         </div>
                         <div>
                           <p className="font-medium">Besonderheit</p>
-                          <p className="text-sm">Dawid Faith&apos;s erste Songs</p>
+                          <p className="text-sm">Dawid Faith&apos;s erste Songs live</p>
                         </div>
+                      </div>
+                      <div className="mt-4 pt-4 border-t border-blue-500/20">
+                        <p className="text-gray-300 text-sm">
+                          Am 15. November um 19:00 Uhr in der Katy Garage erwartet dich ein unvergesslicher Abend voller Musik, Emotionen und Überraschungen. Feiere mit uns den Beginn von Dawid Faith's musikalischer Reise! Erlebe 'Maria' und 'Znikła' zum ersten Mal live in einer intimen Atmosphäre.
+                        </p>
                       </div>
                     </div>
                   </div>
