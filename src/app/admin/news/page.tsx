@@ -141,10 +141,101 @@ export default function AdminNewsPage() {
                 {expanded[n.id] && (
                   <div className="mt-4 grid grid-cols-1 md:grid-cols-6 gap-4">
                     <div className="md:col-span-4">
-                      <h3 className="text-sm uppercase tracking-wide text-slate-400 mb-2">Vollständiger Inhalt</h3>
-                      <div className="whitespace-pre-wrap text-slate-200 bg-slate-900/50 border border-slate-800 rounded p-3">
-                        {n.content && n.content.trim() ? n.content : n.excerpt}
-                      </div>
+                        <h3 className="text-sm uppercase tracking-wide text-slate-400 mb-2">Vollständiger Inhalt</h3>
+                        <div className="prose prose-invert max-w-none">
+                          {n.content && n.content.trim() ? (
+                            <div className="whitespace-pre-wrap text-slate-200 bg-slate-900/50 border border-slate-800 rounded p-3">
+                              {n.content}
+                            </div>
+                          ) : (
+                            <div className="space-y-6">
+                              <p className="text-gray-300 leading-relaxed whitespace-pre-wrap bg-slate-900/50 border border-slate-800 rounded p-3">
+                                {n.excerpt}
+                              </p>
+                              {n.category === 'Musik Release' && (
+                                <div className="space-y-6">
+                                  <h3 className="text-2xl font-bold text-white">Über den Release</h3>
+                                  <p className="text-gray-300 leading-relaxed">
+                                    &quot;Digital Dreams&quot; markiert einen wichtigen Meilenstein in Dawid Faiths künstlerischer Entwicklung.
+                                    Der Track wurde in den legendären Abbey Road Studios aufgenommen und kombiniert modernste
+                                    Produktionstechniken mit zeitlosen melodischen Elementen.
+                                  </p>
+                                  <p className="text-gray-300 leading-relaxed">
+                                    Die Single ist ab sofort auf allen gängigen Streaming-Plattformen verfügbar und wird
+                                    exklusiv für D.FAITH Token-Inhaber in limitierter Vinyl-Edition veröffentlicht.
+                                  </p>
+                                  <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
+                                    <h4 className="text-lg font-semibold text-purple-300 mb-3">Streaming Links</h4>
+                                    <div className="flex flex-wrap gap-3">
+                                      <button className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium">Spotify</button>
+                                      <button className="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium">YouTube</button>
+                                      <button className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium">Apple Music</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                              {n.category === 'Blockchain' && (
+                                <div className="space-y-6">
+                                  <h3 className="text-2xl font-bold text-white">Token Details</h3>
+                                  <p className="text-gray-300 leading-relaxed">
+                                    Der D.INVEST Token revolutioniert die Art, wie Fans an Dawid Faiths Erfolg teilhaben können.
+                                    Als Utility-Token bietet er exklusive Vorteile und Zugang zu limitierten Inhalten.
+                                  </p>
+                                  <div className="grid md:grid-cols-2 gap-4">
+                                    <div className="bg-slate-800/50 p-4 rounded-xl">
+                                      <h4 className="text-purple-300 font-semibold mb-2">Token-Vorteile</h4>
+                                      <ul className="text-gray-300 text-sm space-y-1">
+                                        <li>• VIP-Zugang zu Konzerten</li>
+                                        <li>• Exklusive Merchandise</li>
+                                        <li>• Meet & Greet Möglichkeiten</li>
+                                        <li>• Früher Zugang zu neuen Releases</li>
+                                      </ul>
+                                    </div>
+                                    <div className="bg-slate-800/50 p-4 rounded-xl">
+                                      <h4 className="text-purple-300 font-semibold mb-2">Technische Daten</h4>
+                                      <ul className="text-gray-300 text-sm space-y-1">
+                                        <li>• Ethereum Blockchain</li>
+                                        <li>• ERC-20 Standard</li>
+                                        <li>• Limitierte Auflage: 10.000</li>
+                                        <li>• Smart Contract verifiziert</li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                              {n.category === 'Events' && (
+                                <div className="space-y-6">
+                                  <h3 className="text-2xl font-bold text-white">Event-Details</h3>
+                                  <p className="text-gray-300 leading-relaxed">
+                                    Das Berlin-Konzert wird ein einmaliges Erlebnis mit modernster Technik und einer
+                                    360°-Bühneninszenierung. Erlebe Dawid Faith live in einer völlig neuen Dimension.
+                                  </p>
+                                  <div className="bg-blue-900/30 p-6 rounded-2xl border border-blue-500/20">
+                                    <h4 className="text-lg font-semibold text-blue-300 mb-4">Konzert-Info</h4>
+                                    <div className="grid md:grid-cols-2 gap-4 text-gray-300">
+                                      <div>
+                                        <p className="font-medium">Datum & Zeit</p>
+                                        <p className="text-sm">15. Januar 2025, 20:00 Uhr</p>
+                                      </div>
+                                      <div>
+                                        <p className="font-medium">Location</p>
+                                        <p className="text-sm">Mercedes-Benz Arena Berlin</p>
+                                      </div>
+                                      <div>
+                                        <p className="font-medium">Tickets</p>
+                                        <p className="text-sm">Ab 45€ - VIP ab 150€</p>
+                                      </div>
+                                      <div>
+                                        <p className="font-medium">Support Act</p>
+                                        <p className="text-sm">Wird noch bekannt gegeben</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
                     </div>
                     <div className="md:col-span-2">
                       <h3 className="text-sm uppercase tracking-wide text-slate-400 mb-2">Metadaten</h3>
