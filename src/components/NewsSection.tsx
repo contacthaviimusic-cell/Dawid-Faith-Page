@@ -342,7 +342,7 @@ const NewsSection = () => {
                         </div>
                         <div>
                           <p className="font-medium">Besonderheit</p>
-                          <p className="text-sm">Dawid Faith's erste Songs</p>
+                          <p className="text-sm">Dawid Faith&apos;s erste Songs</p>
                         </div>
                       </div>
                     </div>
