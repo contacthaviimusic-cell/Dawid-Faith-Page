@@ -400,7 +400,7 @@ const NewsSection = () => {
                       </div>
                       <div className="mt-4 pt-4 border-t border-blue-500/20">
                         <p className="text-gray-300 text-sm">
-                          Am 15. November um 19:00 Uhr in der Katy Garage erwartet dich ein unvergesslicher Abend voller Musik, Emotionen und Überraschungen. Feiere mit uns den Beginn von Dawid Faith's musikalischer Reise! Erlebe 'Maria' und 'Znikła' zum ersten Mal live in einer intimen Atmosphäre.
+                          Am 15. November um 19:00 Uhr in der Katy Garage erwartet dich ein unvergesslicher Abend voller Musik, Emotionen und Überraschungen. Feiere mit uns den Beginn von Dawid Faith&apos;s musikalischer Reise! Erlebe &apos;Maria&apos; und &apos;Znikła&apos; zum ersten Mal live in einer intimen Atmosphäre.
                         </p>
                       </div>
                     </div>
