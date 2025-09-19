@@ -48,6 +48,10 @@ https://deine-website.vercel.app/admin/news
 1. Klicke bei einem Artikel auf **"Löschen"**
 2. Bestätige die Löschung
 
+### News-Details ansehen
+
+In der Übersicht kannst du über den Button "Details" den vollständigen Inhalt und alle Metadaten eines Artikels ein- und ausklappen. So siehst du genau, was aktuell auf der Seite erscheint (Titel, Kategorie, Datum, Lesezeit, Bildpfad sowie der komplette Text-Inhalt).
+
 ## 🖼️ Bilder verwalten
 
 ### Verfügbare Bilder
