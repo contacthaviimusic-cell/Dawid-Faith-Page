@@ -51,29 +51,6 @@ const NewsSection = () => {
   // Share functionality
   const shareNews = async (article: NewsItem) => {
     const shareData = {
-      title: article.title,
-      text: article.excerpt,
-      url: `${window.location.origin}#news`,
-    };
-
-    // Check if Web Share API is supported
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-      } catch (error) {
-        console.log('Error sharing:', error);
-        // Fallback to clipboard
-        fallbackShare(article);
-      }
-    } else {
-      // Fallback for browsers without Web Share API
-      fallbackShare(article);
-    }
-  };
-
-  // Share functionality
-  const shareNews = async (article: NewsItem) => {
-    const shareData = {
       title: `🎵 ${article.title}`,
       text: article.excerpt,
       url: `${window.location.origin}#news`,
