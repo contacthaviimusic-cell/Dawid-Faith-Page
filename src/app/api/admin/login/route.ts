@@ -11,8 +11,7 @@ export async function POST(request: Request) {
   cookieStore.set('df_admin', expectedAdminCookie(), {
     httpOnly: true,
     sameSite: 'lax',
-    // In Entwicklung (http://localhost) darf secure nicht true sein, sonst wird das Cookie nicht gesetzt
-    secure: process.env.NODE_ENV === 'production',
+    secure: true,
     path: '/',
     maxAge: 60 * 60 * 8,
   });
