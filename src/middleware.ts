@@ -4,7 +4,7 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
     const token = req.cookies.get('df_admin')?.value;
-    if (!token) {
+    if (!token || !token.startsWith('ok-')) {
       const url = req.nextUrl.clone();
       url.pathname = '/admin/login';
       url.searchParams.set('from', pathname);
