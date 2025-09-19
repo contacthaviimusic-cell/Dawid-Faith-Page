@@ -316,7 +316,7 @@ const NewsSection = () => {
                     </p>
                     <p className="text-gray-300 leading-relaxed">
                       Als seine ersten beiden Singles setzen diese Songs den Grundstein für das was noch kommen wird. 
-                      Erlebe sie zuerst live beim Release-Konzert in der Katy Garage.
+                      Erlebe sie zuerst live beim Release-Konzert bei Katys Garage in Dresden Neustadt.
                     </p>
                     <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
                       <h4 className="text-lg font-semibold text-purple-300 mb-3">Premiere Songs</h4>
@@ -376,7 +376,7 @@ const NewsSection = () => {
                     <h3 className="text-2xl font-bold text-white mb-4">Event-Details</h3>
                     <p className="text-gray-300 leading-relaxed">
                       Das Release-Konzert wird ein einmaliges Erlebnis mit den ersten beiden Songs von Dawid Faith. 
-                      Erlebe &apos;Maria&apos; und &apos;Znikła&apos; live in einer intimen Atmosphäre der Katy Garage.
+                      Erlebe &apos;Maria&apos; und &apos;Znikła&apos; live in einer intimen Atmosphäre bei Katys Garage in Dresden Neustadt.
                     </p>
                     <div className="bg-blue-900/30 p-6 rounded-2xl border border-blue-500/20">
                       <h4 className="text-lg font-semibold text-blue-300 mb-4">Konzert-Info</h4>
@@ -387,7 +387,7 @@ const NewsSection = () => {
                         </div>
                         <div>
                           <p className="font-medium">Location</p>
-                          <p className="text-sm">Katy Garage</p>
+                          <p className="text-sm">Katys Garage in Dresden Neustadt</p>
                         </div>
                         <div>
                           <p className="font-medium">Songs</p>
@@ -400,7 +400,7 @@ const NewsSection = () => {
                       </div>
                       <div className="mt-4 pt-4 border-t border-blue-500/20">
                         <p className="text-gray-300 text-sm">
-                          Am 15. November um 19:00 Uhr in der Katy Garage erwartet dich ein unvergesslicher Abend voller Musik, Emotionen und Überraschungen. Feiere mit uns den Beginn von Dawid Faith&apos;s musikalischer Reise! Erlebe &apos;Maria&apos; und &apos;Znikła&apos; zum ersten Mal live in einer intimen Atmosphäre.
+                          Am 15. November um 19:00 Uhr bei Katys Garage in Dresden Neustadt erwartet dich ein unvergesslicher Abend voller Musik, Emotionen und Überraschungen. Feiere mit uns den Beginn von Dawid Faith&apos;s musikalischer Reise! Erlebe &apos;Maria&apos; und &apos;Znikła&apos; zum ersten Mal live in einer intimen Atmosphäre.
                         </p>
                       </div>
                     </div>
