@@ -23,8 +23,8 @@ const NewsSection = () => {
           setNewsItems(data);
           setError(null);
         }
-      } catch (e: any) {
-        if (mounted) setError(e.message || 'Fehler');
+      } catch (e: unknown) {
+        if (mounted) setError(e instanceof Error ? e.message : 'Fehler');
       } finally {
         if (mounted) setLoading(false);
       }

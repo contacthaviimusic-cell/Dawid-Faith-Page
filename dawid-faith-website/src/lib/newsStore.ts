@@ -7,13 +7,12 @@ const DATA_DIR = path.join(process.cwd(), 'data');
 const DATA_FILE = path.join(DATA_DIR, 'news.json');
 const BLOB_PATH = 'data/news.json';
 
-function useBlob() {
+function shouldUseBlob() {
   // Prefer blob in production/Vercel or when token is present
   return !!process.env.BLOB_READ_WRITE_TOKEN || process.env.VERCEL === '1';
 }
 
 function seedItems(): NewsItem[] {
-  const now = Date.now();
   const genId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   return [
     {
@@ -63,7 +62,7 @@ async function ensureFile() {
 }
 
 export async function getAllNews(): Promise<NewsItem[]> {
-  if (useBlob()) {
+  if (shouldUseBlob()) {
     // Try to find blob; if not present, initialize with empty array
     const blobs = await list({ prefix: BLOB_PATH });
     const existing = blobs.blobs.find((b) => b.pathname === BLOB_PATH);
@@ -104,7 +103,7 @@ export async function createNews(input: NewsCreateInput): Promise<NewsItem> {
   const id = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const item: NewsItem = { id, ...input };
   items.push(item);
-  if (useBlob()) {
+  if (shouldUseBlob()) {
     await put(BLOB_PATH, JSON.stringify(items, null, 2), {
       access: 'public',
       contentType: 'application/json',
@@ -122,7 +121,7 @@ export async function updateNews(update: NewsUpdateInput): Promise<NewsItem | nu
   if (idx === -1) return null;
   const merged = { ...items[idx], ...update } as NewsItem;
   items[idx] = merged;
-  if (useBlob()) {
+  if (shouldUseBlob()) {
     await put(BLOB_PATH, JSON.stringify(items, null, 2), {
       access: 'public',
       contentType: 'application/json',
@@ -139,7 +138,7 @@ export async function deleteNews(id: string): Promise<boolean> {
   const next = items.filter((n) => n.id !== id);
   const changed = next.length !== items.length;
   if (changed) {
-    if (useBlob()) {
+    if (shouldUseBlob()) {
       await put(BLOB_PATH, JSON.stringify(next, null, 2), {
         access: 'public',
         contentType: 'application/json',

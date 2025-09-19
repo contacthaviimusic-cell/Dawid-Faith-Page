@@ -119,7 +119,7 @@ export default function Home() {
                   </h1>
                   <div className="flex items-center justify-center gap-4 text-xl lg:text-2xl mb-8">
                     <Music className="text-purple-400 animate-pulse" />
-                    <span className="text-gray-200 font-semibold">Künstler  • Liedermacher • Visionär</span>
+                    <span className="text-gray-200 font-semibold">Künstler • Liedermacher • Visionär</span>
                     <Sparkles className="text-pink-400 animate-pulse" />
                   </div>
                   
@@ -179,7 +179,7 @@ export default function Home() {
                 Musik
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Entdecke Dawid Faith's neueste Tracks, Alben und exklusive Releases. 
+                Entdecke Dawid Faiths neueste Tracks, Alben und exklusive Releases. 
                 Erlebe Musik in einer völlig neuen Dimension.
               </p>
             </motion.div>
