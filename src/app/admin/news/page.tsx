@@ -11,6 +11,7 @@ export default function AdminNewsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editing, setEditing] = useState<FormState | null>(null);
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const router = useRouter();
 
   async function fetchNews() {
@@ -116,19 +117,45 @@ export default function AdminNewsPage() {
         ) : (
           <div className="space-y-3">
             {items.map((n) => (
-              <div key={n.id} className="p-4 bg-black/30 border border-slate-800 rounded flex items-start gap-4">
-                <Image src={n.image} alt="" width={96} height={64} className="w-24 h-16 object-cover rounded" />
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    {n.featured && <span className="text-yellow-400">★</span>}
-                    <h2 className="font-semibold">{n.title}</h2>
+              <div key={n.id} className="p-4 bg-black/30 border border-slate-800 rounded">
+                <div className="flex items-start gap-4">
+                  <Image src={n.image} alt="" width={96} height={64} className="w-24 h-16 object-cover rounded" />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      {n.featured && <span className="text-yellow-400">★</span>}
+                      <h2 className="font-semibold">{n.title}</h2>
+                    </div>
+                    <div className="text-sm text-slate-400">{n.category} · {new Date(n.date).toLocaleDateString('de-DE')} · {n.readTime}</div>
                   </div>
-                  <div className="text-sm text-slate-400">{n.category} · {new Date(n.date).toLocaleDateString('de-DE')} · {n.readTime}</div>
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => setExpanded((prev) => ({ ...prev, [n.id]: !prev[n.id] }))} className="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700">
+                      {expanded[n.id] ? 'Verbergen' : 'Details'}
+                    </button>
+                    <button onClick={() => setEditing({ ...n })} className="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700">Bearbeiten</button>
+                    <button onClick={() => deleteItem(n.id)} className="px-3 py-1 rounded bg-red-700 hover:bg-red-600">Löschen</button>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => setEditing({ ...n })} className="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700">Bearbeiten</button>
-                  <button onClick={() => deleteItem(n.id)} className="px-3 py-1 rounded bg-red-700 hover:bg-red-600">Löschen</button>
-                </div>
+
+                {expanded[n.id] && (
+                  <div className="mt-4 grid grid-cols-1 md:grid-cols-6 gap-4">
+                    <div className="md:col-span-4">
+                      <h3 className="text-sm uppercase tracking-wide text-slate-400 mb-2">Vollständiger Inhalt</h3>
+                      <div className="whitespace-pre-wrap text-slate-200 bg-slate-900/50 border border-slate-800 rounded p-3">
+                        {n.excerpt}
+                      </div>
+                    </div>
+                    <div className="md:col-span-2">
+                      <h3 className="text-sm uppercase tracking-wide text-slate-400 mb-2">Metadaten</h3>
+                      <div className="text-sm text-slate-300 space-y-1">
+                        <div><span className="text-slate-400">Datum:</span> {new Date(n.date).toLocaleDateString('de-DE')}</div>
+                        <div><span className="text-slate-400">Lesezeit:</span> {n.readTime}</div>
+                        <div><span className="text-slate-400">Kategorie:</span> {n.category}</div>
+                        <div><span className="text-slate-400">Bild:</span> <span className="break-all">{n.image}</span></div>
+                        <div><span className="text-slate-400">Featured:</span> {n.featured ? 'Ja' : 'Nein'}</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
