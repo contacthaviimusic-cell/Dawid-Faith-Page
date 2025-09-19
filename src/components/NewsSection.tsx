@@ -8,8 +8,6 @@ import type { NewsItem } from '@/types/news';
 
 const NewsSection = () => {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<NewsItem | null>(null);
 
   useEffect(() => {
@@ -21,12 +19,9 @@ const NewsSection = () => {
         const data = (await res.json()) as NewsItem[];
         if (mounted) {
           setNewsItems(data);
-          setError(null);
         }
       } catch (e: unknown) {
-        if (mounted) setError(e instanceof Error ? e.message : 'Fehler');
-      } finally {
-        if (mounted) setLoading(false);
+        console.error('Fehler beim Laden der News:', e instanceof Error ? e.message : 'Unbekannter Fehler');
       }
     })();
     return () => {
@@ -274,7 +269,7 @@ const NewsSection = () => {
                   <div className="space-y-6">
                     <h3 className="text-2xl font-bold text-white mb-4">Über den Release</h3>
                     <p className="text-gray-300 leading-relaxed">
-                      &quot;Maria&quot; und &quot;Znikła&quot; markieren den Beginn von Dawid Faiths musikalischer Reise. 
+                      &quot;Maria&quot; und &quot;Znikła&quot; markieren den Beginn von Dawid Faith&apos;s musikalischer Reise. 
                       Die beiden Tracks wurden mit viel Leidenschaft und emotionaler Tiefe komponiert und zeigen 
                       verschiedene Facetten seiner künstlerischen Vision.
                     </p>
@@ -328,7 +323,7 @@ const NewsSection = () => {
                     <h3 className="text-2xl font-bold text-white mb-4">Event-Details</h3>
                     <p className="text-gray-300 leading-relaxed">
                       Das Release-Konzert wird ein einmaliges Erlebnis mit den ersten beiden Songs von Dawid Faith. 
-                      Erlebe 'Maria' und 'Znikła' live in einer intimen Atmosphäre der Katy Garage.
+                      Erlebe &apos;Maria&apos; und &apos;Znikła&apos; live in einer intimen Atmosphäre der Katy Garage.
                     </p>
                     <div className="bg-blue-900/30 p-6 rounded-2xl border border-blue-500/20">
                       <h4 className="text-lg font-semibold text-blue-300 mb-4">Konzert-Info</h4>
