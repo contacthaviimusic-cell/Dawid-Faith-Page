@@ -274,20 +274,20 @@ const NewsSection = () => {
                   <div className="space-y-6">
                     <h3 className="text-2xl font-bold text-white mb-4">Über den Release</h3>
                     <p className="text-gray-300 leading-relaxed">
-                      &quot;Digital Dreams&quot; markiert einen wichtigen Meilenstein in Dawid Faiths künstlerischer Entwicklung. 
-                      Der Track wurde in den legendären Abbey Road Studios aufgenommen und kombiniert modernste 
-                      Produktionstechniken mit zeitlosen melodischen Elementen.
+                      &quot;Maria&quot; und &quot;Znikła&quot; markieren den Beginn von Dawid Faiths musikalischer Reise. 
+                      Die beiden Tracks wurden mit viel Leidenschaft und emotionaler Tiefe komponiert und zeigen 
+                      verschiedene Facetten seiner künstlerischen Vision.
                     </p>
                     <p className="text-gray-300 leading-relaxed">
-                      Die Single ist ab sofort auf allen gängigen Streaming-Plattformen verfügbar und wird 
-                      exklusiv für D.FAITH Token-Inhaber in limitierter Vinyl-Edition veröffentlicht.
+                      Als seine ersten beiden Singles setzen diese Songs den Grundstein für das was noch kommen wird. 
+                      Erlebe sie zuerst live beim Release-Konzert in der Katy Garage.
                     </p>
                     <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
-                      <h4 className="text-lg font-semibold text-purple-300 mb-3">Streaming Links</h4>
+                      <h4 className="text-lg font-semibold text-purple-300 mb-3">Premiere Songs</h4>
                       <div className="flex flex-wrap gap-3">
-                        <button className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium">Spotify</button>
-                        <button className="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium">YouTube</button>
-                        <button className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium">Apple Music</button>
+                        <span className="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium">Maria</span>
+                        <span className="bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-medium">Znikła</span>
+                        <span className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium">Live Premiere</span>
                       </div>
                     </div>
                   </div>
@@ -327,27 +327,27 @@ const NewsSection = () => {
                   <div className="space-y-6">
                     <h3 className="text-2xl font-bold text-white mb-4">Event-Details</h3>
                     <p className="text-gray-300 leading-relaxed">
-                      Das Berlin-Konzert wird ein einmaliges Erlebnis mit modernster Technik und einer 
-                      360°-Bühneninszenierung. Erlebe Dawid Faith live in einer völlig neuen Dimension.
+                      Das Release-Konzert wird ein einmaliges Erlebnis mit den ersten beiden Songs von Dawid Faith. 
+                      Erlebe 'Maria' und 'Znikła' live in einer intimen Atmosphäre der Katy Garage.
                     </p>
                     <div className="bg-blue-900/30 p-6 rounded-2xl border border-blue-500/20">
                       <h4 className="text-lg font-semibold text-blue-300 mb-4">Konzert-Info</h4>
                       <div className="grid md:grid-cols-2 gap-4 text-gray-300">
                         <div>
                           <p className="font-medium">Datum & Zeit</p>
-                          <p className="text-sm">15. Januar 2025, 20:00 Uhr</p>
+                          <p className="text-sm">15. November 2024, 19:00 Uhr</p>
                         </div>
                         <div>
                           <p className="font-medium">Location</p>
-                          <p className="text-sm">Mercedes-Benz Arena Berlin</p>
+                          <p className="text-sm">Katy Garage</p>
                         </div>
                         <div>
-                          <p className="font-medium">Tickets</p>
-                          <p className="text-sm">Ab 45€ - VIP ab 150€</p>
+                          <p className="font-medium">Songs</p>
+                          <p className="text-sm">Maria & Znikła (Premiere)</p>
                         </div>
                         <div>
-                          <p className="font-medium">Support Act</p>
-                          <p className="text-sm">Wird noch bekannt gegeben</p>
+                          <p className="font-medium">Besonderheit</p>
+                          <p className="text-sm">Dawid Faith's erste Songs</p>
                         </div>
                       </div>
                     </div>
