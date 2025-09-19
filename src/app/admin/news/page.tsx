@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
 import type { NewsItem } from '@/types/news';
 
 type FormState = Omit<NewsItem, 'id'> & { id?: string };
@@ -144,8 +145,10 @@ export default function AdminNewsPage() {
                         <h3 className="text-sm uppercase tracking-wide text-slate-400 mb-2">Vollständiger Inhalt</h3>
                         <div className="prose prose-invert max-w-none">
                           {n.content && n.content.trim() ? (
-                            <div className="whitespace-pre-wrap text-slate-200 bg-slate-900/50 border border-slate-800 rounded p-3">
-                              {n.content}
+                            <div className="bg-slate-900/50 border border-slate-800 rounded p-3 text-slate-200 prose prose-invert max-w-none prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-ul:text-gray-300 prose-li:text-gray-300">
+                              <ReactMarkdown>
+                                {n.content}
+                              </ReactMarkdown>
                             </div>
                           ) : (
                             <div className="space-y-6">
@@ -275,7 +278,10 @@ export default function AdminNewsPage() {
                             onChange={(e) => setEditing({ ...editing, excerpt: e.target.value })} />
                 </label>
                 <label className="text-sm md:col-span-2">
-                  Inhalt (optional, Markdown oder Text)
+                  Inhalt (Markdown-Format unterstützt)
+                  <div className="text-xs text-slate-400 mb-1">
+                    Beispiel: ## Überschrift, **fett**, - Listenpunkt
+                  </div>
                   <textarea className="mt-1 w-full px-3 py-2 rounded bg-slate-800 border border-slate-700" rows={8} value={editing.content ?? ''}
                             onChange={(e) => setEditing({ ...editing, content: e.target.value })} />
                 </label>

@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
 import { Calendar, Clock, ArrowRight, Star, Music, Headphones, Users, X } from 'lucide-react';
 import type { NewsItem } from '@/types/news';
 
@@ -266,8 +267,10 @@ const NewsSection = () => {
             <div className="p-6 md:p-8">
               <div className="prose prose-lg prose-invert max-w-none">
                 {selectedArticle.content?.trim() ? (
-                  <div className="whitespace-pre-wrap text-gray-200 leading-relaxed">
-                    {selectedArticle.content}
+                  <div className="text-gray-200 leading-relaxed prose prose-invert max-w-none prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-ul:text-gray-300 prose-li:text-gray-300">
+                    <ReactMarkdown>
+                      {selectedArticle.content}
+                    </ReactMarkdown>
                   </div>
                 ) : (
                   <>
