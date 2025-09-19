@@ -48,6 +48,7 @@ export default function AdminNewsPage() {
       body: JSON.stringify({
         title: form.title,
         excerpt: form.excerpt,
+        content: form.content,
         date: form.date,
         readTime: form.readTime,
         category: form.category,
@@ -86,6 +87,7 @@ export default function AdminNewsPage() {
   const emptyForm: FormState = useMemo(() => ({
     title: '',
     excerpt: '',
+    content: '',
     date: new Date().toISOString().slice(0, 10),
     readTime: '3 min',
     category: 'Allgemein',
@@ -141,7 +143,7 @@ export default function AdminNewsPage() {
                     <div className="md:col-span-4">
                       <h3 className="text-sm uppercase tracking-wide text-slate-400 mb-2">Vollständiger Inhalt</h3>
                       <div className="whitespace-pre-wrap text-slate-200 bg-slate-900/50 border border-slate-800 rounded p-3">
-                        {n.excerpt}
+                        {n.content && n.content.trim() ? n.content : n.excerpt}
                       </div>
                     </div>
                     <div className="md:col-span-2">
@@ -180,6 +182,11 @@ export default function AdminNewsPage() {
                   Beschreibung/Kurztext
                   <textarea className="mt-1 w-full px-3 py-2 rounded bg-slate-800 border border-slate-700" rows={3} value={editing.excerpt}
                             onChange={(e) => setEditing({ ...editing, excerpt: e.target.value })} />
+                </label>
+                <label className="text-sm md:col-span-2">
+                  Inhalt (optional, Markdown oder Text)
+                  <textarea className="mt-1 w-full px-3 py-2 rounded bg-slate-800 border border-slate-700" rows={8} value={editing.content ?? ''}
+                            onChange={(e) => setEditing({ ...editing, content: e.target.value })} />
                 </label>
                 <label className="text-sm">
                   Datum

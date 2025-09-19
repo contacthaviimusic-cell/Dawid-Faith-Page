@@ -2,7 +2,7 @@ export type NewsItem = {
   id: string;
   title: string;
   excerpt: string;
-  content?: string; // Volltext für Modal
+  content?: string; // optionaler Langtext (Markdown oder Plaintext)
   date: string; // ISO string
   readTime: string; // e.g., "3 min"
   category: string; // e.g., "Musik Release", "Blockchain", "Events"
