@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, Clock, Users, Star, Ticket, Music, Heart } from 'lucide-react';
+import { Calendar, MapPin, Clock, Users, Star, Ticket, Music, Heart, Mail } from 'lucide-react';
 import Image from 'next/image';
+import { useState } from 'react';
 
 interface KonzertEvent {
   id: string;
@@ -24,12 +25,12 @@ interface KonzertEvent {
 const konzertEvents: KonzertEvent[] = [
   {
     id: 'release-konzert-2025',
-    title: '🎵 Release-Konzert 2025',
-    subtitle: 'Exklusives Album Release Event',
-    date: '2025-01-15',
-    time: '20:00',
+    title: '🎵 Single Release-Konzert 2025',
+    subtitle: 'Exklusives Single Release Event',
+    date: '2025-11-15',
+    time: '19:00',
     venue: 'Katys Garage',
-    location: 'Dresden',
+    location: 'Dresden Neustadt',
     description: 'Ein gemütlicher Abend mit neuen Songs und guter Musik. Komm vorbei und lass uns zusammen feiern!',
     ticketUrl: '#tickets',
     isReleaseKonzert: true,
@@ -40,6 +41,29 @@ const konzertEvents: KonzertEvent[] = [
 ];
 
 export default function KonzerteSection() {
+  const [email, setEmail] = useState('');
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+
+    setIsSubscribing(true);
+    
+    // Simulate newsletter subscription
+    setTimeout(() => {
+      setIsSubscribing(false);
+      setSubscriptionStatus('success');
+      setEmail('');
+      
+      // Reset status after 3 seconds
+      setTimeout(() => {
+        setSubscriptionStatus('idle');
+      }, 3000);
+    }, 1000);
+  };
+
   const formatDate = (dateString: string) => {
     if (dateString === 'Verschiedene Termine') return dateString;
     
@@ -197,7 +221,7 @@ export default function KonzerteSection() {
                           // Scroll to top and trigger a special event for tickets
                           window.scrollTo({ top: 0, behavior: 'smooth' });
                           setTimeout(() => {
-                            alert('� Das Konzert in Katys Garage (Dresden) hat freien Eintritt! Komm einfach vorbei.');
+                            alert('🎵 Das Single Release-Konzert in Katys Garage (Dresden Neustadt) hat freien Eintritt! Komm einfach vorbei.');
                           }, 500);
                         }
                       }}
@@ -231,18 +255,57 @@ export default function KonzerteSection() {
           className="text-center mt-16"
         >
           <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 backdrop-blur-md rounded-2xl p-8 border border-purple-500/20">
-            <Music className="mx-auto mb-4 text-purple-400" size={48} />
+            <Mail className="mx-auto mb-4 text-purple-400" size={48} />
             <h3 className="text-2xl font-bold mb-4 text-purple-300">
-              Bleib auf dem Laufenden
+              Newsletter abonnieren
             </h3>
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Neue Konzerte und Events werden hier bekannt gegeben. 
-              Schau einfach ab und zu vorbei für Updates.
+              Erhalte Updates zu neuen Konzerten, Songs und besonderen Events direkt in dein Postfach.
             </p>
+            
+            {subscriptionStatus === 'success' ? (
+              <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4 mb-6">
+                <p className="text-green-300 font-semibold">✅ Erfolgreich angemeldet! Danke für dein Interesse.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto mb-6">
+                <div className="flex gap-3">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="deine@email.de"
+                    className="flex-1 px-4 py-3 rounded-lg bg-black/40 border border-purple-500/30 text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 transition-colors"
+                    required
+                    disabled={isSubscribing}
+                  />
+                  <motion.button
+                    type="submit"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    disabled={isSubscribing}
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  >
+                    {isSubscribing ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Anmelden...
+                      </>
+                    ) : (
+                      <>
+                        <Mail size={16} />
+                        Anmelden
+                      </>
+                    )}
+                  </motion.button>
+                </div>
+              </form>
+            )}
+            
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300"
+              className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-500/30 text-purple-300 px-6 py-2 rounded-full font-semibold transition-all duration-300 text-sm"
               onClick={() => {
                 const el = document.querySelector('#dfaith');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });

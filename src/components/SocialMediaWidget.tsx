@@ -14,12 +14,11 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
     {
       name: 'Instagram',
       icon: Instagram,
-      url: '#',
+      url: 'https://www.instagram.com/dawidfaith/',
       color: 'from-pink-500 via-purple-500 to-pink-600',
       bgColor: 'bg-gradient-to-br from-pink-500/20 to-purple-500/20',
       borderColor: 'border-pink-500/40',
       hoverColor: 'hover:border-pink-400',
-      followers: '125K',
       description: 'Stories & Updates'
     },
     {
@@ -29,12 +28,11 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
           <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
         </svg>
       ),
-      url: '#',
+      url: 'https://www.facebook.com/profile.php?id=61572473614500',
       color: 'from-blue-600 via-blue-500 to-blue-700',
       bgColor: 'bg-gradient-to-br from-blue-600/20 to-blue-500/20',
       borderColor: 'border-blue-500/40',
       hoverColor: 'hover:border-blue-400',
-      followers: '89K',
       description: 'Community & News'
     },
     {
@@ -44,24 +42,37 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
           <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
         </svg>
       ),
-      url: '#',
+      url: 'https://www.tiktok.com/@dawidfaith',
       color: 'from-gray-900 via-pink-500 to-cyan-400',
       bgColor: 'bg-gradient-to-br from-gray-900/20 to-pink-500/20',
       borderColor: 'border-pink-500/40',
       hoverColor: 'hover:border-cyan-400',
-      followers: '67K',
       description: 'Short Videos'
     },
     {
       name: 'YouTube',
       icon: Youtube,
-      url: '#',
+      url: 'https://www.youtube.com/@dawidfaith',
       color: 'from-red-600 via-red-500 to-red-700',
       bgColor: 'bg-gradient-to-br from-red-600/20 to-red-500/20',
       borderColor: 'border-red-500/40',
       hoverColor: 'hover:border-red-400',
-      followers: '245K',
       description: 'Music Videos'
+    },
+    {
+      name: 'E-Mail',
+      icon: ({ size, className }: { size: number, className: string }) => (
+        <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      ),
+      url: 'mailto:dawid.faith@gmail.com',
+      color: 'from-green-600 via-green-500 to-green-700',
+      bgColor: 'bg-gradient-to-br from-green-600/20 to-green-500/20',
+      borderColor: 'border-green-500/40',
+      hoverColor: 'hover:border-green-400',
+      description: 'Direkter Kontakt'
     },
     {
       name: 'D.FAITH',
@@ -71,7 +82,6 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
       bgColor: 'bg-gradient-to-br from-purple-600/20 to-pink-500/20',
       borderColor: 'border-purple-500/40',
       hoverColor: 'hover:border-purple-400',
-      followers: 'VIP',
       description: 'Exklusiver Zugang'
     }
   ];
@@ -128,8 +138,8 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
         </div>
 
         {/* Social Links Grid */}
-        <div className="relative z-10 grid grid-cols-2 gap-3 mb-5">
-          {socialLinks.slice(0, 4).map((link, index) => (
+        <div className="relative z-10 grid grid-cols-3 gap-2 mb-5">
+          {socialLinks.slice(0, 6).map((link, index) => (
             <motion.a
               key={link.name}
               href={link.url}
@@ -158,48 +168,11 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
                 />
                 <div className="text-center">
                   <div className="text-white font-semibold text-xs">{link.name}</div>
-                  <div className="text-xs text-gray-300">{link.followers}</div>
                 </div>
               </div>
             </motion.a>
           ))}
         </div>
-
-        {/* D.FAITH Special Button */}
-        <motion.a
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          whileHover={{ 
-            scale: 1.03,
-            boxShadow: "0 0 30px rgba(147, 51, 234, 0.4)"
-          }}
-          whileTap={{ scale: 0.97 }}
-          className="relative z-10 flex items-center gap-3 p-4 rounded-2xl bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-2 border-purple-400/50 hover:border-purple-300 transition-all duration-300 group backdrop-blur-sm overflow-hidden"
-        >
-          {/* Animated Background */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
-            animate={{
-              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-            }}
-            transition={{ duration: 3, repeat: Infinity }}
-          />
-          
-          <div className="relative z-10 flex items-center gap-3 w-full">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500">
-              <Star size={16} className="text-white" />
-            </div>
-            <div className="flex-1">
-              <span className="text-white font-bold text-sm">D.FAITH</span>
-              <div className="text-xs text-purple-200">Exklusiver VIP Zugang</div>
-            </div>
-            <Heart size={14} className="text-purple-300 group-hover:text-pink-300 transition-colors" />
-          </div>
-        </motion.a>
 
         {/* Footer */}
         <div className="relative z-10 mt-5 pt-4 border-t border-gray-600/50">
@@ -285,8 +258,8 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
       </div>
 
       {/* Social Links Grid */}
-      <div className="relative z-10 grid grid-cols-2 gap-4 mb-6">
-        {socialLinks.slice(0, 4).map((link, index) => (
+      <div className="relative z-10 grid grid-cols-3 gap-3 mb-6">
+        {socialLinks.slice(0, 6).map((link, index) => (
           <motion.a
             key={link.name}
             href={link.url}
@@ -330,9 +303,6 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
               </motion.div>
               <div className="text-center">
                 <div className="text-white font-bold text-sm mb-1">{link.name}</div>
-                <div className="text-xs text-gray-300 bg-black/20 px-2 py-1 rounded-full">
-                  {link.followers}
-                </div>
                 <div className="text-xs text-purple-200 mt-1 opacity-80">
                   {link.description}
                 </div>
@@ -341,55 +311,6 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
           </motion.a>
         ))}
       </div>
-
-      {/* D.FAITH VIP Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8 }}
-        className="relative z-10 mb-6"
-      >
-        <motion.a
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover={{ 
-            scale: 1.03,
-            boxShadow: "0 0 40px rgba(147, 51, 234, 0.6)"
-          }}
-          whileTap={{ scale: 0.97 }}
-          className="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-purple-600/30 to-pink-600/30 border-2 border-purple-400/60 hover:border-purple-300 transition-all duration-300 group backdrop-blur-sm relative overflow-hidden"
-        >
-          {/* Animated VIP Background */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 opacity-0 group-hover:opacity-20"
-            animate={{
-              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-            }}
-            transition={{ duration: 3, repeat: Infinity }}
-          />
-          
-          <div className="relative z-10 flex items-center gap-4 w-full">
-            <motion.div 
-              className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg"
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Star size={20} className="text-white" />
-            </motion.div>
-            <div className="flex-1">
-              <span className="text-white font-bold text-base">D.FAITH VIP</span>
-              <div className="text-sm text-purple-200">Exklusiver Zugang & Benefits</div>
-            </div>
-            <motion.div
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <Heart size={18} className="text-pink-300" />
-            </motion.div>
-          </div>
-        </motion.a>
-      </motion.div>
 
       {/* Newsletter Signup */}
       <div className="relative z-10 space-y-4">

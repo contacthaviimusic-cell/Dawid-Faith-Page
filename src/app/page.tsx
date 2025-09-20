@@ -205,7 +205,7 @@ export default function Home() {
             </motion.div>
             
             <div className="text-gray-500 text-sm">
-              <p>&copy; 2024 Dawid Faith. Alle Rechte vorbehalten.</p>
+              <p>&copy; 2025 Dawid Faith. Alle Rechte vorbehalten.</p>
               <p className="mt-2">Powered by D.FAITH Ecosystem</p>
             </div>
           </div>
