@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
-
-const newsletterFilePath = path.join(process.cwd(), 'data', 'newsletter.json');
+import { put, list } from '@vercel/blob';
 
 interface NewsletterSubscriber {
   id: string;
@@ -12,21 +9,44 @@ interface NewsletterSubscriber {
   userAgent?: string;
 }
 
+const BLOB_FILENAME = 'newsletter-subscribers.json';
+
 async function getNewsletterSubscribers(): Promise<NewsletterSubscriber[]> {
   try {
-    const data = await fs.readFile(newsletterFilePath, 'utf8');
-    return JSON.parse(data);
+    // List all blobs to find our newsletter file
+    const { blobs } = await list({ prefix: BLOB_FILENAME });
+    
+    if (blobs.length === 0) {
+      return [];
+    }
+
+    // Get the latest blob
+    const latestBlob = blobs[0];
+    const response = await fetch(latestBlob.url);
+    
+    if (response.ok) {
+      const data = await response.json();
+      return Array.isArray(data) ? data : [];
+    }
+    
+    return [];
   } catch (error) {
-    // If file doesn't exist, return empty array
+    console.log('No existing newsletter data found, starting fresh');
     return [];
   }
 }
 
 async function saveNewsletterSubscribers(subscribers: NewsletterSubscriber[]): Promise<void> {
-  // Ensure directory exists
-  const dir = path.dirname(newsletterFilePath);
-  await fs.mkdir(dir, { recursive: true });
-  await fs.writeFile(newsletterFilePath, JSON.stringify(subscribers, null, 2));
+  try {
+    const blob = await put(BLOB_FILENAME, JSON.stringify(subscribers, null, 2), {
+      access: 'public',
+      contentType: 'application/json',
+    });
+    console.log('Newsletter data saved to Vercel Blob:', blob.url);
+  } catch (error) {
+    console.error('Error saving to Vercel Blob:', error);
+    throw error;
+  }
 }
 
 export async function GET() {
@@ -65,7 +85,7 @@ export async function POST(request: NextRequest) {
     const subscribers = await getNewsletterSubscribers();
 
     // Check if email already exists
-    const existingSubscriber = subscribers.find(sub => sub.email.toLowerCase() === email.toLowerCase());
+    const existingSubscriber = subscribers.find((sub: NewsletterSubscriber) => sub.email.toLowerCase() === email.toLowerCase());
     if (existingSubscriber) {
       return NextResponse.json(
         { error: 'Diese E-Mail-Adresse ist bereits angemeldet' },
@@ -87,6 +107,8 @@ export async function POST(request: NextRequest) {
     subscribers.push(newSubscriber);
     await saveNewsletterSubscribers(subscribers);
 
+    console.log('New newsletter subscriber:', newSubscriber.email);
+
     return NextResponse.json(
       { 
         message: 'Erfolgreich für den Newsletter angemeldet!',
@@ -101,9 +123,8 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Error adding newsletter subscriber:', error);
-    console.error('Full error details:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
     return NextResponse.json(
-      { error: 'Fehler bei der Newsletter-Anmeldung', details: error instanceof Error ? error.message : 'Unknown error' },
+      { error: 'Fehler bei der Newsletter-Anmeldung' },
       { status: 500 }
     );
   }
@@ -122,7 +143,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     const subscribers = await getNewsletterSubscribers();
-    const updatedSubscribers = subscribers.filter(sub => sub.email.toLowerCase() !== email.toLowerCase());
+    const updatedSubscribers = subscribers.filter((sub: NewsletterSubscriber) => sub.email.toLowerCase() !== email.toLowerCase());
 
     if (subscribers.length === updatedSubscribers.length) {
       return NextResponse.json(
