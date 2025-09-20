@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Instagram, Youtube, Music, ExternalLink, Play, Star, Heart } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Instagram, Youtube, Music, ExternalLink, Play, Star, Heart, Mail, Copy, X, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 
 interface SocialMediaWidgetProps {
@@ -10,40 +10,130 @@ interface SocialMediaWidgetProps {
 }
 
 const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true }) => {
-  const handleEmailClick = (e: React.MouseEvent) => {
-    // Try to open mailto link
-    const email = 'dawid.faith@gmail.com';
-    const mailtoLink = `mailto:${email}`;
-    
-    // Fallback: copy email to clipboard and show notification
-    const fallbackAction = () => {
-      navigator.clipboard.writeText(email).then(() => {
-        alert(`📧 E-Mail-Adresse kopiert: ${email}\n\nDu kannst sie jetzt in deinem E-Mail-Client einfügen.`);
-      }).catch(() => {
-        // Fallback for older browsers
-        const textarea = document.createElement('textarea');
-        textarea.value = email;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-        alert(`📧 E-Mail-Adresse kopiert: ${email}\n\nDu kannst sie jetzt in deinem E-Mail-Client einfügen.`);
-      });
-    };
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
 
-    // Try mailto first, if it fails, use fallback
+  const handleEmailClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowEmailModal(true);
+  };
+
+  const copyEmailToClipboard = async () => {
+    const email = 'dawid.faith@gmail.com';
     try {
-      window.location.href = mailtoLink;
-      // Also show the email address
-      setTimeout(() => {
-        if (confirm(`📧 E-Mail an: ${email}\n\nFalls sich kein E-Mail-Client öffnet, soll die Adresse in die Zwischenablage kopiert werden?`)) {
-          fallbackAction();
-        }
-      }, 1000);
+      await navigator.clipboard.writeText(email);
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
     } catch (error) {
-      fallbackAction();
+      // Fallback for older browsers
+      const textarea = document.createElement('textarea');
+      textarea.value = email;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
     }
   };
+
+  const openEmailClient = () => {
+    window.location.href = 'mailto:dawid.faith@gmail.com';
+    setShowEmailModal(false);
+  };
+
+  const EmailModal = () => (
+    <AnimatePresence>
+      {showEmailModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+          onClick={() => setShowEmailModal(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.8, opacity: 0, y: 20 }}
+            transition={{ type: "spring", duration: 0.5 }}
+            className="bg-gradient-to-br from-slate-900/95 via-purple-900/90 to-pink-900/95 backdrop-blur-xl rounded-3xl p-8 border border-purple-400/30 shadow-2xl max-w-md w-full relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setShowEmailModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
+            >
+              <X size={20} />
+            </button>
+
+            {/* Header */}
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center">
+                <Mail size={32} className="text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">Kontakt aufnehmen</h3>
+              <p className="text-gray-300">Schreib mir eine E-Mail!</p>
+            </div>
+
+            {/* Email Display */}
+            <div className="bg-black/40 rounded-2xl p-4 mb-6 border border-green-500/30">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Mail size={20} className="text-green-400" />
+                  <span className="text-white font-mono text-sm">dawid.faith@gmail.com</span>
+                </div>
+                <button
+                  onClick={copyEmailToClipboard}
+                  className="flex items-center gap-2 bg-green-600/20 hover:bg-green-600/30 text-green-300 px-3 py-2 rounded-lg transition-colors"
+                >
+                  {emailCopied ? (
+                    <>
+                      <CheckCircle size={16} />
+                      <span className="text-xs">Kopiert!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={16} />
+                      <span className="text-xs">Kopieren</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="space-y-3">
+              <motion.button
+                onClick={openEmailClient}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-4 rounded-2xl font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 flex items-center justify-center gap-3"
+              >
+                <Mail size={20} />
+                E-Mail-Client öffnen
+              </motion.button>
+              
+              <motion.button
+                onClick={() => setShowEmailModal(false)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full bg-gray-600/20 hover:bg-gray-600/30 text-gray-300 py-3 rounded-2xl font-medium transition-all duration-300 border border-gray-500/30"
+              >
+                Schließen
+              </motion.button>
+            </div>
+
+            {/* Footer Note */}
+            <p className="text-xs text-gray-400 text-center mt-4">
+              Falls sich kein E-Mail-Client öffnet, nutze die kopierte Adresse in deinem bevorzugten E-Mail-Programm.
+            </p>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 
   const socialLinks = [
     {
@@ -123,13 +213,14 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
 
   if (compact) {
     return (
-      <motion.div
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0, opacity: 0 }}
-        transition={{ type: "spring", duration: 0.8, bounce: 0.4 }}
-        className="bg-gradient-to-br from-slate-900/95 via-purple-900/90 to-pink-900/95 backdrop-blur-xl rounded-3xl p-6 border border-purple-400/30 shadow-2xl max-w-sm relative overflow-hidden"
-      >
+      <>
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0, opacity: 0 }}
+          transition={{ type: "spring", duration: 0.8, bounce: 0.4 }}
+          className="bg-gradient-to-br from-slate-900/95 via-purple-900/90 to-pink-900/95 backdrop-blur-xl rounded-3xl p-6 border border-purple-400/30 shadow-2xl max-w-sm relative overflow-hidden"
+        >
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
@@ -222,18 +313,20 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
           </motion.p>
         </div>
       </motion.div>
-    );
+      <EmailModal />
+    </>);
   }
 
   // Full Widget (non-compact)
   return (
-    <motion.div
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      exit={{ scale: 0, opacity: 0 }}
-      transition={{ type: "spring", duration: 0.8, bounce: 0.3 }}
-      className="bg-gradient-to-br from-slate-900/98 via-purple-900/95 to-pink-900/98 backdrop-blur-3xl rounded-3xl p-8 border border-purple-400/40 shadow-2xl max-w-md relative overflow-hidden"
-    >
+    <>
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0, opacity: 0 }}
+        transition={{ type: "spring", duration: 0.8, bounce: 0.3 }}
+        className="bg-gradient-to-br from-slate-900/98 via-purple-900/95 to-pink-900/98 backdrop-blur-3xl rounded-3xl p-8 border border-purple-400/40 shadow-2xl max-w-md relative overflow-hidden"
+      >
       {/* Advanced Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -380,7 +473,8 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
         </motion.p>
       </div>
     </motion.div>
-  );
+    <EmailModal />
+  </>);
 };
 
 export default SocialMediaWidget;
