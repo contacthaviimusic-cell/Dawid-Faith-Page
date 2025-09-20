@@ -10,6 +10,41 @@ interface SocialMediaWidgetProps {
 }
 
 const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true }) => {
+  const handleEmailClick = (e: React.MouseEvent) => {
+    // Try to open mailto link
+    const email = 'dawid.faith@gmail.com';
+    const mailtoLink = `mailto:${email}`;
+    
+    // Fallback: copy email to clipboard and show notification
+    const fallbackAction = () => {
+      navigator.clipboard.writeText(email).then(() => {
+        alert(`📧 E-Mail-Adresse kopiert: ${email}\n\nDu kannst sie jetzt in deinem E-Mail-Client einfügen.`);
+      }).catch(() => {
+        // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = email;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert(`📧 E-Mail-Adresse kopiert: ${email}\n\nDu kannst sie jetzt in deinem E-Mail-Client einfügen.`);
+      });
+    };
+
+    // Try mailto first, if it fails, use fallback
+    try {
+      window.location.href = mailtoLink;
+      // Also show the email address
+      setTimeout(() => {
+        if (confirm(`📧 E-Mail an: ${email}\n\nFalls sich kein E-Mail-Client öffnet, soll die Adresse in die Zwischenablage kopiert werden?`)) {
+          fallbackAction();
+        }
+      }, 1000);
+    } catch (error) {
+      fallbackAction();
+    }
+  };
+
   const socialLinks = [
     {
       name: 'Instagram',
@@ -72,7 +107,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
       bgColor: 'bg-gradient-to-br from-green-600/20 to-green-500/20',
       borderColor: 'border-green-500/40',
       hoverColor: 'hover:border-green-400',
-      description: 'Direkter Kontakt'
+      description: 'dawid.faith@gmail.com'
     },
     {
       name: 'D.FAITH',
@@ -142,9 +177,10 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
           {socialLinks.slice(0, 6).map((link, index) => (
             <motion.a
               key={link.name}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={link.name === 'E-Mail' ? undefined : link.url}
+              target={link.name === 'E-Mail' ? undefined : "_blank"}
+              rel={link.name === 'E-Mail' ? undefined : "noopener noreferrer"}
+              onClick={link.name === 'E-Mail' ? handleEmailClick : undefined}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.3 }}
@@ -154,7 +190,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
                 boxShadow: "0 10px 25px rgba(0,0,0,0.3)"
               }}
               whileTap={{ scale: 0.95 }}
-              className={`${link.bgColor} ${link.borderColor} ${link.hoverColor} border-2 p-4 rounded-2xl transition-all duration-300 group backdrop-blur-sm relative overflow-hidden`}
+              className={`${link.bgColor} ${link.borderColor} ${link.hoverColor} border-2 p-4 rounded-2xl transition-all duration-300 group backdrop-blur-sm relative overflow-hidden ${link.name === 'E-Mail' ? 'cursor-pointer' : ''}`}
             >
               {/* Hover Effect Background */}
               <motion.div
@@ -262,9 +298,10 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
         {socialLinks.slice(0, 6).map((link, index) => (
           <motion.a
             key={link.name}
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={link.name === 'E-Mail' ? undefined : link.url}
+            target={link.name === 'E-Mail' ? undefined : "_blank"}
+            rel={link.name === 'E-Mail' ? undefined : "noopener noreferrer"}
+            onClick={link.name === 'E-Mail' ? handleEmailClick : undefined}
             initial={{ opacity: 0, y: 30, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ 
@@ -280,7 +317,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
               boxShadow: "0 15px 35px rgba(0,0,0,0.4)"
             }}
             whileTap={{ scale: 0.95 }}
-            className={`${link.bgColor} ${link.borderColor} ${link.hoverColor} border-2 p-5 rounded-2xl transition-all duration-300 group backdrop-blur-sm relative overflow-hidden transform-gpu`}
+            className={`${link.bgColor} ${link.borderColor} ${link.hoverColor} border-2 p-5 rounded-2xl transition-all duration-300 group backdrop-blur-sm relative overflow-hidden transform-gpu ${link.name === 'E-Mail' ? 'cursor-pointer' : ''}`}
           >
             {/* Dynamic Hover Background */}
             <motion.div
