@@ -23,6 +23,9 @@ async function getNewsletterSubscribers(): Promise<NewsletterSubscriber[]> {
 }
 
 async function saveNewsletterSubscribers(subscribers: NewsletterSubscriber[]): Promise<void> {
+  // Ensure directory exists
+  const dir = path.dirname(newsletterFilePath);
+  await fs.mkdir(dir, { recursive: true });
   await fs.writeFile(newsletterFilePath, JSON.stringify(subscribers, null, 2));
 }
 
@@ -98,8 +101,9 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Error adding newsletter subscriber:', error);
+    console.error('Full error details:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
     return NextResponse.json(
-      { error: 'Fehler bei der Newsletter-Anmeldung' },
+      { error: 'Fehler bei der Newsletter-Anmeldung', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }
