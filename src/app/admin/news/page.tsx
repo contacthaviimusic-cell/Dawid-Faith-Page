@@ -101,12 +101,18 @@ export default function AdminNewsPage() {
           <button onClick={logout} className="px-3 py-2 rounded bg-slate-800 hover:bg-slate-700">Logout</button>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 flex items-center gap-4">
           <button
             onClick={() => setEditing(emptyForm)}
             className="px-4 py-2 rounded bg-gradient-to-r from-purple-600 to-pink-600"
           >
             + Neue News
+          </button>
+          <button
+            onClick={() => router.push('/admin/newsletter')}
+            className="px-4 py-2 rounded bg-gradient-to-r from-blue-600 to-teal-600"
+          >
+            📧 Newsletter-Management
           </button>
         </div>
 

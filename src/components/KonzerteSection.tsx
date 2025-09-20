@@ -51,17 +51,45 @@ export default function KonzerteSection() {
 
     setIsSubscribing(true);
     
-    // Simulate newsletter subscription
-    setTimeout(() => {
-      setIsSubscribing(false);
-      setSubscriptionStatus('success');
-      setEmail('');
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubscriptionStatus('success');
+        setEmail('');
+        
+        // Reset status after 3 seconds
+        setTimeout(() => {
+          setSubscriptionStatus('idle');
+        }, 3000);
+      } else {
+        setSubscriptionStatus('error');
+        console.error('Newsletter subscription error:', data.error);
+        
+        // Reset status after 3 seconds
+        setTimeout(() => {
+          setSubscriptionStatus('idle');
+        }, 3000);
+      }
+    } catch (error) {
+      setSubscriptionStatus('error');
+      console.error('Newsletter subscription error:', error);
       
       // Reset status after 3 seconds
       setTimeout(() => {
         setSubscriptionStatus('idle');
       }, 3000);
-    }, 1000);
+    } finally {
+      setIsSubscribing(false);
+    }
   };
 
   const formatDate = (dateString: string) => {
@@ -266,6 +294,10 @@ export default function KonzerteSection() {
             {subscriptionStatus === 'success' ? (
               <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4 mb-6">
                 <p className="text-green-300 font-semibold">✅ Erfolgreich angemeldet! Danke für dein Interesse.</p>
+              </div>
+            ) : subscriptionStatus === 'error' ? (
+              <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 mb-6">
+                <p className="text-red-300 font-semibold">❌ Fehler bei der Anmeldung. Bitte versuche es erneut.</p>
               </div>
             ) : (
               <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto mb-6">
