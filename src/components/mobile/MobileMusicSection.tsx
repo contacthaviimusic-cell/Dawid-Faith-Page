@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, Music, Heart, Download, Share } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, Music, Heart, Download, Share, Video, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 
 interface Track {
@@ -12,6 +12,7 @@ interface Track {
   duration: string;
   audioSrc: string;
   coverImage: string;
+  video: string;
   description?: string;
 }
 
@@ -24,6 +25,7 @@ export default function MobileMusicSection() {
       duration: '3:42',
       audioSrc: '/musik/maria/Maria.mp3',
       coverImage: '/musik/maria/Maria.jpg',
+      video: '/musik/maria/Maria Vid1.mp4',
       description: 'Eine emotionale Ballade über verlorene Liebe'
     },
     {
@@ -33,6 +35,7 @@ export default function MobileMusicSection() {
       duration: '4:15',
       audioSrc: '/musik/znikla/Znikła.mp3',
       coverImage: '/musik/znikla/Znikła pic.jpg',
+      video: '/musik/znikla/Znikłą Vid1.mp4',
       description: 'Melancholische Töne treffen auf moderne Beats'
     }
   ]);
@@ -43,6 +46,7 @@ export default function MobileMusicSection() {
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
+  const [showVideo, setShowVideo] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -159,13 +163,17 @@ export default function MobileMusicSection() {
               Meine Musik
             </h2>
           </div>
-          <p className="text-gray-400 text-sm">
-            Entdecke meine neuesten Songs und erlebe die emotionale Reise
+          <p className="text-gray-400 text-sm mb-4">
+            Schaue dir die Video-Vorschauen an und höre die Songs
           </p>
+          <div className="flex items-center justify-center gap-2">
+            <Video className="w-4 h-4 text-purple-400" />
+            <span className="text-purple-300 text-xs">Video-Previews verfügbar</span>
+          </div>
         </motion.div>
 
         {/* Track List */}
-        <div className="space-y-4 mb-8">
+        <div className="space-y-6 mb-8">
           {tracks.map((track, index) => (
             <motion.div
               key={track.id}
@@ -173,96 +181,142 @@ export default function MobileMusicSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => playTrack(track)}
-              className={`bg-gradient-to-r from-gray-900/50 to-pink-900/20 backdrop-blur-md rounded-2xl border border-pink-500/20 overflow-hidden cursor-pointer transition-all duration-300 ${
-                currentTrack?.id === track.id ? 'border-pink-500/50 bg-pink-900/30' : ''
-              }`}
+              className="bg-gradient-to-br from-gray-900/60 to-pink-900/20 backdrop-blur-md rounded-2xl border border-pink-500/20 overflow-hidden"
             >
-              <div className="flex items-center gap-4 p-4">
-                {/* Cover Image */}
-                <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                  <Image
-                    src={track.coverImage}
-                    alt={track.title}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    {currentTrack?.id === track.id && isPlaying ? (
-                      <Pause className="text-white" size={20} />
-                    ) : (
-                      <Play className="text-white" size={20} />
-                    )}
-                  </div>
-                </div>
+              {/* Cover Image with Video Overlay */}
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={track.coverImage}
+                  alt={track.title}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                
+                {/* Video Play Button */}
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setShowVideo(showVideo === track.id ? null : track.id)}
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-pink-500/80 hover:bg-pink-500 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 shadow-xl border-2 border-white/20"
+                >
+                  <Video className="text-white" size={24} />
+                </motion.button>
 
-                {/* Track Info */}
-                <div className="flex-1 min-w-0">
+                {/* Title Overlay */}
+                <div className="absolute bottom-4 left-4 right-4">
                   <h3 className="font-bold text-white text-lg mb-1 truncate">
                     {track.title}
                   </h3>
-                  <p className="text-gray-400 text-sm mb-1">
+                  <p className="text-gray-300 text-sm">
                     {track.artist}
                   </p>
-                  {track.description && (
-                    <p className="text-gray-500 text-xs line-clamp-1">
-                      {track.description}
-                    </p>
-                  )}
-                </div>
-
-                {/* Duration & Actions */}
-                <div className="flex flex-col items-end gap-2">
-                  <span className="text-gray-400 text-sm">
-                    {track.duration}
-                  </span>
-                  <div className="flex gap-2">
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        // Handle favorite
-                      }}
-                      className="w-8 h-8 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400"
-                    >
-                      <Heart size={14} />
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        // Handle share
-                      }}
-                      className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400"
-                    >
-                      <Share size={14} />
-                    </motion.button>
-                  </div>
                 </div>
               </div>
 
-              {/* Progress Bar for Current Track */}
-              {currentTrack?.id === track.id && (
-                <div className="px-4 pb-4">
-                  <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
-                    <span>{formatTime(currentTime)}</span>
-                    <div className="flex-1 bg-gray-700 rounded-full h-1">
-                      <div 
-                        className="bg-gradient-to-r from-pink-500 to-purple-500 h-1 rounded-full transition-all duration-300"
-                        style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
-                      />
-                    </div>
-                    <span>{formatTime(duration)}</span>
-                  </div>
-                </div>
+              {/* Video Player */}
+              {showVideo === track.id && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative"
+                >
+                  <video
+                    controls
+                    className="w-full h-56 object-cover"
+                    poster={track.coverImage}
+                    preload="metadata"
+                    autoPlay
+                  >
+                    <source src={track.video} type="video/mp4" />
+                    Dein Browser unterstützt keine Videos.
+                  </video>
+                </motion.div>
               )}
+
+              {/* Track Info & Controls */}
+              <div className="p-4">
+                {track.description && (
+                  <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                    {track.description}
+                  </p>
+                )}
+
+                {/* Action Buttons */}
+                <div className="flex gap-3">
+                  {/* Play Audio Button */}
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => playTrack(track)}
+                    className="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2"
+                  >
+                    {currentTrack?.id === track.id && isPlaying ? (
+                      <Pause size={18} />
+                    ) : (
+                      <Play size={18} />
+                    )}
+                    Audio {currentTrack?.id === track.id && isPlaying ? 'Pause' : 'Play'}
+                  </motion.button>
+
+                  {/* Video Toggle Button */}
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setShowVideo(showVideo === track.id ? null : track.id)}
+                    className="bg-gray-700/60 hover:bg-gray-600/60 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2"
+                  >
+                    <Video size={18} />
+                    {showVideo === track.id ? 'Video schließen' : 'Video ansehen'}
+                  </motion.button>
+                </div>
+
+                {/* Progress Bar for Current Track */}
+                {currentTrack?.id === track.id && (
+                  <div className="mt-4">
+                    <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
+                      <span>{formatTime(currentTime)}</span>
+                      <div className="flex-1 bg-gray-700 rounded-full h-1.5">
+                        <div 
+                          className="bg-gradient-to-r from-pink-500 to-purple-500 h-1.5 rounded-full transition-all duration-300"
+                          style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
+                        />
+                      </div>
+                      <span>{formatTime(duration)}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
             </motion.div>
           ))}
         </div>
+
+        {/* D.FAITH Webapp CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-2xl border border-purple-500/30 backdrop-blur-sm p-6 text-center"
+        >
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <Music className="text-purple-400" size={24} />
+            <h3 className="text-xl font-bold text-white">Komplette Songs</h3>
+          </div>
+          <p className="text-gray-300 text-sm mb-4">
+            Höre die vollständigen Songs in der D.FAITH Webapp und verdiene Token
+          </p>
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-6 py-3 rounded-xl text-white font-bold transition-all duration-300 flex items-center justify-center gap-2 w-full"
+          >
+            <ExternalLink size={18} />
+            D.FAITH Webapp besuchen
+          </motion.button>
+        </motion.div>
 
         {/* Mobile Player Controls */}
         <AnimatePresence>

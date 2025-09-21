@@ -86,7 +86,7 @@ export default function MobileNavigation() {
                       className="object-cover"
                     />
                   </div>
-                  <h2 className="text-xl font-bold text-white mb-1">Dawid Faith</h2>
+                  <h2 className="text-xl font-bold text-white mb-1 [font-family:var(--font-pirata),cursive]">Dawid Faith</h2>
                   <p className="text-gray-400 text-sm">Künstler • Visionär</p>
                 </div>
 

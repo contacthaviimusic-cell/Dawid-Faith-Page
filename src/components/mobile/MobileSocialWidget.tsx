@@ -98,7 +98,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                 />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-white">Dawid Faith</h2>
+                <h2 className="text-lg font-bold text-white [font-family:var(--font-pirata),cursive]">Dawid Faith</h2>
                 <p className="text-gray-400 text-xs">Künstler • Visionär</p>
               </div>
             </div>

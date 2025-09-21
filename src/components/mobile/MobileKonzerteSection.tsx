@@ -6,23 +6,15 @@ import { Calendar, MapPin, Clock, Users, Mail, CheckCircle, AlertCircle, Ticket 
 
 export default function MobileKonzerteSection() {
   const [email, setEmail] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email.trim()) return;
+
+    setIsSubscribing(true);
     
-    if (!email.trim()) {
-      setMessage('Bitte E-Mail-Adresse eingeben');
-      setMessageType('error');
-      return;
-    }
-
-    setIsSubmitting(true);
-    setMessage('');
-    setMessageType('');
-
     try {
       const response = await fetch('/api/newsletter', {
         method: 'POST',
@@ -35,18 +27,32 @@ export default function MobileKonzerteSection() {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage('Erfolgreich angemeldet! Du erhältst alle Updates zu kommenden Konzerten.');
-        setMessageType('success');
+        setSubscriptionStatus('success');
         setEmail('');
+        
+        // Reset status after 3 seconds
+        setTimeout(() => {
+          setSubscriptionStatus('idle');
+        }, 3000);
       } else {
-        setMessage(data.error || 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.');
-        setMessageType('error');
+        setSubscriptionStatus('error');
+        console.error('Newsletter subscription error:', data.error);
+        
+        // Reset status after 3 seconds
+        setTimeout(() => {
+          setSubscriptionStatus('idle');
+        }, 3000);
       }
     } catch (error) {
-      setMessage('Newsletter-Anmeldung fehlgeschlagen. Bitte versuche es später erneut.');
-      setMessageType('error');
+      setSubscriptionStatus('error');
+      console.error('Newsletter subscription error:', error);
+      
+      // Reset status after 3 seconds
+      setTimeout(() => {
+        setSubscriptionStatus('idle');
+      }, 3000);
     } finally {
-      setIsSubmitting(false);
+      setIsSubscribing(false);
     }
   };
 
@@ -187,7 +193,7 @@ export default function MobileKonzerteSection() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="deine@email.com"
-                disabled={isSubmitting}
+                disabled={isSubscribing}
                 className="w-full px-4 py-4 bg-black/30 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors disabled:opacity-50"
               />
               <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
@@ -197,12 +203,12 @@ export default function MobileKonzerteSection() {
 
             <motion.button
               type="submit"
-              disabled={isSubmitting}
-              whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+              disabled={isSubscribing}
+              whileHover={{ scale: isSubscribing ? 1 : 1.02 }}
+              whileTap={{ scale: isSubscribing ? 1 : 0.98 }}
               className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {isSubmitting ? (
+              {isSubscribing ? (
                 <>
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                   <span>Wird angemeldet...</span>
@@ -216,23 +222,26 @@ export default function MobileKonzerteSection() {
             </motion.button>
           </form>
 
-          {/* Message Display */}
-          {message && (
+          {/* Status Display */}
+          {subscriptionStatus === 'success' && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`mt-4 p-4 rounded-xl border flex items-center gap-3 ${
-                messageType === 'success'
-                  ? 'bg-green-500/20 border-green-500/30 text-green-400'
-                  : 'bg-red-500/20 border-red-500/30 text-red-400'
-              }`}
+              className="mt-4 p-4 rounded-xl border bg-green-500/20 border-green-500/30 text-green-400 flex items-center gap-3"
             >
-              {messageType === 'success' ? (
-                <CheckCircle size={20} />
-              ) : (
-                <AlertCircle size={20} />
-              )}
-              <span className="text-sm">{message}</span>
+              <CheckCircle size={20} />
+              <span className="text-sm">✓ Erfolgreich angemeldet! Du erhältst alle Updates zu kommenden Konzerten.</span>
+            </motion.div>
+          )}
+
+          {subscriptionStatus === 'error' && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-4 p-4 rounded-xl border bg-red-500/20 border-red-500/30 text-red-400 flex items-center gap-3"
+            >
+              <AlertCircle size={20} />
+              <span className="text-sm">❌ Fehler bei der Anmeldung. Bitte versuche es erneut.</span>
             </motion.div>
           )}
 
