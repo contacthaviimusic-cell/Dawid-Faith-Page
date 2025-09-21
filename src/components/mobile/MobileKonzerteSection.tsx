@@ -98,7 +98,7 @@ export default function MobileKonzerteSection() {
   ];
 
   const formatDate = (dateString: string) => {
-    if (dateString === 'Verschiedene Termine') return dateString;
+    if (dateString === (KonzerteTranslations[lang].variousDates ?? 'Verschiedene Termine')) return KonzerteTranslations[lang].variousDates ?? dateString;
     const date = new Date(dateString);
     const locale = lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : 'en-GB';
     return date.toLocaleDateString(locale, {
@@ -178,7 +178,7 @@ export default function MobileKonzerteSection() {
                   <Calendar className="text-blue-400" size={18} />
                   <span>{formatDate(event.date)}</span>
                   <Clock className="text-purple-400 ml-2" size={18} />
-                  <span>{event.time} Uhr</span>
+                  <span>{event.time} {KonzerteTranslations[lang].timeSuffix}</span>
                 </div>
                 {/* Venue & Ort */}
                 <div className="flex items-center gap-3 text-white">
@@ -205,7 +205,7 @@ export default function MobileKonzerteSection() {
               {/* Status-Badge */}
               <div className="mt-2">{getStatusBadge(event.status)}</div>
               {/* Beschreibung */}
-              <div className="bg-black/30 rounded-xl p-4 border border-gray-700">
+                <div className="bg-black/30 rounded-xl p-4 border border-gray-700">
                 <p className="text-gray-300 text-sm leading-relaxed">
                   {event.description}
                 </p>
@@ -319,29 +319,7 @@ export default function MobileKonzerteSection() {
 
           {/* debug panel removed */}
 
-          {/* Benefits */}
-          <div className="mt-6 grid grid-cols-2 gap-3">
-            <div
-              role="region"
-              aria-label="Exklusive Updates"
-              className="bg-gradient-to-br from-purple-700/80 to-pink-600/80 shadow-lg rounded-xl p-4 text-center border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-400"
-              tabIndex={0}
-            >
-              <Users className="text-white mx-auto mb-2 drop-shadow-md" size={28} />
-              <p className="text-white text-sm font-bold">{KonzerteTranslations[lang].newsletterTitle}</p>
-              <p className="text-white/90 text-[11px] mt-1">{KonzerteTranslations[lang].newsletterDesc}</p>
-            </div>
-            <div
-              role="region"
-              aria-label="Frühe Tickets"
-              className="bg-gradient-to-br from-orange-700/80 to-red-600/80 shadow-lg rounded-xl p-4 text-center border border-white/10 focus:outline-none focus:ring-2 focus:ring-orange-400"
-              tabIndex={0}
-            >
-              <Calendar className="text-white mx-auto mb-2 drop-shadow-md" size={28} />
-              <p className="text-white text-sm font-bold">{KonzerteTranslations[lang].ticketButtonScroll}</p>
-              <p className="text-white/90 text-[11px] mt-1">{KonzerteTranslations[lang].moreInfo}</p>
-            </div>
-          </div>
+          {/* Benefits removed as requested */}
         </motion.div>
       </div>
     </section>

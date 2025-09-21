@@ -3,7 +3,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Instagram, Youtube, Mail, Copy, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import SocialWidgetTrans from '@/lib/translations/SocialWidgetTrans';
 
 interface MobileSocialWidgetProps {
   onClose: () => void;
@@ -29,14 +30,14 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
         }, 300);
       },
   color: 'bg-gray-800/50',
-  description: 'Token & Community'
+  description: 'tokenDesc'
     },
     {
       name: 'Instagram',
       icon: Instagram,
       url: 'https://www.instagram.com/dawidfaith/',
   color: 'bg-gray-800/40',
-  description: 'Stories & Updates'
+  description: 'instagram'
     },
     {
       name: 'Facebook',
@@ -47,7 +48,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
       ),
       url: 'https://www.facebook.com/profile.php?id=61572473614500',
   color: 'bg-gray-800/40',
-  description: 'Community & News'
+  description: 'facebook'
     },
     {
       name: 'TikTok',
@@ -58,21 +59,21 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
       ),
       url: 'https://www.tiktok.com/@dawidfaith',
   color: 'bg-gray-800/40',
-  description: 'Short Videos'
+  description: 'tiktok'
     },
     {
       name: 'YouTube',
       icon: Youtube,
       url: 'https://www.youtube.com/@dawidfaith',
   color: 'bg-gray-800/40',
-  description: 'Musik Videos & Behind the Scenes'
+  description: 'youtube'
     },
     {
       name: 'E-Mail',
       icon: Mail,
       action: () => setShowEmailModal(true),
   color: 'bg-gray-800/40',
-  description: 'Professionelle Anfragen'
+  description: 'email'
     }
   ];
 
@@ -85,6 +86,27 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
     'YouTube': '#FF0000',
     'E-Mail': '#10B981'
   };
+
+  const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de'|'en'|'pl'|null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de'|'en'|'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
+
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
 
   const handleEmailClick = async () => {
     try {
@@ -174,8 +196,8 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                       </div>
                     );
                   })()}
-                  <h3 className="font-bold text-sm text-center text-white">{link.name}</h3>
-                  <p className="text-white/70 text-xs text-center mt-1 leading-tight">{link.description}</p>
+                        <h3 className="font-bold text-sm text-center text-white">{link.name}</h3>
+                  <p className="text-white/70 text-xs text-center mt-1 leading-tight">{(SocialWidgetTrans as any)[lang][link.description] || link.description}</p>
                   {link.url && (
                     <div className="absolute top-2 right-2">
                       <ExternalLink size={12} className="text-white/60" />
@@ -189,10 +211,9 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
           {/* Bio Section */}
           <div className="px-4 pb-6">
             <div className="bg-gray-800/40 rounded-xl p-3 border border-gray-700 mb-3">
-              <h3 className="text-white font-bold mb-2 text-sm">Über Dawid Faith</h3>
+              <h3 className="text-white font-bold mb-2 text-sm">{SocialWidgetTrans[lang].aboutTitle}</h3>
               <p className="text-gray-300 text-xs leading-relaxed">
-                Innovativer Künstler, der Musik mit Blockchain-Technologie verbindet. 
-                Erlebe die Zukunft der Musikindustrie mit D.FAITH Token und exklusiven Community-Features.
+                {SocialWidgetTrans[lang].aboutText}
               </p>
             </div>
 
@@ -200,9 +221,9 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
 
             {/* Quick Newsletter */}
             <div className="bg-gray-800/40 rounded-xl p-3 border border-gray-700 mb-3">
-              <h3 className="text-white font-bold mb-1 text-center text-sm">Stay Connected</h3>
+              <h3 className="text-white font-bold mb-1 text-center text-sm">{SocialWidgetTrans[lang].stayConnected}</h3>
               <p className="text-gray-300 text-xs text-center mb-2">
-                Erhalte Updates zu neuen Songs und Konzerten
+                {SocialWidgetTrans[lang].newsletterDesc}
               </p>
               <motion.button
                 whileHover={{ scale: 1.02 }}
@@ -216,7 +237,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                 }}
                 className="w-full bg-white/6 text-white py-2 rounded-lg font-medium text-xs border border-white/6"
               >
-                Newsletter abonnieren
+                {SocialWidgetTrans[lang].subscribe}
               </motion.button>
             </div>
           </div>
@@ -243,11 +264,9 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                   <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Mail className="text-blue-400" size={32} />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    Professionelle Anfragen
-                  </h3>
+                  <h3 className="text-xl font-bold text-white mb-2">{SocialWidgetTrans[lang].professionalRequests}</h3>
                   <p className="text-gray-400 text-sm">
-                    Für Business-Anfragen, Kooperationen und Bookings
+                    {SocialWidgetTrans[lang].aboutText}
                   </p>
                 </div>
 
@@ -274,7 +293,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                     className="bg-green-500/20 border border-green-500/30 rounded-xl p-3 mb-4 text-center"
                   >
                     <p className="text-green-400 text-sm font-medium">
-                      ✓ E-Mail in Zwischenablage kopiert!
+                      {SocialWidgetTrans[lang].emailCopySuccess}
                     </p>
                   </motion.div>
                 )}
@@ -286,7 +305,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                     onClick={handleEmailClick}
                     className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl font-medium transition-colors"
                   >
-                    E-Mail kopieren
+                    {SocialWidgetTrans[lang].professionalRequests}
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.05 }}

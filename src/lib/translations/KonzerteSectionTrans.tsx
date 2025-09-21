@@ -5,6 +5,8 @@ export const KonzerteTranslations: Record<LangKey, {
   subtitle: string;
   releaseBadge: string;
   vipBadge: string;
+  timeSuffix?: string;
+  variousDates?: string;
   status: {
     upcoming: string;
     soldOut: string;
@@ -37,6 +39,8 @@ export const KonzerteTranslations: Record<LangKey, {
     releaseBadge: 'Release Event',
     vipBadge: 'VIP',
     status: { upcoming: 'Verfügbar', soldOut: 'Ausverkauft', vipOnly: 'VIP Only' },
+  timeSuffix: 'Uhr',
+  variousDates: 'Verschiedene Termine',
     releaseAlert: '🎵 Das Single Release-Konzert in Katys Garage (Dresden Neustadt) hat freien Eintritt! Komm einfach vorbei.',
     moreInfo: 'Mehr erfahren',
     register: 'Anmeldung',
@@ -66,6 +70,8 @@ export const KonzerteTranslations: Record<LangKey, {
     releaseBadge: 'Release Event',
     vipBadge: 'VIP',
     status: { upcoming: 'Available', soldOut: 'Sold out', vipOnly: 'VIP Only' },
+  timeSuffix: '',
+  variousDates: 'Various dates',
     releaseAlert: '🎵 The single release concert at Katy\'s Garage (Dresden Neustadt) has free entry! Just drop by.',
     moreInfo: 'Learn more',
     register: 'Register',
@@ -95,6 +101,8 @@ export const KonzerteTranslations: Record<LangKey, {
     releaseBadge: 'Wydarzenie premierowe',
     vipBadge: 'VIP',
     status: { upcoming: 'Dostępne', soldOut: 'Wyprzedane', vipOnly: 'Tylko VIP' },
+  timeSuffix: '',
+  variousDates: 'Różne terminy',
     releaseAlert: '🎵 Koncert premierowy singla w Katy\'s Garage (Drezno Neustadt) ma darmowe wejście! Po prostu wpadnij.',
     moreInfo: 'Dowiedz się więcej',
     register: 'Zarejestruj się',
