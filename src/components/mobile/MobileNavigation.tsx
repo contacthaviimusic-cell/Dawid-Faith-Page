@@ -1,14 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Home, Newspaper, Coins, Music, Calendar, Heart } from 'lucide-react';
 import Image from 'next/image';
-import FlagForLang from '../FlagIcon';
+import FlagForLang, { FlagDE, FlagGB, FlagPL } from '../FlagIcon';
 
 export default function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     try {
@@ -23,6 +25,17 @@ export default function MobileNavigation() {
     } catch (e) {}
     if (typeof document !== 'undefined') document.documentElement.lang = lang;
   }, [lang]);
+
+  useEffect(() => {
+    function onDoc(e: MouseEvent) {
+      if (!langRef.current) return;
+      if (!langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
+    }
+    document.addEventListener('click', onDoc);
+    return () => document.removeEventListener('click', onDoc);
+  }, []);
 
   const translations: Record<string, { home: string; news: string; dfaith: string; musik: string; konzerte: string }> = {
     de: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Musik', konzerte: 'Konzerte' },
@@ -69,8 +82,51 @@ export default function MobileNavigation() {
 
           {/* Hamburger Button and language select */}
           <div className="flex items-center gap-3">
-            <div className="flex items-center"> 
-              <FlagForLang lang={lang} />
+            <div className="flex items-center gap-3">
+              <div className="relative" ref={langRef}>
+                <button
+                  onClick={() => setLangOpen((s) => !s)}
+                  className="p-1 rounded-md bg-transparent"
+                  aria-haspopup
+                  aria-expanded={langOpen}
+                >
+                  <FlagForLang lang={lang} />
+                </button>
+                {langOpen && (
+                  <div className="absolute right-0 mt-2 w-40 bg-black/90 border border-purple-500/20 rounded-md shadow-lg z-50">
+                    <ul className="py-1">
+                      <li>
+                        <button className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10" onClick={() => { setLang('de'); setLangOpen(false); }}>
+                          <FlagDE />
+                          <span className="text-sm">Deutsch</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10" onClick={() => { setLang('en'); setLangOpen(false); }}>
+                          <FlagGB />
+                          <span className="text-sm">English</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10" onClick={() => { setLang('pl'); setLangOpen(false); }}>
+                          <FlagPL />
+                          <span className="text-sm">Polski</span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-purple-500">
+                <Image
+                  src="/dawid-faith.jpg"
+                  alt="Dawid Faith"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 [font-family:var(--font-pirata),cursive]">DAWID FAITH</span>
             </div>
 
             <motion.button

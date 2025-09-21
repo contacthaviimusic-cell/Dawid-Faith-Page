@@ -10,6 +10,8 @@ import { useRef } from 'react';
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     // load lang from localStorage if present
@@ -28,6 +30,18 @@ export default function Navigation() {
       document.documentElement.lang = lang;
     }
   }, [lang]);
+
+  // close language dropdown on outside click
+  useEffect(() => {
+    function onDoc(e: MouseEvent) {
+      if (!langRef.current) return;
+      if (!langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
+    }
+    document.addEventListener('click', onDoc);
+    return () => document.removeEventListener('click', onDoc);
+  }, []);
 
   const translations: Record<string, { home: string; news: string; dfaith: string; musik: string; konzerte: string }> = {
     de: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Musik', konzerte: 'Konzerte' },
@@ -57,7 +71,12 @@ export default function Navigation() {
             className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
             style={{ fontFamily: 'Pirata One, cursive' }}
           >
-            Dawid Faith
+            <div className="flex items-center gap-3">
+              <span> Dawid Faith</span>
+              <div className="w-6 h-4">
+                <FlagForLang lang={lang} />
+              </div>
+            </div>
           </motion.div>
 
           <div className="hidden md:flex items-center space-x-8">
@@ -78,16 +97,50 @@ export default function Navigation() {
               </motion.button>
             ))}
             {/* Language selector (flag dropdown) */}
-            <div className="relative">
+            <div className="relative" ref={langRef}>
               <button
                 aria-haspopup="listbox"
-                aria-expanded={false}
-                onClick={() => setLang(lang)}
-                className="flex items-center gap-2 text-gray-300 px-2 py-1 rounded-md"
+                aria-expanded={langOpen}
+                onClick={() => setLangOpen((s) => !s)}
+                className="flex items-center gap-2 text-gray-300 px-2 py-1 rounded-md hover:bg-white/5"
                 title="Sprache"
               >
                 <FlagForLang lang={lang} />
               </button>
+
+              {langOpen && (
+                <div className="absolute right-0 mt-2 w-36 bg-black/90 border border-purple-500/20 rounded-md shadow-lg z-50">
+                  <ul role="listbox" aria-label="Sprachen" className="py-1">
+                    <li>
+                      <button
+                        onClick={() => { setLang('de'); setLangOpen(false); }}
+                        className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
+                      >
+                        <FlagDE />
+                        <span className="text-sm">Deutsch</span>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => { setLang('en'); setLangOpen(false); }}
+                        className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
+                      >
+                        <FlagGB />
+                        <span className="text-sm">English</span>
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => { setLang('pl'); setLangOpen(false); }}
+                        className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
+                      >
+                        <FlagPL />
+                        <span className="text-sm">Polski</span>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
 
