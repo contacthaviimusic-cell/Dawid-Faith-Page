@@ -21,6 +21,15 @@ export const KonzerteTranslations: Record<LangKey, {
   subscribeLabel: string;
   subscribingLabel: string;
   ticketButtonScroll: string;
+  events?: Record<string, {
+    title?: string;
+    subtitle?: string;
+    description?: string;
+    capacity?: string;
+    price?: string;
+    venue?: string;
+    location?: string;
+  }>;
 } > = {
   de: {
     title: 'Konzerte & Events',
@@ -38,7 +47,18 @@ export const KonzerteTranslations: Record<LangKey, {
     emailPlaceholder: 'deine@email.de',
     subscribeLabel: 'Anmelden',
     subscribingLabel: 'Anmelden...',
-    ticketButtonScroll: 'D.FAITH Token erhalten'
+    ticketButtonScroll: 'D.FAITH Token erhalten',
+    events: {
+      'release-konzert-2025': {
+        title: '🎵 Single Release-Konzert 2025',
+        subtitle: 'Exklusives Single Release Event',
+        description: 'Ein gemütlicher Abend mit neuen Songs und guter Musik. Komm vorbei und lass uns zusammen feiern!',
+        capacity: 'Begrenzte Plätze',
+        price: 'Freier Eintritt',
+        venue: "Katys Garage",
+        location: 'Dresden Neustadt'
+      }
+    }
   },
   en: {
     title: 'Concerts & Events',
@@ -56,7 +76,18 @@ export const KonzerteTranslations: Record<LangKey, {
     emailPlaceholder: 'your@email.com',
     subscribeLabel: 'Subscribe',
     subscribingLabel: 'Subscribing...',
-    ticketButtonScroll: 'Get D.FAITH tokens'
+    ticketButtonScroll: 'Get D.FAITH tokens',
+    events: {
+      'release-konzert-2025': {
+        title: '🎵 Single Release Concert 2025',
+        subtitle: 'Exclusive single release event',
+        description: 'A cozy evening with new songs and good music. Come by and celebrate with us!',
+        capacity: 'Limited seats',
+        price: 'Free entry',
+        venue: "Katy's Garage",
+        location: 'Dresden Neustadt'
+      }
+    }
   },
   pl: {
     title: 'Koncerty i wydarzenia',
@@ -74,7 +105,18 @@ export const KonzerteTranslations: Record<LangKey, {
     emailPlaceholder: 'twój@email.pl',
     subscribeLabel: 'Zapisz się',
     subscribingLabel: 'Zapisywanie...',
-    ticketButtonScroll: 'Otrzymaj tokeny D.FAITH'
+    ticketButtonScroll: 'Otrzymaj tokeny D.FAITH',
+    events: {
+      'release-konzert-2025': {
+        title: '🎵 Koncert premierowy singla 2025',
+        subtitle: 'Ekskluzywne wydarzenie premierowe singla',
+        description: 'Przyjemny wieczór z nowymi piosenkami i dobrą muzyką. Wpadnij i świętuj z nami!',
+        capacity: 'Ograniczona liczba miejsc',
+        price: 'Wstęp wolny',
+        venue: "Katy's Garage",
+        location: 'Drezno Neustadt'
+      }
+    }
   }
 };
 

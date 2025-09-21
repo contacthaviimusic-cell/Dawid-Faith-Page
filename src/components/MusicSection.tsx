@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Music, Video, Smartphone, ExternalLink } from 'lucide-react';
@@ -30,8 +30,30 @@ const songs: Song[] = [
   }
 ];
 
+import MusicTranslations from '../lib/translations/MusicSectionTrans';
+
 const MusicSection = () => {
   const [showVideo, setShowVideo] = useState<string | null>(null);
+  const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de' | 'en' | 'pl' | null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de' | 'en' | 'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
+
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de' | 'en' | 'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
 
   return (
     <section id="music" className="relative py-20 px-4 bg-gradient-to-b from-purple-900/10 to-slate-900/30 overflow-hidden">
@@ -48,14 +70,14 @@ const MusicSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-pink-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Musik Vorschau
+            {MusicTranslations[lang].title}
           </h2>
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Schaue dir die Video-Vorschauen an und besuche die D.FAITH Webapp für exklusive Songs vor dem Release.
+            {MusicTranslations[lang].subtitle}
           </p>
           <div className="flex items-center justify-center gap-2 mt-4">
             <Smartphone className="w-5 h-5 text-purple-400" />
-            <span className="text-purple-300 text-sm">Songs verfügbar in der D.FAITH Webapp</span>
+            <span className="text-purple-300 text-sm">{MusicTranslations[lang].appNote}</span>
           </div>
         </motion.div>
 
@@ -105,13 +127,13 @@ const MusicSection = () => {
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]"
                   >
                     <Video className="w-4 h-4" />
-                    {showVideo === song.id ? 'Video schließen' : 'Video ansehen'}
+                    {showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}
                   </button>
 
                   {/* D.FAITH Webapp Button */}
-                  <button className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]">
+                    <button className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]">
                     <ExternalLink className="w-4 h-4" />
-                    D.FAITH Webapp
+                    {MusicTranslations[lang].webappButton}
                   </button>
                 </div>
 
@@ -151,16 +173,15 @@ const MusicSection = () => {
           <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 rounded-2xl border border-purple-500/20 backdrop-blur-sm p-8">
             <div className="flex items-center justify-center gap-3 mb-4">
               <Music className="w-8 h-8 text-purple-400" />
-              <h3 className="text-2xl font-bold text-white">Exklusive Songs vor Release</h3>
+              <h3 className="text-2xl font-bold text-white">{MusicTranslations[lang].exclusiveTitle}</h3>
             </div>
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Besuche die D.FAITH Webapp und höre die kompletten Songs bereits vor dem offiziellen Release. 
-              Verdiene Tokens durch deine Interaktionen und unterstütze Dawid Faith direkt.
+              {MusicTranslations[lang].exclusiveDesc}
             </p>
             <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-8 py-4 rounded-xl text-white font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg">
-              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3">
                 <ExternalLink className="w-6 h-6" />
-                D.FAITH Webapp besuchen
+                {MusicTranslations[lang].webappButton}
               </div>
             </button>
           </div>

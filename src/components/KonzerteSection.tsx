@@ -99,9 +99,9 @@ export default function KonzerteSection() {
 
   const formatDate = (dateString: string) => {
     if (dateString === 'Verschiedene Termine') return dateString;
-    
     const date = new Date(dateString);
-    return date.toLocaleDateString('de-DE', {
+    const locale = lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : 'en-GB';
+    return date.toLocaleDateString(locale, {
       day: '2-digit',
       month: 'long',
       year: 'numeric'
@@ -205,10 +205,10 @@ export default function KonzerteSection() {
                     event.isReleaseKonzert ? 'text-purple-300' : 
                     event.isVip ? 'text-yellow-300' : 'text-blue-300'
                   }`}>
-                    {event.title}
+                    { (KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.title) || event.title }
                   </h3>
-                  {event.subtitle && (
-                    <p className="text-gray-400 text-lg">{event.subtitle}</p>
+                  {( (KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.subtitle) || event.subtitle ) && (
+                    <p className="text-gray-400 text-lg">{ (KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.subtitle) || event.subtitle }</p>
                   )}
                 </div>
 
@@ -227,29 +227,29 @@ export default function KonzerteSection() {
                   
                   <div className="flex items-center gap-3 text-gray-300">
                     <MapPin size={20} className="text-pink-400" />
-                    <span>{event.venue}</span>
+                    <span>{ (KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.venue) || event.venue }</span>
                     <span className="text-gray-500">•</span>
-                    <span>{event.location}</span>
+                    <span>{ (KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.location) || event.location }</span>
                   </div>
 
-                  {event.capacity && (
+                  {( (KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.capacity) || event.capacity ) && (
                     <div className="flex items-center gap-3 text-gray-300">
                       <Users size={20} className="text-blue-400" />
-                      <span>{event.capacity}</span>
+                      <span>{ (KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.capacity) || event.capacity }</span>
                     </div>
                   )}
 
-                  {event.price && (
+                  {( (KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.price) || event.price ) && (
                     <div className="flex items-center gap-3 text-gray-300">
                       <Ticket size={20} className="text-green-400" />
-                      <span>{event.price}</span>
+                      <span>{ (KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.price) || event.price }</span>
                     </div>
                   )}
                 </div>
 
                 {/* Description */}
                 <p className="text-gray-300 leading-relaxed">
-                  {event.description}
+                  { (KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.description) || event.description }
                 </p>
 
                 {/* Status and Actions */}
