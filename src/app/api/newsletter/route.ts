@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error in POST /api/newsletter:', error);
     return NextResponse.json(
-      { error: 'Fehler bei der Newsletter-Anmeldung' },
+      { error: 'Fehler bei der Newsletter-Anmeldung', debug: String(error) },
       { status: 500 }
     );
   }
