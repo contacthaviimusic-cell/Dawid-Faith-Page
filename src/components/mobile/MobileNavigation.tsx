@@ -1,19 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, Newspaper, Coins, Music, Calendar, Heart } from 'lucide-react';
+import { Menu, X, Home, Newspaper, Coins, Music, Calendar, Heart, Globe } from 'lucide-react';
 import Image from 'next/image';
 
 export default function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang');
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+    } catch (e) {}
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('site-lang', lang);
+    } catch (e) {}
+    if (typeof document !== 'undefined') document.documentElement.lang = lang;
+  }, [lang]);
+
+  const translations: Record<string, { home: string; news: string; dfaith: string; musik: string; konzerte: string }> = {
+    de: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Musik', konzerte: 'Konzerte' },
+    en: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Music', konzerte: 'Shows' },
+    pl: { home: 'Home', news: 'Aktualności', dfaith: 'D.FAITH', musik: 'Muzyka', konzerte: 'Koncerty' },
+  };
 
   const navItems = [
-    { icon: Home, label: 'Home', href: '#home' },
-    { icon: Newspaper, label: 'News', href: '#news' },
-    { icon: Coins, label: 'D.FAITH', href: '#dfaith' },
-    { icon: Music, label: 'Musik', href: '#music' },
-    { icon: Calendar, label: 'Konzerte', href: '#konzerte' },
+    { icon: Home, label: translations[lang].home, href: '#home' },
+    { icon: Newspaper, label: translations[lang].news, href: '#news' },
+    { icon: Coins, label: translations[lang].dfaith, href: '#dfaith' },
+    { icon: Music, label: translations[lang].musik, href: '#musik' },
+    { icon: Calendar, label: translations[lang].konzerte, href: '#konzerte' },
   ];
 
   const handleNavClick = (href: string) => {
@@ -45,15 +66,28 @@ export default function MobileNavigation() {
             </span>
           </div>
 
-          {/* Hamburger Button */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setIsOpen(!isOpen)}
-            className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </motion.button>
+          {/* Hamburger Button and language select */}
+          <div className="flex items-center gap-3">
+            <select
+              aria-label="Sprache wählen"
+              value={lang}
+              onChange={(e) => setLang(e.target.value as 'de' | 'en' | 'pl')}
+              className="bg-transparent text-white border border-transparent focus:border-purple-400 px-2 py-1 rounded-md text-sm"
+            >
+              <option value="de">DE</option>
+              <option value="en">EN</option>
+              <option value="pl">PL</option>
+            </select>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsOpen(!isOpen)}
+              className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </motion.button>
+          </div>
         </div>
       </header>
 

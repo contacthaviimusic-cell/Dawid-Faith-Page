@@ -1,19 +1,44 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { Menu, X, Music, Sparkles, User, Newspaper, Calendar } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Menu, X, Music, Sparkles, User, Newspaper, Calendar, Globe } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
+
+  useEffect(() => {
+    // load lang from localStorage if present
+    try {
+      const stored = localStorage.getItem('site-lang');
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+    } catch (e) {}
+  }, []);
+
+  useEffect(() => {
+    // persist and set html lang
+    try {
+      localStorage.setItem('site-lang', lang);
+    } catch (e) {}
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = lang;
+    }
+  }, [lang]);
+
+  const translations: Record<string, { home: string; news: string; dfaith: string; musik: string; konzerte: string }> = {
+    de: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Musik', konzerte: 'Konzerte' },
+    en: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Music', konzerte: 'Shows' },
+    pl: { home: 'Home', news: 'Aktualności', dfaith: 'D.FAITH', musik: 'Muzyka', konzerte: 'Koncerty' },
+  };
 
   const navItems = [
-    { name: 'Home', href: '#home', icon: User, type: 'scroll' },
-    { name: 'News', href: '#news', icon: Newspaper, type: 'scroll' },
-    { name: 'D.FAITH', href: '#dfaith', icon: Sparkles, type: 'scroll' },
-    { name: 'Musik', href: '#musik', icon: Music, type: 'scroll' },
-    { name: 'Konzerte', href: '#konzerte', icon: Calendar, type: 'scroll' },
+    { key: 'home', name: translations[lang].home, href: '#home', icon: User, type: 'scroll' },
+    { key: 'news', name: translations[lang].news, href: '#news', icon: Newspaper, type: 'scroll' },
+    { key: 'dfaith', name: translations[lang].dfaith, href: '#dfaith', icon: Sparkles, type: 'scroll' },
+    { key: 'musik', name: translations[lang].musik, href: '#musik', icon: Music, type: 'scroll' },
+    { key: 'konzerte', name: translations[lang].konzerte, href: '#konzerte', icon: Calendar, type: 'scroll' },
   ];
 
   return (
@@ -33,7 +58,7 @@ export default function Navigation() {
             Dawid Faith
           </motion.div>
 
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <motion.button
                 key={item.name}
@@ -50,15 +75,40 @@ export default function Navigation() {
                 {item.name}
               </motion.button>
             ))}
+            {/* Language selector */}
+            <div className="flex items-center gap-2">
+              <Globe size={18} className="text-gray-300" />
+              <select
+                aria-label="Sprache wählen"
+                value={lang}
+                onChange={(e) => setLang(e.target.value as 'de' | 'en' | 'pl')}
+                className="bg-transparent text-gray-300 border border-transparent focus:border-purple-400 px-2 py-1 rounded-md text-sm"
+              >
+                <option value="de">DE</option>
+                <option value="en">EN</option>
+                <option value="pl">PL</option>
+              </select>
+            </div>
           </div>
 
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-2">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-300 hover:text-purple-400 transition-colors"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
+            {/* small language toggle for mobile */}
+            <select
+              aria-label="Sprache wählen"
+              value={lang}
+              onChange={(e) => setLang(e.target.value as 'de' | 'en' | 'pl')}
+              className="bg-transparent text-gray-300 border border-transparent focus:border-purple-400 px-2 py-1 rounded-md text-sm"
+            >
+              <option value="de">DE</option>
+              <option value="en">EN</option>
+              <option value="pl">PL</option>
+            </select>
           </div>
         </div>
 
