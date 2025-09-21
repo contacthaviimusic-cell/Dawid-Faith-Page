@@ -10,6 +10,7 @@ import NewsDetailRenderer from '@/components/news';
 const NewsSection = () => {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [selectedArticle, setSelectedArticle] = useState<NewsItem | null>(null);
+  const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
 
   useEffect(() => {
     let mounted = true;
@@ -29,6 +30,45 @@ const NewsSection = () => {
       mounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de'|'en'|'pl'|null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de'|'en'|'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
+
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
+
+  const isClockTime = (t: string) => /\d{1,2}:\d{2}/.test(t);
+
+  const formatDate = (dateString: string) => {
+    const d = new Date(dateString);
+    if (isNaN(d.getTime())) return dateString;
+    const locale = lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : 'en-GB';
+    return d.toLocaleDateString(locale, { day: '2-digit', month: 'long', year: 'numeric' });
+  };
+
+  const formatTime = (dateString: string, timeString: string) => {
+    if (!timeString) return '';
+    if (!isClockTime(timeString)) return timeString;
+    const iso = `${dateString}T${timeString}`;
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return timeString;
+    const locale = lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : 'en-GB';
+    const formatted = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }).format(d);
+    return lang === 'de' ? `${formatted} Uhr` : formatted;
+  };
 
   // Listen for custom event to open release news
   useEffect(() => {
@@ -181,11 +221,11 @@ const NewsSection = () => {
                     </span>
                     <div className="flex items-center gap-2 text-gray-400 text-sm">
                       <Calendar size={16} />
-                      {new Date(item.date).toLocaleDateString('de-DE')}
+                      {formatDate(item.date)}
                     </div>
                     <div className="flex items-center gap-2 text-gray-400 text-sm">
                       <Clock size={16} />
-                      {item.readTime}
+                      {isClockTime(item.readTime) ? formatTime(item.date, item.readTime) : item.readTime}
                     </div>
                   </div>
                   
@@ -249,14 +289,14 @@ const NewsSection = () => {
 
               <div className="p-6">
                 <div className="flex items-center gap-4 mb-3 text-gray-400 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Calendar size={14} />
-                    {new Date(item.date).toLocaleDateString('de-DE')}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock size={14} />
-                    {item.readTime}
-                  </div>
+                    <div className="flex items-center gap-2">
+                      <Calendar size={16} />
+                      {formatDate(item.date)}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock size={16} />
+                      {isClockTime(item.readTime) ? formatTime(item.date, item.readTime) : item.readTime}
+                    </div>
                 </div>
 
                 <h3 className="text-xl font-bold mb-3 text-white group-hover:text-purple-300 transition-colors">
@@ -329,11 +369,11 @@ const NewsSection = () => {
                 <div className="flex items-center gap-4 text-gray-300 text-sm">
                   <div className="flex items-center gap-2">
                     <Calendar size={16} />
-                    {new Date(selectedArticle.date).toLocaleDateString('de-DE')}
+                    {formatDate(selectedArticle.date)}
                   </div>
                   <div className="flex items-center gap-2">
                     <Clock size={16} />
-                    {selectedArticle.readTime}
+                    {isClockTime(selectedArticle.readTime) ? formatTime(selectedArticle.date, selectedArticle.readTime) : selectedArticle.readTime}
                   </div>
                 </div>
               </div>

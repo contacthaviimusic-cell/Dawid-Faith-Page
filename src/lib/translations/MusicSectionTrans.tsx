@@ -9,6 +9,7 @@ const MusicTranslations: Record<LangKey, {
   webappButton: string;
   videoOpen: string;
   videoClose: string;
+  songs?: Record<string, { title?: string; description?: string }>;
 }> = {
   de: {
     title: 'Musik Vorschau',
@@ -19,6 +20,17 @@ const MusicTranslations: Record<LangKey, {
     webappButton: 'D.FAITH Webapp besuchen',
     videoOpen: 'Video ansehen',
     videoClose: 'Video schließen'
+    ,
+    songs: {
+      maria: {
+        title: 'Maria',
+        description: 'Eine herzzerreißende Ballade über Einsamkeit, verlorene Liebe und die schmerzhafte Erkenntnis des Alleinseins'
+      },
+      znikla: {
+        title: 'Znikła',
+        description: 'Die polnische Version - eine intensive Reise durch Verlust, Sehnsucht und die Suche nach dem was verschwunden ist'
+      }
+    }
   },
   en: {
     title: 'Music Preview',
@@ -29,6 +41,17 @@ const MusicTranslations: Record<LangKey, {
     webappButton: 'Visit D.FAITH Webapp',
     videoOpen: 'Watch video',
     videoClose: 'Close video'
+    ,
+    songs: {
+      maria: {
+        title: 'Maria',
+        description: 'A heart-wrenching ballad about loneliness, lost love and the painful realization of being alone'
+      },
+      znikla: {
+        title: 'Znikła',
+        description: 'The Polish version - an intense journey through loss, longing and the search for what has disappeared'
+      }
+    }
   },
   pl: {
     title: 'Podgląd muzyki',
@@ -39,6 +62,17 @@ const MusicTranslations: Record<LangKey, {
     webappButton: 'Odwiedź aplikację D.FAITH',
     videoOpen: 'Obejrzyj wideo',
     videoClose: 'Zamknij wideo'
+    ,
+    songs: {
+      maria: {
+        title: 'Maria',
+        description: 'Rozdzierająca serce ballada o samotności, utraconej miłości i bolesnym uświadomieniu sobie bycia samemu'
+      },
+      znikla: {
+        title: 'Znikła',
+        description: 'Polska wersja - intensywna podróż przez stratę, tęsknotę i poszukiwanie tego, co zniknęło'
+      }
+    }
   }
 };
 

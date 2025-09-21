@@ -12,6 +12,27 @@ interface SocialMediaWidgetProps {
 const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true }) => {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
+  const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
+
+  // Initialize lang and listen for site-lang-changed
+  React.useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de'|'en'|'pl'|null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de'|'en'|'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
+
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
 
   const handleEmailClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -309,7 +330,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            🎵 Folge der Musik Revolution
+            {lang === 'de' ? '🎵 Folge der Musik Revolution' : lang === 'pl' ? '🎵 Dołącz do muzycznej rewolucji' : '🎵 Join the music revolution'}
           </motion.p>
         </div>
       </motion.div>
@@ -469,7 +490,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
         >
-          🎵 Musik • Blockchain • Community • Exklusive Inhalte
+          {lang === 'de' ? '🎵 Musik • Blockchain • Community • Exklusive Inhalte' : lang === 'pl' ? '🎵 Muzyka • Blockchain • Społeczność • Ekskluzywne treści' : '🎵 Music • Blockchain • Community • Exclusive content'}
         </motion.p>
       </div>
     </motion.div>

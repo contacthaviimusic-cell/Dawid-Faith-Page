@@ -112,8 +112,8 @@ const MusicSection = () => {
 
                 {/* Title Overlay */}
                 <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="text-2xl font-bold text-white mb-1">{song.title}</h3>
-                  <p className="text-gray-300 text-sm">{song.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-1">{(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.title) || song.title}</h3>
+                  <p className="text-gray-300 text-sm">{(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.description) || song.description}</p>
                 </div>
               </div>
 

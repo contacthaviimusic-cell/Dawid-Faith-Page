@@ -108,6 +108,25 @@ export default function KonzerteSection() {
     });
   };
 
+  const isClockTime = (t: string) => /\d{1,2}:\d{2}/.test(t);
+
+  const formatTime = (dateString: string, timeString: string) => {
+    if (!timeString) return '';
+    // if time is not a clock time like '19:00', leave as-is (e.g., 'Nach Vereinbarung')
+    if (!isClockTime(timeString)) return timeString;
+
+    // Combine date and time to create a Date object for formatting
+    const iso = `${dateString}T${timeString}`;
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return timeString;
+
+    const locale = lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : 'en-GB';
+    const formatted = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }).format(d);
+    // German convention often appends 'Uhr'
+    if (lang === 'de') return `${formatted} Uhr`;
+    return formatted;
+  };
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'upcoming':
@@ -220,7 +239,7 @@ export default function KonzerteSection() {
                     {event.time !== 'Nach Vereinbarung' && (
                       <>
                         <Clock size={16} className="text-purple-400 ml-2" />
-                        <span>{event.time} Uhr</span>
+                        <span>{formatTime(event.date, event.time)}</span>
                       </>
                     )}
                   </div>

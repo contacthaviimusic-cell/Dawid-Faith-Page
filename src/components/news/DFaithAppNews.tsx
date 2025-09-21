@@ -1,45 +1,65 @@
-import React from 'react';
+"use client";
 
-const DFaithAppNews = () => (
-  <div className="space-y-6">
-    <h3 className="text-2xl font-bold text-white mb-4">D.FAITH App Features</h3>
-    <p className="text-gray-300 leading-relaxed">
-      Die D.FAITH App revolutioniert das Fan-Engagement durch Blockchain-Technologie. Fans können jetzt durch 
-      ihre natürlichen Social Media Aktivitäten D.FAITH Token verdienen und diese gegen exklusive Rewards eintauschen.
-    </p>
-    <div className="grid md:grid-cols-2 gap-4">
-      <div className="bg-slate-800/50 p-4 rounded-xl">
-        <h4 className="text-purple-300 font-semibold mb-2">App-Features</h4>
-        <ul className="text-gray-300 text-sm space-y-1">
-          <li>• Instagram/TikTok Integration</li>
-          <li>• Automatische EXP-Sammlung</li>
-          <li>• Live Leaderboard-System</li>
-          <li>• Cross-Platform Tracking</li>
-        </ul>
+import React, { useEffect, useState } from 'react';
+import Translations from '@/lib/translations/DFaithAppNewsTrans';
+
+const DFaithAppNews = () => {
+  const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de'|'en'|'pl'|null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de'|'en'|'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
+
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
+
+  const t = Translations[lang];
+
+  return (
+    <div className="space-y-6">
+      <h3 className="text-2xl font-bold text-white mb-4">{t.title}</h3>
+      <p className="text-gray-300 leading-relaxed">{t.intro}</p>
+      <div className="grid md:grid-cols-2 gap-4">
+        <div className="bg-slate-800/50 p-4 rounded-xl">
+          <h4 className="text-purple-300 font-semibold mb-2">{t.featuresTitle}</h4>
+          <ul className="text-gray-300 text-sm space-y-1">
+            {t.features.map((f, i) => (
+              <li key={i}>• {f}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="bg-slate-800/50 p-4 rounded-xl">
+          <h4 className="text-purple-300 font-semibold mb-2">{t.rewardsTitle}</h4>
+          <ul className="text-gray-300 text-sm space-y-1">
+            {t.rewards.map((r, i) => (
+              <li key={i}>• {r}</li>
+            ))}
+          </ul>
+        </div>
       </div>
-      <div className="bg-slate-800/50 p-4 rounded-xl">
-        <h4 className="text-purple-300 font-semibold mb-2">Token-Rewards</h4>
-        <ul className="text-gray-300 text-sm space-y-1">
-          <li>• Like: 10 EXP → D.FAITH</li>
-          <li>• Kommentar: 10 EXP → D.FAITH</li>
-          <li>• Share: 10 EXP → D.FAITH</li>
-          <li>• Live-Konzert: 150 EXP → D.FAITH</li>
-        </ul>
+      <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
+        <h4 className="text-lg font-semibold text-purple-300 mb-3">{t.shopTitle}</h4>
+        <p className="text-gray-300 text-sm mb-3">{t.shopDesc}</p>
+        <div className="flex flex-wrap gap-3">
+          {t.badges.map((b, i) => (
+            <span key={i} className="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium">{b}</span>
+          ))}
+        </div>
       </div>
     </div>
-    <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
-      <h4 className="text-lg font-semibold text-purple-300 mb-3">D.FAITH Exklusiv Shop</h4>
-      <p className="text-gray-300 text-sm mb-3">
-        Nutze deine verdienten D.FAITH Token im exklusiven Shop für neue Songs, limitierte Merchandise, 
-        signierte Editionen und Konzert-Tickets - alles 20-50% günstiger als normale Preise!
-      </p>
-      <div className="flex flex-wrap gap-3">
-        <span className="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium">Live auf Base Chain</span>
-        <span className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium">Fan-Rewards</span>
-        <span className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium">Exklusiv Shop</span>
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
 export default DFaithAppNews;
