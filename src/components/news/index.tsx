@@ -1,5 +1,6 @@
 import React from 'react';
 import type { NewsItem } from '@/types/news';
+import NewsTranslations from '@/lib/translations/NewsSectionTrans';
 
 // Individual News Components
 import ReleaseKonzertNews from './ReleaseKonzertNews';
@@ -17,6 +18,7 @@ interface NewsDetailProps {
  * Für neue News einfach eine neue Komponente erstellen und hier hinzufügen.
  */
 const NewsDetailRenderer: React.FC<NewsDetailProps> = ({ article }) => {
+  const lang = (typeof document !== 'undefined' && document.documentElement.lang) ? (document.documentElement.lang as 'de'|'en'|'pl') : 'de';
   // Map News-IDs zu ihren entsprechenden Detail-Komponenten
   const newsComponents: Record<string, React.ComponentType> = {
     '1758217302493-gbictm': ReleaseKonzertNews,    // Release-Konzert Maria & Znikła
@@ -40,9 +42,9 @@ const NewsDetailRenderer: React.FC<NewsDetailProps> = ({ article }) => {
       ) : (
         // Fallback für unbekannte News-IDs
         <div className="space-y-6">
-          <h3 className="text-2xl font-bold text-white mb-4">News Details</h3>
+          <h3 className="text-2xl font-bold text-white mb-4">{NewsTranslations[lang].defaultNewsTitle}</h3>
           <p className="text-gray-300 leading-relaxed">
-            Weitere Details zu dieser News werden in Kürze verfügbar sein.
+            {NewsTranslations[lang].defaultNewsFallback}
           </p>
         </div>
       )}

@@ -211,6 +211,8 @@ const NewsSection = () => {
         >
           {newsItems.filter(item => item.featured).map((item) => {
             const Icon = iconFor[item.category as keyof typeof iconFor] || Star;
+            const displayTitle = (lang !== 'de' && (item as any)[`title_${lang}`]) ? (item as any)[`title_${lang}`] : item.title;
+            const displayExcerpt = (lang !== 'de' && (item as any)[`excerpt_${lang}`]) ? (item as any)[`excerpt_${lang}`] : item.excerpt;
             return (
             <div
               key={item.id}
@@ -240,7 +242,7 @@ const NewsSection = () => {
                     </span>
                     <div className="flex items-center gap-2 text-gray-400 text-sm">
                       <Calendar size={16} />
-                      {formatDate(item.date)}
+                        {formatDate(item.date)}
                     </div>
                     <div className="flex items-center gap-2 text-gray-400 text-sm">
                       <Clock size={16} />
@@ -249,11 +251,11 @@ const NewsSection = () => {
                   </div>
                   
                   <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-white group-hover:text-purple-300 transition-colors">
-                    {item.title}
+                    {displayTitle}
                   </h3>
                   
                   <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                    {item.excerpt}
+                    {displayExcerpt}
                   </p>
                   
                   <motion.button
@@ -281,6 +283,8 @@ const NewsSection = () => {
         >
           {newsItems.filter(item => !item.featured).map((item, index) => {
             const Icon = iconFor[item.category as keyof typeof iconFor] || Star;
+            const displayTitle = (lang !== 'de' && (item as any)[`title_${lang}`]) ? (item as any)[`title_${lang}`] : item.title;
+            const displayExcerpt = (lang !== 'de' && (item as any)[`excerpt_${lang}`]) ? (item as any)[`excerpt_${lang}`] : item.excerpt;
             return (
             <motion.article
               key={item.id}
@@ -319,11 +323,11 @@ const NewsSection = () => {
                 </div>
 
                 <h3 className="text-xl font-bold mb-3 text-white group-hover:text-purple-300 transition-colors">
-                  {item.title}
+                  {displayTitle}
                 </h3>
 
                 <p className="text-gray-300 text-sm leading-relaxed mb-4">
-                  {item.excerpt}
+                  {displayExcerpt}
                 </p>
 
                 <motion.button
@@ -383,7 +387,7 @@ const NewsSection = () => {
                   )}
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                  {selectedArticle.title}
+                  {(selectedArticle && (lang !== 'de' && (selectedArticle as any)[`title_${lang}`])) ? (selectedArticle as any)[`title_${lang}`] : selectedArticle?.title}
                 </h2>
                 <div className="flex items-center gap-4 text-gray-300 text-sm">
                   <div className="flex items-center gap-2">
@@ -399,9 +403,13 @@ const NewsSection = () => {
             </div>
 
             {/* Content */}
-            <div className="p-6 md:p-8">
-              {/* Modulares News-Detail-System */}
-              <NewsDetailRenderer article={selectedArticle} />
+                  <div className="p-6 md:p-8">
+                    {/* Modulares News-Detail-System */}
+                    {/* Show localized excerpt above the specific renderer */}
+                    <p className="text-xl text-gray-300 leading-relaxed mb-6">
+                      {(selectedArticle && (lang !== 'de' && (selectedArticle as any)[`excerpt_${lang}`])) ? (selectedArticle as any)[`excerpt_${lang}`] : selectedArticle?.excerpt}
+                    </p>
+                    <NewsDetailRenderer article={selectedArticle} />
 
               {/* Action Buttons */}
               <div className="flex gap-4 mt-8 pt-6 border-t border-gray-700">
