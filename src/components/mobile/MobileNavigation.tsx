@@ -74,9 +74,9 @@ export default function MobileNavigation() {
               onChange={(e) => setLang(e.target.value as 'de' | 'en' | 'pl')}
               className="bg-transparent text-white border border-transparent focus:border-purple-400 px-2 py-1 rounded-md text-sm"
             >
-              <option value="de">DE</option>
-              <option value="en">EN</option>
-              <option value="pl">PL</option>
+              <option value="de">🇩🇪 DE</option>
+              <option value="en">🇬🇧 EN</option>
+              <option value="pl">🇵🇱 PL</option>
             </select>
 
             <motion.button
