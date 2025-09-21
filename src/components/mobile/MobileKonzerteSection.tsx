@@ -218,17 +218,20 @@ export default function MobileKonzerteSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 backdrop-blur-md rounded-2xl border border-purple-500/30 p-6"
+          className="relative backdrop-blur-md rounded-2xl border border-purple-500/30 p-6 overflow-hidden"
+          style={{ backgroundImage: 'url(/dawid-faith-bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
         >
-          <div className="text-center mb-6">
+          {/* dark overlay for readability */}
+          <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
+          <div className="relative z-10 text-center mb-6">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <Mail className="text-purple-400" size={24} />
+              <Mail className="text-purple-300" size={24} />
               <h3 className="text-xl font-bold text-white">
-                Konzert-Updates
+                Newsletter
               </h3>
             </div>
-            <p className="text-gray-400 text-sm">
-              Verpasse keine Konzert-Ankündigungen! Melde dich für Updates an.
+            <p className="text-gray-300 text-sm">
+              Verpasse keine Neuigkeiten! Melde dich für Updates an.
             </p>
           </div>
 

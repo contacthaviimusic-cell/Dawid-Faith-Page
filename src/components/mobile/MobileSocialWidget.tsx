@@ -149,9 +149,16 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                   }}
                   className={`bg-gradient-to-r ${link.color} p-3 rounded-xl flex flex-col items-center justify-center text-white shadow-lg min-h-[100px] relative`}
                 >
-                  <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mb-2">
-                    <link.icon size={18} className="text-white" />
-                  </div>
+                  {(() => {
+                    const isToken = link.name === 'D.FAITH';
+                    const wrapperClass = isToken ? 'w-14 h-14 bg-white/10 rounded-full flex items-center justify-center mb-2' : 'w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mb-2';
+                    const iconSize = isToken ? 36 : 18;
+                    return (
+                      <div className={wrapperClass}>
+                        <link.icon size={iconSize} className="text-white" />
+                      </div>
+                    );
+                  })()}
                   <h3 className="font-bold text-sm text-center">{link.name}</h3>
                   <p className="text-white/80 text-xs text-center mt-1 leading-tight">{link.description}</p>
                   {link.url && (

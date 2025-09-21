@@ -270,14 +270,16 @@ export default function MobileMusicSection() {
                     Audio {currentTrack?.id === track.id && isPlaying ? 'Pause' : 'Play'}
                   </motion.button>
 
-                  {/* Additional Info Button */}
+                  {/* Webapp Button */}
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={() => window.open('https://leaderboard-pi-liard.vercel.app', '_blank')}
                     className="bg-gray-700/60 hover:bg-gray-600/60 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2"
+                    aria-label="Webapp öffnen"
                   >
-                    <Heart size={18} />
-                    Favorit
+                    <ExternalLink size={18} />
+                    Webapp öffnen
                   </motion.button>
                 </div>
 

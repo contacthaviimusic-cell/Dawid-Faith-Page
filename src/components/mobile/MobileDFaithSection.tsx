@@ -36,7 +36,10 @@ export default function MobileDFaithSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-            <div className="relative mb-8">
+            <div className="relative mb-8 flex flex-col items-center">
+              <div className="w-20 h-20 mb-4 rounded-full overflow-hidden border-2 border-purple-500/40">
+                <Image src="/dfaith-token.png" alt="D.FAITH Token" width={80} height={80} className="object-cover" />
+              </div>
               <h2 className="text-3xl font-bold mb-3 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
                 D.FAITH Ökosystem
               </h2>
