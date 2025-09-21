@@ -8,12 +8,15 @@ export default function MobileKonzerteSection() {
   const [email, setEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
 
     setIsSubscribing(true);
+    setSubscriptionStatus('idle');
+    setErrorMessage('');
     
     try {
       const response = await fetch('/api/newsletter', {
@@ -30,27 +33,31 @@ export default function MobileKonzerteSection() {
         setSubscriptionStatus('success');
         setEmail('');
         
-        // Reset status after 3 seconds
+        // Reset status after 5 seconds
         setTimeout(() => {
           setSubscriptionStatus('idle');
-        }, 3000);
+        }, 5000);
       } else {
         setSubscriptionStatus('error');
+        setErrorMessage(data.error || 'Unbekannter Fehler bei der Anmeldung');
         console.error('Newsletter subscription error:', data.error);
         
-        // Reset status after 3 seconds
+        // Reset status after 5 seconds
         setTimeout(() => {
           setSubscriptionStatus('idle');
-        }, 3000);
+          setErrorMessage('');
+        }, 5000);
       }
     } catch (error) {
       setSubscriptionStatus('error');
-      console.error('Newsletter subscription error:', error);
+      setErrorMessage('Netzwerkfehler - Bitte überprüfe deine Internetverbindung');
+      console.error('Newsletter subscription network error:', error);
       
-      // Reset status after 3 seconds
+      // Reset status after 5 seconds
       setTimeout(() => {
         setSubscriptionStatus('idle');
-      }, 3000);
+        setErrorMessage('');
+      }, 5000);
     } finally {
       setIsSubscribing(false);
     }
@@ -238,10 +245,17 @@ export default function MobileKonzerteSection() {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-4 p-4 rounded-xl border bg-red-500/20 border-red-500/30 text-red-400 flex items-center gap-3"
+              className="mt-4 p-4 rounded-xl border bg-red-500/20 border-red-500/30 text-red-400"
             >
-              <AlertCircle size={20} />
-              <span className="text-sm">❌ Fehler bei der Anmeldung. Bitte versuche es erneut.</span>
+              <div className="flex items-start gap-3">
+                <AlertCircle size={20} className="flex-shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-sm font-medium block">Fehler bei der Anmeldung</span>
+                  <span className="text-xs text-red-300 block mt-1">
+                    {errorMessage || 'Unbekannter Fehler. Bitte versuche es erneut.'}
+                  </span>
+                </div>
+              </div>
             </motion.div>
           )}
 
