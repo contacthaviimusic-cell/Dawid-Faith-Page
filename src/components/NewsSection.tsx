@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
+import NewsTranslations from '@/lib/translations/NewsSectionTrans';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Calendar, Clock, ArrowRight, Star, Music, Headphones, Users, X, Share2 } from 'lucide-react';
@@ -51,6 +52,25 @@ const NewsSection = () => {
   }, []);
 
   const isClockTime = (t: string) => /\d{1,2}:\d{2}/.test(t);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de'|'en'|'pl'|null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de'|'en'|'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
+
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
 
   const formatDate = (dateString: string) => {
     const d = new Date(dateString);
@@ -124,7 +144,7 @@ const NewsSection = () => {
     };
 
     // For now, use the most common sharing method
-    if (confirm('News teilen? Öffnet in einem neuen Tab.')) {
+    if (confirm(NewsTranslations[lang].shareConfirm)) {
       // Open WhatsApp share (most used on mobile)
       if (/Mobi|Android/i.test(navigator.userAgent)) {
         window.open(shareUrls.whatsapp, '_blank');
@@ -138,7 +158,7 @@ const NewsSection = () => {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
-      alert('✅ Link wurde in die Zwischenablage kopiert! Du kannst ihn jetzt in sozialen Medien teilen.');
+      alert(NewsTranslations[lang].clipboardCopied);
     }).catch(() => {
       // Fallback for older browsers
       const textarea = document.createElement('textarea');
@@ -147,7 +167,7 @@ const NewsSection = () => {
       textarea.select();
       document.execCommand('copy');
       document.body.removeChild(textarea);
-      alert('✅ Link wurde in die Zwischenablage kopiert! Du kannst ihn jetzt in sozialen Medien teilen.');
+      alert(NewsTranslations[lang].clipboardCopied);
     });
   };
 
@@ -174,11 +194,10 @@ const NewsSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-            Aktuelle News
+            {NewsTranslations[lang].sectionTitle}
           </h2>
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Bleibe immer auf dem neuesten Stand - Exklusive Updates, neue Releases und 
-            spannende Entwicklungen aus dem D.FAITH Universum.
+            {NewsTranslations[lang].sectionDesc}
           </p>
         </motion.div>
 
@@ -208,8 +227,8 @@ const NewsSection = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-900/50 to-transparent"></div>
                   <div className="absolute top-4 left-4">
                     <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                      Featured
-                    </span>
+                        {NewsTranslations[lang].featuredTag}
+                      </span>
                   </div>
                 </div>
                 
@@ -243,7 +262,7 @@ const NewsSection = () => {
                     onClick={() => setSelectedArticle(item)}
                     className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-full font-semibold text-lg shadow-lg transition-all duration-300 flex items-center gap-2 w-fit"
                   >
-                    Mehr lesen
+                    {NewsTranslations[lang].readMore}
                     <ArrowRight size={18} />
                   </motion.button>
                 </div>
@@ -392,7 +411,7 @@ const NewsSection = () => {
                   onClick={() => shareNews(selectedArticle)}
                   className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
                 >
-                  Teilen
+                  {NewsTranslations[lang].share}
                   <Share2 size={16} />
                 </motion.button>
                 <motion.button

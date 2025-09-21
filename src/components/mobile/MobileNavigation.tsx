@@ -23,7 +23,13 @@ export default function MobileNavigation() {
     try {
       localStorage.setItem('site-lang', lang);
     } catch (e) {}
-    if (typeof document !== 'undefined') document.documentElement.lang = lang;
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = lang;
+      try {
+        const ev = new CustomEvent('site-lang-changed', { detail: { lang } });
+        window.dispatchEvent(ev);
+      } catch (e) {}
+    }
   }, [lang]);
 
   useEffect(() => {

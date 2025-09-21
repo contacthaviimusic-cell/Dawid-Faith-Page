@@ -5,6 +5,7 @@ import { Music, Play, Pause, Sparkles, Users, Trophy, ArrowRight, Download, Inst
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useMobileDetection } from '../hooks/useMobileDetection';
+import PageTranslations from '@/lib/translations/page';
 import Navigation from '../components/Navigation';
 import NewsSection from '../components/NewsSection';
 import DFaithSection from '../components/DFaithSection';
@@ -18,10 +19,30 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [showWidget, setShowWidget] = useState(false);
   const [showEcoDetails, setShowEcoDetails] = useState(false);
+  const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
   const { isMobile, isLoading } = useMobileDetection();
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de'|'en'|'pl'|null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de'|'en'|'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
+
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
   }, []);
 
   if (!mounted || isLoading) {
@@ -29,7 +50,7 @@ export default function Home() {
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mb-4 mx-auto"></div>
-          <p className="text-gray-400">Lade Dawid Faith...</p>
+          <p className="text-gray-400">{PageTranslations[lang].loaderText}</p>
         </div>
       </div>
     );
@@ -138,7 +159,7 @@ export default function Home() {
                   </h1>
                   <div className="flex items-center justify-center gap-4 text-xl lg:text-2xl mb-8">
                     <Music className="text-purple-400 animate-pulse" />
-                    <span className="text-gray-200 font-semibold">Künstler • Liedermacher • Visionär</span>
+                    <span className="text-gray-200 font-semibold">{PageTranslations[lang].heroSubtitle}</span>
                     <Sparkles className="text-pink-400 animate-pulse" />
                   </div>
                   
@@ -160,7 +181,7 @@ export default function Home() {
                       }}
                     >
                       <Play size={20} />
-                      Einladung zum Release Konzert
+                      {PageTranslations[lang].ctaInvite}
                     </motion.button>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
@@ -179,7 +200,7 @@ export default function Home() {
                           className="object-contain"
                         />
                       </div>
-                      D.FAITH erleben
+                      {PageTranslations[lang].ctaExperience}
                     </motion.button>
                   </div>
                 </motion.div>
@@ -217,13 +238,13 @@ export default function Home() {
                 Dawid Faith
               </h3>
               <p className="text-gray-400">
-                Wo Musik auf Blockchain trifft
+                {PageTranslations[lang].footerTagline}
               </p>
             </motion.div>
             
             <div className="text-gray-500 text-sm">
-              <p>&copy; 2025 Dawid Faith. Alle Rechte vorbehalten.</p>
-              <p className="mt-2">Powered by D.FAITH Ecosystem</p>
+              <p>{PageTranslations[lang].copyright}</p>
+              <p className="mt-2">{PageTranslations[lang].poweredBy}</p>
             </div>
           </div>
         </footer>
