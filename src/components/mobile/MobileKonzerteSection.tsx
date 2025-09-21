@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import KonzerteTranslations from '@/lib/translations/KonzerteSectionTrans';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, Clock, Users, Mail, CheckCircle, AlertCircle, Ticket } from 'lucide-react';
 
@@ -8,6 +9,7 @@ export default function MobileKonzerteSection() {
   const [email, setEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
   // apiDebug removed for production
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
@@ -59,6 +61,24 @@ export default function MobileKonzerteSection() {
     }
   };
 
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de'|'en'|'pl'|null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de'|'en'|'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
+
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
+
   const konzertEvents = [
     {
       id: 'release-konzert-2025',
@@ -80,7 +100,8 @@ export default function MobileKonzerteSection() {
   const formatDate = (dateString: string) => {
     if (dateString === 'Verschiedene Termine') return dateString;
     const date = new Date(dateString);
-    return date.toLocaleDateString('de-DE', {
+    const locale = lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : 'en-GB';
+    return date.toLocaleDateString(locale, {
       day: '2-digit',
       month: 'long',
       year: 'numeric'
@@ -90,11 +111,11 @@ export default function MobileKonzerteSection() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'upcoming':
-        return <span className="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm">Verfügbar</span>;
+        return <span className="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm">{KonzerteTranslations[lang].status.upcoming}</span>;
       case 'sold-out':
-        return <span className="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-sm">Ausverkauft</span>;
+        return <span className="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-sm">{KonzerteTranslations[lang].status.soldOut}</span>;
       case 'vip-only':
-        return <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">VIP Only</span>;
+        return <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">{KonzerteTranslations[lang].status.vipOnly}</span>;
       default:
         return null;
     }
@@ -114,11 +135,11 @@ export default function MobileKonzerteSection() {
           <div className="flex items-center justify-center gap-3 mb-4">
             <Calendar className="text-orange-400" size={28} />
             <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400">
-              Live Konzerte
+              {KonzerteTranslations[lang].title}
             </h2>
           </div>
           <p className="text-gray-400 text-sm">
-            Erlebe die Musik live und hautnah
+            {KonzerteTranslations[lang].subtitle}
           </p>
         </motion.div>
 
@@ -136,16 +157,16 @@ export default function MobileKonzerteSection() {
             <div className="bg-gradient-to-r from-orange-600 to-red-600 p-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Ticket className="text-white" size={20} />
-                <span className="text-white font-bold text-sm">NÄCHSTES KONZERT</span>
+                <span className="text-white font-bold text-sm">{KonzerteTranslations[lang].events?.[event.id]?.title ? KonzerteTranslations[lang].events[event.id].title : KonzerteTranslations[lang].releaseBadge}</span>
               </div>
               <h3 className="text-2xl font-bold text-white mb-1">
-                {event.title}
+                {KonzerteTranslations[lang].events?.[event.id]?.title ?? event.title}
               </h3>
-              {event.subtitle && (
-                <p className="text-orange-100 text-sm mb-1">{event.subtitle}</p>
+              { (KonzerteTranslations[lang].events?.[event.id]?.subtitle ?? event.subtitle) && (
+                <p className="text-orange-100 text-sm mb-1">{KonzerteTranslations[lang].events?.[event.id]?.subtitle ?? event.subtitle}</p>
               )}
               <p className="text-orange-100 text-sm">
-                Neue Songs live erleben
+                {KonzerteTranslations[lang].events?.[event.id]?.description ?? event.description}
               </p>
             </div>
 
@@ -196,16 +217,16 @@ export default function MobileKonzerteSection() {
                   whileTap={{ scale: 0.95 }}
                   className="w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2"
                   onClick={() => {
-                    if (event.ticketUrl === '#tickets') {
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                      setTimeout(() => {
-                        alert('🎵 Das Single Release-Konzert in Katys Garage (Dresden Neustadt) hat freien Eintritt! Komm einfach vorbei.');
-                      }, 500);
-                    }
+                      if (event.ticketUrl === '#tickets') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        setTimeout(() => {
+                          alert(KonzerteTranslations[lang].releaseAlert);
+                        }, 500);
+                      }
                   }}
                 >
                   <Ticket size={18} />
-                  Anmeldung
+                  {KonzerteTranslations[lang].register}
                 </motion.button>
               )}
             </div>
@@ -227,11 +248,11 @@ export default function MobileKonzerteSection() {
             <div className="flex items-center justify-center gap-3 mb-4">
               <Mail className="text-purple-300" size={24} />
               <h3 className="text-xl font-bold text-white">
-                Newsletter
+                {KonzerteTranslations[lang].newsletterTitle}
               </h3>
             </div>
             <p className="text-gray-300 text-sm">
-              Verpasse keine Neuigkeiten! Melde dich für Updates an.
+              {KonzerteTranslations[lang].newsletterDesc}
             </p>
           </div>
 
@@ -242,7 +263,7 @@ export default function MobileKonzerteSection() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="deine@email.com"
+                placeholder={KonzerteTranslations[lang].emailPlaceholder}
                 disabled={isSubscribing}
                 className="w-full px-4 py-4 bg-black/30 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors disabled:opacity-50"
               />
@@ -258,15 +279,15 @@ export default function MobileKonzerteSection() {
               whileTap={{ scale: isSubscribing ? 1 : 0.98 }}
               className="relative z-30 w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ring-1 ring-white/5"
             >
-              {isSubscribing ? (
+                  {isSubscribing ? (
                 <>
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  <span>Wird angemeldet...</span>
+                  <span>{KonzerteTranslations[lang].subscribingLabel}</span>
                 </>
               ) : (
                 <>
                   <Mail size={20} />
-                  <span>Für Updates anmelden</span>
+                  <span>{KonzerteTranslations[lang].subscribeLabel}</span>
                 </>
               )}
             </motion.button>
@@ -281,7 +302,7 @@ export default function MobileKonzerteSection() {
               className="mt-4 p-4 rounded-xl border bg-green-500/20 border-green-500/30 text-green-400 flex items-center gap-3"
             >
               <CheckCircle size={20} />
-              <span className="text-sm">✓ Erfolgreich angemeldet! Du erhältst alle Updates zu kommenden Konzerten.</span>
+              <span className="text-sm">{KonzerteTranslations[lang].subscribeSuccess}</span>
             </motion.div>
           )}
 
@@ -292,7 +313,7 @@ export default function MobileKonzerteSection() {
               className="mt-4 p-4 rounded-xl border bg-red-500/20 border-red-500/30 text-red-400 flex items-center gap-3"
             >
               <AlertCircle size={20} />
-              <span className="text-sm">❌ Fehler bei der Anmeldung. Bitte versuche es erneut.</span>
+              <span className="text-sm">{KonzerteTranslations[lang].subscribeError}</span>
             </motion.div>
           )}
 
@@ -307,8 +328,8 @@ export default function MobileKonzerteSection() {
               tabIndex={0}
             >
               <Users className="text-white mx-auto mb-2 drop-shadow-md" size={28} />
-              <p className="text-white text-sm font-bold">Exklusive Updates</p>
-              <p className="text-white/90 text-[11px] mt-1">Vorabinfos & Specials</p>
+              <p className="text-white text-sm font-bold">{KonzerteTranslations[lang].newsletterTitle}</p>
+              <p className="text-white/90 text-[11px] mt-1">{KonzerteTranslations[lang].newsletterDesc}</p>
             </div>
             <div
               role="region"
@@ -317,8 +338,8 @@ export default function MobileKonzerteSection() {
               tabIndex={0}
             >
               <Calendar className="text-white mx-auto mb-2 drop-shadow-md" size={28} />
-              <p className="text-white text-sm font-bold">Frühe Tickets</p>
-              <p className="text-white/90 text-[11px] mt-1">Sichere dir Plätze früher</p>
+              <p className="text-white text-sm font-bold">{KonzerteTranslations[lang].ticketButtonScroll}</p>
+              <p className="text-white/90 text-[11px] mt-1">{KonzerteTranslations[lang].moreInfo}</p>
             </div>
           </div>
         </motion.div>

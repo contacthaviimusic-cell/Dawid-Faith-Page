@@ -16,10 +16,12 @@ interface Track {
   description?: string;
 }
 
+import MusicTranslations from '../../lib/translations/MusicSectionTrans';
+
 export default function MobileMusicSection() {
   const [tracks] = useState<Track[]>([
     {
-      id: '1',
+      id: 'maria',
       title: 'Maria',
       artist: 'Dawid Faith',
       duration: '3:42',
@@ -29,7 +31,7 @@ export default function MobileMusicSection() {
       description: 'Eine emotionale Ballade über verlorene Liebe'
     },
     {
-      id: '2',
+      id: 'znikla',
       title: 'Znikła',
       artist: 'Dawid Faith',
       duration: '4:15',
@@ -48,6 +50,7 @@ export default function MobileMusicSection() {
   const [isMuted, setIsMuted] = useState(false);
   const [showVideo, setShowVideo] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -74,6 +77,25 @@ export default function MobileMusicSection() {
       audio.removeEventListener('ended', handleEnded);
     };
   }, [currentTrack, tracks]);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de' | 'en' | 'pl' | null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de' | 'en' | 'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
+
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de' | 'en' | 'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
 
   const playTrack = (track: Track) => {
     if (currentTrack?.id === track.id) {
@@ -160,15 +182,15 @@ export default function MobileMusicSection() {
           <div className="flex items-center justify-center gap-3 mb-4">
             <Music className="text-pink-400" size={28} />
             <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
-              Meine Musik
+              {MusicTranslations[lang].title}
             </h2>
           </div>
           <p className="text-gray-400 text-sm mb-4">
-            Schaue dir die Video-Vorschauen an und höre die Songs
+            {MusicTranslations[lang].subtitle}
           </p>
           <div className="flex items-center justify-center gap-2">
             <Video className="w-4 h-4 text-purple-400" />
-            <span className="text-purple-300 text-xs">Video-Previews verfügbar</span>
+            <span className="text-purple-300 text-xs">{MusicTranslations[lang].appNote}</span>
           </div>
         </motion.div>
 
@@ -224,7 +246,7 @@ export default function MobileMusicSection() {
                 {showVideo !== track.id && (
                   <div className="absolute bottom-4 left-4 right-4">
                     <h3 className="font-bold text-white text-lg mb-1 truncate">
-                      {track.title}
+                      {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![track.id]?.title) || track.title}
                     </h3>
                     <p className="text-gray-300 text-sm">
                       {track.artist}
@@ -247,9 +269,9 @@ export default function MobileMusicSection() {
 
               {/* Track Info & Controls */}
               <div className="p-4">
-                {track.description && (
+                {((MusicTranslations[lang].songs && MusicTranslations[lang].songs![track.id]?.description) || track.description) && (
                   <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                    {track.description}
+                    {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![track.id]?.description) || track.description}
                   </p>
                 )}
 
@@ -279,7 +301,7 @@ export default function MobileMusicSection() {
                     aria-label="Webapp öffnen"
                   >
                     <ExternalLink size={18} />
-                    Webapp öffnen
+                    {MusicTranslations[lang].webappButton}
                   </motion.button>
                 </div>
 
@@ -311,12 +333,12 @@ export default function MobileMusicSection() {
           viewport={{ once: true }}
           className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-2xl border border-purple-500/30 backdrop-blur-sm p-6 text-center"
         >
-          <div className="flex items-center justify-center gap-2 mb-3">
+          <div className="flex items-center justify-center gap-3 mb-4">
             <Music className="text-purple-400" size={24} />
-            <h3 className="text-xl font-bold text-white">Komplette Songs</h3>
+            <h3 className="text-xl font-bold text-white">{MusicTranslations[lang].exclusiveTitle || 'Komplette Songs'}</h3>
           </div>
           <p className="text-gray-300 text-sm mb-4">
-            Höre die vollständigen Songs in der D.FAITH Webapp und verdiene Token
+            {MusicTranslations[lang].exclusiveDesc || 'Höre die vollständigen Songs in der D.FAITH Webapp und verdiene Token'}
           </p>
           <motion.button
             whileHover={{ scale: 1.02 }}
@@ -324,7 +346,7 @@ export default function MobileMusicSection() {
             className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-6 py-3 rounded-xl text-white font-bold transition-all duration-300 flex items-center justify-center gap-2 w-full"
           >
             <ExternalLink size={18} />
-            D.FAITH Webapp besuchen
+            {MusicTranslations[lang].webappButton || 'D.FAITH Webapp besuchen'}
           </motion.button>
         </motion.div>
 

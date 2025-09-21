@@ -10,13 +10,32 @@ import MobileDFaithSection from '../../components/mobile/MobileDFaithSection';
 import MobileMusicSection from '../../components/mobile/MobileMusicSection';
 import MobileKonzerteSection from '../../components/mobile/MobileKonzerteSection';
 import MobileSocialWidget from '../../components/mobile/MobileSocialWidget';
+import PageTranslations from '@/lib/translations/page';
 
 export default function MobilePage() {
   const [mounted, setMounted] = useState(false);
   const [showSocialWidget, setShowSocialWidget] = useState(false);
+  const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
 
   useEffect(() => {
     setMounted(true);
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de'|'en'|'pl'|null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de'|'en'|'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
+  }, []);
+
+  useEffect(() => {
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
   }, []);
 
   if (!mounted) return null;
@@ -58,7 +77,7 @@ export default function MobilePage() {
               
               <div className="flex items-center justify-center gap-2 text-lg mb-6">
                 <Music className="text-purple-400 animate-pulse" size={20} />
-                <span className="text-gray-200 font-medium">Künstler • Visionär</span>
+                <span className="text-gray-200 font-medium">{PageTranslations[lang].heroSubtitle}</span>
                 <Sparkles className="text-pink-400 animate-pulse" size={20} />
               </div>
             </motion.div>
@@ -84,7 +103,7 @@ export default function MobilePage() {
                 }}
               >
                 <Calendar size={24} />
-                <span>Release Konzert</span>
+                <span>{PageTranslations[lang].ctaInvite}</span>
               </motion.button>
 
               <motion.button
@@ -104,7 +123,7 @@ export default function MobilePage() {
                     className="object-contain"
                   />
                 </div>
-                <span>D.FAITH erleben</span>
+                <span>{PageTranslations[lang].ctaExperience}</span>
               </motion.button>
             </motion.div>
           </div>

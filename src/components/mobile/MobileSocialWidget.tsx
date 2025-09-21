@@ -28,15 +28,15 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 300);
       },
-      color: 'from-purple-700 to-purple-500',
-      description: 'Token & Community'
+  color: 'bg-gray-800/50',
+  description: 'Token & Community'
     },
     {
       name: 'Instagram',
       icon: Instagram,
       url: 'https://www.instagram.com/dawidfaith/',
-      color: 'from-pink-500 to-purple-600',
-      description: 'Stories & Updates'
+  color: 'bg-gray-800/40',
+  description: 'Stories & Updates'
     },
     {
       name: 'Facebook',
@@ -46,8 +46,8 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
         </svg>
       ),
       url: 'https://www.facebook.com/profile.php?id=61572473614500',
-      color: 'from-blue-600 to-blue-700',
-      description: 'Community & News'
+  color: 'bg-gray-800/40',
+  description: 'Community & News'
     },
     {
       name: 'TikTok',
@@ -57,22 +57,22 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
         </svg>
       ),
       url: 'https://www.tiktok.com/@dawidfaith',
-      color: 'from-gray-900 via-pink-500 to-cyan-400',
-      description: 'Short Videos'
+  color: 'bg-gray-800/40',
+  description: 'Short Videos'
     },
     {
       name: 'YouTube',
       icon: Youtube,
       url: 'https://www.youtube.com/@dawidfaith',
-      color: 'from-red-500 to-red-600',
-      description: 'Musik Videos & Behind the Scenes'
+  color: 'bg-gray-800/40',
+  description: 'Musik Videos & Behind the Scenes'
     },
     {
       name: 'E-Mail',
       icon: Mail,
       action: () => setShowEmailModal(true),
-      color: 'from-green-500 to-green-600',
-      description: 'Professionelle Anfragen'
+  color: 'bg-gray-800/40',
+  description: 'Professionelle Anfragen'
     }
   ];
 
@@ -147,20 +147,21 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                       window.open(link.url, '_blank');
                     }
                   }}
-                  className={`bg-gradient-to-r ${link.color} p-3 rounded-xl flex flex-col items-center justify-center text-white shadow-lg min-h-[100px] relative`}
+                  className={`p-3 rounded-xl flex flex-col items-center justify-center text-white min-h-[100px] relative`} 
+                  style={{ background: 'rgba(31, 41, 55, 0.6)', border: '1px solid rgba(148,163,184,0.06)' }}
                 >
                   {(() => {
                     const isToken = link.name === 'D.FAITH';
-                    const wrapperClass = isToken ? 'w-14 h-14 bg-white/10 rounded-full flex items-center justify-center mb-2' : 'w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mb-2';
-                    const iconSize = isToken ? 36 : 18;
+                    const wrapperClass = isToken ? 'w-14 h-14 bg-white/6 rounded-full flex items-center justify-center mb-2 border border-white/6' : 'w-8 h-8 bg-white/6 rounded-lg flex items-center justify-center mb-2 border border-white/6';
+                    const iconSize = isToken ? 34 : 16;
                     return (
                       <div className={wrapperClass}>
-                        <link.icon size={iconSize} className="text-white" />
+                        <link.icon size={iconSize} className="text-white/90" />
                       </div>
                     );
                   })()}
-                  <h3 className="font-bold text-sm text-center">{link.name}</h3>
-                  <p className="text-white/80 text-xs text-center mt-1 leading-tight">{link.description}</p>
+                  <h3 className="font-bold text-sm text-center text-white">{link.name}</h3>
+                  <p className="text-white/70 text-xs text-center mt-1 leading-tight">{link.description}</p>
                   {link.url && (
                     <div className="absolute top-2 right-2">
                       <ExternalLink size={12} className="text-white/60" />
@@ -173,7 +174,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
 
           {/* Bio Section */}
           <div className="px-4 pb-6">
-            <div className="bg-black/30 rounded-xl p-3 border border-gray-700 mb-3">
+            <div className="bg-gray-800/40 rounded-xl p-3 border border-gray-700 mb-3">
               <h3 className="text-white font-bold mb-2 text-sm">Über Dawid Faith</h3>
               <p className="text-gray-300 text-xs leading-relaxed">
                 Innovativer Künstler, der Musik mit Blockchain-Technologie verbindet. 
@@ -184,7 +185,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
             {/* D.FAITH Token Teaser moved into the social links grid */}
 
             {/* Quick Newsletter */}
-            <div className="bg-gradient-to-r from-green-900/30 to-teal-900/30 rounded-xl p-3 border border-green-500/30">
+            <div className="bg-gray-800/40 rounded-xl p-3 border border-gray-700 mb-3">
               <h3 className="text-white font-bold mb-1 text-center text-sm">Stay Connected</h3>
               <p className="text-gray-300 text-xs text-center mb-2">
                 Erhalte Updates zu neuen Songs und Konzerten
@@ -199,7 +200,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }, 300);
                 }}
-                className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-2 rounded-lg font-medium text-xs"
+                className="w-full bg-white/6 text-white py-2 rounded-lg font-medium text-xs border border-white/6"
               >
                 Newsletter abonnieren
               </motion.button>

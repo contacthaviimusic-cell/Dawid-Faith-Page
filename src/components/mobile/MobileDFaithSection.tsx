@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import DFaithTranslations from '@/lib/translations/DFaithSectionTrans';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -9,17 +10,36 @@ import { Coins, Users, Gift, TrendingUp, Zap, ArrowRight, Star, Crown } from 'lu
 export default function MobileDFaithSection() {
   const [view, setView] = useState<'fans' | 'supporter'>('fans');
   const [showStats, setShowStats] = useState(false);
+  const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de'|'en'|'pl'|null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de'|'en'|'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
+
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
 
   const benefits = {
     fans: [
-      { icon: Gift, text: "Automatische Token für Likes & Shares", color: "text-pink-400" },
-      { icon: Crown, text: "VIP-Zugang zu neuen Songs", color: "text-purple-400" },
-      { icon: TrendingUp, text: "Einfache Auszahlung möglich", color: "text-green-400" }
+      { icon: Gift, text: DFaithTranslations[lang].fansList[0], color: "text-pink-400" },
+      { icon: Crown, text: DFaithTranslations[lang].fansList[1], color: "text-purple-400" },
+      { icon: TrendingUp, text: DFaithTranslations[lang].fansList[2], color: "text-green-400" }
     ],
     supporter: [
-      { icon: Coins, text: "D.INVEST für nur 5€ kaufen", color: "text-yellow-400" },
-      { icon: Users, text: "Wöchentliche Token-Belohnungen", color: "text-blue-400" },
-      { icon: Star, text: "Direkter Support für den Künstler", color: "text-purple-400" }
+      { icon: Coins, text: DFaithTranslations[lang].supporterList[0], color: "text-yellow-400" },
+      { icon: Users, text: DFaithTranslations[lang].supporterList[1], color: "text-blue-400" },
+      { icon: Star, text: DFaithTranslations[lang].supporterList[2], color: "text-purple-400" }
     ]
   };
 
@@ -74,16 +94,16 @@ export default function MobileDFaithSection() {
                   backgroundSize: '200% 200%'
                 }}
               >
-                ✨ D.FAITH Ökosystem ✨
+                {DFaithTranslations[lang].title}
               </motion.h2>
               
-            <motion.p 
+              <motion.p 
               className="text-gray-300 text-sm leading-relaxed max-w-sm mx-auto"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              🪄 Dein Support wird magisch belohnt. Sammle Token durch Interaktion und erlebe exklusive Vorteile.
+              {DFaithTranslations[lang].subtitle}
             </motion.p>
           </div>
         </motion.div>
@@ -113,7 +133,7 @@ export default function MobileDFaithSection() {
                 onClick={() => setView(key)}
                 className="relative z-10 flex-1 py-3 px-4 text-sm font-semibold text-white transition-all duration-300 w-1/2 text-center hover:text-purple-200"
               >
-                {key === 'fans' ? '🎵 Für Fans' : '💎 Für Supporter'}
+                {key === 'fans' ? `🎵 ${DFaithTranslations[lang].tabFans}` : `💎 ${DFaithTranslations[lang].tabSupporter}`}
               </button>
             ))}
           </div>
@@ -176,14 +196,14 @@ export default function MobileDFaithSection() {
               {/* Magical sparkles */}
               <div className="absolute top-2 right-2 w-1 h-1 bg-yellow-300 rounded-full opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-300" />
               <div className="absolute bottom-2 left-2 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-500" />
-              <div className="flex items-center justify-center gap-2 relative z-10">
+                <div className="flex items-center justify-center gap-2 relative z-10">
                 <motion.div
                   animate={{ rotate: [0, 360] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                 >
                   <Zap className="text-yellow-300 drop-shadow-lg" size={20} />
                 </motion.div>
-                <span className="text-white font-bold text-base drop-shadow-sm">✨ Jetzt Token verdienen</span>
+                <span className="text-white font-bold text-base drop-shadow-sm">{DFaithTranslations[lang].ctaEarn}</span>
                 <ArrowRight className="text-white/80 group-hover:translate-x-1 transition-transform drop-shadow-sm" size={18} />
               </div>
             </div>
@@ -197,7 +217,7 @@ export default function MobileDFaithSection() {
               href="/whitepaper"
               className="group w-full bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-purple-500/10 hover:from-purple-500/20 hover:via-purple-500/10 hover:to-purple-500/20 rounded-2xl px-6 py-4 text-center transition-all duration-300 flex items-center justify-center gap-2 border border-purple-500/20 hover:border-purple-400/40 shadow-lg hover:shadow-purple-500/20"
             >
-              <span className="text-purple-300 font-semibold text-base group-hover:text-purple-200 transition-colors drop-shadow-sm">📖 Whitepaper lesen</span>
+              <span className="text-purple-300 font-semibold text-base group-hover:text-purple-200 transition-colors drop-shadow-sm">{DFaithTranslations[lang].ctaWhitepaper}</span>
               <ArrowRight className="text-purple-400 group-hover:text-purple-300 group-hover:translate-x-1 transition-all duration-300" size={18} />
             </Link>
           </motion.div>
