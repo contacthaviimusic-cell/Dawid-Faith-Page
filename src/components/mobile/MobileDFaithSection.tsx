@@ -77,30 +77,6 @@ export default function MobileDFaithSection() {
               Dein Support wird belohnt. Sammle Token durch Interaktion und erlebe exklusive Vorteile.
             </p>
           </div>
-
-          {/* Stats Cards */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="grid grid-cols-2 gap-3 mb-8"
-          >
-            <div className="bg-gradient-to-br from-purple-900/40 to-pink-900/20 backdrop-blur-sm rounded-2xl p-4 border border-purple-500/30">
-              <div className="flex items-center justify-center gap-2 mb-1">
-                <Users className="text-purple-400" size={18} />
-                <span className="text-purple-400 font-bold text-lg">1.2K+</span>
-              </div>
-              <p className="text-gray-400 text-xs">Token Holder</p>
-            </div>
-            <div className="bg-gradient-to-br from-green-900/40 to-teal-900/20 backdrop-blur-sm rounded-2xl p-4 border border-green-500/30">
-              <div className="flex items-center justify-center gap-2 mb-1">
-                <TrendingUp className="text-green-400" size={18} />
-                <span className="text-green-400 font-bold text-lg">+35%</span>
-              </div>
-              <p className="text-gray-400 text-xs">Community Growth</p>
-            </div>
-          </motion.div>
         </motion.div>
 
         {/* Interactive Tab System */}
@@ -111,13 +87,6 @@ export default function MobileDFaithSection() {
           viewport={{ once: true }}
           className="mb-8"
         >
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs font-medium">
-              Für alle gemacht
-            </span>
-            <Zap className="text-yellow-400" size={16} />
-          </div>
-
           {/* Modern Tab Switcher */}
           <div className="relative bg-slate-900/60 backdrop-blur-md rounded-2xl p-1 border border-gray-700/50 mb-6">
             <motion.div
@@ -184,7 +153,7 @@ export default function MobileDFaithSection() {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="group relative w-full bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 p-[2px] rounded-2xl overflow-hidden"
+            className="group relative w-full bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 p-0 rounded-2xl overflow-hidden"
           >
             <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 rounded-2xl px-6 py-4 text-center relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000" />
@@ -199,7 +168,7 @@ export default function MobileDFaithSection() {
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Link
               href="/whitepaper"
-              className="w-full border-2 border-purple-500/60 hover:border-purple-400/80 bg-purple-500/5 hover:bg-purple-500/10 rounded-2xl px-6 py-4 text-center transition-all duration-300 flex items-center justify-center gap-2"
+              className="w-full bg-purple-500/5 hover:bg-purple-500/10 rounded-2xl px-6 py-4 text-center transition-all duration-300 flex items-center justify-center gap-2"
             >
               <span className="text-purple-300 font-semibold text-base">Whitepaper lesen</span>
               <ArrowRight className="text-purple-400" size={18} />
