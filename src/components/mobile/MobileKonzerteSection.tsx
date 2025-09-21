@@ -205,7 +205,7 @@ export default function MobileKonzerteSection() {
                   }}
                 >
                   <Ticket size={18} />
-                  Info & Anmeldung
+                  Anmeldung
                 </motion.button>
               )}
             </div>

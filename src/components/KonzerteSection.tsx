@@ -265,7 +265,7 @@ export default function KonzerteSection() {
                       ) : (
                         <>
                           <Ticket size={16} />
-                          Info & Anmeldung
+                          Anmeldung
                         </>
                       )}
                     </motion.button>
