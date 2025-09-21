@@ -113,34 +113,38 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
           </div>
 
           {/* Social Links */}
-          <div className="p-4 space-y-3">
-            {socialLinks.map((link, index) => (
-              <motion.button
-                key={link.name}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.05 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                  if (link.action) {
-                    link.action();
-                  } else if (link.url) {
-                    window.open(link.url, '_blank');
-                  }
-                }}
-                className={`w-full bg-gradient-to-r ${link.color} p-3 rounded-xl flex items-center gap-3 text-white shadow-lg`}
-              >
-                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                  <link.icon size={20} className="text-white" />
-                </div>
-                <div className="flex-1 text-left">
-                  <h3 className="font-bold text-base">{link.name}</h3>
-                  <p className="text-white/80 text-xs">{link.description}</p>
-                </div>
-                {link.url && <ExternalLink size={18} className="text-white/60" />}
-              </motion.button>
-            ))}
+          <div className="p-4">
+            <div className="grid grid-cols-2 gap-3">
+              {socialLinks.map((link, index) => (
+                <motion.button
+                  key={link.name}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.05 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    if (link.action) {
+                      link.action();
+                    } else if (link.url) {
+                      window.open(link.url, '_blank');
+                    }
+                  }}
+                  className={`bg-gradient-to-r ${link.color} p-3 rounded-xl flex flex-col items-center justify-center text-white shadow-lg min-h-[100px] relative`}
+                >
+                  <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mb-2">
+                    <link.icon size={18} className="text-white" />
+                  </div>
+                  <h3 className="font-bold text-sm text-center">{link.name}</h3>
+                  <p className="text-white/80 text-xs text-center mt-1 leading-tight">{link.description}</p>
+                  {link.url && (
+                    <div className="absolute top-2 right-2">
+                      <ExternalLink size={12} className="text-white/60" />
+                    </div>
+                  )}
+                </motion.button>
+              ))}
+            </div>
           </div>
 
           {/* Bio Section */}

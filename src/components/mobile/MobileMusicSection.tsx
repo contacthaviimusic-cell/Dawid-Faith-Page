@@ -185,47 +185,11 @@ export default function MobileMusicSection() {
             >
               {/* Cover Image with Video Overlay */}
               <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={track.coverImage}
-                  alt={track.title}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                
-                {/* Video Play Button */}
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => setShowVideo(showVideo === track.id ? null : track.id)}
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-pink-500/80 hover:bg-pink-500 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 shadow-xl border-2 border-white/20"
-                >
-                  <Video className="text-white" size={24} />
-                </motion.button>
-
-                {/* Title Overlay */}
-                <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="font-bold text-white text-lg mb-1 truncate">
-                    {track.title}
-                  </h3>
-                  <p className="text-gray-300 text-sm">
-                    {track.artist}
-                  </p>
-                </div>
-              </div>
-
-              {/* Video Player */}
-              {showVideo === track.id && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative"
-                >
+                {showVideo === track.id ? (
+                  // Video Player direkt anstelle des Covers
                   <video
                     controls
-                    className="w-full h-56 object-cover"
+                    className="w-full h-full object-cover"
                     poster={track.coverImage}
                     preload="metadata"
                     autoPlay
@@ -233,8 +197,53 @@ export default function MobileMusicSection() {
                     <source src={track.video} type="video/mp4" />
                     Dein Browser unterstützt keine Videos.
                   </video>
-                </motion.div>
-              )}
+                ) : (
+                  // Cover Image mit Play Button
+                  <>
+                    <Image
+                      src={track.coverImage}
+                      alt={track.title}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    
+                    {/* Video Play Button */}
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => setShowVideo(track.id)}
+                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-pink-500/80 hover:bg-pink-500 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 shadow-xl border-2 border-white/20"
+                    >
+                      <Video className="text-white" size={24} />
+                    </motion.button>
+                  </>
+                )}
+
+                {/* Title Overlay - nur anzeigen wenn kein Video läuft */}
+                {showVideo !== track.id && (
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="font-bold text-white text-lg mb-1 truncate">
+                      {track.title}
+                    </h3>
+                    <p className="text-gray-300 text-sm">
+                      {track.artist}
+                    </p>
+                  </div>
+                )}
+
+                {/* Close Video Button - nur anzeigen wenn Video läuft */}
+                {showVideo === track.id && (
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setShowVideo(null)}
+                    className="absolute top-2 right-2 w-8 h-8 bg-black/60 hover:bg-black/80 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 text-white"
+                  >
+                    ✕
+                  </motion.button>
+                )}
+              </div>
 
               {/* Track Info & Controls */}
               <div className="p-4">
@@ -261,15 +270,14 @@ export default function MobileMusicSection() {
                     Audio {currentTrack?.id === track.id && isPlaying ? 'Pause' : 'Play'}
                   </motion.button>
 
-                  {/* Video Toggle Button */}
+                  {/* Additional Info Button */}
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => setShowVideo(showVideo === track.id ? null : track.id)}
                     className="bg-gray-700/60 hover:bg-gray-600/60 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2"
                   >
-                    <Video size={18} />
-                    {showVideo === track.id ? 'Video schließen' : 'Video ansehen'}
+                    <Heart size={18} />
+                    Favorit
                   </motion.button>
                 </div>
 

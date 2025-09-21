@@ -257,32 +257,6 @@ export default function MobileKonzerteSection() {
             </div>
           </div>
         </motion.div>
-
-        {/* Past Concerts Teaser */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-8 text-center"
-        >
-          <h3 className="text-xl font-bold text-white mb-4">
-            Mehr Konzerte in Planung
-          </h3>
-          <p className="text-gray-400 text-sm mb-6">
-            Dies ist erst der Anfang! Weitere Live-Shows werden folgen.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-gray-900/30 rounded-xl p-4 border border-gray-700">
-              <h4 className="text-white font-medium mb-1">Acoustic Sessions</h4>
-              <p className="text-gray-400 text-xs">Intime Auftritte mit nur Gitarre und Stimme</p>
-            </div>
-            <div className="bg-gray-900/30 rounded-xl p-4 border border-gray-700">
-              <h4 className="text-white font-medium mb-1">Festival Shows</h4>
-              <p className="text-gray-400 text-xs">Große Bühnen und unvergessliche Momente</p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

@@ -121,57 +121,6 @@ export default function MobilePage() {
                 <span>D.FAITH erleben</span>
               </motion.button>
             </motion.div>
-
-            {/* Quick Access Icons */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex justify-center gap-6 mt-8"
-            >
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => {
-                  const el = document.querySelector('#music');
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
-                className="w-14 h-14 bg-purple-500/20 rounded-full flex items-center justify-center border border-purple-500/30"
-              >
-                <Play className="text-purple-400" size={24} />
-              </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => {
-                  const el = document.querySelector('#dfaith');
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
-                className="w-14 h-14 bg-yellow-500/20 rounded-full flex items-center justify-center border border-yellow-500/30"
-              >
-                <div className="relative w-6 h-6">
-                  <Image
-                    src="/dfaith-token.png"
-                    alt="D.FAITH Token"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => {
-                  const el = document.querySelector('#konzerte');
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
-                className="w-14 h-14 bg-blue-500/20 rounded-full flex items-center justify-center border border-blue-500/30"
-              >
-                <Mail className="text-blue-400" size={24} />
-              </motion.button>
-            </motion.div>
           </div>
         </section>
 
