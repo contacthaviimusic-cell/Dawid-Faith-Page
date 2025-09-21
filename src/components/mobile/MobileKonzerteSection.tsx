@@ -307,8 +307,8 @@ export default function MobileKonzerteSection() {
               tabIndex={0}
             >
               <Users className="text-white mx-auto mb-2 drop-shadow-md" size={28} />
-              <p className="text-gray-300 text-sm font-bold">Exklusive Updates</p>
-              <p className="text-gray-300 text-[11px] mt-1">Vorabinfos & Specials</p>
+              <p className="text-white text-sm font-bold">Exklusive Updates</p>
+              <p className="text-white/90 text-[11px] mt-1">Vorabinfos & Specials</p>
             </div>
             <div
               role="region"
@@ -317,8 +317,8 @@ export default function MobileKonzerteSection() {
               tabIndex={0}
             >
               <Calendar className="text-white mx-auto mb-2 drop-shadow-md" size={28} />
-              <p className="text-gray-300 text-sm font-bold">Frühe Tickets</p>
-              <p className="text-gray-300 text-[11px] mt-1">Sichere dir Plätze früher</p>
+              <p className="text-white text-sm font-bold">Frühe Tickets</p>
+              <p className="text-white/90 text-[11px] mt-1">Sichere dir Plätze früher</p>
             </div>
           </div>
         </motion.div>
