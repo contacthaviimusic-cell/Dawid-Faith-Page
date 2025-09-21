@@ -40,7 +40,7 @@ export default function MobileNavigation() {
                 priority
               />
             </div>
-            <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+            <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 [font-family:var(--font-pirata),cursive]">
               DAWID FAITH
             </span>
           </div>
@@ -109,32 +109,6 @@ export default function MobileNavigation() {
                   ))}
                 </nav>
 
-                {/* Social Links */}
-                <div className="mt-8 pt-6 border-t border-gray-700">
-                  <h3 className="text-gray-400 text-sm font-medium mb-4">Folge mir</h3>
-                  <div className="flex gap-3">
-                    <motion.a
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      href="https://instagram.com/dawid_faith_music"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-pink-500/20 rounded-full flex items-center justify-center border border-pink-500/30"
-                    >
-                      <Heart className="text-pink-400" size={20} />
-                    </motion.a>
-                    <motion.a
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      href="https://youtube.com/@DawidFaithMusic"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center border border-red-500/30"
-                    >
-                      <Music className="text-red-400" size={20} />
-                    </motion.a>
-                  </div>
-                </div>
               </div>
             </motion.div>
           </motion.div>
