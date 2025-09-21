@@ -164,7 +164,7 @@ export default function MobileDFaithSection() {
           </div>
           
           <p className="text-gray-300 text-sm mb-4">
-            Investiere in Dawid Faith's musikalische Zukunft und profitiere vom Erfolg.
+            Investiere in Dawid Faith&apos;s musikalische Zukunft und profitiere vom Erfolg.
           </p>
           
           <div className="flex items-center gap-2 mb-4">
