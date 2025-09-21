@@ -300,13 +300,25 @@ export default function MobileKonzerteSection() {
 
           {/* Benefits */}
           <div className="mt-6 grid grid-cols-2 gap-3">
-            <div className="bg-black/60 rounded-xl p-3 text-center border border-gray-700">
-              <Users className="text-white mx-auto mb-2" size={22} />
-              <p className="text-white text-xs font-semibold">Exklusive Updates</p>
+            <div
+              role="region"
+              aria-label="Exklusive Updates"
+              className="bg-gradient-to-br from-purple-700/80 to-pink-600/80 shadow-lg rounded-xl p-4 text-center border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-400"
+              tabIndex={0}
+            >
+              <Users className="text-white mx-auto mb-2 drop-shadow-md" size={28} />
+              <p className="text-white text-sm font-bold">Exklusive Updates</p>
+              <p className="text-purple-100 text-[11px] mt-1">Vorabinfos & Specials</p>
             </div>
-            <div className="bg-black/60 rounded-xl p-3 text-center border border-gray-700">
-              <Calendar className="text-white mx-auto mb-2" size={22} />
-              <p className="text-white text-xs font-semibold">Frühe Tickets</p>
+            <div
+              role="region"
+              aria-label="Frühe Tickets"
+              className="bg-gradient-to-br from-orange-700/80 to-red-600/80 shadow-lg rounded-xl p-4 text-center border border-white/10 focus:outline-none focus:ring-2 focus:ring-orange-400"
+              tabIndex={0}
+            >
+              <Calendar className="text-white mx-auto mb-2 drop-shadow-md" size={28} />
+              <p className="text-white text-sm font-bold">Frühe Tickets</p>
+              <p className="text-orange-100 text-[11px] mt-1">Sichere dir Plätze früher</p>
             </div>
           </div>
         </motion.div>

@@ -43,23 +43,8 @@ export default function MobilePage() {
           </div>
 
           <div className="container mx-auto relative z-10 text-center">
-            {/* Artist Image */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              className="mb-6"
-            >
-              <div className="relative w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-purple-500 shadow-2xl">
-                <Image
-                  src="/dawid-faith.jpg"
-                  alt="Dawid Faith"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </motion.div>
+            {/* Artist Image removed for a cleaner mobile hero (requested) */}
+            <div className="mb-2" />
 
             {/* Title */}
             <motion.div
