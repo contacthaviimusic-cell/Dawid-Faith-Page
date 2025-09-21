@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, Newspaper, Coins, Music, Calendar, Heart } from 'lucide-react';
+import { Menu, X, Home, Newspaper, Coins, Music, Calendar, Heart, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import FlagForLang, { FlagDE, FlagGB, FlagPL } from '../FlagIcon';
 
@@ -83,11 +83,12 @@ export default function MobileNavigation() {
             <div className="relative" ref={langRef}>
               <button
                 onClick={() => setLangOpen((s) => !s)}
-                className="p-1 rounded-md bg-transparent"
+                className="p-1 rounded-md bg-transparent flex items-center gap-1 text-white"
                 aria-haspopup
                 aria-expanded={langOpen}
               >
                 <FlagForLang lang={lang} />
+                <ChevronDown size={14} className={`transition-transform duration-200 ${langOpen ? 'rotate-180' : 'rotate-0'}`} />
               </button>
               {langOpen && (
                 <div className="absolute left-0 mt-2 w-40 bg-black/90 border border-purple-500/20 rounded-md shadow-lg z-50">
