@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Newspaper, Clock, Tag, X, ExternalLink, Share, Calendar } from 'lucide-react';
 import Image from 'next/image';
 import type { NewsItem } from '@/types/news';
+import NewsDetailRenderer from '@/components/news';
 
 export default function MobileNewsSection() {
   const [news, setNews] = useState<NewsItem[]>([]);
@@ -194,7 +195,7 @@ export default function MobileNewsSection() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-gradient-to-b from-gray-900 to-purple-900/30 rounded-2xl border border-purple-500/30 max-w-md w-full max-h-[80vh] overflow-hidden"
+              className="bg-gradient-to-b from-gray-900 to-purple-900/30 rounded-2xl border border-purple-500/30 max-w-md w-full max-h-[85vh] overflow-hidden flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
@@ -220,27 +221,32 @@ export default function MobileNewsSection() {
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <h2 className="text-xl font-bold text-white mb-3">
-                  {selectedNews.title}
-                </h2>
-                
-                <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                  <div className="flex items-center gap-1">
-                    <Clock size={14} />
-                    <span>{selectedNews.readTime}</span>
+              <div className="flex-1 overflow-y-auto">
+                <div className="p-4">
+                  <h2 className="text-xl font-bold text-white mb-3">
+                    {selectedNews.title}
+                  </h2>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                    <div className="flex items-center gap-1">
+                      <Clock size={14} />
+                      <span>{selectedNews.readTime}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Tag size={14} />
+                      <span>{selectedNews.category}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Tag size={14} />
-                    <span>{selectedNews.category}</span>
+
+                  {/* Vollständige News-Details mit NewsDetailRenderer */}
+                  <div className="text-gray-200 text-sm leading-relaxed [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-white [&_h3]:mb-3 [&_h4]:text-base [&_h4]:font-semibold [&_h4]:mb-2 [&_p]:mb-3 [&_p]:text-sm [&_.grid]:grid-cols-1 [&_.grid]:gap-2 [&_.bg-blue-900\/30]:bg-blue-900/20 [&_.bg-purple-900\/30]:bg-purple-900/20 [&_.bg-green-900\/30]:bg-green-900/20 [&_.p-6]:p-4 [&_.p-4]:p-3 [&_.rounded-2xl]:rounded-xl [&_.text-2xl]:text-lg [&_.text-xl]:text-base [&_.text-lg]:text-base [&_.mb-4]:mb-2 [&_.mb-6]:mb-3">
+                    <NewsDetailRenderer article={selectedNews} />
                   </div>
                 </div>
+              </div>
 
-                <div className="text-gray-200 text-sm leading-relaxed mb-6 max-h-40 overflow-y-auto">
-                  {selectedNews.excerpt}
-                </div>
-
-                {/* Action Buttons */}
+              {/* Action Buttons - Fixed at bottom */}
+              <div className="border-t border-gray-700/50 p-4 bg-gray-900/80 backdrop-blur-sm">
                 <div className="flex gap-3">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -257,7 +263,7 @@ export default function MobileNewsSection() {
                     onClick={() => setSelectedNews(null)}
                     className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
                   >
-                    <ExternalLink size={18} />
+                    <X size={18} />
                     Schließen
                   </motion.button>
                 </div>
