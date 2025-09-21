@@ -72,10 +72,54 @@ export default function Navigation() {
             style={{ fontFamily: 'Pirata One, cursive' }}
           >
             <div className="flex items-center gap-3">
-              <div className="w-6 h-4">
-                <FlagForLang lang={lang} />
-              </div>
               <span className="ml-1">Dawid Faith</span>
+              
+              {/* Language selector direkt nach Dawid Faith */}
+              <div className="relative" ref={langRef}>
+                <button
+                  aria-haspopup="listbox"
+                  aria-expanded={langOpen}
+                  onClick={() => setLangOpen((s) => !s)}
+                  className="flex items-center gap-2 text-gray-300 px-2 py-1 rounded-md hover:bg-white/5"
+                  title="Sprache"
+                >
+                  <FlagForLang lang={lang} />
+                </button>
+
+                {langOpen && (
+                  <div className="absolute left-0 mt-2 w-36 bg-black/90 border border-purple-500/20 rounded-md shadow-lg z-50">
+                    <ul role="listbox" aria-label="Sprachen" className="py-1">
+                      <li>
+                        <button
+                          onClick={() => { setLang('de'); setLangOpen(false); }}
+                          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
+                        >
+                          <FlagDE />
+                          <span className="text-sm text-white">Deutsch</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => { setLang('en'); setLangOpen(false); }}
+                          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
+                        >
+                          <FlagGB />
+                          <span className="text-sm text-white">English</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => { setLang('pl'); setLangOpen(false); }}
+                          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
+                        >
+                          <FlagPL />
+                          <span className="text-sm text-white">Polski</span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
           </motion.div>
 
@@ -96,52 +140,6 @@ export default function Navigation() {
                 {item.name}
               </motion.button>
             ))}
-            {/* Language selector (flag dropdown) */}
-            <div className="relative" ref={langRef}>
-              <button
-                aria-haspopup="listbox"
-                aria-expanded={langOpen}
-                onClick={() => setLangOpen((s) => !s)}
-                className="flex items-center gap-2 text-gray-300 px-2 py-1 rounded-md hover:bg-white/5"
-                title="Sprache"
-              >
-                <FlagForLang lang={lang} />
-              </button>
-
-              {langOpen && (
-                <div className="absolute right-0 mt-2 w-36 bg-black/90 border border-purple-500/20 rounded-md shadow-lg z-50">
-                  <ul role="listbox" aria-label="Sprachen" className="py-1">
-                    <li>
-                      <button
-                        onClick={() => { setLang('de'); setLangOpen(false); }}
-                        className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
-                      >
-                        <FlagDE />
-                        <span className="text-sm text-white">Deutsch</span>
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => { setLang('en'); setLangOpen(false); }}
-                        className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
-                      >
-                        <FlagGB />
-                        <span className="text-sm text-white">English</span>
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => { setLang('pl'); setLangOpen(false); }}
-                        className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
-                      >
-                        <FlagPL />
-                        <span className="text-sm text-white">Polski</span>
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>
           </div>
 
           <div className="md:hidden flex items-center gap-2">
@@ -151,9 +149,6 @@ export default function Navigation() {
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-            <div>
-              <FlagForLang lang={lang} />
-            </div>
           </div>
         </div>
 
