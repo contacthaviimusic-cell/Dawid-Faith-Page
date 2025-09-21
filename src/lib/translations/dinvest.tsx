@@ -5,9 +5,9 @@ const DInvestTokenNewsTranslations = {
     detailsTitle: 'Token-Details',
     details: [
       'Preis: 5,00€ pro Token (fest)',
-      'Total Supply: 10.000 Token',
+      'Gesamtanzahl: 10.000 Token',
       'Gesamtkapital: 50.000€',
-      'Live auf Base Chain'
+      'Live auf der Base-Chain'
     ],
     stakingTitle: 'Staking-Rewards',
     staking: [
@@ -18,7 +18,7 @@ const DInvestTokenNewsTranslations = {
     ],
     investTitle: 'Investment-Möglichkeit',
     investDesc: 'Durch das Staking von D.INVEST Token erhältst du wöchentliche D.FAITH Rewards. Das 6-Stufen Halving-System sorgt für kontinuierliche Verknappung und potenzielle Wertsteigerung.',
-    badges: ['Fixed Price: 5€', 'Weekly Rewards', 'High ROI Potential']
+    badges: ['Fester Preis: 5€', 'Wöchentliche Rewards', 'Hohes ROI-Potenzial']
   },
   en: {
     title: 'D.INVEST Token Details',
@@ -47,9 +47,9 @@ const DInvestTokenNewsTranslations = {
     detailsTitle: 'Szczegóły tokena',
     details: [
       'Cena: 5,00€ za token (stała)',
-      'Całkowita podaż: 10 000 tokenów',
+      'Całkowita liczba: 10 000 tokenów',
       'Kapitał całkowity: 50 000€',
-      'Live on Base Chain'
+      'Na żywo na sieci Base (Base Chain)'
     ],
     stakingTitle: 'Nagrody stakingowe',
     staking: [
@@ -60,7 +60,7 @@ const DInvestTokenNewsTranslations = {
     ],
     investTitle: 'Możliwość inwestycyjna',
     investDesc: 'Stakując tokeny D.INVEST otrzymujesz cotygodniowe nagrody D.FAITH. 6-stopniowy system halvingu tworzy niedobór i potencjalny wzrost wartości.',
-    badges: ['Fixed Price: €5', 'Weekly Rewards', 'High ROI Potential']
+    badges: ['Stała cena: €5', 'Cotygodniowe nagrody', 'Wysoki potencjał ROI']
   }
 };
 
