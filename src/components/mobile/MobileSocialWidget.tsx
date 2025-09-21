@@ -17,8 +17,8 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
   const socialLinks = [
     {
       name: 'D.FAITH',
-      icon: ({ size, className }: { size: number, className: string }) => (
-        <div style={{ width: size, height: size }} className="rounded-lg overflow-hidden">
+      icon: ({ size, className }: { size: number, className?: string }) => (
+        <div style={{ width: size, height: size }} className={`${className ?? ''} rounded-lg overflow-hidden`}>
           <Image src="/dfaith-token.png" alt="D.FAITH Token" width={size} height={size} />
         </div>
       ),
@@ -87,6 +87,9 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
     'E-Mail': '#10B981'
   };
 
+  // typed alias for translations to avoid any casts at usage sites
+  const translations: Record<'de'|'en'|'pl', Record<string, string>> = SocialWidgetTrans as unknown as Record<'de'|'en'|'pl', Record<string, string>>;
+
   const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
 
   useEffect(() => {
@@ -97,7 +100,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
         const dl = document.documentElement.lang as 'de'|'en'|'pl';
         if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
       }
-    } catch (e) {}
+  } catch (_err) {}
 
     function onLang(e: Event) {
       const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
@@ -197,7 +200,8 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                     );
                   })()}
                         <h3 className="font-bold text-sm text-center text-white">{link.name}</h3>
-                  <p className="text-white/70 text-xs text-center mt-1 leading-tight">{(SocialWidgetTrans as any)[lang][link.description] || link.description}</p>
+                  {/* typed access to translations to avoid any */}
+                  <p className="text-white/70 text-xs text-center mt-1 leading-tight">{translations[lang][link.description] || link.description}</p>
                   {link.url && (
                     <div className="absolute top-2 right-2">
                       <ExternalLink size={12} className="text-white/60" />
