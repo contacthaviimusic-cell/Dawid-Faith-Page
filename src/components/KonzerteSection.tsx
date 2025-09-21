@@ -44,6 +44,7 @@ export default function KonzerteSection() {
   const [email, setEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [apiDebug, setApiDebug] = useState<string | null>(null);
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,6 +53,7 @@ export default function KonzerteSection() {
     setIsSubscribing(true);
     
     try {
+      setApiDebug(null);
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: {
@@ -60,20 +62,24 @@ export default function KonzerteSection() {
         body: JSON.stringify({ email: email.trim() }),
       });
 
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
+      console.log('Newsletter POST response:', response.status, data);
 
       if (response.ok) {
         setSubscriptionStatus('success');
         setEmail('');
-        
+
         // Reset status after 3 seconds
         setTimeout(() => {
           setSubscriptionStatus('idle');
+          setApiDebug(null);
         }, 3000);
       } else {
         setSubscriptionStatus('error');
-        console.error('Newsletter subscription error:', data.error);
-        
+        const debug = (data && (data.debug || data.error)) ? (data.debug || data.error) : `status:${response.status}`;
+        setApiDebug(String(debug));
+        console.error('Newsletter subscription error:', debug);
+
         // Reset status after 3 seconds
         setTimeout(() => {
           setSubscriptionStatus('idle');
@@ -81,8 +87,9 @@ export default function KonzerteSection() {
       }
     } catch (error) {
       setSubscriptionStatus('error');
-      console.error('Newsletter subscription error:', error);
-      
+      setApiDebug(String(error));
+      console.error('Newsletter subscription error (network):', error);
+
       // Reset status after 3 seconds
       setTimeout(() => {
         setSubscriptionStatus('idle');
@@ -332,6 +339,15 @@ export default function KonzerteSection() {
                   </motion.button>
                 </div>
               </form>
+            )}
+            {/* API debug panel (shows server debug message when present) */}
+            {apiDebug && (
+              <div className="max-w-md mx-auto mb-6">
+                <div className="bg-black/50 border border-red-500/30 rounded-md p-3 break-words text-sm text-red-200">
+                  <div className="font-semibold text-red-300">Server Debug</div>
+                  <pre className="whitespace-pre-wrap break-words mt-2 text-xs">{apiDebug}</pre>
+                </div>
+              </div>
             )}
             
             <motion.button
