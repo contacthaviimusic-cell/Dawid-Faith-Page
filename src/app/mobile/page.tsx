@@ -144,10 +144,20 @@ export default function MobilePage() {
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setShowSocialWidget(true)}
-                className="w-14 h-14 bg-pink-500/20 rounded-full flex items-center justify-center border border-pink-500/30"
+                onClick={() => {
+                  const el = document.querySelector('#dfaith');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+                className="w-14 h-14 bg-yellow-500/20 rounded-full flex items-center justify-center border border-yellow-500/30"
               >
-                <Heart className="text-pink-400" size={24} />
+                <div className="relative w-6 h-6">
+                  <Image
+                    src="/dfaith-token.png"
+                    alt="D.FAITH Token"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
               </motion.button>
               
               <motion.button
@@ -174,6 +184,28 @@ export default function MobilePage() {
         {/* Mobile Social Widget */}
         {showSocialWidget && (
           <MobileSocialWidget onClose={() => setShowSocialWidget(false)} />
+        )}
+
+        {/* Floating Social Button */}
+        {!showSocialWidget && (
+          <motion.button
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setShowSocialWidget(true)}
+            className="fixed bottom-6 right-6 z-40 w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-2xl border-4 border-purple-400/30 flex items-center justify-center animate-pulse"
+          >
+            <div className="relative w-12 h-12 rounded-full overflow-hidden">
+              <Image
+                src="/dawid-faith.jpg"
+                alt="Dawid Faith Social"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </motion.button>
         )}
 
         {/* Mobile Footer */}

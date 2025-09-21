@@ -17,14 +17,36 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
     {
       name: 'Instagram',
       icon: Instagram,
-      url: 'https://instagram.com/dawid_faith_music',
+      url: 'https://www.instagram.com/dawidfaith/',
       color: 'from-pink-500 to-purple-600',
-      description: 'Folge mir für Daily Updates'
+      description: 'Stories & Updates'
+    },
+    {
+      name: 'Facebook',
+      icon: ({ size, className }: { size: number, className: string }) => (
+        <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="currentColor">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+      ),
+      url: 'https://www.facebook.com/profile.php?id=61572473614500',
+      color: 'from-blue-600 to-blue-700',
+      description: 'Community & News'
+    },
+    {
+      name: 'TikTok',
+      icon: ({ size, className }: { size: number, className: string }) => (
+        <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+        </svg>
+      ),
+      url: 'https://www.tiktok.com/@dawidfaith',
+      color: 'from-gray-900 via-pink-500 to-cyan-400',
+      description: 'Short Videos'
     },
     {
       name: 'YouTube',
       icon: Youtube,
-      url: 'https://youtube.com/@DawidFaithMusic',
+      url: 'https://www.youtube.com/@dawidfaith',
       color: 'from-red-500 to-red-600',
       description: 'Musik Videos & Behind the Scenes'
     },
@@ -32,14 +54,14 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
       name: 'E-Mail',
       icon: Mail,
       action: () => setShowEmailModal(true),
-      color: 'from-blue-500 to-blue-600',
+      color: 'from-green-500 to-green-600',
       description: 'Professionelle Anfragen'
     }
   ];
 
   const handleEmailClick = async () => {
     try {
-      await navigator.clipboard.writeText('contact@dawidfaith.com');
+      await navigator.clipboard.writeText('dawid.faith@gmail.com');
       setEmailCopied(true);
       setTimeout(() => setEmailCopied(false), 2000);
     } catch (error) {
@@ -108,7 +130,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                 className={`w-full bg-gradient-to-r ${link.color} p-4 rounded-2xl flex items-center gap-4 text-white shadow-xl`}
               >
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                  <link.icon size={24} />
+                  <link.icon size={24} className="text-white" />
                 </div>
                 <div className="flex-1 text-left">
                   <h3 className="font-bold text-lg">{link.name}</h3>
@@ -120,13 +142,67 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
           </div>
 
           {/* Bio Section */}
-          <div className="px-6 pb-6">
-            <div className="bg-black/30 rounded-2xl p-4 border border-gray-700">
+          <div className="px-6 pb-4">
+            <div className="bg-black/30 rounded-2xl p-4 border border-gray-700 mb-4">
               <h3 className="text-white font-bold mb-2">Über Dawid Faith</h3>
               <p className="text-gray-300 text-sm leading-relaxed">
                 Innovativer Künstler, der Musik mit Blockchain-Technologie verbindet. 
                 Erlebe die Zukunft der Musikindustrie mit D.FAITH Token und exklusiven Community-Features.
               </p>
+            </div>
+
+            {/* D.FAITH Token Teaser */}
+            <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-2xl p-4 border border-purple-500/30 mb-4">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="relative w-8 h-8">
+                  <Image
+                    src="/dfaith-token.png"
+                    alt="D.FAITH Token"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <h3 className="text-white font-bold">D.FAITH Token</h3>
+              </div>
+              <p className="text-gray-300 text-sm mb-3">
+                Dein Zugang zur exklusiven Dawid Faith Community
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  onClose();
+                  setTimeout(() => {
+                    const el = document.querySelector('#dfaith');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }, 300);
+                }}
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-2 rounded-xl font-medium text-sm"
+              >
+                Mehr erfahren
+              </motion.button>
+            </div>
+
+            {/* Quick Newsletter */}
+            <div className="bg-gradient-to-r from-green-900/30 to-teal-900/30 rounded-2xl p-4 border border-green-500/30">
+              <h3 className="text-white font-bold mb-2 text-center">Stay Connected</h3>
+              <p className="text-gray-300 text-xs text-center mb-3">
+                Erhalte Updates zu neuen Songs und Konzerten
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  onClose();
+                  setTimeout(() => {
+                    const el = document.querySelector('#konzerte');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }, 300);
+                }}
+                className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-2 rounded-xl font-medium text-sm"
+              >
+                Newsletter abonnieren
+              </motion.button>
             </div>
           </div>
         </motion.div>
@@ -163,7 +239,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                 <div className="bg-black/30 rounded-xl p-4 mb-6 border border-gray-700">
                   <div className="flex items-center justify-between">
                     <span className="text-white font-mono text-sm">
-                      contact@dawidfaith.com
+                      dawid.faith@gmail.com
                     </span>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
