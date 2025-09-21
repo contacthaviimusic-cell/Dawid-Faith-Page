@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import NewsTranslations from '@/lib/translations/NewsSectionTrans';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Newspaper, Clock, Tag, X, ExternalLink, Share, Calendar } from 'lucide-react';
 import Image from 'next/image';
@@ -11,9 +12,18 @@ export default function MobileNewsSection() {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [loading, setLoading] = useState(true);
+  const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
 
   useEffect(() => {
     fetchNews();
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de'|'en'|'pl'|null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de'|'en'|'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
     
     // Listen for release news trigger
     const handleOpenReleaseNews = () => {
@@ -30,6 +40,15 @@ export default function MobileNewsSection() {
     return () => window.removeEventListener('openReleaseNews', handleOpenReleaseNews);
   }, [news]);
 
+  useEffect(() => {
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
+
   const fetchNews = async () => {
     try {
       const response = await fetch('/api/news');
@@ -44,6 +63,14 @@ export default function MobileNewsSection() {
     }
   };
 
+  const getLocalizedField = (item: NewsItem | null | undefined, field: 'title' | 'excerpt' | 'content', langParam: 'de'|'en'|'pl') => {
+    if (!item) return '';
+    if (langParam === 'de') return (item[field] ?? '');
+    const key = `${field}_${langParam}` as keyof NewsItem;
+    const val = item[key];
+    return typeof val === 'string' && val.length > 0 ? val : (item[field] ?? '');
+  };
+
   const handleShare = async (newsItem: NewsItem) => {
     if (navigator.share) {
       try {
@@ -56,9 +83,9 @@ export default function MobileNewsSection() {
         console.log('Error sharing:', error);
       }
     } else {
-      // Fallback: copy to clipboard
-      navigator.clipboard.writeText(`${newsItem.title} - ${window.location.href}`);
-      alert('Link in Zwischenablage kopiert!');
+  // Fallback: copy to clipboard
+  navigator.clipboard.writeText(`${newsItem.title} - ${window.location.href}`);
+  alert(NewsTranslations[lang].clipboardCopied);
     }
   };
 
@@ -76,11 +103,11 @@ export default function MobileNewsSection() {
           <div className="flex items-center justify-center gap-3 mb-4">
             <Newspaper className="text-purple-400" size={28} />
             <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-              Aktuelle News
+              {NewsTranslations[lang].sectionTitle}
             </h2>
           </div>
           <p className="text-gray-400">
-            Bleib auf dem Laufenden mit den neuesten Updates
+            {NewsTranslations[lang].sectionDesc}
           </p>
         </motion.div>
 
@@ -88,7 +115,7 @@ export default function MobileNewsSection() {
         {loading ? (
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mx-auto mb-4"></div>
-            <p className="text-gray-400">Lade News...</p>
+            <p className="text-gray-400">{NewsTranslations[lang].loading ?? 'Lade News...'}</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -121,10 +148,10 @@ export default function MobileNewsSection() {
                   {/* Content */}
                   <div className="flex-1 min-w-0">
                     <h3 className="font-bold text-white text-sm mb-1 line-clamp-2">
-                      {item.title}
+                      {getLocalizedField(item, 'title', lang)}
                     </h3>
                     <p className="text-gray-400 text-xs mb-2 line-clamp-2">
-                      {item.excerpt}
+                      {getLocalizedField(item, 'excerpt', lang)}
                     </p>
                     
                     {/* Meta */}
@@ -156,10 +183,10 @@ export default function MobileNewsSection() {
           >
             <Calendar className="mx-auto mb-3 text-white" size={32} />
             <h3 className="text-xl font-bold text-white mb-2">
-              Nächstes Release Konzert
+              {NewsTranslations[lang].nextReleaseTitle}
             </h3>
             <p className="text-purple-100 text-sm mb-4">
-              Sei dabei wenn neue Songs live debütieren!
+              {NewsTranslations[lang].nextReleaseDesc}
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -175,7 +202,7 @@ export default function MobileNewsSection() {
               }}
               className="bg-white text-purple-600 px-6 py-3 rounded-xl font-bold transition-all duration-300"
             >
-              Details erfahren
+              {NewsTranslations[lang].details}
             </motion.button>
           </motion.div>
         )}
@@ -224,7 +251,7 @@ export default function MobileNewsSection() {
               <div className="flex-1 overflow-y-auto">
                 <div className="p-4">
                   <h2 className="text-xl font-bold text-white mb-3">
-                    {selectedNews.title}
+                    {getLocalizedField(selectedNews, 'title', lang)}
                   </h2>
                   
                   <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
@@ -255,7 +282,7 @@ export default function MobileNewsSection() {
                     className="flex-1 bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
                   >
                     <Share size={18} />
-                    Teilen
+                    {NewsTranslations[lang].share}
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -264,7 +291,7 @@ export default function MobileNewsSection() {
                     className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
                   >
                     <X size={18} />
-                    Schließen
+                    {NewsTranslations[lang].close}
                   </motion.button>
                 </div>
               </div>

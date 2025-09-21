@@ -9,7 +9,12 @@ const NewsSectionTranslations = {
     clipboardCopied: '✔ Link wurde in die Zwischenablage kopiert! Du kannst ihn jetzt in sozialen Medien teilen.',
     featuredLabel: 'Featured',
     defaultNewsTitle: 'News Details',
-    defaultNewsFallback: 'Weitere Details zu dieser News werden in Kürze verfügbar sein.'
+    defaultNewsFallback: 'Weitere Details zu dieser News werden in Kürze verfügbar sein.',
+    loading: 'Lade News...',
+    nextReleaseTitle: 'Nächstes Release Konzert',
+    nextReleaseDesc: 'Sei dabei wenn neue Songs live debütieren!',
+    details: 'Details erfahren',
+    close: 'Schließen'
   },
   en: {
     sectionTitle: 'Latest News',
@@ -21,7 +26,12 @@ const NewsSectionTranslations = {
     clipboardCopied: '✔ Link copied to clipboard! You can now share it on social media.',
     featuredLabel: 'Featured',
     defaultNewsTitle: 'News Details',
-    defaultNewsFallback: 'More details about this news will be available soon.'
+    defaultNewsFallback: 'More details about this news will be available soon.',
+    loading: 'Loading news...',
+    nextReleaseTitle: 'Next Release Concert',
+    nextReleaseDesc: 'Be there when new songs debut live!',
+    details: 'Learn details',
+    close: 'Close'
   },
   pl: {
     sectionTitle: 'Aktualności',
@@ -33,7 +43,12 @@ const NewsSectionTranslations = {
     clipboardCopied: '✔ Link skopiowany do schowka! Możesz teraz udostępnić go w mediach społecznościowych.',
     featuredLabel: 'Wyróżnione',
     defaultNewsTitle: 'Szczegóły aktualności',
-    defaultNewsFallback: 'Więcej szczegółów na temat tej aktualności wkrótce.'
+    defaultNewsFallback: 'Więcej szczegółów na temat tej aktualności wkrótce.',
+    loading: 'Ładowanie aktualności...',
+    nextReleaseTitle: 'Następny koncert premierowy',
+    nextReleaseDesc: 'Bądź tam, gdy nowe utwory zadebiutują na żywo!',
+    details: 'Szczegóły',
+    close: 'Zamknij'
   }
 };
 
