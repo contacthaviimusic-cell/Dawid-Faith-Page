@@ -41,7 +41,7 @@ const konzertEvents: KonzertEvent[] = [
   }
 ];
 
-export default function KonzerteSection() {
+export default function Newsletter() {
   const [email, setEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -160,7 +160,7 @@ export default function KonzerteSection() {
   }, []);
 
   return (
-    <section id="konzerte" className="py-20 px-4 relative bg-gradient-to-b from-slate-900/20 to-purple-900/10">
+    <section id="newsletter" className="py-20 px-4 relative bg-gradient-to-b from-slate-900/20 to-purple-900/10">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div

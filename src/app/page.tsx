@@ -10,7 +10,8 @@ import Navigation from '../components/Navigation';
 import NewsSection from '../components/NewsSection';
 import DFaithSection from '../components/DFaithSection';
 import MusicSection from '../components/MusicSection';
-import KonzerteSection from '../components/KonzerteSection';
+import KonzerteEventsSection from '../components/KonzerteEventsSection';
+import Newsletter from '../components/KonzerteSection';
 import SocialMediaWidget from '../components/SocialMediaWidget';
 import MobilePage from './mobile/page';
 
@@ -219,7 +220,13 @@ export default function Home() {
   <DFaithSection />
 
   {/* Konzerte Section */}
-  <KonzerteSection />
+  <KonzerteEventsSection />
+
+  {/* Newsletter (moved out of the concerts component) */}
+  <Newsletter />
+
+  {/* Newsletter (moved out of the concerts component) */}
+  <Newsletter />
 
         {/* Footer */}
         <footer className="py-12 px-4 border-t border-gray-800">
