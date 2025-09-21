@@ -209,17 +209,17 @@ export default function Home() {
           </div>
         </section>
 
-        {/* News Section */}
-        <NewsSection />
+  {/* News Section */}
+  <NewsSection />
 
-        {/* D.FAITH Ecosystem Section */}
-        <DFaithSection />
+  {/* Music Section (moved) */}
+  <MusicSection />
 
-        {/* Music Section */}
-        <MusicSection />
+  {/* D.FAITH Ecosystem Section (moved) */}
+  <DFaithSection />
 
-        {/* Konzerte Section */}
-        <KonzerteSection />
+  {/* Konzerte Section */}
+  <KonzerteSection />
 
         {/* Footer */}
         <footer className="py-12 px-4 border-t border-gray-800">

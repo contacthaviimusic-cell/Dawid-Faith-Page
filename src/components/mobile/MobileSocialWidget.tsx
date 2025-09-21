@@ -76,6 +76,16 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
     }
   ];
 
+  // Brand colors for icons (icons use currentColor / inherit from wrapper)
+  const brandColors: Record<string, string> = {
+    'D.FAITH': '#A78BFA', // purple
+    'Instagram': '#E1306C',
+    'Facebook': '#1877F2',
+    'TikTok': '#000000',
+    'YouTube': '#FF0000',
+    'E-Mail': '#10B981'
+  };
+
   const handleEmailClick = async () => {
     try {
       await navigator.clipboard.writeText('dawid.faith@gmail.com');
@@ -155,8 +165,12 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                     const wrapperClass = isToken ? 'w-14 h-14 bg-white/6 rounded-full flex items-center justify-center mb-2 border border-white/6' : 'w-8 h-8 bg-white/6 rounded-lg flex items-center justify-center mb-2 border border-white/6';
                     const iconSize = isToken ? 34 : 16;
                     return (
-                      <div className={wrapperClass}>
-                        <link.icon size={iconSize} className="text-white/90" />
+                      <div className={wrapperClass} style={{ color: brandColors[link.name] || undefined }}>
+                        {link.name === 'D.FAITH' ? (
+                          <link.icon size={iconSize} className="" />
+                        ) : (
+                          <link.icon size={iconSize} className="" />
+                        )}
                       </div>
                     );
                   })()}

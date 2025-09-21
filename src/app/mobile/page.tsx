@@ -129,11 +129,11 @@ export default function MobilePage() {
           </div>
         </section>
 
-        {/* Mobile Sections */}
-        <MobileNewsSection />
-        <MobileDFaithSection />
-        <MobileMusicSection />
-        <MobileKonzerteSection />
+  {/* Mobile Sections */}
+  <MobileNewsSection />
+  <MobileMusicSection />
+  <MobileDFaithSection />
+  <MobileKonzerteSection />
 
         {/* Mobile Social Widget */}
         {showSocialWidget && (
