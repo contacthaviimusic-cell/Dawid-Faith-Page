@@ -72,10 +72,10 @@ export default function Navigation() {
             style={{ fontFamily: 'Pirata One, cursive' }}
           >
             <div className="flex items-center gap-3">
-              <span> Dawid Faith</span>
               <div className="w-6 h-4">
                 <FlagForLang lang={lang} />
               </div>
+              <span className="ml-1">Dawid Faith</span>
             </div>
           </motion.div>
 
@@ -117,7 +117,7 @@ export default function Navigation() {
                         className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
                       >
                         <FlagDE />
-                        <span className="text-sm">Deutsch</span>
+                        <span className="text-sm text-white">Deutsch</span>
                       </button>
                     </li>
                     <li>
@@ -126,7 +126,7 @@ export default function Navigation() {
                         className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
                       >
                         <FlagGB />
-                        <span className="text-sm">English</span>
+                        <span className="text-sm text-white">English</span>
                       </button>
                     </li>
                     <li>
@@ -135,7 +135,7 @@ export default function Navigation() {
                         className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
                       >
                         <FlagPL />
-                        <span className="text-sm">Polski</span>
+                        <span className="text-sm text-white">Polski</span>
                       </button>
                     </li>
                   </ul>
