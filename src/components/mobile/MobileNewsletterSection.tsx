@@ -76,7 +76,7 @@ export default function MobileNewsletterSection() {
   }, []);
 
   return (
-    <section id="newsletter" className="py-16 px-4 bg-gradient-to-b from-black via-purple-900/10 to-black">
+    <section id="newsletter" className="py-8 px-4 bg-gradient-to-b from-black via-purple-900/10 to-black">
       <div className="container mx-auto">
         {/* Newsletter Signup */}
         <motion.div

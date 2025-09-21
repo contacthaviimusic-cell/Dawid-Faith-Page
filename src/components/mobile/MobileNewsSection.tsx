@@ -90,7 +90,7 @@ export default function MobileNewsSection() {
   };
 
   return (
-    <section id="news" className="py-16 px-4 bg-gradient-to-b from-black via-purple-900/10 to-black">
+    <section id="news" className="py-8 px-4 bg-gradient-to-b from-black via-purple-900/10 to-black">
       <div className="container mx-auto">
         {/* Header */}
         <motion.div

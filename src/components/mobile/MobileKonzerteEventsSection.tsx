@@ -69,7 +69,7 @@ export default function MobileKonzerteEventsSection() {
   };
 
   return (
-    <section id="konzerte" className="py-16 px-4 bg-gradient-to-b from-black via-orange-900/10 to-black">
+    <section id="konzerte" className="py-8 px-4 bg-gradient-to-b from-black via-orange-900/10 to-black">
       <div className="container mx-auto">
         {/* Header */}
         <motion.div
@@ -130,22 +130,22 @@ export default function MobileKonzerteEventsSection() {
                 {/* Venue & Ort */}
                 <div className="flex items-center gap-3 text-white">
                   <MapPin className="text-pink-400" size={18} />
-                  <span>{event.venue}</span>
+                  <span>{KonzerteEventsTranslations[lang].events?.[event.id]?.venue ?? event.venue}</span>
                   <span className="text-gray-400">•</span>
-                  <span>{event.location}</span>
+                  <span>{KonzerteEventsTranslations[lang].events?.[event.id]?.location ?? event.location}</span>
                 </div>
                 {/* Kapazität */}
-                {event.capacity && (
+                {(KonzerteEventsTranslations[lang].events?.[event.id]?.capacity ?? event.capacity) && (
                   <div className="flex items-center gap-3 text-white">
                     <Users className="text-blue-400" size={18} />
-                    <span>{event.capacity}</span>
+                    <span>{KonzerteEventsTranslations[lang].events?.[event.id]?.capacity ?? event.capacity}</span>
                   </div>
                 )}
                 {/* Preis */}
-                {event.price && (
+                {(KonzerteEventsTranslations[lang].events?.[event.id]?.price ?? event.price) && (
                   <div className="flex items-center gap-3 text-white">
                     <Ticket className="text-green-400" size={18} />
-                    <span>{event.price}</span>
+                    <span>{KonzerteEventsTranslations[lang].events?.[event.id]?.price ?? event.price}</span>
                   </div>
                 )}
               </div>
@@ -154,7 +154,7 @@ export default function MobileKonzerteEventsSection() {
               {/* Beschreibung */}
               <div className="bg-black/30 rounded-xl p-4 border border-gray-700">
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  {event.description}
+                  {KonzerteEventsTranslations[lang].events?.[event.id]?.description ?? event.description}
                 </p>
               </div>
               {/* Info Button */}

@@ -44,7 +44,7 @@ export default function MobileDFaithSection() {
   };
 
   return (
-    <section id="dfaith" className="relative py-16 px-4 bg-gradient-to-b from-black via-purple-900/20 to-black overflow-hidden">
+    <section id="dfaith" className="relative py-8 px-4 bg-gradient-to-b from-black via-purple-900/20 to-black overflow-hidden">
       {/* Magical floating particles */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-purple-400/60 rounded-full animate-pulse" 

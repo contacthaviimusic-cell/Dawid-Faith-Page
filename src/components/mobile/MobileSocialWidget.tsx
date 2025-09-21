@@ -235,7 +235,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                 onClick={() => {
                   onClose();
                   setTimeout(() => {
-                    const el = document.querySelector('#konzerte');
+                    const el = document.querySelector('#newsletter');
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }, 300);
                 }}

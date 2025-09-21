@@ -169,7 +169,7 @@ export default function MobileMusicSection() {
   };
 
   return (
-    <section id="music" className="py-16 px-4 bg-gradient-to-b from-black via-pink-900/10 to-black">
+    <section id="music" className="py-8 px-4 bg-gradient-to-b from-black via-pink-900/10 to-black">
       <div className="container mx-auto">
         {/* Header */}
         <motion.div
