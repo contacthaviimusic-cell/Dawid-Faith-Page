@@ -75,7 +75,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-end justify-center"
+        className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end justify-center p-4"
         onClick={onClose}
       >
         <motion.div
@@ -83,13 +83,13 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
           animate={{ y: 0 }}
           exit={{ y: '100%' }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="bg-gradient-to-t from-gray-900 via-purple-900/30 to-pink-900/20 rounded-t-3xl border-t border-l border-r border-purple-500/30 w-full max-w-md mx-auto"
+          className="bg-gradient-to-t from-gray-900 via-purple-900/30 to-pink-900/20 rounded-t-3xl border-t border-l border-r border-purple-500/30 w-full max-w-md mx-auto max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-700">
+          <div className="flex items-center justify-between p-4 border-b border-gray-700 sticky top-0 bg-gray-900/95 backdrop-blur-sm">
             <div className="flex items-center gap-3">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-purple-500">
+              <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-purple-500">
                 <Image
                   src="/dawid-faith.jpg"
                   alt="Dawid Faith"
@@ -99,25 +99,27 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
               </div>
               <div>
                 <h2 className="text-lg font-bold text-white">Dawid Faith</h2>
-                <p className="text-gray-400 text-sm">Künstler • Visionär</p>
+                <p className="text-gray-400 text-xs">Künstler • Visionär</p>
               </div>
             </div>
-            <button
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
               onClick={onClose}
-              className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-gray-300 hover:bg-gray-600 transition-colors"
+              className="w-12 h-12 bg-red-600/20 hover:bg-red-600/40 border-2 border-red-500/50 rounded-full flex items-center justify-center text-red-400 hover:text-red-300 transition-all duration-200"
             >
-              <X size={20} />
-            </button>
+              <X size={24} />
+            </motion.button>
           </div>
 
           {/* Social Links */}
-          <div className="p-6 space-y-4">
+          <div className="p-4 space-y-3">
             {socialLinks.map((link, index) => (
               <motion.button
                 key={link.name}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.05 }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => {
@@ -127,34 +129,34 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                     window.open(link.url, '_blank');
                   }
                 }}
-                className={`w-full bg-gradient-to-r ${link.color} p-4 rounded-2xl flex items-center gap-4 text-white shadow-xl`}
+                className={`w-full bg-gradient-to-r ${link.color} p-3 rounded-xl flex items-center gap-3 text-white shadow-lg`}
               >
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                  <link.icon size={24} className="text-white" />
+                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                  <link.icon size={20} className="text-white" />
                 </div>
                 <div className="flex-1 text-left">
-                  <h3 className="font-bold text-lg">{link.name}</h3>
-                  <p className="text-white/80 text-sm">{link.description}</p>
+                  <h3 className="font-bold text-base">{link.name}</h3>
+                  <p className="text-white/80 text-xs">{link.description}</p>
                 </div>
-                {link.url && <ExternalLink size={20} className="text-white/60" />}
+                {link.url && <ExternalLink size={18} className="text-white/60" />}
               </motion.button>
             ))}
           </div>
 
           {/* Bio Section */}
-          <div className="px-6 pb-4">
-            <div className="bg-black/30 rounded-2xl p-4 border border-gray-700 mb-4">
-              <h3 className="text-white font-bold mb-2">Über Dawid Faith</h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
+          <div className="px-4 pb-6">
+            <div className="bg-black/30 rounded-xl p-3 border border-gray-700 mb-3">
+              <h3 className="text-white font-bold mb-2 text-sm">Über Dawid Faith</h3>
+              <p className="text-gray-300 text-xs leading-relaxed">
                 Innovativer Künstler, der Musik mit Blockchain-Technologie verbindet. 
                 Erlebe die Zukunft der Musikindustrie mit D.FAITH Token und exklusiven Community-Features.
               </p>
             </div>
 
             {/* D.FAITH Token Teaser */}
-            <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-2xl p-4 border border-purple-500/30 mb-4">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="relative w-8 h-8">
+            <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-xl p-3 border border-purple-500/30 mb-3">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="relative w-6 h-6">
                   <Image
                     src="/dfaith-token.png"
                     alt="D.FAITH Token"
@@ -162,9 +164,9 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                     className="object-contain"
                   />
                 </div>
-                <h3 className="text-white font-bold">D.FAITH Token</h3>
+                <h3 className="text-white font-bold text-sm">D.FAITH Token</h3>
               </div>
-              <p className="text-gray-300 text-sm mb-3">
+              <p className="text-gray-300 text-xs mb-2">
                 Dein Zugang zur exklusiven Dawid Faith Community
               </p>
               <motion.button
@@ -177,16 +179,16 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }, 300);
                 }}
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-2 rounded-xl font-medium text-sm"
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-2 rounded-lg font-medium text-xs"
               >
                 Mehr erfahren
               </motion.button>
             </div>
 
             {/* Quick Newsletter */}
-            <div className="bg-gradient-to-r from-green-900/30 to-teal-900/30 rounded-2xl p-4 border border-green-500/30">
-              <h3 className="text-white font-bold mb-2 text-center">Stay Connected</h3>
-              <p className="text-gray-300 text-xs text-center mb-3">
+            <div className="bg-gradient-to-r from-green-900/30 to-teal-900/30 rounded-xl p-3 border border-green-500/30">
+              <h3 className="text-white font-bold mb-1 text-center text-sm">Stay Connected</h3>
+              <p className="text-gray-300 text-xs text-center mb-2">
                 Erhalte Updates zu neuen Songs und Konzerten
               </p>
               <motion.button
@@ -199,7 +201,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }, 300);
                 }}
-                className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-2 rounded-xl font-medium text-sm"
+                className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-2 rounded-lg font-medium text-xs"
               >
                 Newsletter abonnieren
               </motion.button>
