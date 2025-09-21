@@ -35,7 +35,7 @@ export const KonzerteEventsTranslations: Record<LangKey, {
     variousDates: 'Verschiedene Termine',
     releaseAlert: '🎵 Das Single Release-Konzert in Katys Garage (Dresden Neustadt) hat freien Eintritt! Komm einfach vorbei.',
     moreInfo: 'Mehr erfahren',
-    register: 'Anmeldung',
+    register: 'Tickets',
     events: {
       'release-konzert-2025': {
         title: '🎵 Single Release-Konzert 2025',
@@ -58,7 +58,7 @@ export const KonzerteEventsTranslations: Record<LangKey, {
     variousDates: 'Various dates',
     releaseAlert: '🎵 The single release concert at Katy\'s Garage (Dresden Neustadt) has free entry! Just drop by.',
     moreInfo: 'Learn more',
-    register: 'Register',
+    register: 'Tickets',
     events: {
       'release-konzert-2025': {
         title: '🎵 Single Release Concert 2025',
@@ -81,7 +81,7 @@ export const KonzerteEventsTranslations: Record<LangKey, {
     variousDates: 'Różne terminy',
     releaseAlert: '🎵 Koncert premierowy singla w Katy\'s Garage (Drezno Neustadt) ma darmowe wejście! Po prostu wpadnij.',
     moreInfo: 'Dowiedz się więcej',
-    register: 'Zarejestruj się',
+    register: 'Bilety',
     events: {
       'release-konzert-2025': {
         title: '🎵 Koncert premierowy singla 2025',
