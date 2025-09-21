@@ -76,7 +76,7 @@ export default function MobileNewsletterSection() {
   }, []);
 
   return (
-    <section id="newsletter" className="py-8 px-4 bg-gradient-to-b from-black via-purple-900/10 to-black">
+    <section id="newsletter" className="py-4 px-4 bg-gradient-to-b from-black via-purple-900/10 to-black">
       <div className="container mx-auto">
         {/* Newsletter Signup */}
         <motion.div
@@ -140,27 +140,29 @@ export default function MobileNewsletterSection() {
           </div>
 
           {/* Status Display */}
-          {subscriptionStatus === 'success' && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-4 p-4 rounded-xl border bg-green-500/20 border-green-500/30 text-green-400 flex items-center gap-3"
-            >
-              <CheckCircle size={20} />
-              <span className="text-sm">{NewsletterTranslations[lang].subscribeSuccess}</span>
-            </motion.div>
-          )}
+          <div className="relative z-20">
+            {subscriptionStatus === 'success' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-4 p-4 rounded-xl border bg-green-500/20 border-green-500/30 text-green-400 flex items-center gap-3"
+              >
+                <CheckCircle size={20} />
+                <span className="text-sm">{NewsletterTranslations[lang].subscribeSuccess}</span>
+              </motion.div>
+            )}
 
-          {subscriptionStatus === 'error' && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-4 p-4 rounded-xl border bg-red-500/20 border-red-500/30 text-red-400 flex items-center gap-3"
-            >
-              <AlertCircle size={20} />
-              <span className="text-sm">{NewsletterTranslations[lang].subscribeError}</span>
-            </motion.div>
-          )}
+            {subscriptionStatus === 'error' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-4 p-4 rounded-xl border bg-red-500/20 border-red-500/30 text-red-400 flex items-center gap-3"
+              >
+                <AlertCircle size={20} />
+                <span className="text-sm">{NewsletterTranslations[lang].subscribeError}</span>
+              </motion.div>
+            )}
+          </div>
         </motion.div>
       </div>
     </section>
