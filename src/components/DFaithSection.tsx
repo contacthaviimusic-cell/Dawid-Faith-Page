@@ -70,15 +70,15 @@ const DFaithSection = () => {
             className="order-2 lg:order-1"
           >
             <div className="flex items-center gap-3 mb-6">
-              <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm font-medium">Für Fans & Supporter</span>
-              <span className="text-gray-400 text-sm">Einfach. Fair. Sofort.</span>
+              <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm font-medium">{DFaithTranslations[lang].badgeLabel}</span>
+              <span className="text-gray-400 text-sm">{DFaithTranslations[lang].tagline}</span>
             </div>
 
             {/* Small value row */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-              <div className="rounded-xl border border-gray-700/40 bg-slate-900/40 px-4 py-3 text-sm text-gray-200">💬 Interagiere & erhalte Token</div>
-              <div className="rounded-xl border border-gray-700/40 bg-slate-900/40 px-4 py-3 text-sm text-gray-200">🎧 Früher Zugang zu Songs</div>
-              <div className="rounded-xl border border-gray-700/40 bg-slate-900/40 px-4 py-3 text-sm text-gray-200">💸 Einfach auszahlen</div>
+              {DFaithTranslations[lang].smallValues.map((v, i) => (
+                <div key={i} className="rounded-xl border border-gray-700/40 bg-slate-900/40 px-4 py-3 text-sm text-gray-200">{v}</div>
+              ))}
             </div>
 
             {/* Simple tabs */}

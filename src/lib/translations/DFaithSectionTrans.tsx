@@ -5,6 +5,7 @@ export type LangKey = 'de' | 'en' | 'pl';
 export const DFaithTranslations: Record<LangKey, {
   title: string;
   subtitle: string;
+  tagline: string;
   badgeLabel: string;
   smallValues: string[];
   tabFans: string;
@@ -17,6 +18,7 @@ export const DFaithTranslations: Record<LangKey, {
   de: {
     title: 'D.FAITH Ökosystem – kurz erklärt',
     subtitle: 'Likes, Kommentare, Shares – dein Support bringt dir Tokens. Frühere Musik, exklusive Vorteile, einfache Auszahlung.',
+    tagline: 'Einfach. Fair. Sofort.',
     badgeLabel: 'Für Fans & Supporter',
     smallValues: ['💬 Interagiere & erhalte Token', '🎧 Früher Zugang zu Songs', '💸 Einfach auszahlen'],
     tabFans: 'Für Fans',
@@ -37,6 +39,7 @@ export const DFaithTranslations: Record<LangKey, {
   en: {
     title: 'D.FAITH ecosystem — a short explanation',
     subtitle: 'Likes, comments, shares — your support earns you tokens. Early music access, exclusive perks, easy payouts.',
+    tagline: 'Simple. Fair. Instant.',
     badgeLabel: 'For Fans & Supporters',
     smallValues: ['💬 Interact & earn tokens', '🎧 Early access to songs', '💸 Easy to cash out'],
     tabFans: 'For Fans',
@@ -57,6 +60,7 @@ export const DFaithTranslations: Record<LangKey, {
   pl: {
     title: 'Ekosystem D.FAITH — krótko wyjaśniony',
     subtitle: 'Polubienia, komentarze, udostępnienia — Twój support daje tokeny. Wczesny dostęp do muzyki, ekskluzywne korzyści, łatwe wypłaty.',
+    tagline: 'Prosto. Sprawiedliwie. Natychmiast.',
     badgeLabel: 'Dla fanów i wspierających',
     smallValues: ['💬 Angażuj się i zdobywaj tokeny', '🎧 Wczesny dostęp do utworów', '💸 Łatwe wypłacanie'],
     tabFans: 'Dla fanów',

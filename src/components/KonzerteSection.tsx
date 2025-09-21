@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, Clock, Users, Star, Ticket, Music, Heart, Mail } from 'lucide-react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import KonzerteTranslations from '../lib/translations/KonzerteSectionTrans';
 
 interface KonzertEvent {
   id: string;
@@ -44,6 +45,7 @@ export default function KonzerteSection() {
   const [email, setEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
   // removed apiDebug (debug UI no longer needed in production)
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
@@ -109,15 +111,34 @@ export default function KonzerteSection() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'upcoming':
-        return <span className="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm">Verfügbar</span>;
+        return <span className="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm">{KonzerteTranslations[lang].status.upcoming}</span>;
       case 'sold-out':
-        return <span className="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-sm">Ausverkauft</span>;
+        return <span className="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-sm">{KonzerteTranslations[lang].status.soldOut}</span>;
       case 'vip-only':
-        return <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">VIP Only</span>;
+        return <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">{KonzerteTranslations[lang].status.vipOnly}</span>;
       default:
         return null;
     }
   };
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de' | 'en' | 'pl' | null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de' | 'en' | 'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    } catch (e) {}
+
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de' | 'en' | 'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
 
   return (
     <section id="konzerte" className="py-20 px-4 relative bg-gradient-to-b from-slate-900/20 to-purple-900/10">
@@ -131,11 +152,10 @@ export default function KonzerteSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            Konzerte & Events
+            {KonzerteTranslations[lang].title}
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Erlebe Dawid Faith live! Hier findest du alle kommenden Konzerte, 
-            Events und exklusive Live-Performances.
+            {KonzerteTranslations[lang].subtitle}
           </p>
         </motion.div>
 
@@ -252,7 +272,7 @@ export default function KonzerteSection() {
                           // Scroll to top and trigger a special event for tickets
                           window.scrollTo({ top: 0, behavior: 'smooth' });
                           setTimeout(() => {
-                            alert('🎵 Das Single Release-Konzert in Katys Garage (Dresden Neustadt) hat freien Eintritt! Komm einfach vorbei.');
+                              alert(KonzerteTranslations[lang].releaseAlert);
                           }, 500);
                         }
                       }}
@@ -260,12 +280,12 @@ export default function KonzerteSection() {
                       {event.isVip ? (
                         <>
                           <Heart size={16} />
-                          Mehr erfahren
+                          {KonzerteTranslations[lang].moreInfo}
                         </>
                       ) : (
                         <>
                           <Ticket size={16} />
-                          Anmeldung
+                          {KonzerteTranslations[lang].register}
                         </>
                       )}
                     </motion.button>
@@ -288,19 +308,19 @@ export default function KonzerteSection() {
           <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 backdrop-blur-md rounded-2xl p-8 border border-purple-500/20">
             <Mail className="mx-auto mb-4 text-purple-400" size={48} />
             <h3 className="text-2xl font-bold mb-4 text-purple-300">
-              Newsletter abonnieren
+              {KonzerteTranslations[lang].newsletterTitle}
             </h3>
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Erhalte Updates zu neuen Konzerten, Songs und besonderen Events direkt in dein Postfach.
+              {KonzerteTranslations[lang].newsletterDesc}
             </p>
             
             {subscriptionStatus === 'success' ? (
               <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4 mb-6">
-                <p className="text-green-300 font-semibold">✅ Erfolgreich angemeldet! Danke für dein Interesse.</p>
+                <p className="text-green-300 font-semibold">{KonzerteTranslations[lang].subscribeSuccess}</p>
               </div>
             ) : subscriptionStatus === 'error' ? (
               <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 mb-6">
-                <p className="text-red-300 font-semibold">❌ Fehler bei der Anmeldung. Bitte versuche es erneut.</p>
+                <p className="text-red-300 font-semibold">{KonzerteTranslations[lang].subscribeError}</p>
               </div>
             ) : (
               <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto mb-6">
@@ -309,7 +329,7 @@ export default function KonzerteSection() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="deine@email.de"
+                    placeholder={KonzerteTranslations[lang].emailPlaceholder}
                     className="flex-1 px-4 py-3 rounded-lg bg-black/40 border border-purple-500/30 text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 transition-colors"
                     required
                     disabled={isSubscribing}
@@ -324,12 +344,12 @@ export default function KonzerteSection() {
                     {isSubscribing ? (
                       <>
                         <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Anmelden...
+                        {KonzerteTranslations[lang].subscribingLabel}
                       </>
                     ) : (
                       <>
                         <Mail size={16} />
-                        Anmelden
+                        {KonzerteTranslations[lang].subscribeLabel}
                       </>
                     )}
                   </motion.button>
@@ -348,7 +368,7 @@ export default function KonzerteSection() {
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
             >
-              D.FAITH Token erhalten
+              {KonzerteTranslations[lang].ticketButtonScroll}
             </motion.button>
           </div>
         </motion.div>
