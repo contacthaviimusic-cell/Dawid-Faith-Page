@@ -44,10 +44,13 @@ async function saveNewsletterSubscribers(subscribers: NewsletterSubscriber[]): P
     const blob = await put(BLOB_FILENAME, JSON.stringify(subscribers, null, 2), {
       access: 'public',
       contentType: 'application/json',
+      // Allow overwriting the same blob filename so updates replace previous data
+      allowOverwrite: true,
     });
     console.log('Newsletter data saved to Vercel Blob successfully:', blob.url);
   } catch (error) {
     console.error('Error saving to Vercel Blob:', error);
+    // surface the original error message for debugging
     throw new Error(`Failed to save newsletter data: ${error}`);
   }
 }
