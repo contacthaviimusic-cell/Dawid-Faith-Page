@@ -8,7 +8,8 @@ import MobileNavigation from '../../components/mobile/MobileNavigation';
 import MobileNewsSection from '../../components/mobile/MobileNewsSection';
 import MobileDFaithSection from '../../components/mobile/MobileDFaithSection';
 import MobileMusicSection from '../../components/mobile/MobileMusicSection';
-import MobileKonzerteSection from '../../components/mobile/MobileKonzerteSection';
+import MobileKonzerteEventsSection from '../../components/mobile/MobileKonzerteEventsSection';
+import MobileNewsletterSection from '../../components/mobile/MobileNewsletterSection';
 import MobileSocialWidget from '../../components/mobile/MobileSocialWidget';
 import PageTranslations from '@/lib/translations/page';
 
@@ -133,7 +134,8 @@ export default function MobilePage() {
   <MobileNewsSection />
   <MobileMusicSection />
   <MobileDFaithSection />
-  <MobileKonzerteSection />
+  <MobileKonzerteEventsSection />
+  <MobileNewsletterSection />
 
         {/* Mobile Social Widget */}
         {showSocialWidget && (

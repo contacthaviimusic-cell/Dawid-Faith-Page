@@ -1,6 +1,6 @@
 export type LangKey = 'de' | 'en' | 'pl';
 
-export const KonzerteTranslations: Record<LangKey, {
+export const KonzerteEventsTranslations: Record<LangKey, {
   title: string;
   subtitle: string;
   releaseBadge: string;
@@ -15,14 +15,6 @@ export const KonzerteTranslations: Record<LangKey, {
   releaseAlert: string;
   moreInfo: string;
   register: string;
-  newsletterTitle: string;
-  newsletterDesc: string;
-  subscribeSuccess: string;
-  subscribeError: string;
-  emailPlaceholder: string;
-  subscribeLabel: string;
-  subscribingLabel: string;
-  ticketButtonScroll: string;
   events?: Record<string, {
     title?: string;
     subtitle?: string;
@@ -32,26 +24,18 @@ export const KonzerteTranslations: Record<LangKey, {
     venue?: string;
     location?: string;
   }>;
-} > = {
+}> = {
   de: {
     title: 'Konzerte & Events',
     subtitle: 'Erlebe Dawid Faith live! Hier findest du alle kommenden Konzerte, Events und exklusive Live-Performances.',
     releaseBadge: 'Release Event',
     vipBadge: 'VIP',
     status: { upcoming: 'Verfügbar', soldOut: 'Ausverkauft', vipOnly: 'VIP Only' },
-  timeSuffix: 'Uhr',
-  variousDates: 'Verschiedene Termine',
+    timeSuffix: 'Uhr',
+    variousDates: 'Verschiedene Termine',
     releaseAlert: '🎵 Das Single Release-Konzert in Katys Garage (Dresden Neustadt) hat freien Eintritt! Komm einfach vorbei.',
     moreInfo: 'Mehr erfahren',
     register: 'Anmeldung',
-    newsletterTitle: 'Newsletter abonnieren',
-    newsletterDesc: 'Erhalte Updates zu neuen Konzerten, Songs und besonderen Events direkt in dein Postfach.',
-    subscribeSuccess: '✅ Erfolgreich angemeldet! Danke für dein Interesse.',
-    subscribeError: '❌ Fehler bei der Anmeldung. Bitte versuche es erneut.',
-    emailPlaceholder: 'deine@email.de',
-    subscribeLabel: 'Anmelden',
-    subscribingLabel: 'Anmelden...',
-    ticketButtonScroll: 'D.FAITH Token erhalten',
     events: {
       'release-konzert-2025': {
         title: '🎵 Single Release-Konzert 2025',
@@ -70,19 +54,11 @@ export const KonzerteTranslations: Record<LangKey, {
     releaseBadge: 'Release Event',
     vipBadge: 'VIP',
     status: { upcoming: 'Available', soldOut: 'Sold out', vipOnly: 'VIP Only' },
-  timeSuffix: '',
-  variousDates: 'Various dates',
+    timeSuffix: '',
+    variousDates: 'Various dates',
     releaseAlert: '🎵 The single release concert at Katy\'s Garage (Dresden Neustadt) has free entry! Just drop by.',
     moreInfo: 'Learn more',
     register: 'Register',
-    newsletterTitle: 'Subscribe to newsletter',
-    newsletterDesc: 'Get updates about new concerts, songs and special events directly to your inbox.',
-    subscribeSuccess: '✅ Successfully subscribed! Thanks for your interest.',
-    subscribeError: '❌ Error during subscription. Please try again.',
-    emailPlaceholder: 'your@email.com',
-    subscribeLabel: 'Subscribe',
-    subscribingLabel: 'Subscribing...',
-    ticketButtonScroll: 'Get D.FAITH tokens',
     events: {
       'release-konzert-2025': {
         title: '🎵 Single Release Concert 2025',
@@ -101,19 +77,11 @@ export const KonzerteTranslations: Record<LangKey, {
     releaseBadge: 'Wydarzenie premierowe',
     vipBadge: 'VIP',
     status: { upcoming: 'Dostępne', soldOut: 'Wyprzedane', vipOnly: 'Tylko VIP' },
-  timeSuffix: '',
-  variousDates: 'Różne terminy',
+    timeSuffix: '',
+    variousDates: 'Różne terminy',
     releaseAlert: '🎵 Koncert premierowy singla w Katy\'s Garage (Drezno Neustadt) ma darmowe wejście! Po prostu wpadnij.',
     moreInfo: 'Dowiedz się więcej',
     register: 'Zarejestruj się',
-    newsletterTitle: 'Subskrybuj newsletter',
-    newsletterDesc: 'Otrzymuj aktualizacje o nowych koncertach, utworach i specjalnych wydarzeniach bezpośrednio na swoją skrzynkę.',
-    subscribeSuccess: '✅ Pomyślnie zapisano! Dziękujemy za zainteresowanie.',
-    subscribeError: '❌ Błąd podczas zapisu. Proszę spróbuj ponownie.',
-    emailPlaceholder: 'twój@email.pl',
-    subscribeLabel: 'Zapisz się',
-    subscribingLabel: 'Zapisywanie...',
-    ticketButtonScroll: 'Otrzymaj tokeny D.FAITH',
     events: {
       'release-konzert-2025': {
         title: '🎵 Koncert premierowy singla 2025',
@@ -128,4 +96,4 @@ export const KonzerteTranslations: Record<LangKey, {
   }
 };
 
-export default KonzerteTranslations;
+export default KonzerteEventsTranslations;

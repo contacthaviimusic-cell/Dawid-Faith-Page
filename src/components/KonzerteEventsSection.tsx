@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, Clock, Users, Star, Ticket, Heart } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import KonzerteTranslations from '../lib/translations/KonzerteSectionTrans';
+import KonzerteEventsTranslations from '../lib/translations/KonzerteEventsTranslations';
 
 interface KonzertEvent {
   id: string;
@@ -73,11 +73,11 @@ export default function KonzerteEventsSection() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'upcoming':
-        return <span className="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm">{KonzerteTranslations[lang].status.upcoming}</span>;
+        return <span className="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm">{KonzerteEventsTranslations[lang].status.upcoming}</span>;
       case 'sold-out':
-        return <span className="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-sm">{KonzerteTranslations[lang].status.soldOut}</span>;
+        return <span className="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-sm">{KonzerteEventsTranslations[lang].status.soldOut}</span>;
       case 'vip-only':
-        return <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">{KonzerteTranslations[lang].status.vipOnly}</span>;
+        return <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">{KonzerteEventsTranslations[lang].status.vipOnly}</span>;
       default:
         return null;
     }
@@ -116,10 +116,10 @@ export default function KonzerteEventsSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            {KonzerteTranslations[lang].title}
+            {KonzerteEventsTranslations[lang].title}
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            {KonzerteTranslations[lang].subtitle}
+            {KonzerteEventsTranslations[lang].subtitle}
           </p>
         </motion.div>
 
@@ -170,11 +170,11 @@ export default function KonzerteEventsSection() {
                         event.isReleaseKonzert ? 'text-purple-300' : event.isVip ? 'text-yellow-300' : 'text-blue-300'
                       }`}
                     >
-                      {(KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.title) || event.title}
+                      {(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.title) || event.title}
                     </h3>
-                    {(KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.subtitle) || event.subtitle ? (
+                    {(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.subtitle) || event.subtitle ? (
                       <p className="text-gray-400 text-lg">
-                        {(KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.subtitle) || event.subtitle}
+                        {(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.subtitle) || event.subtitle}
                       </p>
                     ) : null}
                   </div>
@@ -194,29 +194,29 @@ export default function KonzerteEventsSection() {
 
                     <div className="flex items-center gap-3 text-gray-300">
                       <MapPin size={20} className="text-pink-400" />
-                      <span>{(KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.venue) || event.venue}</span>
+                      <span>{(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.venue) || event.venue}</span>
                       <span className="text-gray-500">•</span>
-                      <span>{(KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.location) || event.location}</span>
+                      <span>{(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.location) || event.location}</span>
                     </div>
 
-                    {(KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.capacity) || event.capacity ? (
+                    {(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.capacity) || event.capacity ? (
                       <div className="flex items-center gap-3 text-gray-300">
                         <Users size={20} className="text-blue-400" />
-                        <span>{(KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.capacity) || event.capacity}</span>
+                        <span>{(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.capacity) || event.capacity}</span>
                       </div>
                     ) : null}
 
-                    {(KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.price) || event.price ? (
+                    {(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.price) || event.price ? (
                       <div className="flex items-center gap-3 text-gray-300">
                         <Ticket size={20} className="text-green-400" />
-                        <span>{(KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.price) || event.price}</span>
+                        <span>{(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.price) || event.price}</span>
                       </div>
                     ) : null}
                   </div>
 
                   {/* Description */}
                   <p className="text-gray-300 leading-relaxed">
-                    {(KonzerteTranslations[lang].events && KonzerteTranslations[lang].events![event.id]?.description) || event.description}
+                    {(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.description) || event.description}
                   </p>
 
                   {/* Status and Actions */}
@@ -239,7 +239,7 @@ export default function KonzerteEventsSection() {
                             // Scroll to top and trigger a special event for tickets
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                             setTimeout(() => {
-                              alert(KonzerteTranslations[lang].releaseAlert);
+                              alert(KonzerteEventsTranslations[lang].releaseAlert);
                             }, 500);
                           }
                         }}
@@ -247,12 +247,12 @@ export default function KonzerteEventsSection() {
                         {event.isVip ? (
                           <>
                             <Heart size={16} />
-                            {KonzerteTranslations[lang].moreInfo}
+                            {KonzerteEventsTranslations[lang].moreInfo}
                           </>
                         ) : (
                           <>
                             <Ticket size={16} />
-                            {KonzerteTranslations[lang].register}
+                            {KonzerteEventsTranslations[lang].register}
                           </>
                         )}
                       </motion.button>
