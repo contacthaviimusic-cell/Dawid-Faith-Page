@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, Newspaper, Coins, Music, Calendar, Heart, Globe } from 'lucide-react';
+import { Menu, X, Home, Newspaper, Coins, Music, Calendar, Heart } from 'lucide-react';
 import Image from 'next/image';
+import FlagForLang from '../FlagIcon';
 
 export default function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,16 +69,9 @@ export default function MobileNavigation() {
 
           {/* Hamburger Button and language select */}
           <div className="flex items-center gap-3">
-            <select
-              aria-label="Sprache wählen"
-              value={lang}
-              onChange={(e) => setLang(e.target.value as 'de' | 'en' | 'pl')}
-              className="bg-transparent text-white border border-transparent focus:border-purple-400 px-2 py-1 rounded-md text-sm"
-            >
-              <option value="de">🇩🇪 DE</option>
-              <option value="en">🇬🇧 EN</option>
-              <option value="pl">🇵🇱 PL</option>
-            </select>
+            <div className="flex items-center"> 
+              <FlagForLang lang={lang} />
+            </div>
 
             <motion.button
               whileHover={{ scale: 1.05 }}

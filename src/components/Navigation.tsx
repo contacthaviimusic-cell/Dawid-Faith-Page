@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Menu, X, Music, Sparkles, User, Newspaper, Calendar, Globe } from 'lucide-react';
+import { Menu, X, Music, Sparkles, User, Newspaper, Calendar } from 'lucide-react';
 import Link from 'next/link';
+import FlagForLang, { FlagDE, FlagGB, FlagPL } from './FlagIcon';
+import { useRef } from 'react';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,19 +77,17 @@ export default function Navigation() {
                 {item.name}
               </motion.button>
             ))}
-            {/* Language selector */}
-            <div className="flex items-center gap-2">
-              <Globe size={18} className="text-gray-300" />
-              <select
-                aria-label="Sprache wählen"
-                value={lang}
-                onChange={(e) => setLang(e.target.value as 'de' | 'en' | 'pl')}
-                className="bg-transparent text-gray-300 border border-transparent focus:border-purple-400 px-2 py-1 rounded-md text-sm"
+            {/* Language selector (flag dropdown) */}
+            <div className="relative">
+              <button
+                aria-haspopup="listbox"
+                aria-expanded={false}
+                onClick={() => setLang(lang)}
+                className="flex items-center gap-2 text-gray-300 px-2 py-1 rounded-md"
+                title="Sprache"
               >
-                <option value="de">🇩🇪 DE</option>
-                <option value="en">🇬🇧 EN</option>
-                <option value="pl">🇵🇱 PL</option>
-              </select>
+                <FlagForLang lang={lang} />
+              </button>
             </div>
           </div>
 
@@ -98,17 +98,9 @@ export default function Navigation() {
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-            {/* small language toggle for mobile */}
-            <select
-              aria-label="Sprache wählen"
-              value={lang}
-              onChange={(e) => setLang(e.target.value as 'de' | 'en' | 'pl')}
-              className="bg-transparent text-gray-300 border border-transparent focus:border-purple-400 px-2 py-1 rounded-md text-sm"
-            >
-              <option value="de">🇩🇪 DE</option>
-              <option value="en">🇬🇧 EN</option>
-              <option value="pl">🇵🇱 PL</option>
-            </select>
+            <div>
+              <FlagForLang lang={lang} />
+            </div>
           </div>
         </div>
 
