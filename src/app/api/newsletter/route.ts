@@ -17,6 +17,7 @@ async function getNewsletterSubscribers(): Promise<NewsletterSubscriber[]> {
     const { blobs } = await list({ prefix: BLOB_FILENAME });
     
     if (blobs.length === 0) {
+      console.log('No newsletter subscribers found, returning empty array');
       return [];
     }
 
@@ -29,23 +30,25 @@ async function getNewsletterSubscribers(): Promise<NewsletterSubscriber[]> {
       return Array.isArray(data) ? data : [];
     }
     
+    console.log('Failed to fetch blob data, returning empty array');
     return [];
   } catch (error) {
-    console.log('No existing newsletter data found, starting fresh');
+    console.log('Error in getNewsletterSubscribers, starting fresh:', error);
     return [];
   }
 }
 
 async function saveNewsletterSubscribers(subscribers: NewsletterSubscriber[]): Promise<void> {
   try {
+    console.log('Attempting to save newsletter subscribers:', subscribers.length);
     const blob = await put(BLOB_FILENAME, JSON.stringify(subscribers, null, 2), {
       access: 'public',
       contentType: 'application/json',
     });
-    console.log('Newsletter data saved to Vercel Blob:', blob.url);
+    console.log('Newsletter data saved to Vercel Blob successfully:', blob.url);
   } catch (error) {
     console.error('Error saving to Vercel Blob:', error);
-    throw error;
+    throw new Error(`Failed to save newsletter data: ${error}`);
   }
 }
 
@@ -64,9 +67,15 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
+    console.log('Newsletter POST request received');
+    
+    const body = await request.json();
+    console.log('Request body:', body);
+    
+    const { email } = body;
 
     if (!email) {
+      console.log('Missing email in request');
       return NextResponse.json(
         { error: 'E-Mail-Adresse ist erforderlich' },
         { status: 400 }
@@ -76,17 +85,21 @@ export async function POST(request: NextRequest) {
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
+      console.log('Invalid email format:', email);
       return NextResponse.json(
         { error: 'Ungültige E-Mail-Adresse' },
         { status: 400 }
       );
     }
 
+    console.log('Getting existing subscribers...');
     const subscribers = await getNewsletterSubscribers();
+    console.log('Current subscribers count:', subscribers.length);
 
     // Check if email already exists
     const existingSubscriber = subscribers.find((sub: NewsletterSubscriber) => sub.email.toLowerCase() === email.toLowerCase());
     if (existingSubscriber) {
+      console.log('Email already exists:', email);
       return NextResponse.json(
         { error: 'Diese E-Mail-Adresse ist bereits angemeldet' },
         { status: 409 }
@@ -105,9 +118,10 @@ export async function POST(request: NextRequest) {
     };
 
     subscribers.push(newSubscriber);
+    console.log('Saving updated subscribers list...');
     await saveNewsletterSubscribers(subscribers);
 
-    console.log('New newsletter subscriber:', newSubscriber.email);
+    console.log('New newsletter subscriber added successfully:', newSubscriber.email);
 
     return NextResponse.json(
       { 
@@ -122,7 +136,7 @@ export async function POST(request: NextRequest) {
     );
 
   } catch (error) {
-    console.error('Error adding newsletter subscriber:', error);
+    console.error('Error in POST /api/newsletter:', error);
     return NextResponse.json(
       { error: 'Fehler bei der Newsletter-Anmeldung' },
       { status: 500 }
