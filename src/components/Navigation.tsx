@@ -28,6 +28,11 @@ export default function Navigation() {
     } catch (e) {}
     if (typeof document !== 'undefined') {
       document.documentElement.lang = lang;
+      try {
+        // notify other components
+        const ev = new CustomEvent('site-lang-changed', { detail: { lang } });
+        window.dispatchEvent(ev);
+      } catch (e) {}
     }
   }, [lang]);
 

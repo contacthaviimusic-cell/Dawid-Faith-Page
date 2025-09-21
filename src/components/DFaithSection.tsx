@@ -1,12 +1,41 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import DFaithTranslations from '../lib/translations/DFaithSectionTrans';
 
 const DFaithSection = () => {
   const [view, setView] = useState<'fans' | 'supporter'>('fans');
+  const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
+
+  useEffect(() => {
+    // try to read persisted lang or html lang
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de' | 'en' | 'pl' | null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') {
+        setLang(stored);
+      } else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const docLang = document.documentElement.lang as 'de' | 'en' | 'pl';
+        if (docLang === 'de' || docLang === 'en' || docLang === 'pl') setLang(docLang);
+      }
+    } catch (e) {}
+
+    // listen for language changes dispatched by Navigation
+    function onLang(e: Event) {
+      // CustomEvent with detail.lang
+      const ce = e as CustomEvent<{ lang: 'de' | 'en' | 'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+      else if (typeof document !== 'undefined' && document.documentElement.lang) {
+        const dl = document.documentElement.lang as 'de' | 'en' | 'pl';
+        if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
+      }
+    }
+
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
 
   return (
     <section id="dfaith" className="relative py-20 px-4 bg-gradient-to-b from-slate-900/30 to-purple-900/10 overflow-hidden">
@@ -23,10 +52,10 @@ const DFaithSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-            D.FAITH Ökosystem – kurz erklärt
+            {DFaithTranslations[lang].title}
           </h2>
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Likes, Kommentare, Shares – dein Support bringt dir Tokens. Frühere Musik, exklusive Vorteile, einfache Auszahlung.
+            {DFaithTranslations[lang].subtitle}
           </p>
         </motion.div>
 
@@ -62,7 +91,7 @@ const DFaithSection = () => {
                     view === key ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white' : 'text-gray-300 hover:text-white'
                   }`}
                 >
-                  {key === 'fans' ? 'Für Fans' : 'Für Supporter'}
+                  {key === 'fans' ? DFaithTranslations[lang].tabFans : DFaithTranslations[lang].tabSupporter}
                 </button>
               ))}
             </div>
@@ -70,15 +99,15 @@ const DFaithSection = () => {
             <div className="bg-gradient-to-br from-slate-900/60 to-purple-900/30 backdrop-blur-md rounded-2xl p-6 border border-purple-500/20 mb-6">
               {view === 'fans' ? (
                 <ul className="list-disc ml-5 space-y-2 text-gray-200">
-                  <li>Like, kommentiere, teile – sammle automatisch D.FAITH Token.</li>
-                  <li>Nutze Token für frühen Zugang, VIP-Erlebnisse und Rabatte.</li>
-                  <li>Willst du auszahlen? Einfach und transparent möglich.</li>
+                  {DFaithTranslations[lang].fansList.map((t, i) => (
+                    <li key={i}>{t}</li>
+                  ))}
                 </ul>
               ) : (
                 <ul className="list-disc ml-5 space-y-2 text-gray-200">
-                  <li>Kaufe D.INVEST zum Fixpreis (5€) und unterstütze die Musik direkt.</li>
-                  <li>Erhalte wöchentlich D.FAITH Token als Dankeschön.</li>
-                  <li>Mehr Support = mehr Reichweite = stärkeres Ökosystem.</li>
+                  {DFaithTranslations[lang].supporterList.map((t, i) => (
+                    <li key={i}>{t}</li>
+                  ))}
                 </ul>
               )}
             </div>
@@ -93,7 +122,7 @@ const DFaithSection = () => {
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg"
               >
-                Jetzt Token verdienen
+                {DFaithTranslations[lang].ctaEarn}
               </motion.a>
 
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
@@ -101,7 +130,7 @@ const DFaithSection = () => {
                   href="/whitepaper"
                   className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-semibold text-white border-2 border-purple-500/60 hover:bg-purple-500/10"
                 >
-                  Whitepaper lesen
+                  {DFaithTranslations[lang].ctaWhitepaper}
                 </Link>
               </motion.div>
             </div>
