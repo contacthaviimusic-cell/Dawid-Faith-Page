@@ -15,6 +15,23 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
 
   const socialLinks = [
     {
+      name: 'D.FAITH',
+      icon: ({ size, className }: { size: number, className: string }) => (
+        <div style={{ width: size, height: size }} className="rounded-lg overflow-hidden">
+          <Image src="/dfaith-token.png" alt="D.FAITH Token" width={size} height={size} />
+        </div>
+      ),
+      action: () => {
+        onClose();
+        setTimeout(() => {
+          const el = document.querySelector('#dfaith');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+      },
+      color: 'from-purple-700 to-purple-500',
+      description: 'Token & Community'
+    },
+    {
       name: 'Instagram',
       icon: Instagram,
       url: 'https://www.instagram.com/dawidfaith/',
@@ -157,37 +174,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
               </p>
             </div>
 
-            {/* D.FAITH Token Teaser */}
-            <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-xl p-3 border border-purple-500/30 mb-3">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="relative w-6 h-6">
-                  <Image
-                    src="/dfaith-token.png"
-                    alt="D.FAITH Token"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <h3 className="text-white font-bold text-sm">D.FAITH Token</h3>
-              </div>
-              <p className="text-gray-300 text-xs mb-2">
-                Dein Zugang zur exklusiven Dawid Faith Community
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                  onClose();
-                  setTimeout(() => {
-                    const el = document.querySelector('#dfaith');
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }, 300);
-                }}
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-2 rounded-lg font-medium text-xs"
-              >
-                Mehr erfahren
-              </motion.button>
-            </div>
+            {/* D.FAITH Token Teaser moved into the social links grid */}
 
             {/* Quick Newsletter */}
             <div className="bg-gradient-to-r from-green-900/30 to-teal-900/30 rounded-xl p-3 border border-green-500/30">

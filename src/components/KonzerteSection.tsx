@@ -44,7 +44,7 @@ export default function KonzerteSection() {
   const [email, setEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [apiDebug, setApiDebug] = useState<string | null>(null);
+  // removed apiDebug (debug UI no longer needed in production)
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,8 +52,7 @@ export default function KonzerteSection() {
 
     setIsSubscribing(true);
     
-    try {
-      setApiDebug(null);
+  try {
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: {
@@ -69,16 +68,14 @@ export default function KonzerteSection() {
         setSubscriptionStatus('success');
         setEmail('');
 
-        // Reset status after 3 seconds
+        // Reset status after ~9 seconds (previously 3s) - keep success visible longer
         setTimeout(() => {
           setSubscriptionStatus('idle');
-          setApiDebug(null);
-        }, 3000);
+        }, 9000);
       } else {
         setSubscriptionStatus('error');
-        const debug = (data && (data.debug || data.error)) ? (data.debug || data.error) : `status:${response.status}`;
-        setApiDebug(String(debug));
-        console.error('Newsletter subscription error:', debug);
+        const message = (data && (data.error)) ? data.error : `status:${response.status}`;
+        console.error('Newsletter subscription error:', message);
 
         // Reset status after 3 seconds
         setTimeout(() => {
@@ -87,7 +84,6 @@ export default function KonzerteSection() {
       }
     } catch (error) {
       setSubscriptionStatus('error');
-      setApiDebug(String(error));
       console.error('Newsletter subscription error (network):', error);
 
       // Reset status after 3 seconds
@@ -341,14 +337,7 @@ export default function KonzerteSection() {
               </form>
             )}
             {/* API debug panel (shows server debug message when present) */}
-            {apiDebug && (
-              <div className="max-w-md mx-auto mb-6">
-                <div className="bg-black/50 border border-red-500/30 rounded-md p-3 break-words text-sm text-red-200">
-                  <div className="font-semibold text-red-300">Server Debug</div>
-                  <pre className="whitespace-pre-wrap break-words mt-2 text-xs">{apiDebug}</pre>
-                </div>
-              </div>
-            )}
+            {/* debug panel removed */}
             
             <motion.button
               whileHover={{ scale: 1.05 }}

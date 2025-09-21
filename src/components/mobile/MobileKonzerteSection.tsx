@@ -8,7 +8,7 @@ export default function MobileKonzerteSection() {
   const [email, setEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [apiDebug, setApiDebug] = useState<string | null>(null);
+  // apiDebug removed for production
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +17,6 @@ export default function MobileKonzerteSection() {
     setIsSubscribing(true);
     
     try {
-      setApiDebug(null);
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: {
@@ -33,16 +32,14 @@ export default function MobileKonzerteSection() {
         setSubscriptionStatus('success');
         setEmail('');
 
-        // Reset status after 3 seconds
+        // Reset status after ~9 seconds (previously 3s) - keep success visible longer
         setTimeout(() => {
           setSubscriptionStatus('idle');
-          setApiDebug(null);
-        }, 3000);
+        }, 9000);
       } else {
         setSubscriptionStatus('error');
-        const debug = (data && (data.debug || data.error)) ? (data.debug || data.error) : `status:${response.status}`;
-        setApiDebug(String(debug));
-        console.error('Newsletter subscription error:', debug);
+        const message = (data && (data.error)) ? data.error : `status:${response.status}`;
+        console.error('Newsletter subscription error:', message);
 
         // Reset status after 3 seconds
         setTimeout(() => {
@@ -51,7 +48,6 @@ export default function MobileKonzerteSection() {
       }
     } catch (error) {
       setSubscriptionStatus('error');
-      setApiDebug(String(error));
       console.error('Newsletter subscription error (network):', error);
 
       // Reset status after 3 seconds
@@ -295,12 +291,7 @@ export default function MobileKonzerteSection() {
             </motion.div>
           )}
 
-          {apiDebug && (
-            <div className="mt-3 bg-black/40 border border-gray-700 rounded-lg p-3 text-xs text-yellow-200 break-words">
-              <strong>Debug:</strong>
-              <div className="mt-1">{apiDebug}</div>
-            </div>
-          )}
+          {/* debug panel removed */}
 
           {/* Benefits */}
           <div className="mt-6 grid grid-cols-2 gap-3">

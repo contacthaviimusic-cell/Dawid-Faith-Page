@@ -25,25 +25,7 @@ export default function MobileDFaithSection() {
 
   return (
     <section id="dfaith" className="relative py-16 px-4 bg-gradient-to-b from-black via-purple-900/20 to-black overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <motion.div
-          className="absolute top-10 left-10 w-20 h-20 bg-purple-500/10 rounded-full blur-xl"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3]
-          }}
-          transition={{ duration: 4, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-8 w-16 h-16 bg-pink-500/10 rounded-full blur-xl"
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            opacity: [0.4, 0.2, 0.4]
-          }}
-          transition={{ duration: 3, repeat: Infinity, delay: 1 }}
-        />
-      </div>
+      {/* decorative elements removed for cleaner mobile view */}
 
       <div className="relative z-10 container mx-auto">
         {/* Hero Section mit Token */}
@@ -54,25 +36,10 @@ export default function MobileDFaithSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <div className="relative mb-8">
-            <div className="relative mx-auto w-32 h-32 mb-6">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-500/40 via-pink-500/30 to-blue-500/40 blur-2xl animate-pulse" />
-              <motion.div
-                animate={{ 
-                  y: [0, -8, 0], 
-                  rotate: [0, 3, -3, 0],
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative w-full h-full rounded-full overflow-hidden border-4 border-purple-500/60 shadow-2xl shadow-purple-500/30"
-              >
-                <Image src="/dfaith-token.png" alt="D.FAITH Token" fill className="object-cover" />
-              </motion.div>
-            </div>
-            
-            <h2 className="text-3xl font-bold mb-3 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-              D.FAITH Ökosystem
-            </h2>
+            <div className="relative mb-8">
+              <h2 className="text-3xl font-bold mb-3 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+                D.FAITH Ökosystem
+              </h2>
             <p className="text-gray-400 text-sm leading-relaxed max-w-sm mx-auto">
               Dein Support wird belohnt. Sammle Token durch Interaktion und erlebe exklusive Vorteile.
             </p>
