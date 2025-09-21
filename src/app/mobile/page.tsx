@@ -38,7 +38,8 @@ export default function MobilePage() {
               backgroundRepeat: 'no-repeat'
             }}
           >
-            <div className="absolute inset-0 bg-black/70" />
+            {/* Reduced overlay opacity on mobile to make the background image appear brighter */}
+            <div className="absolute inset-0 bg-black/30" />
           </div>
 
           <div className="container mx-auto relative z-10 text-center">

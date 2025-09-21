@@ -235,7 +235,8 @@ export default function MobileKonzerteSection() {
             </p>
           </div>
 
-          <form onSubmit={handleNewsletterSubmit} className="space-y-4">
+          <div className="relative z-20">
+            <form onSubmit={handleNewsletterSubmit} className="space-y-4">
             <div className="relative">
               <input
                 type="email"
@@ -255,7 +256,7 @@ export default function MobileKonzerteSection() {
               disabled={isSubscribing}
               whileHover={{ scale: isSubscribing ? 1 : 1.02 }}
               whileTap={{ scale: isSubscribing ? 1 : 0.98 }}
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="relative z-30 w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ring-1 ring-white/5"
             >
               {isSubscribing ? (
                 <>
@@ -269,7 +270,8 @@ export default function MobileKonzerteSection() {
                 </>
               )}
             </motion.button>
-          </form>
+            </form>
+          </div>
 
           {/* Status Display */}
           {subscriptionStatus === 'success' && (
@@ -298,13 +300,13 @@ export default function MobileKonzerteSection() {
 
           {/* Benefits */}
           <div className="mt-6 grid grid-cols-2 gap-3">
-            <div className="bg-black/30 rounded-xl p-3 text-center">
-              <Users className="text-blue-400 mx-auto mb-2" size={20} />
-              <p className="text-white text-xs font-medium">Exklusive Updates</p>
+            <div className="bg-black/60 rounded-xl p-3 text-center border border-gray-700">
+              <Users className="text-white mx-auto mb-2" size={22} />
+              <p className="text-white text-xs font-semibold">Exklusive Updates</p>
             </div>
-            <div className="bg-black/30 rounded-xl p-3 text-center">
-              <Calendar className="text-green-400 mx-auto mb-2" size={20} />
-              <p className="text-white text-xs font-medium">Frühe Tickets</p>
+            <div className="bg-black/60 rounded-xl p-3 text-center border border-gray-700">
+              <Calendar className="text-white mx-auto mb-2" size={22} />
+              <p className="text-white text-xs font-semibold">Frühe Tickets</p>
             </div>
           </div>
         </motion.div>
