@@ -1,0 +1,271 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Newspaper, Clock, Tag, X, ExternalLink, Share, Calendar } from 'lucide-react';
+import Image from 'next/image';
+import type { NewsItem } from '@/types/news';
+
+export default function MobileNewsSection() {
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchNews();
+    
+    // Listen for release news trigger
+    const handleOpenReleaseNews = () => {
+      const releaseNews = news.find(item => 
+        item.title.toLowerCase().includes('release') || 
+        item.title.toLowerCase().includes('konzert')
+      );
+      if (releaseNews) {
+        setSelectedNews(releaseNews);
+      }
+    };
+
+    window.addEventListener('openReleaseNews', handleOpenReleaseNews);
+    return () => window.removeEventListener('openReleaseNews', handleOpenReleaseNews);
+  }, [news]);
+
+  const fetchNews = async () => {
+    try {
+      const response = await fetch('/api/news');
+      if (response.ok) {
+        const data = await response.json();
+        setNews(data);
+      }
+    } catch (error) {
+      console.error('Error fetching news:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleShare = async (newsItem: NewsItem) => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: newsItem.title,
+          text: newsItem.excerpt,
+          url: window.location.href
+        });
+      } catch (error) {
+        console.log('Error sharing:', error);
+      }
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(`${newsItem.title} - ${window.location.href}`);
+      alert('Link in Zwischenablage kopiert!');
+    }
+  };
+
+  return (
+    <section id="news" className="py-16 px-4 bg-gradient-to-b from-black via-purple-900/10 to-black">
+      <div className="container mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-8"
+        >
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Newspaper className="text-purple-400" size={28} />
+            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+              Aktuelle News
+            </h2>
+          </div>
+          <p className="text-gray-400">
+            Bleib auf dem Laufenden mit den neuesten Updates
+          </p>
+        </motion.div>
+
+        {/* News Cards */}
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mx-auto mb-4"></div>
+            <p className="text-gray-400">Lade News...</p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {news.slice(0, 5).map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setSelectedNews(item)}
+                className="bg-gradient-to-r from-gray-900/50 to-purple-900/20 backdrop-blur-md rounded-2xl border border-purple-500/20 overflow-hidden cursor-pointer"
+              >
+                <div className="flex gap-4 p-4">
+                  {/* Image */}
+                  <div className="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                    />
+                    {item.featured && (
+                      <div className="absolute top-1 right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-white text-sm mb-1 line-clamp-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-400 text-xs mb-2 line-clamp-2">
+                      {item.excerpt}
+                    </p>
+                    
+                    {/* Meta */}
+                    <div className="flex items-center gap-3 text-xs text-gray-500">
+                      <div className="flex items-center gap-1">
+                        <Clock size={12} />
+                        <span>{item.readTime}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Tag size={12} />
+                        <span>{item.category}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+
+        {/* Featured Release Banner */}
+        {news.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="mt-8 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-6 text-center"
+          >
+            <Calendar className="mx-auto mb-3 text-white" size={32} />
+            <h3 className="text-xl font-bold text-white mb-2">
+              Nächstes Release Konzert
+            </h3>
+            <p className="text-purple-100 text-sm mb-4">
+              Sei dabei wenn neue Songs live debütieren!
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const releaseNews = news.find(item => 
+                  item.title.toLowerCase().includes('release') || 
+                  item.title.toLowerCase().includes('konzert')
+                );
+                if (releaseNews) {
+                  setSelectedNews(releaseNews);
+                }
+              }}
+              className="bg-white text-purple-600 px-6 py-3 rounded-xl font-bold transition-all duration-300"
+            >
+              Details erfahren
+            </motion.button>
+          </motion.div>
+        )}
+      </div>
+
+      {/* News Detail Modal */}
+      <AnimatePresence>
+        {selectedNews && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
+            onClick={() => setSelectedNews(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-gradient-to-b from-gray-900 to-purple-900/30 rounded-2xl border border-purple-500/30 max-w-md w-full max-h-[80vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="relative h-48">
+                <Image
+                  src={selectedNews.image}
+                  alt={selectedNews.title}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <button
+                  onClick={() => setSelectedNews(null)}
+                  className="absolute top-4 right-4 w-10 h-10 bg-black/60 rounded-full flex items-center justify-center text-white"
+                >
+                  <X size={20} />
+                </button>
+                {selectedNews.featured && (
+                  <div className="absolute top-4 left-4 bg-yellow-500 text-black px-3 py-1 rounded-full text-xs font-bold">
+                    Featured
+                  </div>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className="p-6">
+                <h2 className="text-xl font-bold text-white mb-3">
+                  {selectedNews.title}
+                </h2>
+                
+                <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                  <div className="flex items-center gap-1">
+                    <Clock size={14} />
+                    <span>{selectedNews.readTime}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Tag size={14} />
+                    <span>{selectedNews.category}</span>
+                  </div>
+                </div>
+
+                <div className="text-gray-200 text-sm leading-relaxed mb-6 max-h-40 overflow-y-auto">
+                  {selectedNews.excerpt}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => handleShare(selectedNews)}
+                    className="flex-1 bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
+                  >
+                    <Share size={18} />
+                    Teilen
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setSelectedNews(null)}
+                    className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
+                  >
+                    <ExternalLink size={18} />
+                    Schließen
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}

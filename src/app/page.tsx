@@ -4,24 +4,41 @@ import { motion } from 'framer-motion';
 import { Music, Play, Pause, Sparkles, Users, Trophy, ArrowRight, Download, Instagram, Youtube, ShoppingBag, Calendar, Heart, ExternalLink, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { useMobileDetection } from '../hooks/useMobileDetection';
 import Navigation from '../components/Navigation';
 import NewsSection from '../components/NewsSection';
 import DFaithSection from '../components/DFaithSection';
 import MusicSection from '../components/MusicSection';
 import KonzerteSection from '../components/KonzerteSection';
 import SocialMediaWidget from '../components/SocialMediaWidget';
+import MobilePage from './mobile/page';
 
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [showWidget, setShowWidget] = useState(false);
   const [showEcoDetails, setShowEcoDetails] = useState(false);
+  const { isMobile, isLoading } = useMobileDetection();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted || isLoading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mb-4 mx-auto"></div>
+          <p className="text-gray-400">Lade Dawid Faith...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Render mobile version for mobile devices
+  if (isMobile) {
+    return <MobilePage />;
+  }
 
   return (
     <>
