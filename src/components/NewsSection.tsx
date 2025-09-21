@@ -40,7 +40,7 @@ const NewsSection = () => {
         const dl = document.documentElement.lang as 'de'|'en'|'pl';
         if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
       }
-    } catch (e) {}
+  } catch {}
 
     function onLang(e: Event) {
       const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
@@ -61,7 +61,7 @@ const NewsSection = () => {
         const dl = document.documentElement.lang as 'de'|'en'|'pl';
         if (dl === 'de' || dl === 'en' || dl === 'pl') setLang(dl);
       }
-    } catch (e) {}
+  } catch {}
 
     function onLang(e: Event) {
       const ce = e as CustomEvent<{ lang: 'de'|'en'|'pl' }>;
@@ -88,6 +88,15 @@ const NewsSection = () => {
     const locale = lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : 'en-GB';
     const formatted = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }).format(d);
     return lang === 'de' ? `${formatted} Uhr` : formatted;
+  };
+
+  // Helper to safely get localized fields from NewsItem without using `any`
+  const getLocalizedField = (item: NewsItem | null | undefined, field: 'title' | 'excerpt' | 'content', langParam: 'de'|'en'|'pl') => {
+    if (!item) return '';
+    if (langParam === 'de') return (item[field] ?? '');
+    const key = `${field}_${langParam}` as keyof NewsItem;
+    const val = item[key];
+    return typeof val === 'string' && val.length > 0 ? val : (item[field] ?? '');
   };
 
   // Listen for custom event to open release news
@@ -211,8 +220,8 @@ const NewsSection = () => {
         >
           {newsItems.filter(item => item.featured).map((item) => {
             const Icon = iconFor[item.category as keyof typeof iconFor] || Star;
-            const displayTitle = (lang !== 'de' && (item as any)[`title_${lang}`]) ? (item as any)[`title_${lang}`] : item.title;
-            const displayExcerpt = (lang !== 'de' && (item as any)[`excerpt_${lang}`]) ? (item as any)[`excerpt_${lang}`] : item.excerpt;
+            const displayTitle = getLocalizedField(item, 'title', lang);
+            const displayExcerpt = getLocalizedField(item, 'excerpt', lang);
             return (
             <div
               key={item.id}
@@ -283,8 +292,8 @@ const NewsSection = () => {
         >
           {newsItems.filter(item => !item.featured).map((item, index) => {
             const Icon = iconFor[item.category as keyof typeof iconFor] || Star;
-            const displayTitle = (lang !== 'de' && (item as any)[`title_${lang}`]) ? (item as any)[`title_${lang}`] : item.title;
-            const displayExcerpt = (lang !== 'de' && (item as any)[`excerpt_${lang}`]) ? (item as any)[`excerpt_${lang}`] : item.excerpt;
+            const displayTitle = getLocalizedField(item, 'title', lang);
+            const displayExcerpt = getLocalizedField(item, 'excerpt', lang);
             return (
             <motion.article
               key={item.id}
@@ -387,7 +396,7 @@ const NewsSection = () => {
                   )}
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                  {(selectedArticle && (lang !== 'de' && (selectedArticle as any)[`title_${lang}`])) ? (selectedArticle as any)[`title_${lang}`] : selectedArticle?.title}
+                  {getLocalizedField(selectedArticle, 'title', lang)}
                 </h2>
                 <div className="flex items-center gap-4 text-gray-300 text-sm">
                   <div className="flex items-center gap-2">
@@ -407,7 +416,7 @@ const NewsSection = () => {
                     {/* Modulares News-Detail-System */}
                     {/* Show localized excerpt above the specific renderer */}
                     <p className="text-xl text-gray-300 leading-relaxed mb-6">
-                      {(selectedArticle && (lang !== 'de' && (selectedArticle as any)[`excerpt_${lang}`])) ? (selectedArticle as any)[`excerpt_${lang}`] : selectedArticle?.excerpt}
+                      {getLocalizedField(selectedArticle, 'excerpt', lang)}
                     </p>
                     <NewsDetailRenderer article={selectedArticle} />
 
