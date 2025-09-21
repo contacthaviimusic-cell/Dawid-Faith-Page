@@ -56,13 +56,45 @@ export default function MobileKonzerteSection() {
     }
   };
 
-  const konzertDetails = {
-    venue: 'Katys Garage Dresden',
-    date: 'Bald verfügbar',
-    time: 'Wird bekannt gegeben',
-    price: 'Eintritt frei',
-    address: 'Dresden, Deutschland',
-    description: 'Ein intimes Konzert in gemütlicher Atmosphäre. Erlebe neue Songs live und sei Teil einer unvergesslichen Nacht.'
+  const konzertEvents = [
+    {
+      id: 'release-konzert-2025',
+      title: '🎵 Single Release-Konzert 2025',
+      subtitle: 'Exklusives Single Release Event',
+      date: '2025-11-15',
+      time: '19:00',
+      venue: 'Katys Garage',
+      location: 'Dresden Neustadt',
+      description: 'Ein gemütlicher Abend mit neuen Songs und guter Musik. Komm vorbei und lass uns zusammen feiern!',
+      ticketUrl: '#tickets',
+      isReleaseKonzert: true,
+      capacity: 'Begrenzte Plätze',
+      price: 'Freier Eintritt',
+      status: 'upcoming'
+    }
+  ];
+
+  const formatDate = (dateString: string) => {
+    if (dateString === 'Verschiedene Termine') return dateString;
+    const date = new Date(dateString);
+    return date.toLocaleDateString('de-DE', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
+  };
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'upcoming':
+        return <span className="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm">Verfügbar</span>;
+      case 'sold-out':
+        return <span className="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-sm">Ausverkauft</span>;
+      case 'vip-only':
+        return <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">VIP Only</span>;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -88,83 +120,94 @@ export default function MobileKonzerteSection() {
         </motion.div>
 
         {/* Upcoming Concert Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-r from-gray-900/50 to-orange-900/20 backdrop-blur-md rounded-2xl border border-orange-500/20 overflow-hidden mb-8"
-        >
-          {/* Concert Header */}
-          <div className="bg-gradient-to-r from-orange-600 to-red-600 p-4 text-center">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Ticket className="text-white" size={20} />
-              <span className="text-white font-bold text-sm">NÄCHSTES KONZERT</span>
-            </div>
-            <h3 className="text-2xl font-bold text-white mb-1">
-              Release Konzert
-            </h3>
-            <p className="text-orange-100 text-sm">
-              Neue Songs live erleben
-            </p>
-          </div>
-
-          {/* Concert Details */}
-          <div className="p-6 space-y-4">
-            <div className="grid grid-cols-1 gap-4">
-              {/* Venue */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center">
-                  <MapPin className="text-orange-400" size={18} />
-                </div>
-                <div>
-                  <p className="text-white font-medium">{konzertDetails.venue}</p>
-                  <p className="text-gray-400 text-sm">{konzertDetails.address}</p>
-                </div>
+        {konzertEvents.map((event, index) => (
+          <motion.div
+            key={event.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+            viewport={{ once: true }}
+            className="bg-gradient-to-r from-gray-900/50 to-orange-900/20 backdrop-blur-md rounded-2xl border border-orange-500/20 overflow-hidden mb-8"
+          >
+            {/* Concert Header */}
+            <div className="bg-gradient-to-r from-orange-600 to-red-600 p-4 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Ticket className="text-white" size={20} />
+                <span className="text-white font-bold text-sm">NÄCHSTES KONZERT</span>
               </div>
-
-              {/* Date */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center">
-                  <Calendar className="text-blue-400" size={18} />
-                </div>
-                <div>
-                  <p className="text-white font-medium">{konzertDetails.date}</p>
-                  <p className="text-gray-400 text-sm">Datum wird bald bekannt gegeben</p>
-                </div>
-              </div>
-
-              {/* Time */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center">
-                  <Clock className="text-purple-400" size={18} />
-                </div>
-                <div>
-                  <p className="text-white font-medium">{konzertDetails.time}</p>
-                  <p className="text-gray-400 text-sm">Uhrzeit folgt</p>
-                </div>
-              </div>
-
-              {/* Price */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
-                  <Ticket className="text-green-400" size={18} />
-                </div>
-                <div>
-                  <p className="text-white font-medium">{konzertDetails.price}</p>
-                  <p className="text-gray-400 text-sm">Kostenlos für alle Fans</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Description */}
-            <div className="bg-black/30 rounded-xl p-4 border border-gray-700">
-              <p className="text-gray-300 text-sm leading-relaxed">
-                {konzertDetails.description}
+              <h3 className="text-2xl font-bold text-white mb-1">
+                {event.title}
+              </h3>
+              {event.subtitle && (
+                <p className="text-orange-100 text-sm mb-1">{event.subtitle}</p>
+              )}
+              <p className="text-orange-100 text-sm">
+                Neue Songs live erleben
               </p>
             </div>
-          </div>
-        </motion.div>
+
+            {/* Concert Details */}
+            <div className="p-6 space-y-4">
+              <div className="grid grid-cols-1 gap-4">
+                {/* Datum & Uhrzeit */}
+                <div className="flex items-center gap-3 text-white">
+                  <Calendar className="text-blue-400" size={18} />
+                  <span>{formatDate(event.date)}</span>
+                  <Clock className="text-purple-400 ml-2" size={18} />
+                  <span>{event.time} Uhr</span>
+                </div>
+                {/* Venue & Ort */}
+                <div className="flex items-center gap-3 text-white">
+                  <MapPin className="text-pink-400" size={18} />
+                  <span>{event.venue}</span>
+                  <span className="text-gray-400">•</span>
+                  <span>{event.location}</span>
+                </div>
+                {/* Kapazität */}
+                {event.capacity && (
+                  <div className="flex items-center gap-3 text-white">
+                    <Users className="text-blue-400" size={18} />
+                    <span>{event.capacity}</span>
+                  </div>
+                )}
+                {/* Preis */}
+                {event.price && (
+                  <div className="flex items-center gap-3 text-white">
+                    <Ticket className="text-green-400" size={18} />
+                    <span>{event.price}</span>
+                  </div>
+                )}
+              </div>
+              {/* Status-Badge */}
+              <div className="mt-2">{getStatusBadge(event.status)}</div>
+              {/* Beschreibung */}
+              <div className="bg-black/30 rounded-xl p-4 border border-gray-700">
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {event.description}
+                </p>
+              </div>
+              {/* Info Button */}
+              {event.ticketUrl && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2"
+                  onClick={() => {
+                    if (event.ticketUrl === '#tickets') {
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                      setTimeout(() => {
+                        alert('🎵 Das Single Release-Konzert in Katys Garage (Dresden Neustadt) hat freien Eintritt! Komm einfach vorbei.');
+                      }, 500);
+                    }
+                  }}
+                >
+                  <Ticket size={18} />
+                  Info & Anmeldung
+                </motion.button>
+              )}
+            </div>
+          </motion.div>
+        ))}
 
         {/* Newsletter Signup */}
         <motion.div
