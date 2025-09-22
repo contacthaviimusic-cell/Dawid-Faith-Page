@@ -272,18 +272,47 @@ export default function MobileNewsSection() {
                 </div>
               </div>
 
-              {/* Action Buttons - Fixed at bottom */}
+              {/* Action Buttons - Fixed am unteren Rand, je nach News-Typ */}
               <div className="border-t border-gray-700/50 p-4 bg-gray-900/80 backdrop-blur-sm">
                 <div className="flex gap-3">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleShare(selectedNews)}
-                    className="flex-1 bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
-                  >
-                    <Share size={18} />
-                    {NewsTranslations[lang].share}
-                  </motion.button>
+                  {selectedNews?.category === 'Blockchain' ? (
+                    <motion.a
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      href="https://dfaith.app"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
+                    >
+                      <ExternalLink size={18} />
+                      Zur D.FAITH Webapp
+                    </motion.a>
+                  ) : selectedNews?.title?.toLowerCase().includes('release') || selectedNews?.title?.toLowerCase().includes('konzert') ? (
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        setTimeout(() => {
+                          alert('Tickets sind kostenlos, sichere dir deinen Platz beim Konzert!');
+                        }, 500);
+                      }}
+                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
+                    >
+                      <Calendar size={18} />
+                      Tickets
+                    </motion.button>
+                  ) : (
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => handleShare(selectedNews)}
+                      className="flex-1 bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
+                    >
+                      <Share size={18} />
+                      {NewsTranslations[lang].share}
+                    </motion.button>
+                  )}
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
