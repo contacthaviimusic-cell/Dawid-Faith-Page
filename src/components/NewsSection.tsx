@@ -422,15 +422,45 @@ const NewsSection = () => {
 
               {/* Action Buttons */}
               <div className="flex gap-4 mt-8 pt-6 border-t border-gray-700">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => shareNews(selectedArticle)}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
-                >
-                  {NewsTranslations[lang].share}
-                  <Share2 size={16} />
-                </motion.button>
+                {/* Button-Logik je nach News-Typ */}
+                {selectedArticle?.category === 'Blockchain' ? (
+                  <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="https://dfaith.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
+                  >
+                    <span>Zur D.FAITH Webapp</span>
+                    <ArrowRight size={16} />
+                  </motion.a>
+                ) : selectedArticle?.title?.includes('Release-Konzert') ? (
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                      setTimeout(() => {
+                        alert('Tickets sind kostenlos, sichere dir deinen Platz beim Konzert!');
+                      }, 500);
+                    }}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
+                  >
+                    <span>Tickets</span>
+                    <Calendar size={16} />
+                  </motion.button>
+                ) : (
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => shareNews(selectedArticle)}
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
+                  >
+                    {NewsTranslations[lang].share}
+                    <Share2 size={16} />
+                  </motion.button>
+                )}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
