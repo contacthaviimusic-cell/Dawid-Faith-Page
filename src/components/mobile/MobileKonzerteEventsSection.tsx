@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import KonzerteEventsTranslations from '@/lib/translations/KonzerteEventsTranslations';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, Clock, Users, Ticket } from 'lucide-react';
+import { Calendar, MapPin, Clock, Users, Ticket, Star } from 'lucide-react';
 
 export default function MobileKonzerteEventsSection() {
   const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
@@ -26,7 +26,24 @@ export default function MobileKonzerteEventsSection() {
     return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
   }, []);
 
-  const konzertEvents = [
+  type KonzertEvent = {
+    id: string;
+    title: string;
+    subtitle: string;
+    date: string;
+    time: string;
+    venue: string;
+    location: string;
+    description: string;
+    ticketUrl: string;
+    isReleaseKonzert?: boolean;
+    isVip?: boolean;
+    capacity: string;
+    price: string;
+    status: string;
+  };
+
+  const konzertEvents: KonzertEvent[] = [
     {
       id: 'release-konzert-2025',
       title: '🎵 Single Release-Konzert 2025',
@@ -38,6 +55,7 @@ export default function MobileKonzerteEventsSection() {
       description: 'Ein gemütlicher Abend mit neuen Songs und guter Musik. Komm vorbei und lass uns zusammen feiern!',
       ticketUrl: '#tickets',
       isReleaseKonzert: true,
+      isVip: false,
       capacity: 'Begrenzte Plätze',
       price: 'Freier Eintritt',
       status: 'upcoming'
@@ -69,116 +87,149 @@ export default function MobileKonzerteEventsSection() {
   };
 
   return (
-    <section id="konzerte" className="py-8 px-4 bg-gradient-to-b from-black via-orange-900/10 to-black">
-      <div className="container mx-auto">
-        {/* Header */}
+    <section id="konzerte" className="py-12 px-2 sm:px-4 bg-gradient-to-b from-slate-900/20 to-purple-900/10">
+      <div className="max-w-2xl mx-auto">
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-8"
+          className="text-center mb-10"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Calendar className="text-orange-400" size={28} />
-            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400">
-              {KonzerteEventsTranslations[lang].title}
-            </h2>
-          </div>
-          <p className="text-gray-400 text-sm">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            {KonzerteEventsTranslations[lang].title}
+          </h2>
+          <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
             {KonzerteEventsTranslations[lang].subtitle}
           </p>
         </motion.div>
 
-        {/* Upcoming Concert Card */}
-        {konzertEvents.map((event, index) => (
-          <motion.div
-            key={event.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-r from-gray-900/50 to-orange-900/20 backdrop-blur-md rounded-2xl border border-orange-500/20 overflow-hidden mb-8"
-          >
-            {/* Concert Header */}
-            <div className="bg-gradient-to-r from-orange-600 to-red-600 p-4 text-center">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <Ticket className="text-white" size={20} />
-                <span className="text-white font-bold text-sm">{KonzerteEventsTranslations[lang].events?.[event.id]?.title ? KonzerteEventsTranslations[lang].events[event.id].title : KonzerteEventsTranslations[lang].releaseBadge}</span>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-1">
-                {KonzerteEventsTranslations[lang].events?.[event.id]?.title ?? event.title}
-              </h3>
-              { (KonzerteEventsTranslations[lang].events?.[event.id]?.subtitle ?? event.subtitle) && (
-                <p className="text-orange-100 text-sm mb-1">{KonzerteEventsTranslations[lang].events?.[event.id]?.subtitle ?? event.subtitle}</p>
+        {/* Events Grid */}
+        <div className="flex flex-col gap-8">
+          {konzertEvents.map((event, index) => (
+            <motion.div
+              key={event.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.2 }}
+              viewport={{ once: true }}
+              className={`relative overflow-hidden rounded-2xl border backdrop-blur-md p-6 sm:p-8 ${
+                event.isReleaseKonzert
+                  ? 'bg-gradient-to-br from-purple-900/30 to-pink-900/30 border-purple-500/30'
+                  : event.isVip
+                  ? 'bg-gradient-to-br from-yellow-900/20 to-amber-900/20 border-yellow-500/30'
+                  : 'bg-gradient-to-br from-blue-900/20 to-purple-900/20 border-blue-500/20'
+              }`}
+            >
+              {/* Special Badge for Release Konzert */}
+              {event.isReleaseKonzert && (
+                <div className="absolute -top-1 -right-1">
+                  <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-bl-2xl rounded-tr-2xl text-xs font-bold flex items-center gap-2">
+                    <Star size={14} />
+                    Release Event
+                  </div>
+                </div>
               )}
-              <p className="text-orange-100 text-sm">
-                {KonzerteEventsTranslations[lang].events?.[event.id]?.description ?? event.description}
-              </p>
-            </div>
 
-            {/* Concert Details */}
-            <div className="p-6 space-y-4">
-              <div className="grid grid-cols-1 gap-4">
-                {/* Datum & Uhrzeit */}
-                <div className="flex items-center gap-3 text-white">
-                  <Calendar className="text-blue-400" size={18} />
-                  <span>{formatDate(event.date)}</span>
-                  <Clock className="text-purple-400 ml-2" size={18} />
-                  <span>{event.time} {KonzerteEventsTranslations[lang].timeSuffix}</span>
-                </div>
-                {/* Venue & Ort */}
-                <div className="flex items-center gap-3 text-white">
-                  <MapPin className="text-pink-400" size={18} />
-                  <span>{KonzerteEventsTranslations[lang].events?.[event.id]?.venue ?? event.venue}</span>
-                  <span className="text-gray-400">•</span>
-                  <span>{KonzerteEventsTranslations[lang].events?.[event.id]?.location ?? event.location}</span>
-                </div>
-                {/* Kapazität */}
-                {(KonzerteEventsTranslations[lang].events?.[event.id]?.capacity ?? event.capacity) && (
-                  <div className="flex items-center gap-3 text-white">
-                    <Users className="text-blue-400" size={18} />
-                    <span>{KonzerteEventsTranslations[lang].events?.[event.id]?.capacity ?? event.capacity}</span>
+              {/* VIP Badge */}
+              {event.isVip && (
+                <div className="absolute -top-1 -right-1">
+                  <div className="bg-gradient-to-r from-yellow-500 to-amber-500 text-black px-4 py-2 rounded-bl-2xl rounded-tr-2xl text-xs font-bold flex items-center gap-2">
+                    <Star size={14} />
+                    VIP
                   </div>
-                )}
-                {/* Preis */}
-                {(KonzerteEventsTranslations[lang].events?.[event.id]?.price ?? event.price) && (
-                  <div className="flex items-center gap-3 text-white">
-                    <Ticket className="text-green-400" size={18} />
-                    <span>{KonzerteEventsTranslations[lang].events?.[event.id]?.price ?? event.price}</span>
+                </div>
+              )}
+
+              {/* Event Content */}
+              <div className="space-y-5">
+                {/* Title */}
+                <div>
+                  <h3
+                    className={`text-xl font-bold mb-1 ${
+                      event.isReleaseKonzert ? 'text-purple-300' : event.isVip ? 'text-yellow-300' : 'text-blue-300'
+                    }`}
+                  >
+                    {(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.title) || event.title}
+                  </h3>
+                  {(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.subtitle) || event.subtitle ? (
+                    <p className="text-gray-400 text-sm">
+                      {(KonzerteEventsTranslations[lang].events && KonzerteEventsTranslations[lang].events![event.id]?.subtitle) || event.subtitle}
+                    </p>
+                  ) : null}
+                </div>
+
+                {/* Event Details */}
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3 text-gray-300">
+                    <Calendar size={18} className="text-purple-400" />
+                    <span>{formatDate(event.date)}</span>
+                    {event.time !== 'Nach Vereinbarung' && (
+                      <>
+                        <Clock size={15} className="text-purple-400 ml-2" />
+                        <span>{event.time} {KonzerteEventsTranslations[lang].timeSuffix}</span>
+                      </>
+                    )}
                   </div>
-                )}
-              </div>
-              {/* Status-Badge */}
-              <div className="mt-2">{getStatusBadge(event.status)}</div>
-              {/* Beschreibung */}
-              <div className="bg-black/30 rounded-xl p-4 border border-gray-700">
+                  <div className="flex items-center gap-3 text-gray-300">
+                    <MapPin size={18} className="text-pink-400" />
+                    <span>{KonzerteEventsTranslations[lang].events?.[event.id]?.venue ?? event.venue}</span>
+                    <span className="text-gray-500">•</span>
+                    <span>{KonzerteEventsTranslations[lang].events?.[event.id]?.location ?? event.location}</span>
+                  </div>
+                  {(KonzerteEventsTranslations[lang].events?.[event.id]?.capacity ?? event.capacity) && (
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <Users size={18} className="text-blue-400" />
+                      <span>{KonzerteEventsTranslations[lang].events?.[event.id]?.capacity ?? event.capacity}</span>
+                    </div>
+                  )}
+                  {(KonzerteEventsTranslations[lang].events?.[event.id]?.price ?? event.price) && (
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <Ticket size={18} className="text-green-400" />
+                      <span>{KonzerteEventsTranslations[lang].events?.[event.id]?.price ?? event.price}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Description */}
                 <p className="text-gray-300 text-sm leading-relaxed">
                   {KonzerteEventsTranslations[lang].events?.[event.id]?.description ?? event.description}
                 </p>
+
+                {/* Status and Actions */}
+                <div className="flex items-center justify-between pt-3">
+                  {getStatusBadge(event.status)}
+
+                  {event.ticketUrl && (
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={`px-5 py-2 rounded-full font-semibold text-xs transition-all duration-300 flex items-center gap-2 ${
+                        event.isReleaseKonzert
+                          ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
+                          : event.isVip
+                          ? 'bg-gradient-to-r from-yellow-600 to-amber-600 text-black'
+                          : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                      }`}
+                      onClick={() => {
+                        if (event.ticketUrl === '#tickets') {
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                          setTimeout(() => {
+                            alert(KonzerteEventsTranslations[lang].releaseAlert);
+                          }, 500);
+                        }
+                      }}
+                    >
+                      <Ticket size={15} />
+                      {KonzerteEventsTranslations[lang].register}
+                    </motion.button>
+                  )}
+                </div>
               </div>
-              {/* Info Button */}
-              {event.ticketUrl && (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full mt-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2"
-                  onClick={() => {
-                      if (event.ticketUrl === '#tickets') {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        setTimeout(() => {
-                          alert(KonzerteEventsTranslations[lang].releaseAlert);
-                        }, 500);
-                      }
-                  }}
-                >
-                  <Ticket size={18} />
-                  {KonzerteEventsTranslations[lang].register}
-                </motion.button>
-              )}
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
