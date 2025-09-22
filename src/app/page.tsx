@@ -169,7 +169,7 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(147, 51, 234, 0.6)" }}
                       whileTap={{ scale: 0.95 }}
-                      className="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2"
+                      className="bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-2 sm:px-8 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 flex items-center justify-center gap-2"
                       onClick={() => {
                         // Scroll to news section first
                         const el = document.querySelector('#news');
@@ -187,7 +187,7 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="border border-purple-500 hover:bg-purple-500/10 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2"
+                      className="border border-purple-500 hover:bg-purple-500/10 px-5 py-2 sm:px-8 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 flex items-center justify-center gap-2"
                       onClick={() => {
                         const el = document.querySelector('#dfaith');
                         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
