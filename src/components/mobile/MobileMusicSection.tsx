@@ -340,14 +340,17 @@ export default function MobileMusicSection() {
           <p className="text-gray-300 text-sm mb-4">
             {MusicTranslations[lang].exclusiveDesc || 'Höre die vollständigen Songs in der D.FAITH Webapp und verdiene Token'}
           </p>
-          <motion.button
+          <motion.a
+            href="https://app.dawidfaith.de"
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-6 py-3 rounded-xl text-white font-bold transition-all duration-300 flex items-center justify-center gap-2 w-full"
           >
             <ExternalLink size={18} />
             {MusicTranslations[lang].webappButton || 'D.FAITH Webapp besuchen'}
-          </motion.button>
+          </motion.a>
         </motion.div>
 
         {/* Mobile Player Controls */}

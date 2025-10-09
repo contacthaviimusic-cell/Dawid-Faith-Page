@@ -131,10 +131,15 @@ const MusicSection = () => {
                   </button>
 
                   {/* D.FAITH Webapp Button */}
-                    <button className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]">
+                  <a
+                    href="https://app.dawidfaith.de"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]"
+                  >
                     <ExternalLink className="w-4 h-4" />
                     {MusicTranslations[lang].webappButton}
-                  </button>
+                  </a>
                 </div>
 
                 {/* Video Player */}
@@ -178,12 +183,17 @@ const MusicSection = () => {
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
               {MusicTranslations[lang].exclusiveDesc}
             </p>
-            <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-8 py-4 rounded-xl text-white font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg">
-                <div className="flex items-center gap-3">
+            <a
+              href="https://app.dawidfaith.de"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-8 py-4 rounded-xl text-white font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg inline-block"
+            >
+              <div className="flex items-center gap-3">
                 <ExternalLink className="w-6 h-6" />
                 {MusicTranslations[lang].webappButton}
               </div>
-            </button>
+            </a>
           </div>
         </motion.div>
       </div>
