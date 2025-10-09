@@ -391,7 +391,7 @@ const NewsSection = () => {
                   </span>
                   {selectedArticle.featured && (
                     <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                      Featured
+                      {NewsTranslations[lang].featuredTag}
                     </span>
                   )}
                 </div>
@@ -427,12 +427,12 @@ const NewsSection = () => {
                   <motion.a
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    href="https://dfaith.app"
+                    href="https://app.dawidfaith.de"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
                   >
-                    <span>Zur D.FAITH Webapp</span>
+                    <span>{NewsTranslations[lang].toWebapp}</span>
                     <ArrowRight size={16} />
                   </motion.a>
                 ) : selectedArticle?.title?.includes('Release-Konzert') ? (
@@ -442,12 +442,12 @@ const NewsSection = () => {
                     onClick={() => {
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                       setTimeout(() => {
-                        alert('Tickets sind kostenlos, sichere dir deinen Platz beim Konzert!');
+                        alert(NewsTranslations[lang].ticketsAlert);
                       }, 500);
                     }}
                     className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
                   >
-                    <span>Tickets</span>
+                    <span>{NewsTranslations[lang].tickets}</span>
                     <Calendar size={16} />
                   </motion.button>
                 ) : (
@@ -467,7 +467,7 @@ const NewsSection = () => {
                   onClick={() => setSelectedArticle(null)}
                   className="border border-gray-600 text-gray-300 hover:text-white px-6 py-3 rounded-full font-semibold"
                 >
-                  Schließen
+                  {NewsTranslations[lang].close}
                 </motion.button>
               </div>
             </div>

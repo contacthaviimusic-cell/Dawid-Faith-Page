@@ -127,7 +127,9 @@ const DFaithSection = () => {
 
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Link
-                  href="/whitepaper"
+                  href="https://dfaith.dawidfaith.de"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-semibold text-white border-2 border-purple-500/60 hover:bg-purple-500/10"
                 >
                   {DFaithTranslations[lang].ctaWhitepaper}

@@ -88,12 +88,12 @@ export default function MobilePage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="space-y-4"
+              className="space-y-3"
             >
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-4 rounded-2xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-xl"
+                className="w-full bg-gradient-to-r from-purple-600/90 to-pink-600/90 px-5 py-3 rounded-xl font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
                 onClick={() => {
                   const el = document.querySelector('#news');
                   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -103,20 +103,20 @@ export default function MobilePage() {
                   }, 800);
                 }}
               >
-                <Calendar size={24} />
+                <Calendar size={18} />
                 <span>{PageTranslations[lang].ctaInvite}</span>
               </motion.button>
 
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full border-2 border-purple-500 hover:bg-purple-500/10 px-6 py-4 rounded-2xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3"
+                className="w-full border border-purple-500/60 hover:bg-purple-500/10 px-5 py-3 rounded-xl font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2"
                 onClick={() => {
                   const el = document.querySelector('#dfaith');
                   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }}
               >
-                <div className="relative w-6 h-6">
+                <div className="relative w-5 h-5">
                   <Image
                     src="/dfaith-token.png"
                     alt="D.FAITH Token"

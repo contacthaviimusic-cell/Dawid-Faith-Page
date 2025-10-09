@@ -214,7 +214,9 @@ export default function MobileDFaithSection() {
             whileTap={{ scale: 0.98 }}
           >
             <Link
-              href="/whitepaper"
+              href="https://dfaith.dawidfaith.de"
+              target="_blank"
+              rel="noopener noreferrer"
               className="group w-full bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-purple-500/10 hover:from-purple-500/20 hover:via-purple-500/10 hover:to-purple-500/20 rounded-2xl px-6 py-4 text-center transition-all duration-300 flex items-center justify-center gap-2 border border-purple-500/20 hover:border-purple-400/40 shadow-lg hover:shadow-purple-500/20"
             >
               <span className="text-purple-300 font-semibold text-base group-hover:text-purple-200 transition-colors drop-shadow-sm">{DFaithTranslations[lang].ctaWhitepaper}</span>

@@ -279,13 +279,13 @@ export default function MobileNewsSection() {
                     <motion.a
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      href="https://dfaith.app"
+                      href="https://app.dawidfaith.de"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex-1 bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
                     >
                       <ExternalLink size={18} />
-                      Zur D.FAITH Webapp
+                      {NewsTranslations[lang].toWebapp}
                     </motion.a>
                   ) : selectedNews?.title?.toLowerCase().includes('release') || selectedNews?.title?.toLowerCase().includes('konzert') ? (
                     <motion.button

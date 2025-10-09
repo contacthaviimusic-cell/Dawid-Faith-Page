@@ -14,7 +14,10 @@ const NewsSectionTranslations = {
     nextReleaseTitle: 'Nächstes Release Konzert',
     nextReleaseDesc: 'Sei dabei wenn neue Songs live debütieren!',
     details: 'Details erfahren',
-    close: 'Schließen'
+    close: 'Schließen',
+    toWebapp: 'Zur D.FAITH Webapp',
+    tickets: 'Tickets',
+    ticketsAlert: 'Tickets sind kostenlos, sichere dir deinen Platz beim Konzert!'
   },
   en: {
     sectionTitle: 'Latest News',
@@ -31,7 +34,10 @@ const NewsSectionTranslations = {
     nextReleaseTitle: 'Next Release Concert',
     nextReleaseDesc: 'Be there when new songs debut live!',
     details: 'Learn details',
-    close: 'Close'
+    close: 'Close',
+    toWebapp: 'To D.FAITH Webapp',
+    tickets: 'Tickets',
+    ticketsAlert: 'Tickets are free, secure your spot at the concert!'
   },
   pl: {
     sectionTitle: 'Aktualności',
@@ -48,7 +54,10 @@ const NewsSectionTranslations = {
     nextReleaseTitle: 'Następny koncert premierowy',
     nextReleaseDesc: 'Bądź tam, gdy nowe utwory zadebiutują na żywo!',
     details: 'Szczegóły',
-    close: 'Zamknij'
+    close: 'Zamknij',
+    toWebapp: 'Do aplikacji D.FAITH',
+    tickets: 'Bilety',
+    ticketsAlert: 'Bilety są bezpłatne, zabezpiecz swoje miejsce na koncercie!'
   }
 };
 

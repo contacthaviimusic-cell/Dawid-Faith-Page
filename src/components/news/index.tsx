@@ -19,6 +19,15 @@ interface NewsDetailProps {
  */
 const NewsDetailRenderer: React.FC<NewsDetailProps> = ({ article }) => {
   const lang = (typeof document !== 'undefined' && document.documentElement.lang) ? (document.documentElement.lang as 'de'|'en'|'pl') : 'de';
+  
+  // Funktion für lokalisierte Felder
+  const getLocalizedField = (field: 'title' | 'excerpt' | 'content') => {
+    if (lang === 'de') return (article[field] ?? '');
+    const key = `${field}_${lang}` as keyof NewsItem;
+    const val = article[key];
+    return typeof val === 'string' && val.length > 0 ? val : (article[field] ?? '');
+  };
+  
   // Map News-IDs zu ihren entsprechenden Detail-Komponenten
   const newsComponents: Record<string, React.ComponentType> = {
     '1758217302493-gbictm': ReleaseKonzertNews,    // Release-Konzert Maria & Znikła
@@ -33,7 +42,7 @@ const NewsDetailRenderer: React.FC<NewsDetailProps> = ({ article }) => {
     <div className="prose prose-lg prose-invert max-w-none">
       {/* Standard Excerpt für alle News */}
       <p className="text-xl text-gray-300 leading-relaxed mb-6">
-        {article.excerpt}
+        {getLocalizedField('excerpt')}
       </p>
       
       {/* Spezifische News-Komponente */}
