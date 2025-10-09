@@ -296,7 +296,7 @@ export default function MobileMusicSection() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => window.open('https://leaderboard-pi-liard.vercel.app', '_blank')}
+                    onClick={() => window.open('https://app.dawidfaith.de', '_blank')}
                     className="bg-gray-700/60 hover:bg-gray-600/60 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2"
                     aria-label="Webapp öffnen"
                   >

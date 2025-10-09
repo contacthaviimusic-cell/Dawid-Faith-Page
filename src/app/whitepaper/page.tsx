@@ -55,7 +55,7 @@ export default function WhitepaperPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 mb-16">
             <motion.a
-              href="https://leaderboard-pi-liard.vercel.app"
+              href="https://app.dawidfaith.de"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}

@@ -115,7 +115,7 @@ const DFaithSection = () => {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <motion.a
-                href="https://leaderboard-pi-liard.vercel.app"
+                href="https://app.dawidfaith.de"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
