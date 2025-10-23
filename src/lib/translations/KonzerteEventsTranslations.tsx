@@ -15,6 +15,8 @@ export const KonzerteEventsTranslations: Record<LangKey, {
   releaseAlert: string;
   moreInfo: string;
   register: string;
+  noEvents: string;
+  noEventsDesc: string;
   events?: Record<string, {
     title?: string;
     subtitle?: string;
@@ -36,6 +38,8 @@ export const KonzerteEventsTranslations: Record<LangKey, {
     releaseAlert: '🎵 Das Single Release-Konzert in Katys Garage (Dresden Neustadt) hat freien Eintritt! Komm einfach vorbei.',
     moreInfo: 'Mehr erfahren',
     register: 'Tickets',
+    noEvents: 'Derzeit keine Events geplant',
+    noEventsDesc: 'Neue Konzerte und Events werden bald angekündigt. Bleib dran!',
     events: {
       'release-konzert-2025': {
         title: '🎵 Single Release-Konzert 2025',
@@ -59,6 +63,8 @@ export const KonzerteEventsTranslations: Record<LangKey, {
     releaseAlert: '🎵 The single release concert at Katy\'s Garage (Dresden Neustadt) has free entry! Just drop by.',
     moreInfo: 'Learn more',
     register: 'Tickets',
+    noEvents: 'No events currently planned',
+    noEventsDesc: 'New concerts and events will be announced soon. Stay tuned!',
     events: {
       'release-konzert-2025': {
         title: '🎵 Single Release Concert 2025',
@@ -82,6 +88,8 @@ export const KonzerteEventsTranslations: Record<LangKey, {
     releaseAlert: '🎵 Koncert premierowy singla w Katy\'s Garage (Drezno Neustadt) ma darmowe wejście! Po prostu wpadnij.',
     moreInfo: 'Dowiedz się więcej',
     register: 'Bilety',
+    noEvents: 'Obecnie brak zaplanowanych wydarzeń',
+    noEventsDesc: 'Nowe koncerty i wydarzenia zostaną wkrótce ogłoszone. Bądź na bieżąco!',
     events: {
       'release-konzert-2025': {
         title: '🎵 Koncert premierowy singla 2025',

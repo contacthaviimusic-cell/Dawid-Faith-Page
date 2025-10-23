@@ -435,21 +435,16 @@ const NewsSection = () => {
                     <span>{NewsTranslations[lang].toWebapp}</span>
                     <ArrowRight size={16} />
                   </motion.a>
-                ) : selectedArticle?.title?.includes('Release-Konzert') ? (
-                  <motion.button
+                ) : selectedArticle?.title?.includes('Bandmitglieder gesucht') || selectedArticle?.title?.includes('Band Members Wanted') || selectedArticle?.title?.includes('Poszukiwani członkowie') ? (
+                  <motion.a
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                      setTimeout(() => {
-                        alert(NewsTranslations[lang].ticketsAlert);
-                      }, 500);
-                    }}
+                    href="mailto:dawid.faith@gmail.com?subject=Interesse an Bandmitgliedschaft&body=Hallo Dawid,%0A%0AIch habe Interesse an einer Bandmitgliedschaft und spiele..."
                     className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
                   >
-                    <span>{NewsTranslations[lang].tickets}</span>
-                    <Calendar size={16} />
-                  </motion.button>
+                    <span>{NewsTranslations[lang].contactEmail || 'E-Mail senden'}</span>
+                    <ArrowRight size={16} />
+                  </motion.a>
                 ) : (
                   <motion.button
                     whileHover={{ scale: 1.05 }}

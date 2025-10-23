@@ -287,21 +287,16 @@ export default function MobileNewsSection() {
                       <ExternalLink size={18} />
                       {NewsTranslations[lang].toWebapp}
                     </motion.a>
-                  ) : selectedNews?.title?.toLowerCase().includes('release') || selectedNews?.title?.toLowerCase().includes('konzert') ? (
-                    <motion.button
+                  ) : selectedNews?.title?.toLowerCase().includes('bandmitglieder') || selectedNews?.title?.toLowerCase().includes('band members') || selectedNews?.title?.toLowerCase().includes('członkowie') ? (
+                    <motion.a
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        setTimeout(() => {
-                          alert('Tickets sind kostenlos, sichere dir deinen Platz beim Konzert!');
-                        }, 500);
-                      }}
+                      href="mailto:dawid.faith@gmail.com?subject=Interesse an Bandmitgliedschaft&body=Hallo Dawid,%0A%0AIch habe Interesse an einer Bandmitgliedschaft und spiele..."
                       className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
                     >
-                      <Calendar size={18} />
-                      Tickets
-                    </motion.button>
+                      <ExternalLink size={18} />
+                      {NewsTranslations[lang].contactEmail}
+                    </motion.a>
                   ) : (
                     <motion.button
                       whileHover={{ scale: 1.05 }}

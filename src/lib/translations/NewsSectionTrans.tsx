@@ -17,7 +17,8 @@ const NewsSectionTranslations = {
     close: 'Schließen',
     toWebapp: 'Zur D.FAITH Webapp',
     tickets: 'Tickets',
-    ticketsAlert: 'Tickets sind kostenlos, sichere dir deinen Platz beim Konzert!'
+    ticketsAlert: 'Tickets sind kostenlos, sichere dir deinen Platz beim Konzert!',
+    contactEmail: 'E-Mail senden'
   },
   en: {
     sectionTitle: 'Latest News',
@@ -37,7 +38,8 @@ const NewsSectionTranslations = {
     close: 'Close',
     toWebapp: 'To D.FAITH Webapp',
     tickets: 'Tickets',
-    ticketsAlert: 'Tickets are free, secure your spot at the concert!'
+    ticketsAlert: 'Tickets are free, secure your spot at the concert!',
+    contactEmail: 'Send Email'
   },
   pl: {
     sectionTitle: 'Aktualności',
@@ -57,7 +59,8 @@ const NewsSectionTranslations = {
     close: 'Zamknij',
     toWebapp: 'Do aplikacji D.FAITH',
     tickets: 'Bilety',
-    ticketsAlert: 'Bilety są bezpłatne, zabezpiecz swoje miejsce na koncercie!'
+    ticketsAlert: 'Bilety są bezpłatne, zabezpiecz swoje miejsce na koncercie!',
+    contactEmail: 'Wyślij e-mail'
   }
 };
 

@@ -23,21 +23,22 @@ interface KonzertEvent {
 }
 
 const konzertEvents: KonzertEvent[] = [
-  {
-    id: 'release-konzert-2025',
-    title: '🎵 Single Release-Konzert 2025',
-    subtitle: 'Exklusives Single Release Event',
-    date: '2025-11-15',
-    time: '19:00',
-    venue: "Katys Garage",
-    location: 'Dresden Neustadt',
-    description: 'Ein gemütlicher Abend mit neuen Songs und guter Musik. Komm vorbei und lass uns zusammen feiern!',
-    ticketUrl: '#tickets',
-    isReleaseKonzert: true,
-    capacity: 'Begrenzte Plätze',
-    price: 'Freier Eintritt',
-    status: 'upcoming'
-  }
+  // Single Release-Konzert wird ausgeblendet bis Datum feststeht
+  // {
+  //   id: 'release-konzert-2025',
+  //   title: '🎵 Single Release-Konzert 2025',
+  //   subtitle: 'Exklusives Single Release Event',
+  //   date: '2025-11-15',
+  //   time: '19:00',
+  //   venue: "Katys Garage",
+  //   location: 'Dresden Neustadt',
+  //   description: 'Ein gemütlicher Abend mit neuen Songs und guter Musik. Komm vorbei und lass uns zusammen feiern!',
+  //   ticketUrl: '#tickets',
+  //   isReleaseKonzert: true,
+  //   capacity: 'Begrenzte Plätze',
+  //   price: 'Freier Eintritt',
+  //   status: 'upcoming'
+  // }
 ];
 
 export default function KonzerteEventsSection() {
@@ -126,7 +127,26 @@ export default function KonzerteEventsSection() {
         {/* Events Grid */}
         <div className="flex justify-center">
           <div className="max-w-2xl w-full">
-            {konzertEvents.map((event, index) => (
+            {konzertEvents.length === 0 ? (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="text-center py-16"
+              >
+                <div className="bg-gradient-to-br from-slate-900/50 to-purple-900/20 border border-purple-500/20 rounded-2xl p-12 backdrop-blur-md">
+                  <div className="text-6xl mb-6">🎵</div>
+                  <h3 className="text-2xl font-bold text-purple-300 mb-4">
+                    {KonzerteEventsTranslations[lang].noEvents}
+                  </h3>
+                  <p className="text-gray-300 text-lg">
+                    {KonzerteEventsTranslations[lang].noEventsDesc}
+                  </p>
+                </div>
+              </motion.div>
+            ) : (
+              konzertEvents.map((event, index) => (
               <motion.div
                 key={event.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -260,7 +280,7 @@ export default function KonzerteEventsSection() {
                   </div>
                 </div>
               </motion.div>
-            ))}
+            )))}
           </div>
         </div>
       </div>
