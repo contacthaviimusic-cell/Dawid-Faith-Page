@@ -58,10 +58,9 @@ export default function Home() {
   }
 
   // Render mobile version for mobile devices
-  // TEMPORARILY DISABLED TO TEST DESKTOP VERSION ON MOBILE
-  // if (isMobile) {
-  //   return <MobilePage />;
-  // }
+  if (isMobile) {
+    return <MobilePage />;
+  }
 
   return (
     <>

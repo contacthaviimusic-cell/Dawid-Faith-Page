@@ -60,9 +60,7 @@ const BandgesuchtNews = () => {
             <p className="text-sm">{t.specialText}</p>
           </div>
         </div>
-        <div className="mt-4 pt-4 border-t border-blue-500/20">
-          <p className="text-gray-300 text-sm">{t.paragraph}</p>
-        </div>
+        {/* Paragraph removed - excerpt is shown above by NewsDetailRenderer */}
       </div>
 
       <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
