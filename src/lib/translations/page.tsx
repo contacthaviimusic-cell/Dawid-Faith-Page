@@ -2,7 +2,7 @@ const PageTranslations = {
   de: {
     loaderText: 'Lade Dawid Faith...',
     heroSubtitle: 'Künstler • Liedermacher • Visionär',
-    ctaInvite: 'Einladung zum Release Konzert',
+    ctaInvite: 'Frühe Investoren gesucht',
     ctaExperience: 'D.FAITH erleben',
     footerTagline: 'Wo Musik auf Blockchain trifft',
     copyright: '© 2025 Dawid Faith. Alle Rechte vorbehalten.',
@@ -11,7 +11,7 @@ const PageTranslations = {
   en: {
     loaderText: "Loading Dawid Faith...",
     heroSubtitle: 'Artist • Singer-Songwriter • Visionary',
-    ctaInvite: 'Invitation to the Release Concert',
+    ctaInvite: 'Early Investors Wanted',
     ctaExperience: 'Experience D.FAITH',
     footerTagline: 'Where music meets blockchain',
     copyright: '© 2025 Dawid Faith. All rights reserved.',
@@ -20,7 +20,7 @@ const PageTranslations = {
   pl: {
     loaderText: 'Ładowanie Dawid Faith...',
     heroSubtitle: 'Artysta • Pieśniarz • Wizjoner',
-    ctaInvite: 'Zaproszenie na koncert premierowy',
+    ctaInvite: 'Poszukiwani wcześni inwestorzy',
     ctaExperience: 'Doświadcz D.FAITH',
     footerTagline: 'Gdzie muzyka spotyka blockchain',
     copyright: '© 2025 Dawid Faith. Wszelkie prawa zastrzeżone.',

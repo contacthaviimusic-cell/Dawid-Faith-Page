@@ -17,7 +17,7 @@ const DFaithAppNewsTranslations = {
       'Live-Konzert: 150 EXP → D.FAITH'
     ],
     shopTitle: 'D.FAITH Exklusiv Shop',
-    shopDesc: 'Nutze deine verdienten D.FAITH Token im exklusiven Shop für neue Songs, limitierte Merchandise, signierte Editionen und Konzert-Tickets - alles 20-50% günstiger als normale Preise!',
+    shopDesc: 'Nutze deine verdienten D.FAITH Token im exklusiven Shop - der einzigen Stelle, wo du neue Songs, limitierte Merchandise, signierte Editionen und exklusive Konzert-Inhalte erhalten kannst. Nur hier erhältlich!',
     badges: ['Live auf Base Chain', 'Fan-Rewards', 'Exklusiv Shop']
   },
   en: {
@@ -38,7 +38,7 @@ const DFaithAppNewsTranslations = {
       'Live concert: 150 EXP → D.FAITH'
     ],
     shopTitle: 'D.FAITH Exclusive Shop',
-    shopDesc: 'Use your earned D.FAITH tokens in the exclusive shop for new songs, limited merch, signed editions, and concert tickets — all at 20–50% off regular prices!',
+    shopDesc: 'Use your earned D.FAITH tokens in the exclusive shop — the only place where you can get new songs, limited merch, signed editions, and exclusive concert content. Available only here!',
     badges: ['Live on Base Chain', 'Fan Rewards', 'Exclusive Shop']
   },
   pl: {
@@ -59,7 +59,7 @@ const DFaithAppNewsTranslations = {
       'Koncert na żywo: 150 EXP → D.FAITH'
     ],
     shopTitle: 'Ekskluzywny sklep D.FAITH',
-    shopDesc: 'Wykorzystaj zdobyte tokeny D.FAITH w ekskluzywnym sklepie na nowe utwory, limitowane gadżety, podpisane edycje i bilety na koncerty — wszystko 20–50% taniej niż normalne ceny!',
+    shopDesc: 'Wykorzystaj zdobyte tokeny D.FAITH w ekskluzywnym sklepie — jedynym miejscu, gdzie możesz uzyskać nowe utwory, limitowane gadżety, podpisane edycje i ekskluzywne treści koncertowe. Dostępne tylko tutaj!',
     badges: ['Live on Base Chain', 'Nagrody dla fanów', 'Ekskluzywny sklep']
   }
 };
