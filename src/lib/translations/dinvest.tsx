@@ -43,24 +43,24 @@ const DInvestTokenNewsTranslations = {
   },
   pl: {
     title: 'Token D.INVEST',
-    intro: 'D.INVEST to twój bezpośredni udział w sukcesie Dawid Faith. Dzięki temu tokenowi nie tylko wspierasz muzykę – także z niej korzystasz: Poprzez regularne stakowanie otrzymujesz 80% całkowitej podaży D.FAITH i stasz się prawdziwą częścią ruchu.',
-    detailsTitle: 'Szczegóły twojej inwestycji',
+    intro: 'D.INVEST to Twój bezpośredni udział w sukcesie Dawida Faith\'a. Dzięki temu tokenowi nie tylko wspierasz muzykę – również z niej korzystasz: Poprzez regularne stakowanie otrzymujesz 80% całkowitej podaży D.FAITH i staniem się naprawdę częścią tego ruchu.',
+    detailsTitle: 'Szczegóły Twojej inwestycji',
     details: [
       'Stała cena: 5,00€ za token',
-      'Ograniczona podaż: 10 000 tokenów (ekskluzywnie)',
+      'Ograniczona ilość: 10 000 tokenów (tylko dla Ciebie)',
       'Całkowity kapitał: 50 000€',
-      'Zarządzane blockchain\'em na sieci Base'
+      'Zabezpieczone blockchain\'em na sieci Base'
     ],
     stakingTitle: 'Twoje nagrody jako Fan',
     staking: [
       'Zarabiaj cotygodniowe nagrody D.FAITH',
-      'Im dłużej trzymasz, tym lepszy ROI',
-      'Do 104% ROI w czasie',
-      'Automatyczne, transparentne wypłaty'
+      'Im dłużej posiadasz, tym wyższy Twój zwrot',
+      'Do 104% zwrotu z inwestycji w ciągu czasu',
+      'Automatyczne i transparentne wypłaty'
     ],
     investTitle: 'Dlaczego inwestować jako Fan?',
-    investDesc: 'Lubisz muzykę? Bądź czymś więcej niż słuchaczem – bądź aktywną częścią projektu. Dzięki D.INVEST bezpośrednio korzystasz z sukcesów Dawida Faith. Twoja wspiera jest wynagrodzona – biernym dochodem i wspaniałym uczuciem robienia różnicy.',
-    badges: ['Dla prawdziwych fanów', 'Zarabiaj nagrody', 'Część ruchu']
+    investDesc: 'Kochasz muzykę? Bądź więcej niż słuchaczem – bądź aktywną częścią projektu. Dzięki D.INVEST bezpośrednio korzystasz z sukcesów Dawida Faith\'a. Twoje wsparcie jest nagradzane – pasywnym dochodem i wspaniałym uczuciem, że robisz różnicę.',
+    badges: ['Dla prawdziwych fanów', 'Zarabiaj nagrody', 'Część wspólnoty']
   }
 };
 
