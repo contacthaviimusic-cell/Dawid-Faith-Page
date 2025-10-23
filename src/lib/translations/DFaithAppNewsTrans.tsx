@@ -4,7 +4,7 @@ const DFaithAppNewsTranslations = {
     intro: 'Die D.FAITH App revolutioniert das Fan-Engagement durch Blockchain-Technologie. Fans können jetzt durch ihre natürlichen Social Media Aktivitäten D.FAITH Token verdienen und diese gegen exklusive Rewards eintauschen.',
     featuresTitle: 'App-Features',
     features: [
-      'Instagram/TikTok Integration',
+      'Instagram/TikTok/Facebook Integration',
       'Automatische EXP-Sammlung',
       'Live Leaderboard-System',
       'Cross-Platform Tracking'
@@ -25,7 +25,7 @@ const DFaithAppNewsTranslations = {
     intro: 'The D.FAITH app revolutionizes fan engagement using blockchain technology. Fans can now earn D.FAITH tokens through their organic social media activity and exchange them for exclusive rewards.',
     featuresTitle: 'App Features',
     features: [
-      'Instagram/TikTok integration',
+      'Instagram/TikTok/Facebook integration',
       'Automatic EXP collection',
       'Live leaderboard system',
       'Cross-platform tracking'
@@ -46,7 +46,7 @@ const DFaithAppNewsTranslations = {
     intro: 'Aplikacja D.FAITH rewolucjonizuje zaangażowanie fanów dzięki technologii blockchain. Fani mogą teraz zdobywać tokeny D.FAITH poprzez swoje aktywności w mediach społecznościowych i wymieniać je na ekskluzywne nagrody.',
     featuresTitle: 'Funkcje aplikacji',
     features: [
-      'Integracja z Instagram/TikTok',
+      'Integracja z Instagram/TikTok/Facebook',
       'Automatyczne zbieranie EXP',
       'System rankingu na żywo',
       'Śledzenie międzyplatformowe'
