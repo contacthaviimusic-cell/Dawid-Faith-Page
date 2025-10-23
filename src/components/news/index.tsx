@@ -40,11 +40,6 @@ const NewsDetailRenderer: React.FC<NewsDetailProps> = ({ article }) => {
 
   return (
     <div className="prose prose-lg prose-invert max-w-none">
-      {/* Standard Excerpt für alle News */}
-      <p className="text-xl text-gray-300 leading-relaxed mb-6">
-        {getLocalizedField('excerpt')}
-      </p>
-      
       {/* Spezifische News-Komponente */}
       {NewsComponent ? (
         <NewsComponent />
