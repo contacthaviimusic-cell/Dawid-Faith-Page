@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import Translations from '@/lib/translations/ReleaseKonzertNewsTrans';
+import Translations from '@/lib/translations/BandgesuchtNewsTrans';
 
-const ReleaseKonzertNews = () => {
+const BandgesuchtNews = () => {
   const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
 
   useEffect(() => {
@@ -78,4 +78,4 @@ const ReleaseKonzertNews = () => {
   );
 };
 
-export default ReleaseKonzertNews;
+export default BandgesuchtNews;

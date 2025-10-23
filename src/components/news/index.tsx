@@ -3,7 +3,7 @@ import type { NewsItem } from '@/types/news';
 import NewsTranslations from '@/lib/translations/NewsSectionTrans';
 
 // Individual News Components
-import ReleaseKonzertNews from './ReleaseKonzertNews';
+import BandgesuchtNews from './BandgesuchtNews';
 import DInvestTokenNews from './DInvestTokenNews';
 import DFaithAppNews from './DFaithAppNews';
 
@@ -30,7 +30,7 @@ const NewsDetailRenderer: React.FC<NewsDetailProps> = ({ article }) => {
   
   // Map News-IDs zu ihren entsprechenden Detail-Komponenten
   const newsComponents: Record<string, React.ComponentType> = {
-    '1758217302493-gbictm': ReleaseKonzertNews,    // Release-Konzert Maria & Znikła
+    '1758217302493-gbictm': BandgesuchtNews,       // Bandmitglieder gesucht
     '1758217302493-p9jwga': DInvestTokenNews,      // D.INVEST Token Launch
     '1758217302493-kix4d8': DFaithAppNews,         // D.FAITH App Launch
   };
@@ -65,7 +65,7 @@ export default NewsDetailRenderer;
 
 // Exporte für direkten Zugriff auf einzelne Komponenten
 export {
-  ReleaseKonzertNews,
+  BandgesuchtNews,
   DInvestTokenNews,
   DFaithAppNews,
 };
