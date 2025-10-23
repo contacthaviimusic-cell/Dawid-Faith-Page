@@ -1,66 +1,66 @@
 const DInvestTokenNewsTranslations = {
   de: {
-    title: 'D.INVEST Token Details',
-    intro: 'Der D.INVEST Token ist der Investment-Token des D.FAITH Ökosystems. Mit einem festen Preis von 5€ pro Token und einer Total Supply von nur 10.000 Token bietet er eine einzigartige Möglichkeit, am Erfolg von Dawid Faith teilzuhaben.',
-    detailsTitle: 'Token-Details',
+    title: 'D.INVEST Token - Langfristige Wertanlage',
+    intro: 'D.INVEST ist der exklusive Investment-Token für das Dawid Faith Projekt. Als Inhaber erhalten Sie Zugang zu 80% des gesamten D.FAITH Supplys durch regelmäßiges Staking. Dies ist eine seltene Gelegenheit, langfristig in die Entwicklung und den künftigen Erfolg eines innovativen Musikprojekts zu investieren.',
+    detailsTitle: 'Investment-Details',
     details: [
-      'Preis: 5,00€ pro Token (fest)',
-      'Gesamtanzahl: 10.000 Token',
+      'Fester Preis: 5,00€ pro Token',
+      'Limited Supply: 10.000 Token (knappe Ressource)',
       'Gesamtkapital: 50.000€',
-      'Live auf der Base-Chain'
+      'Blockchain-verwaltet auf Base-Chain'
     ],
-    stakingTitle: 'Staking-Rewards',
+    stakingTitle: 'Passive Einkommensquelle',
     staking: [
-      '0,1 D.FAITH pro Woche (Initial)',
-      '6-Stufen Halving-System',
-      'Bis zu 104% ROI möglich',
-      'Automatische Smart Contract Ausschüttung'
+      'Wöchentliche D.FAITH Rewards (0,1 initial)',
+      'Langfristige Wertsteigerung durch Halving',
+      'Bis zu 104% ROI über die Laufzeit',
+      'Transparente Smart Contract Ausschüttungen'
     ],
-    investTitle: 'Investment-Möglichkeit',
-    investDesc: 'Durch das Staking von D.INVEST Token erhältst du wöchentliche D.FAITH Rewards. Das 6-Stufen Halving-System sorgt für kontinuierliche Verknappung und potenzielle Wertsteigerung.',
-    badges: ['Fester Preis: 5€', 'Wöchentliche Rewards', 'Hohes ROI-Potenzial']
+    investTitle: 'Warum in D.INVEST investieren?',
+    investDesc: 'Sichern Sie sich frühe Investorenrechte an einem wachsenden Musikprojekt. Das 6-stufige Halving-System schafft natürliche Verknappung und Wertsteigerungspotenzial. Ihre regelmäßigen Staking-Rewards bilden ein solides Fundament für langfristige Vermögensaufbau.',
+    badges: ['Frühinvestor Vorteil', 'Passive Rendite', 'Langfristige Wertsteigerung']
   },
   en: {
-    title: 'D.INVEST Token Details',
-    intro: 'The D.INVEST token is the investment token of the D.FAITH ecosystem. With a fixed price of €5 per token and a total supply of only 10,000 tokens, it offers a unique way to participate in Dawid Faith\'s success.',
-    detailsTitle: 'Token Details',
+    title: 'D.INVEST Token - Long-Term Investment',
+    intro: 'D.INVEST is the exclusive investment token for the Dawid Faith project. As a holder, you gain access to 80% of the total D.FAITH supply through regular staking. This is a rare opportunity to invest long-term in the development and future success of an innovative music project.',
+    detailsTitle: 'Investment Details',
     details: [
-      'Price: €5.00 per token (fixed)',
-      'Total Supply: 10,000 tokens',
+      'Fixed Price: €5.00 per token',
+      'Limited Supply: 10,000 tokens (scarce asset)',
       'Total Capital: €50,000',
-      'Live on Base Chain'
+      'Blockchain-managed on Base Chain'
     ],
-    stakingTitle: 'Staking Rewards',
+    stakingTitle: 'Passive Income Stream',
     staking: [
-      '0.1 D.FAITH per week (initial)',
-      '6-tier halving system',
-      'Up to 104% ROI possible',
-      'Automatic smart contract distribution'
+      'Weekly D.FAITH Rewards (0.1 initial)',
+      'Long-term appreciation through halving',
+      'Up to 104% ROI over time',
+      'Transparent smart contract payouts'
     ],
-    investTitle: 'Investment Opportunity',
-    investDesc: 'By staking D.INVEST tokens you receive weekly D.FAITH rewards. The 6-tier halving system creates scarcity and potential upside.',
-    badges: ['Fixed Price: €5', 'Weekly Rewards', 'High ROI Potential']
+    investTitle: 'Why Invest in D.INVEST?',
+    investDesc: 'Secure early investor rights in a growing music project. The 6-tier halving system creates natural scarcity and appreciation potential. Your regular staking rewards form a solid foundation for long-term wealth building.',
+    badges: ['Early Investor Advantage', 'Passive Returns', 'Long-term Growth']
   },
   pl: {
-    title: 'Szczegóły tokena D.INVEST',
-    intro: 'Token D.INVEST jest tokenem inwestycyjnym ekosystemu D.FAITH. Przy stałej cenie 5€ za token i całkowitej podaży zaledwie 10 000 tokenów, daje to unikalną możliwość udziału w sukcesie Dawida Faith.',
-    detailsTitle: 'Szczegóły tokena',
+    title: 'Token D.INVEST - Inwestycja długoterminowa',
+    intro: 'D.INVEST to ekskluzywny token inwestycyjny projektu Dawid Faith. Jako posiadacz zyskujesz dostęp do 80% całkowitej podaży D.FAITH poprzez regularne stakowanie. To rzadka okazja do długoterminowej inwestycji w rozwój i przyszły sukces innowacyjnego projektu muzycznego.',
+    detailsTitle: 'Szczegóły inwestycji',
     details: [
-      'Cena: 5,00€ za token (stała)',
-      'Całkowita liczba: 10 000 tokenów',
-      'Kapitał całkowity: 50 000€',
-      'Na żywo na sieci Base (Base Chain)'
+      'Stała cena: 5,00€ za token',
+      'Ograniczona podaż: 10 000 tokenów (rzadki zasób)',
+      'Całkowity kapitał: 50 000€',
+      'Zarządzane blockchain\'em na sieci Base'
     ],
-    stakingTitle: 'Nagrody stakingowe',
+    stakingTitle: 'Pasywny strumień dochodu',
     staking: [
-      '0,1 D.FAITH na tydzień (początkowo)',
-      '6-stopniowy system halvingu',
-      'Do 104% ROI możliwe',
-      'Automatyczna dystrybucja smart contract'
+      'Cotygodniowe nagrody D.FAITH (0,1 począwszy)',
+      'Długoterminowy wzrost wartości poprzez halving',
+      'Do 104% ROI w czasie',
+      'Transparentne wypłaty smart contract'
     ],
-    investTitle: 'Możliwość inwestycyjna',
-    investDesc: 'Stakując tokeny D.INVEST otrzymujesz cotygodniowe nagrody D.FAITH. 6-stopniowy system halvingu tworzy niedobór i potencjalny wzrost wartości.',
-    badges: ['Stała cena: €5', 'Cotygodniowe nagrody', 'Wysoki potencjał ROI']
+    investTitle: 'Dlaczego inwestować w D.INVEST?',
+    investDesc: 'Zabezpiecz prawa wcześniej wchodzącego inwestora w rozwijającym się projekcie muzycznym. 6-stopniowy system halvingu tworzy naturalną rzadkość i potencjał wzrostu. Twoje regularne nagrody stakingowe stanowią solidną podstawę do długoterminowego budowania bogactwa.',
+    badges: ['Przewaga wczesnego inwestora', 'Pasywne zwroty', 'Długoterminowy wzrost']
   }
 };
 
