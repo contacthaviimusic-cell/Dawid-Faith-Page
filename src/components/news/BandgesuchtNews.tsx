@@ -39,7 +39,6 @@ const BandgesuchtNews = () => {
   return (
     <div className="space-y-6">
       <h3 className="text-2xl font-bold text-white mb-4">{t.title}</h3>
-      <p className="text-gray-300 leading-relaxed">{t.intro}</p>
 
       <div className="bg-blue-900/30 p-6 rounded-2xl border border-blue-500/20">
         <h4 className="text-lg font-semibold text-blue-300 mb-4">{t.infoTitle}</h4>

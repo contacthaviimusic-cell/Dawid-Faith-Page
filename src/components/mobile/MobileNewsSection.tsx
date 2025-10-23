@@ -119,7 +119,12 @@ export default function MobileNewsSection() {
           </div>
         ) : (
           <div className="space-y-4">
-            {news.slice(0, 5).map((item, index) => (
+            {news.slice(0, 5).sort((a, b) => {
+              // Featured news first
+              if (a.featured && !b.featured) return -1;
+              if (!a.featured && b.featured) return 1;
+              return 0;
+            }).map((item, index) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, y: 30 }}
