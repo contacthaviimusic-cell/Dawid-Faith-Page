@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import Translations from '@/lib/translations/BandgesuchtNewsTrans';
+import Translations from '../../lib/translations/BandgesuchtNewsTrans';
 
 const BandgesuchtNews = () => {
   const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
@@ -46,7 +46,7 @@ const BandgesuchtNews = () => {
         <div className="grid md:grid-cols-2 gap-4 text-gray-300">
           <div>
             <p className="font-medium">{t.dateLabel}</p>
-            <p className="text-sm">{t.dateText}, {formatTime(t.timeText)}</p>
+            <p className="text-sm">{t.dateText}{t.timeText ? `, ${formatTime(t.timeText)}` : ''}</p>
           </div>
           <div>
             <p className="font-medium">{t.locationLabel}</p>
@@ -69,7 +69,7 @@ const BandgesuchtNews = () => {
       <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
         <h4 className="text-lg font-semibold text-purple-300 mb-3">{t.premiereTitle}</h4>
         <div className="flex flex-wrap gap-3">
-          {t.badges.map((b, i) => (
+          {t.badges.map((b: string, i: number) => (
             <span key={i} className="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium">{b}</span>
           ))}
         </div>
