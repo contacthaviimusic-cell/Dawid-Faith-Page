@@ -282,14 +282,13 @@ export default function MobileMusicSection() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => playTrack(track)}
-                    className="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2"
+                    className="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center"
                   >
                     {currentTrack?.id === track.id && isPlaying ? (
                       <Pause size={18} />
                     ) : (
                       <Play size={18} />
                     )}
-                    Audio {currentTrack?.id === track.id && isPlaying ? 'Pause' : 'Play'}
                   </motion.button>
 
                   {/* Webapp Button */}
@@ -297,11 +296,10 @@ export default function MobileMusicSection() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => window.open('https://app.dawidfaith.de', '_blank')}
-                    className="bg-gray-700/60 hover:bg-gray-600/60 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2"
+                    className="bg-gray-700/60 hover:bg-gray-600/60 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center"
                     aria-label="Webapp öffnen"
                   >
                     <ExternalLink size={18} />
-                    {MusicTranslations[lang].webappButton}
                   </motion.button>
                 </div>
 
