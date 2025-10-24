@@ -25,7 +25,7 @@ export default function MobileNewsSection() {
       }
     } catch (e) {}
     
-    // Listen for release news trigger
+    // Listen for news triggers
     const handleOpenReleaseNews = () => {
       const releaseNews = news.find(item => 
         item.title.toLowerCase().includes('release') || 
@@ -36,8 +36,20 @@ export default function MobileNewsSection() {
       }
     };
 
+    const handleOpenDInvestNews = () => {
+      const dInvestNews = news.find(item => item.featured);
+      if (dInvestNews) {
+        setSelectedNews(dInvestNews);
+      }
+    };
+
     window.addEventListener('openReleaseNews', handleOpenReleaseNews);
-    return () => window.removeEventListener('openReleaseNews', handleOpenReleaseNews);
+    window.addEventListener('openDInvestNews', handleOpenDInvestNews);
+    
+    return () => {
+      window.removeEventListener('openReleaseNews', handleOpenReleaseNews);
+      window.removeEventListener('openDInvestNews', handleOpenDInvestNews);
+    };
   }, [news]);
 
   useEffect(() => {
