@@ -98,7 +98,7 @@ export default function MobilePage() {
                   const el = document.querySelector('#news');
                   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   setTimeout(() => {
-                    const event = new CustomEvent('openReleaseNews');
+                    const event = new CustomEvent('openDInvestNews');
                     window.dispatchEvent(event);
                   }, 800);
                 }}
