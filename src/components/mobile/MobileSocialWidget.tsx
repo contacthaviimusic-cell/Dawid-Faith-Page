@@ -6,15 +6,27 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import SocialWidgetTrans from '@/lib/translations/SocialWidgetTrans';
 
+type TransKeys = keyof typeof SocialWidgetTrans.de;
+
 interface MobileSocialWidgetProps {
   onClose: () => void;
 }
+
+type SocialLink = {
+  name: string;
+  icon: any;
+  url?: string;
+  action?: () => void;
+  gradient: string;
+  borderColor: string;
+  description: keyof typeof SocialWidgetTrans.de;
+};
 
 export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps) {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
 
-  const socialLinks = [
+  const socialLinks: SocialLink[] = [
     {
       name: 'D.FAITH',
       icon: ({ size, className }: { size: number, className?: string }) => (

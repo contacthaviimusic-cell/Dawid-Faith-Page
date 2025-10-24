@@ -1,4 +1,27 @@
-const SocialWidgetTrans = {
+type TranslationType = {
+  [key in 'de' | 'en' | 'pl']: {
+    title: string;
+    subtitle: string;
+    tokenDesc: string;
+    instagram: string;
+    facebook: string;
+    tiktok: string;
+    youtube: string;
+    email: string;
+    aboutTitle: string;
+    aboutText: string;
+    stayConnected: string;
+    newsletterDesc: string;
+    subscribe: string;
+    professionalRequests: string;
+    emailCopySuccess: string;
+    followMe: string;
+    copyEmail: string;
+    close: string;
+  }
+};
+
+const SocialWidgetTrans: TranslationType = {
   de: {
     title: 'Dawid Faith',
     subtitle: 'Künstler • Visionär',
@@ -15,7 +38,9 @@ const SocialWidgetTrans = {
     subscribe: 'Newsletter abonnieren',
     professionalRequests: 'Professionelle Anfragen',
     emailCopySuccess: '✓ E-Mail in Zwischenablage kopiert!',
-    followMe: 'Folge mir auf Social Media'
+    followMe: 'Folge mir auf Social Media',
+    copyEmail: 'E-Mail kopieren',
+    close: 'Schließen'
   },
   en: {
     title: 'Dawid Faith',
@@ -33,7 +58,9 @@ const SocialWidgetTrans = {
     subscribe: 'Subscribe to newsletter',
     professionalRequests: 'Professional Inquiries',
     emailCopySuccess: '✓ Email copied to clipboard!',
-    followMe: 'Follow me on social media'
+    followMe: 'Follow me on social media',
+    copyEmail: 'Copy email',
+    close: 'Close'
   },
   pl: {
     title: 'Dawid Faith',
@@ -51,7 +78,9 @@ const SocialWidgetTrans = {
     subscribe: 'Zapisz się do newslettera',
     professionalRequests: 'Zapytania zawodowe',
     followMe: 'Obserwuj mnie w mediach społecznościowych',
-    emailCopySuccess: '✓ E-mail skopiowany do schowka!'
+    emailCopySuccess: '✓ E-mail skopiowany do schowka!',
+    copyEmail: 'Skopiuj email',
+    close: 'Zamknij'
   }
 };
 
