@@ -1,20 +1,25 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Instagram, Youtube, Mail, Copy, ExternalLink, Star } from 'lucide-react';
+import { X, Instagram, Youtube, Mail, Copy } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import SocialWidgetTrans from '@/lib/translations/SocialWidgetTrans';
-
-type TransKeys = keyof typeof SocialWidgetTrans.de;
 
 interface MobileSocialWidgetProps {
   onClose: () => void;
 }
 
+type CustomIconProps = {
+  size: number;
+  className?: string;
+  style?: React.CSSProperties;
+};
+
 type SocialLink = {
   name: string;
-  icon: any;
+  icon: LucideIcon | ((props: { size: number; className: string }) => React.ReactNode);
   url?: string;
   action?: () => void;
   gradient: string;
