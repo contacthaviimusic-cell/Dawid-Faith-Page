@@ -9,6 +9,7 @@ export default function Newsletter() {
   const [email, setEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [responseStatus, setResponseStatus] = useState<number | null>(null);
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
@@ -18,6 +19,7 @@ export default function Newsletter() {
     setIsSubscribing(true);
     
     try {
+      let lastResponse: Response | null = null;
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: {
@@ -25,17 +27,29 @@ export default function Newsletter() {
         },
         body: JSON.stringify({ email: email.trim() }),
       });
+      lastResponse = response;
 
       const data = await response.json().catch(() => ({}));
       console.log('Newsletter POST response:', response.status, data);
 
+      setResponseStatus(response.status);
+      
       if (response.ok) {
         setSubscriptionStatus('success');
         setEmail('');
 
         setTimeout(() => {
           setSubscriptionStatus('idle');
+          setResponseStatus(null);
         }, 9000);
+      } else if (response.status === 409) {
+        setSubscriptionStatus('error');
+        console.log('Email already subscribed');
+        
+        setTimeout(() => {
+          setSubscriptionStatus('idle');
+          setResponseStatus(null);
+        }, 3000);
       } else {
         setSubscriptionStatus('error');
         const message = (data && (data.error)) ? data.error : `status:${response.status}`;
@@ -102,8 +116,12 @@ export default function Newsletter() {
                 <p className="text-green-300 font-semibold">{NewsletterTranslations[lang].subscribeSuccess}</p>
               </div>
             ) : subscriptionStatus === 'error' ? (
-              <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 mb-6">
-                <p className="text-red-300 font-semibold">{NewsletterTranslations[lang].subscribeError}</p>
+              <div className={`${responseStatus === 409 ? 'bg-blue-500/20 border-blue-500/30' : 'bg-red-500/20 border-red-500/30'} border rounded-lg p-4 mb-6`}>
+                <p className={`${responseStatus === 409 ? 'text-blue-300' : 'text-red-300'} font-semibold`}>
+                  {responseStatus === 409 
+                    ? NewsletterTranslations[lang].alreadySubscribed 
+                    : NewsletterTranslations[lang].subscribeError}
+                </p>
               </div>
             ) : (
               <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto mb-6">

@@ -9,6 +9,7 @@ export default function MobileNewsletterSection() {
   const [email, setEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [responseStatus, setResponseStatus] = useState<number | null>(null);
   const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
@@ -29,13 +30,24 @@ export default function MobileNewsletterSection() {
       const data = await response.json().catch(() => ({}));
       console.log('Newsletter POST response:', response.status, data);
 
+      setResponseStatus(response.status);
+      
       if (response.ok) {
         setSubscriptionStatus('success');
         setEmail('');
 
         setTimeout(() => {
           setSubscriptionStatus('idle');
+          setResponseStatus(null);
         }, 9000);
+      } else if (response.status === 409) {
+        setSubscriptionStatus('error');
+        console.log('Email already subscribed');
+        
+        setTimeout(() => {
+          setSubscriptionStatus('idle');
+          setResponseStatus(null);
+        }, 3000);
       } else {
         setSubscriptionStatus('error');
         const message = (data && (data.error)) ? data.error : `status:${response.status}`;
@@ -156,10 +168,18 @@ export default function MobileNewsletterSection() {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mt-4 p-4 rounded-xl border bg-red-500/20 border-red-500/30 text-red-400 flex items-center gap-3"
+                className={`mt-4 p-4 rounded-xl border ${
+                  responseStatus === 409 
+                    ? 'bg-blue-500/20 border-blue-500/30 text-blue-400'
+                    : 'bg-red-500/20 border-red-500/30 text-red-400'
+                } flex items-center gap-3`}
               >
-                <AlertCircle size={20} />
-                <span className="text-sm">{NewsletterTranslations[lang].subscribeError}</span>
+                {responseStatus === 409 ? <AlertCircle size={20} /> : <AlertCircle size={20} />}
+                <span className="text-sm">
+                  {responseStatus === 409
+                    ? NewsletterTranslations[lang].alreadySubscribed
+                    : NewsletterTranslations[lang].subscribeError}
+                </span>
               </motion.div>
             )}
           </div>

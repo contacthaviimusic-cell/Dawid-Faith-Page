@@ -5,6 +5,7 @@ export const NewsletterTranslations: Record<LangKey, {
   newsletterDesc: string;
   subscribeSuccess: string;
   subscribeError: string;
+  alreadySubscribed: string;
   emailPlaceholder: string;
   subscribeLabel: string;
   subscribingLabel: string;
@@ -15,6 +16,7 @@ export const NewsletterTranslations: Record<LangKey, {
     newsletterDesc: 'Erhalte Updates zu neuen Konzerten, Songs und besonderen Events direkt in dein Postfach.',
     subscribeSuccess: '✅ Erfolgreich angemeldet! Danke für dein Interesse.',
     subscribeError: '❌ Fehler bei der Anmeldung. Bitte versuche es erneut.',
+    alreadySubscribed: 'ℹ️ Diese E-Mail-Adresse ist bereits angemeldet.',
     emailPlaceholder: 'deine@email.de',
     subscribeLabel: 'Anmelden',
     subscribingLabel: 'Anmelden...',
@@ -25,6 +27,7 @@ export const NewsletterTranslations: Record<LangKey, {
     newsletterDesc: 'Get updates about new concerts, songs and special events directly to your inbox.',
     subscribeSuccess: '✅ Successfully subscribed! Thanks for your interest.',
     subscribeError: '❌ Error during subscription. Please try again.',
+    alreadySubscribed: 'ℹ️ This email address is already subscribed.',
     emailPlaceholder: 'your@email.com',
     subscribeLabel: 'Subscribe',
     subscribingLabel: 'Subscribing...',
@@ -35,6 +38,7 @@ export const NewsletterTranslations: Record<LangKey, {
     newsletterDesc: 'Otrzymuj aktualizacje o nowych koncertach, utworach i specjalnych wydarzeniach bezpośrednio na swoją skrzynkę.',
     subscribeSuccess: '✅ Pomyślnie zapisano! Dziękujemy za zainteresowanie.',
     subscribeError: '❌ Błąd podczas zapisu. Proszę spróbuj ponownie.',
+    alreadySubscribed: 'ℹ️ Ten adres email jest już zapisany.',
     emailPlaceholder: 'twój@email.pl',
     subscribeLabel: 'Zapisz się',
     subscribingLabel: 'Zapisywanie...',
