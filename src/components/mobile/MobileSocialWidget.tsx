@@ -246,15 +246,12 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                   <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{
                     background: `linear-gradient(to bottom right, ${brandColors[link.name]}20, ${brandColors[link.name]}10)`
                   }} />
-                  <div className="flex flex-col items-center gap-2.5 text-center relative z-10">
-                    <div className="p-2.5 bg-black/20 backdrop-blur-sm rounded-xl group-hover:scale-110 group-hover:bg-black/30 transition-all duration-300 shadow-lg shadow-black/10">
-                      <Icon size={24} style={{ color: brandColors[link.name] }} className={`${link.name === 'D.FAITH' ? 'rounded-md' : ''} drop-shadow-sm`} />
+                  <div className="flex flex-col items-center gap-2 text-center relative z-10">
+                    <div className="p-2.5 bg-gradient-to-br from-black/30 to-black/20 backdrop-blur-sm rounded-xl group-hover:scale-110 group-hover:from-black/40 group-hover:to-black/30 transition-all duration-300">
+                      <Icon size={20} style={{ color: brandColors[link.name] }} className={`${link.name === 'D.FAITH' ? 'rounded-md' : ''} drop-shadow`} />
                     </div>
-                    <div>
-                      <div className="text-white text-sm font-semibold mb-0.5 group-hover:text-white/90 transition-colors">{link.name}</div>
-                      <div className="text-gray-300/80 text-xs group-hover:text-gray-300 transition-colors">
-                        {SocialWidgetTrans[lang][link.description]}
-                      </div>
+                    <div className="text-white text-sm font-medium group-hover:text-white/90 transition-colors">
+                      {link.name}
                     </div>
                   </div>
                 </motion.a>
