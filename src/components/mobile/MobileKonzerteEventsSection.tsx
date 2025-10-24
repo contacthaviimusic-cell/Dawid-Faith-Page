@@ -58,21 +58,30 @@ export default function MobileKonzerteEventsSection() {
       ticketUrl: 'tel:+48692223144',
       isReleaseKonzert: false,
       isVip: true,
-      capacity: '10-20 Personen',
+      capacity: '5-20 Personen',
       price: 'Auf Anfrage',
       status: 'upcoming'
     }
   ];
 
   const formatDate = (dateString: string) => {
-    if (dateString === (KonzerteEventsTranslations[lang].variousDates ?? 'Verschiedene Termine')) return KonzerteEventsTranslations[lang].variousDates ?? dateString;
-    const date = new Date(dateString);
-    const locale = lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : 'en-GB';
-    return date.toLocaleDateString(locale, {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric'
-    });
+    if (!dateString || dateString === KonzerteEventsTranslations[lang].variousDates) {
+      return KonzerteEventsTranslations[lang].variousDates ?? 'Verschiedene Termine';
+    }
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        return dateString;
+      }
+      const locale = lang === 'de' ? 'de-DE' : lang === 'pl' ? 'pl-PL' : 'en-GB';
+      return date.toLocaleDateString(locale, {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      });
+    } catch {
+      return dateString;
+    }
   };
 
   const getStatusBadge = (status: string) => {

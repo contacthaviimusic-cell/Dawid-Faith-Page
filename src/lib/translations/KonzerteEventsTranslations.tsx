@@ -45,7 +45,7 @@ export const KonzerteEventsTranslations: Record<LangKey, {
         title: 'Private Wohnzimmerkonzerte',
         subtitle: 'Exklusives Konzert in deinem Wohnzimmer',
         description: 'Erlebe ein intimes Konzert in deinem eigenen Wohnzimmer. Ein einzigartiges musikalisches Erlebnis für dich und deine Gäste. Kontaktiere mich per Mail oder Telefon für weitere Details und Buchung.',
-        capacity: '10-20 Personen',
+        capacity: '5-20 Personen',
         price: 'Auf Anfrage',
         venue: 'Dein Wohnzimmer',
         location: 'Überall möglich'

@@ -211,26 +211,24 @@ export default function MobileNewsSection() {
           >
             <Calendar className="mx-auto mb-3 text-white" size={32} />
             <h3 className="text-xl font-bold text-white mb-2">
-              {NewsTranslations[lang].nextReleaseTitle}
+              {lang === 'de' ? 'Private Wohnzimmerkonzerte' :
+               lang === 'en' ? 'Private Living Room Concerts' :
+               'Prywatne koncerty w salonie'}
             </h3>
             <p className="text-purple-100 text-sm mb-4">
-              {NewsTranslations[lang].nextReleaseDesc}
+              {lang === 'de' ? 'Erlebe ein einzigartiges Konzert in deinem Wohnzimmer.' :
+               lang === 'en' ? 'Experience a unique concert in your living room.' :
+               'Doświadcz wyjątkowego koncertu w swoim salonie.'}
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                const releaseNews = news.find(item => 
-                  item.title.toLowerCase().includes('release') || 
-                  item.title.toLowerCase().includes('konzert')
-                );
-                if (releaseNews) {
-                  setSelectedNews(releaseNews);
-                }
-              }}
+              onClick={() => window.location.href = '#konzerte'}
               className="bg-white text-purple-600 px-6 py-3 rounded-xl font-bold transition-all duration-300"
             >
-              {NewsTranslations[lang].details}
+              {lang === 'de' ? 'Jetzt buchen' :
+               lang === 'en' ? 'Book now' :
+               'Zarezerwuj teraz'}
             </motion.button>
           </motion.div>
         )}
