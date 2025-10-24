@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import NewsTranslations from '@/lib/translations/NewsSectionTrans';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Newspaper, Clock, Tag, X, ExternalLink, Share, Calendar } from 'lucide-react';
+import { Newspaper, Clock, Tag, X, ExternalLink, Share, Calendar, Star } from 'lucide-react';
 import Image from 'next/image';
 import type { NewsItem } from '@/types/news';
 import NewsDetailRenderer from '@/components/news';
@@ -134,7 +134,11 @@ export default function MobileNewsSection() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setSelectedNews(item)}
-                className="bg-gradient-to-r from-gray-900/50 to-purple-900/20 backdrop-blur-md rounded-2xl border border-purple-500/20 overflow-hidden cursor-pointer"
+                className={`backdrop-blur-md rounded-2xl border overflow-hidden cursor-pointer ${
+                  item.featured 
+                  ? 'bg-gradient-to-r from-purple-900/80 to-pink-900/80 border-purple-400/50 shadow-lg shadow-purple-500/20' 
+                  : 'bg-gradient-to-r from-gray-900/50 to-purple-900/20 border-purple-500/20'
+                }`}
               >
                 <div className="flex gap-4 p-4">
                   {/* Image */}
@@ -146,13 +150,20 @@ export default function MobileNewsSection() {
                       className="object-cover"
                     />
                     {item.featured && (
-                      <div className="absolute top-1 right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                      <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-transparent">
+                        <div className="absolute top-1 right-1 px-2 py-1 bg-yellow-400/90 rounded-full text-[10px] font-medium text-black flex items-center gap-1">
+                          <Star size={10} />
+                          Featured
+                        </div>
+                      </div>
                     )}
                   </div>
 
                   {/* Content */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-white text-sm mb-1 line-clamp-2">
+                    <h3 className={`font-bold text-sm mb-1 line-clamp-2 ${
+                      item.featured ? 'text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200' : 'text-white'
+                    }`}>
                       {getLocalizedField(item, 'title', lang)}
                     </h3>
                     <p className="text-gray-400 text-xs mb-2 line-clamp-2">
@@ -162,12 +173,12 @@ export default function MobileNewsSection() {
                     {/* Meta */}
                     <div className="flex items-center gap-3 text-xs text-gray-500">
                       <div className="flex items-center gap-1">
-                        <Clock size={12} />
-                        <span>{item.readTime}</span>
+                        <Clock size={12} className={item.featured ? 'text-purple-300' : ''} />
+                        <span className={item.featured ? 'text-purple-300' : ''}>{item.readTime}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Tag size={12} />
-                        <span>{item.category}</span>
+                        <Tag size={12} className={item.featured ? 'text-purple-300' : ''} />
+                        <span className={item.featured ? 'text-purple-300' : ''}>{item.category}</span>
                       </div>
                     </div>
                   </div>
