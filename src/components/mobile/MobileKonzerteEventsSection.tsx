@@ -44,23 +44,22 @@ export default function MobileKonzerteEventsSection() {
   };
 
   const konzertEvents: KonzertEvent[] = [
-    // Single Release-Konzert wird ausgeblendet bis Datum feststeht
-    // {
-    //   id: 'release-konzert-2025',
-    //   title: '🎵 Single Release-Konzert 2025',
-    //   subtitle: 'Exklusives Single Release Event',
-    //   date: '2025-11-15',
-    //   time: '19:00',
-    //   venue: 'Katys Garage',
-    //   location: 'Dresden Neustadt',
-    //   description: 'Ein gemütlicher Abend mit neuen Songs und guter Musik. Komm vorbei und lass uns zusammen feiern!',
-    //   ticketUrl: '#tickets',
-    //   isReleaseKonzert: true,
-    //   isVip: false,
-    //   capacity: 'Begrenzte Plätze',
-    //   price: 'Freier Eintritt',
-    //   status: 'upcoming'
-    // }
+    {
+      id: 'wohnzimmer-konzert',
+      title: '� Private Wohnzimmerkonzerte',
+      subtitle: 'Exklusives Konzert in deinem Wohnzimmer',
+      date: KonzerteEventsTranslations[lang].variousDates ?? 'Verschiedene Termine',
+      time: 'Nach Vereinbarung',
+      venue: 'Dein Wohnzimmer',
+      location: 'Überall möglich',
+      description: 'Erlebe ein intimes Konzert in deinem eigenen Wohnzimmer. Ein einzigartiges musikalisches Erlebnis für dich und deine Gäste. Kontaktiere mich per Mail oder Telefon für weitere Details und Buchung.',
+      ticketUrl: 'tel:+48692223144',
+      isReleaseKonzert: false,
+      isVip: true,
+      capacity: '10-20 Personen',
+      price: 'Auf Anfrage',
+      status: 'upcoming'
+    }
   ];
 
   const formatDate = (dateString: string) => {
@@ -238,6 +237,15 @@ export default function MobileKonzerteEventsSection() {
                           setTimeout(() => {
                             alert(KonzerteEventsTranslations[lang].releaseAlert);
                           }, 500);
+                        } else if (event.id === 'wohnzimmer-konzert') {
+                          const choice = confirm('Wie möchtest du Kontakt aufnehmen?\n\nOK = Anruf\nAbbrechen = E-Mail');
+                          if (choice) {
+                            window.location.href = 'tel:+48692223144';
+                          } else {
+                            window.location.href = 'mailto:dawid.faith@gmail.com?subject=Wohnzimmerkonzert%20Anfrage';
+                          }
+                        } else {
+                          window.location.href = event.ticketUrl;
                         }
                       }}
                     >
