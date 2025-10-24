@@ -22,8 +22,10 @@ type SocialLink = {
   icon: LucideIcon | ((props: { size: number; className: string }) => React.ReactNode);
   url?: string;
   action?: () => void;
-  gradient: string;
+  color: string;
+  bgColor: string;
   borderColor: string;
+  hoverColor: string;
   description: keyof typeof SocialWidgetTrans.de;
 };
 
@@ -33,29 +35,13 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
 
   const socialLinks: SocialLink[] = [
     {
-      name: 'D.FAITH',
-      icon: ({ size, className }: { size: number, className?: string }) => (
-        <div style={{ width: size, height: size }} className={`${className ?? ''} rounded-lg overflow-hidden`}>
-          <Image src="/dfaith-token.png" alt="D.FAITH Token" width={size} height={size} />
-        </div>
-      ),
-      action: () => {
-        onClose();
-        setTimeout(() => {
-          const el = document.querySelector('#dfaith');
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 300);
-      },
-      gradient: 'from-purple-500/20 to-pink-500/20',
-      borderColor: 'border-purple-500/40',
-      description: 'tokenDesc'
-    },
-    {
       name: 'Instagram',
       icon: Instagram,
       url: 'https://www.instagram.com/dawidfaith/',
-      gradient: 'from-pink-500/20 to-purple-500/20',
+      color: 'from-pink-500 via-purple-500 to-pink-600',
+      bgColor: 'bg-gradient-to-br from-pink-500/20 to-purple-500/20',
       borderColor: 'border-pink-500/40',
+      hoverColor: 'hover:border-pink-400',
       description: 'instagram'
     },
     {
@@ -66,8 +52,10 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
         </svg>
       ),
       url: 'https://www.facebook.com/profile.php?id=61572473614500',
-      gradient: 'from-blue-500/20 to-blue-600/20',
+      color: 'from-blue-600 via-blue-500 to-blue-700',
+      bgColor: 'bg-gradient-to-br from-blue-600/20 to-blue-500/20',
       borderColor: 'border-blue-500/40',
+      hoverColor: 'hover:border-blue-400',
       description: 'facebook'
     },
     {
@@ -78,25 +66,51 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
         </svg>
       ),
       url: 'https://www.tiktok.com/@dawidfaith',
-      gradient: 'from-gray-900/20 to-pink-500/20',
+      color: 'from-gray-900 via-pink-500 to-cyan-400',
+      bgColor: 'bg-gradient-to-br from-gray-900/20 to-pink-500/20',
       borderColor: 'border-pink-500/40',
+      hoverColor: 'hover:border-cyan-400',
       description: 'tiktok'
     },
     {
       name: 'YouTube',
       icon: Youtube,
       url: 'https://www.youtube.com/@dawidfaith',
-      gradient: 'from-red-500/20 to-red-600/20',
+      color: 'from-red-600 via-red-500 to-red-700',
+      bgColor: 'bg-gradient-to-br from-red-600/20 to-red-500/20',
       borderColor: 'border-red-500/40',
+      hoverColor: 'hover:border-red-400',
       description: 'youtube'
     },
     {
       name: 'E-Mail',
       icon: Mail,
       action: () => setShowEmailModal(true),
-      gradient: 'from-green-500/20 to-emerald-500/20',
+      color: 'from-green-600 via-green-500 to-green-700',
+      bgColor: 'bg-gradient-to-br from-green-600/20 to-green-500/20',
       borderColor: 'border-green-500/40',
+      hoverColor: 'hover:border-green-400',
       description: 'email'
+    },
+    {
+      name: 'D.FAITH',
+      icon: ({ size, className }: { size: number, className: string }) => (
+        <div style={{ width: size, height: size }} className={`${className} overflow-hidden`}>
+          <Image src="/dfaith-token.png" alt="D.FAITH Token" width={size} height={size} />
+        </div>
+      ),
+      action: () => {
+        onClose();
+        setTimeout(() => {
+          const el = document.querySelector('#dfaith');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+      },
+      color: 'from-purple-600 via-pink-500 to-blue-500',
+      bgColor: 'bg-gradient-to-br from-purple-600/20 to-pink-500/20',
+      borderColor: 'border-purple-500/40',
+      hoverColor: 'hover:border-purple-400',
+      description: 'tokenDesc'
     }
   ];
 
@@ -223,16 +237,18 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                   }}
                   target={link.url ? '_blank' : undefined}
                   rel={link.url ? 'noopener noreferrer' : undefined}
-                  className={`relative overflow-hidden bg-gradient-to-br ${link.gradient} rounded-xl p-3 border ${link.borderColor} hover:bg-white/5 transition-all duration-300 cursor-pointer group`}
+                  className={`relative overflow-hidden ${link.bgColor} rounded-xl p-3 border ${link.borderColor} ${link.hoverColor} transition-all duration-300 cursor-pointer group`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{
+                    background: `linear-gradient(to bottom right, ${brandColors[link.name]}20, ${brandColors[link.name]}10)`
+                  }} />
                   <div className="flex flex-col items-center gap-2.5 text-center relative z-10">
-                    <div className="p-2.5 bg-black/20 rounded-xl backdrop-blur-sm group-hover:scale-110 group-hover:bg-black/30 transition-all duration-300 shadow-lg shadow-black/10">
-                      <Icon size={22} style={{ color: brandColors[link.name] }} className={link.name === 'D.FAITH' ? 'rounded-md' : ''} />
+                    <div className="p-2.5 bg-black/20 backdrop-blur-sm rounded-xl group-hover:scale-110 group-hover:bg-black/30 transition-all duration-300 shadow-lg shadow-black/10">
+                      <Icon size={24} style={{ color: brandColors[link.name] }} className={`${link.name === 'D.FAITH' ? 'rounded-md' : ''} drop-shadow-sm`} />
                     </div>
                     <div>
                       <div className="text-white text-sm font-semibold mb-0.5 group-hover:text-white/90 transition-colors">{link.name}</div>
@@ -265,29 +281,44 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Background Animation */}
-                <motion.div
-                  className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-full blur-2xl"
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    rotate: [0, 90, 0],
-                  }}
-                  transition={{ duration: 6, repeat: Infinity }}
-                />
+                <div className="absolute inset-0 overflow-hidden">
+                  <motion.div
+                    className="absolute -top-10 -right-10 w-20 h-20 bg-green-500/10 rounded-full blur-xl"
+                    animate={{ 
+                      scale: [1, 1.5, 1],
+                      rotate: [0, 180, 360]
+                    }}
+                    transition={{ duration: 8, repeat: Infinity }}
+                  />
+                  <motion.div
+                    className="absolute -bottom-5 -left-5 w-16 h-16 bg-emerald-500/10 rounded-full blur-xl"
+                    animate={{ 
+                      scale: [1.2, 1, 1.2],
+                      rotate: [360, 180, 0]
+                    }}
+                    transition={{ duration: 6, repeat: Infinity, delay: 2 }}
+                  />
+                </div>
 
                 {/* Header */}
                 <div className="relative text-center mb-6">
                   <motion.div 
-                    className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/20"
+                    className="relative w-16 h-16 mx-auto mb-4"
                     whileHover={{ scale: 1.05, rotate: 5 }}
                   >
-                    <Mail size={32} className="text-white drop-shadow" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl blur opacity-50" />
+                    <div className="relative w-full h-full bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center ring-2 ring-green-400/20">
+                      <Mail size={32} className="text-white drop-shadow-lg" />
+                    </div>
                   </motion.div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{SocialWidgetTrans[lang].professionalRequests}</h3>
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-white via-green-100 to-white bg-clip-text text-transparent mb-2">
+                    {SocialWidgetTrans[lang].professionalRequests}
+                  </h3>
                   <p className="text-gray-300 text-sm">{SocialWidgetTrans[lang].aboutText}</p>
                 </div>
 
                 {/* Email Display */}
-                <div className="relative bg-black/30 backdrop-blur-sm rounded-xl p-4 mb-6 border border-green-500/20 group">
+                <div className="relative bg-black/30 backdrop-blur-sm rounded-xl p-4 mb-6 border border-green-500/20 shadow-inner shadow-black/10 group">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <Mail size={18} className="text-green-400" />
@@ -310,16 +341,17 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleEmailClick}
-                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 flex items-center justify-center gap-2"
+                    className="relative w-full overflow-hidden bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 flex items-center justify-center gap-2 group"
                   >
-                    <Mail size={18} />
-                    {SocialWidgetTrans[lang].copyEmail}
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
+                    <Mail size={18} className="relative z-10" />
+                    <span className="relative z-10">{SocialWidgetTrans[lang].copyEmail}</span>
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setShowEmailModal(false)}
-                    className="w-full bg-white/5 hover:bg-white/10 text-gray-300 py-3 rounded-xl font-medium transition-all duration-300 border border-white/10"
+                    className="w-full bg-gradient-to-br from-white/5 to-white/10 hover:from-white/10 hover:to-white/15 text-gray-300 py-3 rounded-xl font-medium transition-all duration-300 border border-white/10"
                   >
                     {SocialWidgetTrans[lang].close}
                   </motion.button>
@@ -329,11 +361,11 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="absolute top-4 right-4 bg-green-500/20 border border-green-500/30 rounded-full py-1.5 px-3"
+                    className="absolute top-4 right-4 bg-green-500/20 border border-green-500/30 rounded-full py-1.5 px-3 shadow-lg shadow-green-500/20"
                   >
                     <p className="text-green-400 text-xs font-medium flex items-center gap-1">
-                      <CheckCircle size={12} />
-                      {SocialWidgetTrans[lang].emailCopySuccess}
+                      <CheckCircle size={12} className="drop-shadow" />
+                      <span className="drop-shadow">{SocialWidgetTrans[lang].emailCopySuccess}</span>
                     </p>
                   </motion.div>
                 )}
