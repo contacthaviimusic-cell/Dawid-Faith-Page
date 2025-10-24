@@ -201,18 +201,18 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                   }}
                   target={link.url ? '_blank' : undefined}
                   rel={link.url ? 'noopener noreferrer' : undefined}
-                  className={`bg-gradient-to-br ${link.gradient} rounded-2xl p-4 border ${link.borderColor} hover:bg-white/5 transition-colors cursor-pointer group`}
+                  className={`bg-gradient-to-br ${link.gradient} rounded-xl p-3 border ${link.borderColor} hover:bg-white/5 transition-colors cursor-pointer group`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <div className="flex flex-col items-center gap-3 text-center">
-                    <div className="p-3 bg-black/20 rounded-xl group-hover:scale-110 transition-transform">
-                      <Icon size={28} style={{ color: brandColors[link.name] }} className={link.name === 'D.FAITH' ? 'rounded-lg' : ''} />
+                  <div className="flex flex-col items-center gap-2 text-center">
+                    <div className="p-2 bg-black/20 rounded-lg group-hover:scale-110 transition-transform">
+                      <Icon size={22} style={{ color: brandColors[link.name] }} className={link.name === 'D.FAITH' ? 'rounded-md' : ''} />
                     </div>
                     <div>
-                      <div className="text-white font-medium mb-1">{link.name}</div>
-                      <div className="text-gray-400 text-sm">
+                      <div className="text-white text-sm font-medium mb-0.5">{link.name}</div>
+                      <div className="text-gray-400 text-xs">
                         {SocialWidgetTrans[lang][link.description]}
                       </div>
                     </div>
