@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import KonzerteEventsTranslations from '@/lib/translations/KonzerteEventsTranslations';
-import { motion } from 'framer-motion';
-import { Calendar, MapPin, Clock, Users, Ticket, Star } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar, MapPin, Clock, Users, Ticket, Star, Phone, Mail, X } from 'lucide-react';
 
 export default function MobileKonzerteEventsSection() {
   const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [modalEventId, setModalEventId] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -46,7 +48,7 @@ export default function MobileKonzerteEventsSection() {
   const konzertEvents: KonzertEvent[] = [
     {
       id: 'wohnzimmer-konzert',
-      title: '� Private Wohnzimmerkonzerte',
+      title: 'Private Wohnzimmerkonzerte',
       subtitle: 'Exklusives Konzert in deinem Wohnzimmer',
       date: KonzerteEventsTranslations[lang].variousDates ?? 'Verschiedene Termine',
       time: 'Nach Vereinbarung',
@@ -238,12 +240,8 @@ export default function MobileKonzerteEventsSection() {
                             alert(KonzerteEventsTranslations[lang].releaseAlert);
                           }, 500);
                         } else if (event.id === 'wohnzimmer-konzert') {
-                          const choice = confirm('Wie möchtest du Kontakt aufnehmen?\n\nOK = Anruf\nAbbrechen = E-Mail');
-                          if (choice) {
-                            window.location.href = 'tel:+48692223144';
-                          } else {
-                            window.location.href = 'mailto:dawid.faith@gmail.com?subject=Wohnzimmerkonzert%20Anfrage';
-                          }
+                          setModalEventId(event.id);
+                          setShowContactModal(true);
                         } else {
                           window.location.href = event.ticketUrl;
                         }
@@ -259,6 +257,107 @@ export default function MobileKonzerteEventsSection() {
           )))}
         </div>
       </div>
+
+      {/* Contact Modal */}
+      <AnimatePresence>
+        {showContactModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+            onClick={() => setShowContactModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-gradient-to-br from-slate-900/95 via-purple-900/90 to-pink-900/95 backdrop-blur-xl rounded-2xl p-6 border border-purple-400/30 shadow-2xl max-w-sm w-full relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Background Animation */}
+              <div className="absolute inset-0 overflow-hidden rounded-2xl">
+                <motion.div
+                  className="absolute -top-10 -right-10 w-20 h-20 bg-purple-500/10 rounded-full blur-xl"
+                  animate={{ 
+                    scale: [1, 1.5, 1],
+                    rotate: [0, 180, 360]
+                  }}
+                  transition={{ duration: 8, repeat: Infinity }}
+                />
+                <motion.div
+                  className="absolute -bottom-5 -left-5 w-16 h-16 bg-pink-500/10 rounded-full blur-xl"
+                  animate={{ 
+                    scale: [1.2, 1, 1.2],
+                    rotate: [360, 180, 0]
+                  }}
+                  transition={{ duration: 6, repeat: Infinity, delay: 2 }}
+                />
+              </div>
+
+              {/* Modal Content */}
+              <div className="relative z-10">
+                <h3 className="text-xl font-bold text-white mb-4">
+                  {lang === 'de' ? 'Wie möchten Sie Kontakt aufnehmen?' :
+                   lang === 'en' ? 'How would you like to get in touch?' :
+                   'Jak chcesz się skontaktować?'}
+                </h3>
+                
+                {/* Contact Options */}
+                <div className="space-y-3">
+                  {/* Phone Option */}
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => window.location.href = 'tel:+48692223144'}
+                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white rounded-xl p-4 flex items-center gap-3 transition-all duration-300"
+                  >
+                    <div className="bg-white/10 rounded-lg p-2">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <div className="text-left">
+                      <div className="font-semibold">
+                        {lang === 'de' ? 'Anrufen' :
+                         lang === 'en' ? 'Call' :
+                         'Zadzwoń'}
+                      </div>
+                      <div className="text-sm text-white/70">+48 692 223 144</div>
+                    </div>
+                  </motion.button>
+
+                  {/* Email Option */}
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => window.location.href = 'mailto:dawid.faith@gmail.com?subject=Wohnzimmerkonzert%20Anfrage'}
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white rounded-xl p-4 flex items-center gap-3 transition-all duration-300"
+                  >
+                    <div className="bg-white/10 rounded-lg p-2">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div className="text-left">
+                      <div className="font-semibold">
+                        {lang === 'de' ? 'E-Mail schreiben' :
+                         lang === 'en' ? 'Send Email' :
+                         'Wyślij e-mail'}
+                      </div>
+                      <div className="text-sm text-white/70">dawid.faith@gmail.com</div>
+                    </div>
+                  </motion.button>
+                </div>
+
+                {/* Close Button */}
+                <button
+                  onClick={() => setShowContactModal(false)}
+                  className="absolute top-2 right-2 p-1 rounded-lg hover:bg-white/10 transition-colors"
+                >
+                  <X className="w-5 h-5 text-white/70" />
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
