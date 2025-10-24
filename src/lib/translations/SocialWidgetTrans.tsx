@@ -14,7 +14,8 @@ const SocialWidgetTrans = {
     newsletterDesc: 'Erhalte Updates zu neuen Songs und Konzerten',
     subscribe: 'Newsletter abonnieren',
     professionalRequests: 'Professionelle Anfragen',
-    emailCopySuccess: '✓ E-Mail in Zwischenablage kopiert!'
+    emailCopySuccess: '✓ E-Mail in Zwischenablage kopiert!',
+    followMe: 'Folge mir auf Social Media'
   },
   en: {
     title: 'Dawid Faith',
@@ -31,7 +32,8 @@ const SocialWidgetTrans = {
     newsletterDesc: 'Get updates about new songs and concerts',
     subscribe: 'Subscribe to newsletter',
     professionalRequests: 'Professional Inquiries',
-    emailCopySuccess: '✓ Email copied to clipboard!'
+    emailCopySuccess: '✓ Email copied to clipboard!',
+    followMe: 'Follow me on social media'
   },
   pl: {
     title: 'Dawid Faith',
@@ -48,6 +50,7 @@ const SocialWidgetTrans = {
     newsletterDesc: 'Otrzymuj aktualizacje o nowych piosenkach i koncertach',
     subscribe: 'Zapisz się do newslettera',
     professionalRequests: 'Zapytania zawodowe',
+    followMe: 'Obserwuj mnie w mediach społecznościowych',
     emailCopySuccess: '✓ E-mail skopiowany do schowka!'
   }
 };
