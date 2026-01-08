@@ -1,7 +1,7 @@
 const PageTranslations = {
   de: {
     loaderText: 'Lade Dawid Faith...',
-    heroSubtitle: 'independent Artist',
+    heroSubtitle: 'Singer-Songwriter',
     ctaInvite: 'Znikła – Presave jetzt',
     ctaExperience: 'D.FAITH erleben',
     footerTagline: 'Wo Musik auf Blockchain trifft',
@@ -10,7 +10,7 @@ const PageTranslations = {
   },
   en: {
     loaderText: "Loading Dawid Faith...",
-    heroSubtitle: 'Artist • Singer-Songwriter • Visionary',
+    heroSubtitle: 'Singer-Songwriter',
     ctaInvite: 'Znikła – Presave Now',
     ctaExperience: 'Experience D.FAITH',
     footerTagline: 'Where music meets blockchain',
@@ -19,7 +19,7 @@ const PageTranslations = {
   },
   pl: {
     loaderText: 'Ładowanie Dawid Faith...',
-    heroSubtitle: 'Artysta • Pieśniarz • Wizjoner',
+    heroSubtitle: 'Singer-Songwriter',
     ctaInvite: 'Znikła – Zarezerwuj teraz',
     ctaExperience: 'Doświadcz D.FAITH',
     footerTagline: 'Gdzie muzyka spotyka blockchain',

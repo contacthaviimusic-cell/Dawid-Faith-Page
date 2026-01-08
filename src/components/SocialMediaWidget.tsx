@@ -404,7 +404,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
         <h3 className="text-white font-bold text-2xl mb-2 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">
           Dawid Faith
         </h3>
-        <p className="text-purple-300 font-medium">independent Artist</p>
+        <p className="text-purple-300 font-medium">Singer-Songwriter</p>
       </div>
 
       {/* Social Links Grid */}
