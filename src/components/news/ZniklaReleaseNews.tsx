@@ -49,11 +49,6 @@ const ZniklaReleaseNews = () => {
       </div>
       
       <p className="text-gray-300 leading-relaxed text-lg">{t.intro}</p>
-      
-      <div className="bg-slate-800/50 p-6 rounded-xl">
-        <h4 className="text-purple-300 font-semibold mb-4 text-lg">{t.aboutTitle}</h4>
-        <p className="text-gray-300 leading-relaxed">{t.about}</p>
-      </div>
 
       <div className="grid md:grid-cols-2 gap-4">
       </div>
