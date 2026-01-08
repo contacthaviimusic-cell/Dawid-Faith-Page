@@ -6,6 +6,7 @@ import NewsTranslations from '@/lib/translations/NewsSectionTrans';
 import BandgesuchtNews from './BandgesuchtNews';
 import DInvestTokenNews from './DInvestTokenNews';
 import DFaithAppNews from './DFaithAppNews';
+import ZniklaReleaseNews from './ZniklaReleaseNews';
 
 interface NewsDetailProps {
   article: NewsItem;
@@ -30,7 +31,8 @@ const NewsDetailRenderer: React.FC<NewsDetailProps> = ({ article }) => {
   
   // Map News-IDs zu ihren entsprechenden Detail-Komponenten
   const newsComponents: Record<string, React.ComponentType> = {
-    '1758217302493-gbictm': BandgesuchtNews,       // Bandmitglieder gesucht
+    // '1758217302493-gbictm': BandgesuchtNews,       // Bandmitglieder gesucht - AUSGEBLENDET
+    '1758217302493-znikla': ZniklaReleaseNews,      // Znikła Release - FEATURED
     '1758217302493-p9jwga': DInvestTokenNews,      // D.INVEST Token Launch
     '1758217302493-kix4d8': DFaithAppNews,         // D.FAITH App Launch
   };
@@ -63,4 +65,5 @@ export {
   BandgesuchtNews,
   DInvestTokenNews,
   DFaithAppNews,
+  ZniklaReleaseNews,
 };
