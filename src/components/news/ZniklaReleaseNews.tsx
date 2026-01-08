@@ -56,35 +56,6 @@ const ZniklaReleaseNews = () => {
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="bg-slate-800/50 p-4 rounded-xl">
-          <h4 className="text-purple-300 font-semibold mb-3 flex items-center gap-2">
-            <Music size={16} />
-            {t.streamingTitle}
-          </h4>
-          <ul className="text-gray-300 text-sm space-y-2">
-            {t.streaming.map((platform, i) => (
-              <li key={i} className="flex items-center">
-                <span className="mr-2">▸</span>
-                <span>{platform}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="bg-slate-800/50 p-4 rounded-xl">
-          <h4 className="text-purple-300 font-semibold mb-3 flex items-center gap-2">
-            <Calendar size={16} />
-            {t.featuresTitle}
-          </h4>
-          <ul className="text-gray-300 text-sm space-y-2">
-            {t.features.map((feature, i) => (
-              <li key={i} className="flex items-center">
-                <span className="mr-2">◆</span>
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
 
       <motion.div 
