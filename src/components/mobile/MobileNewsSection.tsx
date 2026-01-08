@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import NewsTranslations from '@/lib/translations/NewsSectionTrans';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Newspaper, Clock, Tag, X, ExternalLink, Share, Calendar, Star } from 'lucide-react';
+import { Newspaper, Clock, Tag, X, ExternalLink, Share, Calendar, Star, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import type { NewsItem } from '@/types/news';
 import NewsDetailRenderer from '@/components/news';
@@ -131,12 +131,12 @@ export default function MobileNewsSection() {
           </div>
         ) : (
           <div className="space-y-4">
-            {news.slice(0, 5).sort((a, b) => {
+            {news.sort((a, b) => {
               // Featured news first
               if (a.featured && !b.featured) return -1;
               if (!a.featured && b.featured) return 1;
               return 0;
-            }).map((item, index) => (
+            }).slice(0, 3).map((item, index) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -198,6 +198,27 @@ export default function MobileNewsSection() {
               </motion.div>
             ))}
           </div>
+        )}
+
+        {/* "See All News" Button - zeige nur wenn mehr als 3 News existieren */}
+        {!loading && news.length > 3 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mt-6 flex justify-center"
+          >
+            <motion.a
+              href="#all-news"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full font-semibold flex items-center gap-2 transition-all duration-300 shadow-lg text-sm"
+            >
+              {lang === 'de' ? 'Alle News' : lang === 'en' ? 'All News' : 'Wszystkie wiadomości'}
+              <ArrowRight size={14} />
+            </motion.a>
+          </motion.div>
         )}
 
         {/* Featured Release Banner */}
