@@ -290,7 +290,7 @@ const NewsSection = () => {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8"
         >
-          {newsItems.filter(item => !item.featured).map((item, index) => {
+          {newsItems.filter(item => !item.featured).slice(0, 2).map((item, index) => {
             const Icon = iconFor[item.category as keyof typeof iconFor] || Star;
             const displayTitle = getLocalizedField(item, 'title', lang);
             const displayExcerpt = getLocalizedField(item, 'excerpt', lang);
@@ -352,6 +352,27 @@ const NewsSection = () => {
             </motion.article>
           );})}
         </motion.div>
+
+        {/* "See All News" Button - zeige nur wenn mehr als 2 News existieren */}
+        {newsItems.filter(item => !item.featured).length > 2 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="mt-12 flex justify-center"
+          >
+            <motion.a
+              href="#all-news"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-full font-semibold flex items-center gap-2 transition-all duration-300 shadow-lg"
+            >
+              {lang === 'de' ? 'Alle News anzeigen' : lang === 'en' ? 'View All News' : 'Pokaż wszystkie wiadomości'}
+              <ArrowRight size={18} />
+            </motion.a>
+          </motion.div>
+        )}
       </div>
 
       {/* Article Modal */}
