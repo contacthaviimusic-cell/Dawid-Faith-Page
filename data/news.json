@@ -4,10 +4,10 @@
     "title": "Znikła Release - Neue Musik ist da!",
     "title_en": "Znikła Release - New Music is Out!",
     "title_pl": "Wydanie Znikła - Nowa muzyka jest tutaj!",
-    "excerpt": "Der neue Song 'Znikła' ist jetzt auf allen Streaming-Plattformen verfügbar. Eine moderne Synthwave-Produktion mit emotionalen Vocals.",
-    "excerpt_en": "The new song 'Znikła' is now available on all streaming platforms. A modern synthwave production with emotional vocals.",
-    "excerpt_pl": "Nowy utwór 'Znikła' jest teraz dostępny na wszystkich platformach streamingowych. Nowoczesna produkcja synthwave z emocjonalnymi wokaliskami.",
-    "date": "2025-10-23",
+    "excerpt": "Der neue Song 'Znikła' kommt am 30. Januar 2026! Eine moderne Synthwave-Produktion mit emotionalen Vocals - Presave jetzt!",
+    "excerpt_en": "The new song 'Znikła' is coming January 30th, 2026! A modern synthwave production with emotional vocals - Presave now!",
+    "excerpt_pl": "Nowy utwór 'Znikła' pojawia się 30 stycznia 2026! Nowoczesna produkcja synthwave z emocjonalnymi wokaliskami - Presave teraz!",
+    "date": "2026-01-30",
     "readTime": "3 min",
     "category": "Musik Release",
     "image": "/musik/znikla/cover.jpg",
@@ -25,7 +25,7 @@
     "readTime": "5 min",
     "category": "Blockchain",
     "image": "/dinvest-token.png",
-    "featured": true
+    "featured": false
   },
   {
     "id": "1758217302493-kix4d8",
