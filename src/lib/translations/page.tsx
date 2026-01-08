@@ -1,7 +1,7 @@
 const PageTranslations = {
   de: {
     loaderText: 'Lade Dawid Faith...',
-    heroSubtitle: 'Künstler • Liedermacher • Visionär',
+    heroSubtitle: 'independent Artist',
     ctaInvite: 'Znikła – Presave jetzt',
     ctaExperience: 'D.FAITH erleben',
     footerTagline: 'Wo Musik auf Blockchain trifft',
