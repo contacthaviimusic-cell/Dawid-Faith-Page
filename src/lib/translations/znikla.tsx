@@ -2,7 +2,7 @@ const ZniklaReleaseNewsTranslations = {
   de: {
     title: 'Znikła – Single Release',
     releaseDate: '30. Januar 2026',
-    intro: 'Ein neuer Track kommt! Sei der Erste und presave jetzt.',
+    intro: 'Ein neuer Track kommt!',
     aboutTitle: 'Release-Info',
     about: 'Znikła – 30. Januar 2026',
     streamingTitle: 'Alle Plattformen',
@@ -28,7 +28,7 @@ const ZniklaReleaseNewsTranslations = {
   en: {
     title: 'Znikła – Single Release',
     releaseDate: 'January 30th, 2026',
-    intro: 'New track coming! Be first and presave now.',
+    intro: 'New track coming!',
     aboutTitle: 'Release Info',
     about: 'Znikła – January 30th, 2026',
     streamingTitle: 'All Platforms',
@@ -54,7 +54,7 @@ const ZniklaReleaseNewsTranslations = {
   pl: {
     title: 'Znikła – Single Release',
     releaseDate: '30 stycznia 2026',
-    intro: 'Nowy utwór w drodze! Bądź pierwszy i presave teraz.',
+    intro: 'Nowy utwór w drodze!',
     aboutTitle: 'Info Release',
     about: 'Znikła – 30 stycznia 2026',
     streamingTitle: 'Wszystkie platformy',
