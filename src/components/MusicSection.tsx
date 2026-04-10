@@ -38,8 +38,8 @@ const songs: Song[] = [
   {
     id: 'niebianski-groove',
     title: 'Niebianski Groove',
-    image: '/musik/niebianski-groove/Niebianski.jpg',
-    video: '/musik/niebianski-groove/Niebianski Vid.mp4',
+    image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png',
+    video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
     description: 'Ein weiterer Track aus der exklusiven Waterfall Release Serie'
   }
 ];

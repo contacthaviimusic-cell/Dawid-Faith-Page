@@ -21,14 +21,14 @@ import MusicTranslations from '../../lib/translations/MusicSectionTrans';
 export default function MobileMusicSection() {
   const [tracks] = useState<Track[]>([
     {
-      id: 'maria',
-      title: 'Maria',
+      id: 'katze',
+      title: 'Katze',
       artist: 'Dawid Faith',
-      duration: '3:42',
-      audioSrc: '/musik/maria/Maria.mp3',
-      coverImage: '/musik/maria/Maria.jpg',
-      video: '/musik/maria/Maria Vid1.mp4',
-      description: 'Eine emotionale Ballade über verlorene Liebe'
+      duration: '3:45',
+      audioSrc: '/musik/katze/Katze_V4.mp3',
+      coverImage: '/musik/katze/photo_2026-01-06_14-31-47.jpg',
+      video: '/musik/katze/video_2026-04-10_14-55-08.mp4',
+      description: 'Der erste Song der Waterfall Release Kampagne - ab 18. September 2026'
     },
     {
       id: 'znikla',
@@ -39,6 +39,26 @@ export default function MobileMusicSection() {
       coverImage: '/musik/znikla/Znikła pic.jpg',
       video: '/musik/znikla/Znikłą Vid1.mp4',
       description: 'Melancholische Töne treffen auf moderne Beats'
+    },
+    {
+      id: 'maria',
+      title: 'Maria',
+      artist: 'Dawid Faith',
+      duration: '3:42',
+      audioSrc: '/musik/maria/Maria.mp3',
+      coverImage: '/musik/maria/Maria.jpg',
+      video: '/musik/maria/Maria Vid1.mp4',
+      description: 'Eine emotionale Ballade über verlorene Liebe'
+    },
+    {
+      id: 'niebianski-groove',
+      title: 'Niebianski Groove',
+      artist: 'Dawid Faith',
+      duration: '3:58',
+      audioSrc: '/musik/niebianski-groove/Niebianski.mp3',
+      coverImage: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png',
+      video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
+      description: 'Ein weiterer Track aus der exklusiven Waterfall Release Serie'
     }
   ]);
 
