@@ -72,6 +72,16 @@ export default function MobileMusicSection() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
 
+  // Helper function to get localized track info
+  const getTrackInfo = (trackId: string, field: 'title' | 'description'): string => {
+    const translatedTrack = MusicTranslations[lang].songs?.[trackId];
+    if (translatedTrack && translatedTrack[field]) {
+      return translatedTrack[field];
+    }
+    const track = tracks.find(t => t.id === trackId);
+    return track?.[field as keyof Track] || '';
+  };
+
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -387,14 +397,14 @@ export default function MobileMusicSection() {
                   <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
                     <Image
                       src={currentTrack.coverImage}
-                      alt={currentTrack.title}
+                      alt={getTrackInfo(currentTrack.id, 'title')}
                       fill
                       className="object-cover"
                     />
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-bold text-white text-sm truncate">
-                      {currentTrack.title}
+                      {getTrackInfo(currentTrack.id, 'title')}
                     </h3>
                     <p className="text-gray-400 text-xs">
                       {currentTrack.artist}

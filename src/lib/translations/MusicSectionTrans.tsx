@@ -22,13 +22,21 @@ const MusicTranslations: Record<LangKey, {
     videoClose: 'Video schließen'
     ,
     songs: {
-      maria: {
-        title: 'Maria',
-        description: 'Eine herzzerreißende Ballade über Einsamkeit, verlorene Liebe und die schmerzhafte Erkenntnis des Alleinseins'
+      katze: {
+        title: 'Katze',
+        description: 'Der erste Song der Waterfall Release Kampagne - ab 18. September 2026'
       },
       znikla: {
         title: 'Znikła',
         description: 'Die polnische Version - eine intensive Reise durch Verlust, Sehnsucht und die Suche nach dem was verschwunden ist'
+      },
+      maria: {
+        title: 'Maria',
+        description: 'Eine herzzerreißende Ballade über Einsamkeit, verlorene Liebe und die schmerzhafte Erkenntnis des Alleinseins'
+      },
+      'niebianski-groove': {
+        title: 'Niebianski Groove',
+        description: 'Ein weiterer Track aus der exklusiven Waterfall Release Serie'
       }
     }
   },
@@ -43,13 +51,21 @@ const MusicTranslations: Record<LangKey, {
     videoClose: 'Close video'
     ,
     songs: {
-      maria: {
-        title: 'Maria',
-        description: 'A heart-wrenching ballad about loneliness, lost love and the painful realization of being alone'
+      katze: {
+        title: 'Katze',
+        description: 'The first song of the Waterfall Release campaign - from September 18th, 2026'
       },
       znikla: {
         title: 'Znikła',
         description: 'The Polish version - an intense journey through loss, longing and the search for what has disappeared'
+      },
+      maria: {
+        title: 'Maria',
+        description: 'A heart-wrenching ballad about loneliness, lost love and the painful realization of being alone'
+      },
+      'niebianski-groove': {
+        title: 'Niebianski Groove',
+        description: 'Another track from the exclusive Waterfall Release series'
       }
     }
   },
@@ -64,13 +80,21 @@ const MusicTranslations: Record<LangKey, {
     videoClose: 'Zamknij wideo'
     ,
     songs: {
-      maria: {
-        title: 'Maria',
-        description: 'Rozdzierająca serce ballada o samotności, utraconej miłości i bolesnym uświadomieniu sobie bycia samemu'
+      katze: {
+        title: 'Katze',
+        description: 'Pierwszy utwór kampanii Waterfall Release - od 18 września 2026'
       },
       znikla: {
         title: 'Znikła',
         description: 'Polska wersja - intensywna podróż przez stratę, tęsknotę i poszukiwanie tego, co zniknęło'
+      },
+      maria: {
+        title: 'Maria',
+        description: 'Rozdzierająca serce ballada o samotności, utraconej miłości i bolesnym uświadomieniu sobie bycia samemu'
+      },
+      'niebianski-groove': {
+        title: 'Niebianski Groove',
+        description: 'Kolejny utwór z exclusywnej serii Waterfall Release'
       }
     }
   }
