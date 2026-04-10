@@ -102,9 +102,9 @@ const NewsSection = () => {
   // Listen for custom event to open release news
   useEffect(() => {
     const handleOpenReleaseNews = () => {
-      // Find the release concert news item
+      // Find the waterfall release news item
       const releaseNews = newsItems.find(item => 
-        item.title.includes('Release-Konzert') && item.title.includes('Maria')
+        item.id === '1758217302493-waterfall'
       );
       if (releaseNews) {
         setSelectedArticle(releaseNews);

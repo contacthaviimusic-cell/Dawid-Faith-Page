@@ -2,7 +2,7 @@ const PageTranslations = {
   de: {
     loaderText: 'Lade Dawid Faith...',
     heroSubtitle: 'Singer-Songwriter',
-    ctaInvite: 'Znikła – Presave jetzt',
+    ctaInvite: 'Waterfall Release – Hier erfahren',
     ctaExperience: 'D.FAITH erleben',
     footerTagline: 'Wo Musik auf Blockchain trifft',
     copyright: '© 2025 Dawid Faith. Alle Rechte vorbehalten.',
@@ -11,7 +11,7 @@ const PageTranslations = {
   en: {
     loaderText: "Loading Dawid Faith...",
     heroSubtitle: 'Singer-Songwriter',
-    ctaInvite: 'Znikła – Presave Now',
+    ctaInvite: 'Waterfall Release – Learn More',
     ctaExperience: 'Experience D.FAITH',
     footerTagline: 'Where music meets blockchain',
     copyright: '© 2025 Dawid Faith. All rights reserved.',
@@ -20,7 +20,7 @@ const PageTranslations = {
   pl: {
     loaderText: 'Ładowanie Dawid Faith...',
     heroSubtitle: 'Singer-Songwriter',
-    ctaInvite: 'Znikła – Zarezerwuj teraz',
+    ctaInvite: 'Waterfall Release – Dowiedz się więcej',
     ctaExperience: 'Doświadcz D.FAITH',
     footerTagline: 'Gdzie muzyka spotyka blockchain',
     copyright: '© 2025 Dawid Faith. Wszelkie prawa zastrzeżone.',

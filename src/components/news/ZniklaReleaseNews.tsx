@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Music, Calendar, ExternalLink } from 'lucide-react';
-import Translations from '@/lib/translations/znikla';
+import { Music, Calendar, Music2 } from 'lucide-react';
+import Translations from '@/lib/translations/waterfallRelease';
 
-const ZniklaReleaseNews = () => {
+const WaterfallReleaseNews = () => {
   const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
 
   useEffect(() => {
@@ -29,50 +29,65 @@ const ZniklaReleaseNews = () => {
 
   const t = Translations[lang];
 
-  const handlePresave = () => {
-    const presaveUrl = t.presaveUrl;
-    if (presaveUrl) {
-      window.open(presaveUrl, '_blank');
-    } else {
-      alert(lang === 'de' ? 'Presave-Link wird bald verfügbar!' : lang === 'en' ? 'Presave link coming soon!' : 'Link do presave wkrótce!');
-    }
-  };
-
   return (
     <div className="space-y-6">
-      <div className="border-l-4 border-purple-500 pl-4">
+      <div className="border-l-4 border-blue-500 pl-4">
         <h3 className="text-2xl font-bold text-white mb-2">{t.title}</h3>
-        <p className="text-purple-300 font-semibold flex items-center gap-2">
-          <Calendar size={18} />
-          {t.releaseDate}
+        <p className="text-blue-300 font-semibold flex items-center gap-2">
+          <Music2 size={18} />
+          {t.campaign}
         </p>
       </div>
       
       <p className="text-gray-300 leading-relaxed text-lg">{t.intro}</p>
 
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="space-y-4">
+        <div className="bg-blue-900/30 p-4 rounded-lg border border-blue-400/30">
+          <p className="text-blue-300 font-semibold flex items-center gap-2 mb-2">
+            <Calendar size={18} />
+            {t.firstSongTitle}
+          </p>
+          <p className="text-gray-300">{t.firstSongDate}</p>
+        </div>
+
+        <div className="bg-blue-900/30 p-4 rounded-lg border border-blue-400/30">
+          <p className="text-blue-300 font-semibold flex items-center gap-2 mb-2">
+            <Music size={18} />
+            {t.musicVideoTitle}
+          </p>
+          <p className="text-gray-300">{t.musicVideoDate}</p>
+        </div>
       </div>
 
       <motion.div 
-        className="bg-gradient-to-r from-purple-900/50 to-pink-900/50 p-6 rounded-2xl border border-purple-400/50"
-        animate={{ borderColor: ['rgba(192, 132, 250, 0.5)', 'rgba(236, 72, 153, 0.5)', 'rgba(192, 132, 250, 0.5)'] }}
+        className="bg-gradient-to-r from-blue-900/50 to-cyan-900/50 p-6 rounded-2xl border border-blue-400/50"
+        animate={{ borderColor: ['rgba(96, 165, 250, 0.5)', 'rgba(34, 211, 238, 0.5)', 'rgba(96, 165, 250, 0.5)'] }}
         transition={{ duration: 3, repeat: Infinity }}
       >
-        <h4 className="text-lg font-semibold text-purple-300 mb-3">{t.callToAction}</h4>
-        <p className="text-gray-300 text-sm mb-4">{t.ctaDesc}</p>
+        <h4 className="text-lg font-semibold text-blue-300 mb-3">{t.campaignDetails}</h4>
+        <ul className="text-gray-300 space-y-2 mb-4">
+          {t.details.map((detail, idx) => (
+            <li key={idx} className="flex items-start gap-2">
+              <span className="text-blue-400 mt-1">•</span>
+              <span>{detail}</span>
+            </li>
+          ))}
+        </ul>
+        
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={handlePresave}
-          className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-all duration-300 shadow-lg"
+          onClick={() => {
+            alert(lang === 'de' ? 'Presave-Link wird bald verfügbar!' : lang === 'en' ? 'Presave link coming soon!' : 'Link do presave wkrótce!');
+          }}
+          className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg"
         >
           <Music size={18} />
           {t.presaveButton}
-          <ExternalLink size={16} />
         </motion.button>
       </motion.div>
     </div>
   );
 };
 
-export default ZniklaReleaseNews;
+export default WaterfallReleaseNews;
