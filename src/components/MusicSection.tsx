@@ -17,8 +17,8 @@ const songs: Song[] = [
   {
     id: 'katze',
     title: 'Katze',
-    image: '/musik/katze/Katze.jpg',
-    video: '/musik/katze/Katze Vid.mp4',
+    image: '/musik/katze/photo_2026-01-06_14-31-47.jpg',
+    video: '/musik/katze/video_2026-04-10_14-55-08.mp4',
     description: 'Der erste Song der Waterfall Release Kampagne - ab 18. September 2026'
   },
   {
