@@ -15,11 +15,11 @@ interface Song {
 
 const songs: Song[] = [
   {
-    id: 'maria',
-    title: 'Maria',
-    image: '/musik/maria/Maria.jpg',
-    video: '/musik/maria/Maria Vid1.mp4',
-    description: 'Eine herzzerreißende Ballade über Einsamkeit, verlorene Liebe und die schmerzhafte Erkenntnis des Alleinseins'
+    id: 'katze',
+    title: 'Katze',
+    image: '/musik/katze/Katze.jpg',
+    video: '/musik/katze/Katze Vid.mp4',
+    description: 'Der erste Song der Waterfall Release Kampagne - ab 18. September 2026'
   },
   {
     id: 'znikla',
@@ -27,6 +27,20 @@ const songs: Song[] = [
     image: '/musik/znikla/Znikła pic.jpg',
     video: '/musik/znikla/Znikłą Vid1.mp4',
     description: 'Die polnische Version - eine intensive Reise durch Verlust, Sehnsucht und die Suche nach dem was verschwunden ist'
+  },
+  {
+    id: 'maria',
+    title: 'Maria',
+    image: '/musik/maria/Maria.jpg',
+    video: '/musik/maria/Maria Vid1.mp4',
+    description: 'Eine herzzerreißende Ballade über Einsamkeit, verlorene Liebe und die schmerzhafte Erkenntnis des Alleinseins'
+  },
+  {
+    id: 'niebianski-groove',
+    title: 'Niebianski Groove',
+    image: '/musik/niebianski-groove/Niebianski.jpg',
+    video: '/musik/niebianski-groove/Niebianski Vid.mp4',
+    description: 'Ein weiterer Track aus der exklusiven Waterfall Release Serie'
   }
 ];
 
