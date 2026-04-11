@@ -5,6 +5,14 @@ import Image from 'next/image';
 
 export default function BookingPage() {
   const [currentSong, setCurrentSong] = useState(0);
+  const [bookingFormData, setBookingFormData] = useState({
+    name: '',
+    email: '',
+    eventType: '',
+    date: '',
+    location: '',
+    message: ''
+  });
 
   const songs = [
     { name: 'Katze', file: '/booking/music/Katze_V4.mp3', duration: '3:45', image: '/musik/katze/photo_2026-01-06_14-31-47.jpg' },
@@ -25,50 +33,86 @@ export default function BookingPage() {
   return (
     <div className="min-h-screen bg-black text-white">
       
-      {/* HERO SECTION - Clean Modern Design */}
-      <section className="relative bg-gradient-to-br from-gray-900 via-black to-black py-16 md:py-20">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-            {/* Text */}
-            <div className="flex-1">
-              <h1 className="text-5xl md:text-6xl font-black mb-4 leading-tight">
-                Authentische Live Musik
+      {/* HERO SECTION - Professional Minimalist */}
+      <section className="relative bg-gradient-to-b from-slate-900 to-black min-h-[550px] flex items-center">
+        <div className="absolute inset-0 opacity-20">
+          <Image
+            src={fotos[0].src}
+            alt="Dawid Faith"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-transparent"></div>
+
+        <div className="relative z-10 max-w-5xl mx-auto px-6 w-full">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Content */}
+            <div>
+              <div className="mb-6">
+                <span className="text-slate-400 text-sm uppercase tracking-widest font-semibold">Artist Profile</span>
+              </div>
+              
+              <h1 className="text-6xl md:text-7xl font-black mb-4 leading-tight">
+                Dawid Faith
               </h1>
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-400 mb-6">
-                Für Kneipen, Bars & Events
-              </h2>
-              <p className="text-lg text-gray-300 mb-6 leading-relaxed max-w-lg">
-                Singer-Songwriter mit Deutsch & Polnisch 🎸 Wechsel zwischen bekannten Covers & eigenen Songs • Akustik-Gitarre • Keine Playbacks – echte Live-Performance
+
+              <p className="text-xl text-slate-200 mb-8 leading-relaxed">
+                Professional Singer-Songwriter für Ihre Hochzeiten, Veranstaltungen und Events. Live Musik direkt vom Herzen – authentisch, leidenschaftlich, unvergesslich.
               </p>
+
+              <div className="space-y-3 mb-8">
+                <p className="flex items-center gap-2 text-slate-300">
+                  <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
+                  Deutsch & Polnische Original-Songs
+                </p>
+                <p className="flex items-center gap-2 text-slate-300">
+                  <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
+                  Sorgfältig ausgewählte Cover
+                </p>
+                <p className="flex items-center gap-2 text-slate-300">
+                  <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
+                  Solo Akustik-Gitarre • Keine Playbacks
+                </p>
+              </div>
+
               <button 
                 onClick={() => document.getElementById('music')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition transform hover:scale-105"
+                className="bg-slate-700 hover:bg-slate-600 text-white font-semibold px-8 py-3 transition"
               >
-                ▶ Zur Musik
+                Musik anhören
               </button>
             </div>
-            
-            {/* Portrait */}
-            <div className="flex-1">
-              <div className="relative h-64 md:h-80 rounded-lg overflow-hidden border border-gray-700 shadow-lg">
-                <Image
-                  src={fotos[0].src}
-                  alt="Dawid Faith"
-                  fill
-                  className="object-cover"
-                  priority
-                />
+
+            {/* Professional Stats */}
+            <div className="space-y-4">
+              <div className="bg-black/60 backdrop-blur border border-slate-700 p-6 rounded-lg">
+                <p className="text-slate-400 text-xs uppercase tracking-widest mb-1">Genre</p>
+                <p className="text-2xl font-black">Slavischer Pop-Rock</p>
+              </div>
+              <div className="bg-black/60 backdrop-blur border border-slate-700 p-6 rounded-lg">
+                <p className="text-slate-400 text-xs uppercase tracking-widest mb-1">Sprachen</p>
+                <p className="text-2xl font-black">Deutsch & Polnisch</p>
+              </div>
+              <div className="bg-black/60 backdrop-blur border border-slate-700 p-6 rounded-lg">
+                <p className="text-slate-400 text-xs uppercase tracking-widest mb-1">Format</p>
+                <p className="text-2xl font-black">Solo Akustik</p>
+              </div>
+              <div className="bg-black/60 backdrop-blur border border-slate-700 p-6 rounded-lg">
+                <p className="text-slate-400 text-xs uppercase tracking-widest mb-1">Verfügbarkeit</p>
+                <p className="text-2xl font-black">Flexibel</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ABOUT SECTION - Wer ist Dawid Faith */}
-      <section className="py-12 md:py-16 bg-gray-950 border-t border-gray-800">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div className="relative h-64 rounded-lg overflow-hidden border border-gray-700">
+      {/* ABOUT SECTION */}
+      <section className="py-16 md:py-24 bg-black border-t border-slate-800">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="relative h-80 rounded-lg overflow-hidden border border-slate-700 shadow-xl">
               <Image
                 src={fotos[1].src}
                 alt="Dawid Faith mit Gruppe"
@@ -77,32 +121,37 @@ export default function BookingPage() {
               />
             </div>
             <div>
-              <h2 className="text-4xl font-black mb-5">
-                Wer ist <span className="text-blue-400">Dawid Faith?</span>
+              <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold mb-4 block">Über mich</span>
+              <h2 className="text-5xl font-black mb-8 leading-tight">
+                Wer ist<br/><span className="text-slate-400">Dawid Faith?</span>
               </h2>
-              <p className="text-gray-300 leading-relaxed mb-4">
-                Ein Singer-Songwriter, der die Musik-Brücke zwischen Deutschland und Polen schlägt. Mit Songs in <strong>Deutsch und Polnisch</strong> schaffe ich eine emotionale Verbindung zum Publikum.
+              <p className="text-slate-300 leading-relaxed mb-5 text-lg">
+                Ein Musiker, der die Kulturgrenzen zwischen Deutschland und Polen überbrückt. Mit Songs in Deutsch und Polnisch schaffe ich emotionale Verbindungen, die lange nachwirken.
               </p>
-              <p className="text-gray-300 leading-relaxed mb-4">
-                Mein Sound: <strong>Slavischer Pop-Rock</strong> mit authentischer Akustik-Gitarre. Balladen mit Gefühl, eingängige Pop-Rock-Songs – immer live gespielt, nie aus der Dose.
+              <p className="text-slate-300 leading-relaxed mb-5 text-lg">
+                Mein Sound: Slavischer Pop-Rock mit authentischer Akustik-Gitarre. Balladen mit Gefühl, eingängige Pop-Rock-Songs – immer live gespielt, immer vom Herzen.
               </p>
-              <p className="text-gray-400 italic">
-                <strong>Der Name Dawid Faith?</strong> Mein Glaube an die Kraft der Musik und daran, dass echte Live-Performance zählt. Kein Playback, kein Kommerz – nur Gitarre, Stimme und Emotion.
+              <p className="text-slate-400 italic">
+                Echte Live-Performance ohne Kompromisse. Nur Gitarre, Stimme und eine Menge Leidenschaft für gute Musik.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* MUSIC SECTION - Kompakt */}
-      <section id="music" className="py-12 md:py-16 bg-black border-t border-gray-800">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-black mb-8">🎵 Musik hören</h2>
+      {/* AUDIO PLAYER SECTION */}
+      <section id="music" className="py-16 md:py-24 bg-gradient-to-b from-slate-950 to-black border-t border-slate-800">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="mb-12">
+            <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Musik</span>
+            <h2 className="text-5xl font-black mt-2 mb-2">Höre meine Songs</h2>
+            <p className="text-slate-400">Meine Original-Kompositionen und handverlesene Covers</p>
+          </div>
 
-          {/* Music Player */}
-          <div className="bg-blue-600 rounded-xl p-6 md:p-8 mb-8 shadow-lg">
-            <div className="mb-6">
-              <h3 className="text-2xl md:text-3xl font-black text-white mb-4">
+          {/* Main Player */}
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-8 mb-12 backdrop-blur">
+            <div className="mb-8">
+              <h3 className="text-3xl font-black mb-6 text-white">
                 {songs[currentSong].name}
               </h3>
               <audio 
@@ -113,19 +162,19 @@ export default function BookingPage() {
               >
                 <source src={songs[currentSong].file} type="audio/mpeg" />
               </audio>
-              <p className="text-blue-200 text-sm mt-2">{songs[currentSong].duration}</p>
+              <p className="text-slate-400 text-sm mt-3">{songs[currentSong].duration}</p>
             </div>
 
-            {/* Song Buttons */}
+            {/* Track Selection */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {songs.map((song, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentSong(idx)}
-                  className={`py-2 px-4 rounded-lg font-bold transition-all ${
+                  className={`py-3 px-4 rounded font-semibold transition-all ${
                     currentSong === idx
-                      ? 'bg-white text-blue-600'
-                      : 'bg-blue-500 text-white hover:bg-blue-700'
+                      ? 'bg-slate-700 text-white ring-2 ring-slate-600'
+                      : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
                   }`}
                 >
                   {song.name}
@@ -134,39 +183,50 @@ export default function BookingPage() {
             </div>
           </div>
 
-          {/* Song Cards - Compact */}
-          <div className="grid md:grid-cols-3 gap-4">
+          {/* Song Grid */}
+          <div className="grid md:grid-cols-3 gap-8">
             {songs.map((song, idx) => (
-              <div key={idx} className="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-blue-500 transition-all group cursor-pointer" onClick={() => setCurrentSong(idx)}>
-                <div className="relative h-32 overflow-hidden">
+              <div 
+                key={idx} 
+                className="group cursor-pointer"
+                onClick={() => setCurrentSong(idx)}
+              >
+                <div className="relative h-48 rounded-lg overflow-hidden border border-slate-700 mb-4 shadow-lg">
                   <Image
                     src={song.image}
                     alt={song.name}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                    <div className="text-4xl opacity-0 group-hover:opacity-100 transition-opacity">
+                      ▶
+                    </div>
+                  </div>
                 </div>
-                <div className="p-3">
-                  <p className="font-bold text-sm">{song.name}</p>
-                  <p className="text-gray-400 text-xs">{song.duration}</p>
-                </div>
+                <h4 className="font-black text-lg mb-1">{song.name}</h4>
+                <p className="text-slate-400 text-sm">{song.duration}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* VIDEO SECTION - Kompakt */}
-      <section className="py-12 md:py-16 bg-gray-950 border-t border-gray-800">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-black mb-6">🎬 Live Beispiele</h2>
-          
-          <div className="grid md:grid-cols-2 gap-6">
+      {/* VIDEO SECTION */}
+      <section className="py-16 md:py-24 bg-black border-t border-slate-800">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="mb-12">
+            <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Live Performance</span>
+            <h2 className="text-5xl font-black mt-2 mb-2">Live Auftritte</h2>
+            <p className="text-slate-400">Authentische Live-Aufführungen in voller Länge</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
             {videos.map((video, idx) => (
-              <div key={idx} className="rounded-lg overflow-hidden border border-gray-800 shadow-lg">
-                <div className="bg-black">
-                  <p className="text-white font-bold p-3 text-sm">{video.name}</p>
-                  <video className="w-full aspect-video" controls controlsList="nodownload">
+              <div key={idx} className="group">
+                <p className="text-slate-300 font-semibold mb-4">{video.name}</p>
+                <div className="rounded-lg overflow-hidden border border-slate-700 shadow-lg">
+                  <video className="w-full aspect-video bg-black" controls controlsList="nodownload">
                     <source src={video.file} type="video/mp4" />
                   </video>
                 </div>
@@ -176,114 +236,256 @@ export default function BookingPage() {
         </div>
       </section>
 
-      {/* ESSENTIALS FOR ORGANIZERS - Kombiniert & Kompakt */}
-      <section className="py-12 md:py-16 bg-black border-t border-gray-800">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-4xl font-black mb-8">📋 Infos für Veranstalter</h2>
-          
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            {/* Genre & Setup */}
-            <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
-              <h3 className="text-xl font-black mb-4">🎸 Mein Sound</h3>
-              <div className="space-y-3 text-sm">
-                <p><span className="text-blue-400 font-bold">Genre:</span> Slavischer Pop-Rock</p>
-                <p><span className="text-blue-400 font-bold">Sprachen:</span> Deutsch & Polnisch</p>
-                <p><span className="text-blue-400 font-bold">Format:</span> Solo Akustik-Gitarre</p>
-                <p><span className="text-blue-400 font-bold">Vibe:</span> Authentisch, keine Playbacks</p>
-              </div>
+      {/* SERVICES / PACKAGES */}
+      <section className="py-16 md:py-24 bg-gradient-to-b from-slate-950 to-black border-t border-slate-800">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="mb-12">
+            <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Leistungen</span>
+            <h2 className="text-5xl font-black mt-2 mb-2">Was ich anbiete</h2>
+            <p className="text-slate-400">Flexible Sets für jede Veranstaltung</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            {/* 30 Minuten */}
+            <div className="border border-slate-700 rounded-lg p-8 bg-slate-800/30 hover:bg-slate-800/60 transition-colors">
+              <div className="text-4xl font-black mb-4 text-slate-300">30 min</div>
+              <h3 className="text-xl font-bold mb-4">Kurz & prägnant</h3>
+              <ul className="space-y-3 text-slate-300 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-slate-500 mt-1">•</span>
+                  <span>5-6 Songs</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-slate-500 mt-1">•</span>
+                  <span>Perfekt für Apéros & Empfänge</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-slate-500 mt-1">•</span>
+                  <span>Mix aus Original & Cover</span>
+                </li>
+              </ul>
             </div>
 
-            {/* Setlängen */}
-            <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
-              <h3 className="text-xl font-black mb-4">⏱️ Setlänge</h3>
-              <div className="space-y-2 text-sm">
-                <p className="text-lg"><span className="text-blue-400 font-bold">2 Stunden</span></p>
-                <p className="text-gray-400 text-xs">Flexibel anpassbar nach deinen Wünschen</p>
+            {/* 1 Stunde */}
+            <div className="border-2 border-slate-500 rounded-lg p-8 bg-slate-700/20 relative">
+              <div className="absolute -top-4 left-6 bg-black px-3">
+                <span className="text-xs uppercase tracking-widest font-semibold text-slate-300">Meistgewählt</span>
               </div>
+              <div className="text-4xl font-black mb-4">1 h</div>
+              <h3 className="text-xl font-bold mb-4">Standard</h3>
+              <ul className="space-y-3 text-slate-300 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-slate-500 mt-1">•</span>
+                  <span>12-14 Songs</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-slate-500 mt-1">•</span>
+                  <span>Perfekt für Hochzeiten & Events</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-slate-500 mt-1">•</span>
+                  <span>Volle Setlist mit Flow</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* 2 Stunden */}
+            <div className="border border-slate-700 rounded-lg p-8 bg-slate-800/30 hover:bg-slate-800/60 transition-colors">
+              <div className="text-4xl font-black mb-4 text-slate-300">2 h</div>
+              <h3 className="text-xl font-bold mb-4">Vollständig</h3>
+              <ul className="space-y-3 text-slate-300 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-slate-500 mt-1">•</span>
+                  <span>25+ Songs</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-slate-500 mt-1">•</span>
+                  <span>Kneipen & Festivals</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-slate-500 mt-1">•</span>
+                  <span>Mit Pause + Variabilität</span>
+                </li>
+              </ul>
             </div>
           </div>
 
-          {/* Covers vs Eigene Songs */}
-          <div className="bg-gradient-to-r from-blue-900 to-blue-800 rounded-lg p-6 border border-blue-700">
-            <h3 className="text-xl font-black text-white mb-4">🎵 Mein Repertoire</h3>
-            <div className="grid md:grid-cols-2 gap-6 text-sm text-blue-100">
+          {/* Repertoire Overview */}
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-8 backdrop-blur">
+            <h3 className="text-2xl font-black mb-6">Repertoire</h3>
+            <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <p className="font-bold text-white mb-2">🎤 Meine Original-Songs</p>
-                <p>Katze, Niebianski Groove, Maria + mehr</p>
+                <h4 className="font-bold text-lg mb-4 text-slate-200">Original-Kompositionen</h4>
+                <p className="text-slate-400 mb-4">Deutsch & Polnische Songs mit emotionalen Balladen und eingängigen Pop-Rock-Nummern:</p>
+                <ul className="space-y-2 text-slate-400 text-sm">
+                  <li>→ Katze</li>
+                  <li>→ Niebianski Groove</li>
+                  <li>→ Maria</li>
+                  <li>→ Weitere Original-Werke</li>
+                </ul>
               </div>
               <div>
-                <p className="font-bold text-white mb-2">🎵 Bekannte Covers</p>
-                <p>Deutsch & Englisch: Pocahontas, Country Roads, Johnny Cash, u.v.m.</p>
+                <h4 className="font-bold text-lg mb-4 text-slate-200">Sorgfältig Ausgewählte Covers</h4>
+                <p className="text-slate-400 mb-4">Klassiker & aktuelle Hits in Deutsch und Englisch:</p>
+                <ul className="space-y-2 text-slate-400 text-sm">
+                  <li>→ Pocahontas (Annelyy Kantereit)</li>
+                  <li>→ Country Roads (John Denver)</li>
+                  <li>→ Johnny Cash Klassiker</li>
+                  <li>→ Viele weitere Favoriten</li>
+                </ul>
               </div>
             </div>
-            <p className="text-blue-200 text-xs mt-4">💡 Ich wechsle zwischen Covers & eigenen Songs – je nach Stimmung und Publikum</p>
+            <p className="text-slate-400 text-sm mt-6 pt-6 border-t border-slate-700">
+              Ich wechsle flexibel zwischen Original-Songs und Covers – je nach Publikum, Stimmung und Veranstaltungstyp.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* PRESSEFOTOS - Minimal */}
-      <section className="py-12 md:py-16 bg-gray-950 border-t border-gray-800">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-black mb-6">📸 Pressefotos</h2>
-          
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
+      {/* PORTFOLIO / GALLERY */}
+      <section className="py-16 md:py-24 bg-black border-t border-slate-800">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="mb-12">
+            <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Galerie</span>
+            <h2 className="text-5xl font-black mt-2 mb-2">Pressefotos</h2>
+            <p className="text-slate-400">Hochauflösend & einsatzbereit für Ihre Promotion</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
             {fotos.map((foto, idx) => (
-              <div key={idx} className="relative rounded-lg overflow-hidden border border-gray-800 h-64 shadow-lg group">
+              <div key={idx} className="group relative rounded-lg overflow-hidden border border-slate-700 shadow-lg h-80">
                 <Image
                   src={foto.src}
                   alt={foto.alt}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform"
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
             ))}
           </div>
 
           <a 
-            href="mailto:dawid.faith@gmail.com?subject=Pressefotos Anfrage"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded-lg text-sm"
+            href="mailto:dawid.faith@gmail.com?subject=Pressefotos in hoher Auflösung anfordern"
+            className="inline-block bg-slate-700 hover:bg-slate-600 text-white font-semibold px-8 py-3 rounded transition"
           >
-            📧 Fotos anfordern
+            Fotos per E-Mail anfordern
           </a>
         </div>
       </section>
 
-      {/* CTA SECTION - STRONG BOOKING FOCUS */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-black to-blue-950 border-t border-gray-800">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-5xl md:text-6xl font-black mb-6 leading-tight">
-            Jetzt <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">buchen</span>
-          </h2>
-          
-          <p className="text-lg text-gray-300 mb-8">
-            Hochzeit • Festival • Privatanlass • Unternehmensevent
-          </p>
-
-          <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <a 
-              href="mailto:dawid.faith@gmail.com?subject=Booking%20Anfrage%20-%20Dawid%20Faith&body=Hallo%20Dawid%2C%0D%0A%0D%0Aich%20bin%20interessiert%20dich%20zu%20buchen.%0D%0A%0D%0AVeranstaltung%3A%20%5BTYPE%5D%0D%0ADatum%3A%20%5BDATE%5D%0D%0AOrt%3A%20%5BLOCATION%5D%0D%0A%0D%0AViele%20Gr%C3%BC%C3%9Fe"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-lg transition transform hover:scale-105 text-lg"
-            >
-              ✉️ Email senden
-            </a>
-            
-            <a 
-              href="tel:+491234567890"
-              className="bg-gray-700 hover:bg-gray-600 text-white font-bold px-8 py-4 rounded-lg transition transform hover:scale-105 border border-gray-600 text-lg"
-            >
-              📞 Anrufen
-            </a>
+      {/* BOOKING FORM */}
+      <section className="py-16 md:py-24 bg-gradient-to-b from-slate-950 to-black border-t border-slate-800">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="mb-12">
+            <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Kontakt</span>
+            <h2 className="text-5xl font-black mt-2 mb-2">Booking Anfrage</h2>
+            <p className="text-slate-400">Senden Sie mir eine kurze Nachricht. Ich melde mich schnellstmöglich.</p>
           </div>
 
-          <p className="text-gray-400 text-sm mt-8">
-            📧 <a href="mailto:dawid.faith@gmail.com" className="text-blue-400 hover:text-blue-300 font-semibold">dawid.faith@gmail.com</a>
-          </p>
+          <form className="bg-slate-800/50 border border-slate-700 rounded-lg p-8 backdrop-blur" onSubmit={(e) => e.preventDefault()}>
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label className="block text-slate-300 font-semibold mb-2">Ihr Name</label>
+                <input 
+                  type="text" 
+                  placeholder="Vorname Nachname"
+                  value={bookingFormData.name}
+                  onChange={(e) => setBookingFormData({...bookingFormData, name: e.target.value})}
+                  className="w-full bg-slate-900/50 border border-slate-600 rounded px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-slate-500"
+                />
+              </div>
+              <div>
+                <label className="block text-slate-300 font-semibold mb-2">E-Mail</label>
+                <input 
+                  type="email" 
+                  placeholder="ihre@email.de"
+                  value={bookingFormData.email}
+                  onChange={(e) => setBookingFormData({...bookingFormData, email: e.target.value})}
+                  className="w-full bg-slate-900/50 border border-slate-600 rounded px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-slate-500"
+                />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label className="block text-slate-300 font-semibold mb-2">Veranstaltungstyp</label>
+                <select 
+                  value={bookingFormData.eventType}
+                  onChange={(e) => setBookingFormData({...bookingFormData, eventType: e.target.value})}
+                  className="w-full bg-slate-900/50 border border-slate-600 rounded px-4 py-3 text-white focus:outline-none focus:border-slate-500"
+                >
+                  <option value="">Bitte wählen...</option>
+                  <option>Hochzeit</option>
+                  <option>Kneipe / Bar</option>
+                  <option>Privatanlass</option>
+                  <option>Corporate Event</option>
+                  <option>Festival</option>
+                  <option>Sonstiges</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-slate-300 font-semibold mb-2">Gewünschtes Datum</label>
+                <input 
+                  type="date" 
+                  value={bookingFormData.date}
+                  onChange={(e) => setBookingFormData({...bookingFormData, date: e.target.value})}
+                  className="w-full bg-slate-900/50 border border-slate-600 rounded px-4 py-3 text-white focus:outline-none focus:border-slate-500"
+                />
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <label className="block text-slate-300 font-semibold mb-2">Ort / Venue</label>
+              <input 
+                type="text" 
+                placeholder="Stadt, Venue-Name"
+                value={bookingFormData.location}
+                onChange={(e) => setBookingFormData({...bookingFormData, location: e.target.value})}
+                className="w-full bg-slate-900/50 border border-slate-600 rounded px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-slate-500"
+              />
+            </div>
+
+            <div className="mb-8">
+              <label className="block text-slate-300 font-semibold mb-2">Nachricht</label>
+              <textarea 
+                placeholder="Erzählen Sie mir mehr über Ihre Veranstaltung..."
+                value={bookingFormData.message}
+                onChange={(e) => setBookingFormData({...bookingFormData, message: e.target.value})}
+                rows={5}
+                className="w-full bg-slate-900/50 border border-slate-600 rounded px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-slate-500"
+              ></textarea>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-4">
+              <a 
+                href={`mailto:dawid.faith@gmail.com?subject=Booking Anfrage - ${bookingFormData.eventType || 'Event'}&body=Name: ${bookingFormData.name}%0DEmail: ${bookingFormData.email}%0DDatum: ${bookingFormData.date}%0DOrt: ${bookingFormData.location}%0D%0DVeranstaltung: ${bookingFormData.eventType}%0D%0D${bookingFormData.message}`}
+                className="bg-slate-700 hover:bg-slate-600 text-white font-semibold px-8 py-3 rounded transition flex items-center justify-center"
+              >
+                Anfrage senden
+              </a>
+              <a 
+                href="tel:+491234567890"
+                className="border border-slate-600 text-white font-semibold px-8 py-3 rounded hover:bg-slate-800 transition flex items-center justify-center"
+              >
+                Oder direkt anrufen
+              </a>
+            </div>
+          </form>
+
+          <div className="mt-8 p-6 bg-slate-800/30 border border-slate-700 rounded-lg text-center">
+            <p className="text-slate-300 mb-2">Weitere Kontaktmöglichkeiten:</p>
+            <p className="text-slate-400 text-sm">
+              <a href="mailto:dawid.faith@gmail.com" className="text-slate-300 hover:text-white font-semibold">dawid.faith@gmail.com</a>
+            </p>
+          </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-black border-t border-gray-800 py-8 text-center text-gray-500 text-xs">
-        <p>© 2026 Dawid Faith • Singer-Songwriter</p>
+      <footer className="bg-black border-t border-slate-800 py-12">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <p className="text-slate-500 text-sm">© 2026 Dawid Faith • Professional Singer-Songwriter</p>
+        </div>
       </footer>
 
     </div>
