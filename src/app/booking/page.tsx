@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 export default function BookingPage() {
   const [currentSong, setCurrentSong] = useState(0);
+  const [activeSection, setActiveSection] = useState('hero');
+  const [scrolled, setScrolled] = useState(false);
   const [bookingFormData, setBookingFormData] = useState({
     name: '',
     email: '',
@@ -13,6 +15,23 @@ export default function BookingPage() {
     location: '',
     message: ''
   });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 100);
+      
+      const sections = ['hero', 'about', 'music', 'videos', 'services', 'gallery', 'booking'];
+      for (const id of sections.reverse()) {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 200) {
+          setActiveSection(id);
+          break;
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const songs = [
     { name: 'Katze', file: '/booking/music/Katze_V4.mp3', duration: '3:45', image: '/musik/katze/photo_2026-01-06_14-31-47.jpg' },
@@ -30,100 +49,163 @@ export default function BookingPage() {
     { src: '/booking/pressefotos/Dawid und Gruppe.jpg', alt: 'Dawid Faith mit Gruppe' }
   ];
 
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const navItems = [
+    { id: 'about', label: 'Über mich' },
+    { id: 'music', label: 'Musik' },
+    { id: 'videos', label: 'Live' },
+    { id: 'services', label: 'Leistungen' },
+    { id: 'gallery', label: 'Fotos' },
+    { id: 'booking', label: 'Booking' },
+  ];
+
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white scroll-smooth">
+
+      {/* STICKY NAVIGATION */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled 
+          ? 'bg-black/90 backdrop-blur-lg border-b border-amber-900/30 shadow-lg shadow-black/50' 
+          : 'bg-transparent'
+      }`}>
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-14">
+          <button onClick={() => scrollTo('hero')} className={`font-black text-lg transition-colors ${scrolled ? 'text-amber-400' : 'text-white/0 pointer-events-none'}`}>
+            DF
+          </button>
+          <div className={`flex gap-1 transition-all duration-500 ${scrolled ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
+            {navItems.map(item => (
+              <button
+                key={item.id}
+                onClick={() => scrollTo(item.id)}
+                className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full transition-all ${
+                  activeSection === item.id
+                    ? 'bg-amber-500/20 text-amber-400'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
       
-      {/* HERO SECTION - Professional Minimalist */}
-      <section className="relative bg-gradient-to-b from-slate-900 to-black min-h-[550px] flex items-center">
-        <div className="absolute inset-0 opacity-20">
+      {/* HERO SECTION */}
+      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
           <Image
             src={fotos[0].src}
             alt="Dawid Faith"
             fill
-            className="object-cover"
+            className="object-cover scale-105"
             priority
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40"></div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-transparent"></div>
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 w-full">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+        {/* Subtle ambient glow */}
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-amber-500/10 rounded-full blur-[128px]"></div>
+
+        <div className="relative z-10 max-w-6xl mx-auto px-6 w-full py-32">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
             {/* Content */}
             <div>
               <div className="mb-6">
-                <span className="text-slate-400 text-sm uppercase tracking-widest font-semibold">Artist Profile</span>
+                <span className="text-amber-400/80 text-sm uppercase tracking-[0.3em] font-semibold">Artist Profile</span>
               </div>
               
-              <h1 className="text-6xl md:text-7xl font-black mb-4 leading-tight">
-                Dawid Faith
+              <h1 className="text-6xl md:text-8xl font-black mb-6 leading-[0.9] tracking-tight">
+                Dawid<br/>
+                <span className="bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">Faith</span>
               </h1>
 
-              <p className="text-xl text-slate-200 mb-8 leading-relaxed">
+              <p className="text-lg text-slate-300 mb-10 leading-relaxed max-w-lg">
                 Professional Singer-Songwriter für Ihre Hochzeiten, Veranstaltungen und Events. Live Musik direkt vom Herzen – authentisch, leidenschaftlich, unvergesslich.
               </p>
 
-              <div className="space-y-3 mb-8">
-                <p className="flex items-center gap-2 text-slate-300">
-                  <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
-                  Deutsch & Polnische Original-Songs
+              <div className="space-y-3 mb-10">
+                <p className="flex items-center gap-3 text-slate-300">
+                  <span className="w-1 h-1 bg-amber-400 rounded-full"></span>
+                  Deutsch, Polnische & Englische Songs
                 </p>
-                <p className="flex items-center gap-2 text-slate-300">
-                  <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
+                <p className="flex items-center gap-3 text-slate-300">
+                  <span className="w-1 h-1 bg-amber-400 rounded-full"></span>
                   Sorgfältig ausgewählte Cover
                 </p>
-                <p className="flex items-center gap-2 text-slate-300">
-                  <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
-                  Solo Akustik-Gitarre • Keine Playbacks
+                <p className="flex items-center gap-3 text-slate-300">
+                  <span className="w-1 h-1 bg-amber-400 rounded-full"></span>
+                  Solo Akustik-Gitarre &bull; Keine Playbacks
                 </p>
               </div>
 
-              <button 
-                onClick={() => document.getElementById('music')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-slate-700 hover:bg-slate-600 text-white font-semibold px-8 py-3 transition"
-              >
-                Musik anhören
-              </button>
+              <div className="flex flex-wrap gap-4">
+                <button 
+                  onClick={() => scrollTo('music')}
+                  className="bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/25"
+                >
+                  Musik anhören
+                </button>
+                <button 
+                  onClick={() => scrollTo('booking')}
+                  className="border border-white/20 hover:border-amber-400/50 text-white font-semibold px-8 py-3.5 rounded-full transition-all hover:bg-white/5"
+                >
+                  Jetzt buchen
+                </button>
+              </div>
             </div>
 
             {/* Professional Stats */}
-            <div className="space-y-4">
-              <div className="bg-black/60 backdrop-blur border border-slate-700 p-6 rounded-lg">
-                <p className="text-slate-400 text-xs uppercase tracking-widest mb-1">Genre</p>
-                <p className="text-2xl font-black">Slavischer Pop-Rock</p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors">
+                <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Genre</p>
+                <p className="text-xl font-black leading-tight">Slavischer Pop-Rock</p>
               </div>
-              <div className="bg-black/60 backdrop-blur border border-slate-700 p-6 rounded-lg">
-                <p className="text-slate-400 text-xs uppercase tracking-widest mb-1">Sprachen</p>
-                <p className="text-2xl font-black">Deutsch & Polnisch</p>
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors">
+                <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Sprachen</p>
+                <p className="text-xl font-black leading-tight">DE / PL / EN</p>
               </div>
-              <div className="bg-black/60 backdrop-blur border border-slate-700 p-6 rounded-lg">
-                <p className="text-slate-400 text-xs uppercase tracking-widest mb-1">Format</p>
-                <p className="text-2xl font-black">Solo Akustik</p>
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors">
+                <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Format</p>
+                <p className="text-xl font-black leading-tight">Solo Akustik</p>
               </div>
-              <div className="bg-black/60 backdrop-blur border border-slate-700 p-6 rounded-lg">
-                <p className="text-slate-400 text-xs uppercase tracking-widest mb-1">Verfügbarkeit</p>
-                <p className="text-2xl font-black">Flexibel</p>
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors">
+                <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Repertoire</p>
+                <p className="text-xl font-black leading-tight">20 Songs</p>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+          <span className="text-slate-500 text-[10px] uppercase tracking-widest">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-slate-500 to-transparent"></div>
+        </div>
       </section>
 
       {/* ABOUT SECTION */}
-      <section className="py-16 md:py-24 bg-black border-t border-slate-800">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative h-80 rounded-lg overflow-hidden border border-slate-700 shadow-xl">
+      <section id="about" className="py-24 md:py-32 bg-black relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="relative h-[28rem] rounded-2xl overflow-hidden group">
               <Image
                 src={fotos[1].src}
                 alt="Dawid Faith mit Gruppe"
                 fill
-                className="object-cover"
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
             </div>
             <div>
-              <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold mb-4 block">Über mich</span>
-              <h2 className="text-5xl font-black mb-8 leading-tight">
-                Wer ist<br/><span className="text-slate-400">Dawid Faith?</span>
+              <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-6 block">Über mich</span>
+              <h2 className="text-4xl md:text-5xl font-black mb-8 leading-tight">
+                Wer ist<br/><span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">Dawid Faith?</span>
               </h2>
               <p className="text-slate-300 leading-relaxed mb-5 text-lg">
                 Ein Musiker, der die Kulturgrenzen zwischen Deutschland und Polen überbrückt. Mit Songs in Deutsch und Polnisch schaffe ich emotionale Verbindungen, die lange nachwirken.
@@ -131,7 +213,7 @@ export default function BookingPage() {
               <p className="text-slate-300 leading-relaxed mb-5 text-lg">
                 Mein Sound: Slavischer Pop-Rock mit authentischer Akustik-Gitarre. Balladen mit Gefühl, eingängige Pop-Rock-Songs – immer live gespielt, immer vom Herzen.
               </p>
-              <p className="text-slate-400 italic">
+              <p className="text-slate-500 italic border-l-2 border-amber-500/40 pl-4">
                 Echte Live-Performance ohne Kompromisse. Nur Gitarre, Stimme und eine Menge Leidenschaft für gute Musik.
               </p>
             </div>
@@ -140,29 +222,46 @@ export default function BookingPage() {
       </section>
 
       {/* AUDIO PLAYER SECTION */}
-      <section id="music" className="py-16 md:py-24 bg-gradient-to-b from-slate-950 to-black border-t border-slate-800">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="mb-12">
-            <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Musik</span>
-            <h2 className="text-5xl font-black mt-2 mb-2">Höre meine Songs</h2>
-            <p className="text-slate-400">Meine Original-Kompositionen und handverlesene Covers</p>
+      <section id="music" className="py-24 md:py-32 bg-black relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
+        <div className="absolute top-1/3 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-[100px]"></div>
+        
+        <div className="max-w-6xl mx-auto px-6 relative">
+          <div className="mb-16">
+            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">Musik</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">Höre meine Songs</h2>
+            <p className="text-slate-500">Meine Original-Kompositionen und handverlesene Covers</p>
           </div>
 
           {/* Main Player */}
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-8 mb-12 backdrop-blur">
-            <div className="mb-8">
-              <h3 className="text-3xl font-black mb-6 text-white">
-                {songs[currentSong].name}
-              </h3>
-              <audio 
-                key={currentSong}
-                className="w-full" 
-                controls 
-                controlsList="nodownload"
-              >
-                <source src={songs[currentSong].file} type="audio/mpeg" />
-              </audio>
-              <p className="text-slate-400 text-sm mt-3">{songs[currentSong].duration}</p>
+          <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-8 mb-16 backdrop-blur-sm">
+            <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
+              {/* Current Song Image */}
+              <div className="relative w-full md:w-48 h-48 rounded-xl overflow-hidden flex-shrink-0 shadow-2xl">
+                <Image
+                  src={songs[currentSong].image}
+                  alt={songs[currentSong].name}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+              </div>
+              {/* Player Controls */}
+              <div className="flex-1 w-full">
+                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] mb-1">Jetzt spielen</p>
+                <h3 className="text-3xl font-black mb-4 text-white">
+                  {songs[currentSong].name}
+                </h3>
+                <audio 
+                  key={currentSong}
+                  className="w-full [&::-webkit-media-controls-panel]:bg-slate-800 [&::-webkit-media-controls-current-time-display]:text-white [&::-webkit-media-controls-time-remaining-display]:text-white" 
+                  controls 
+                  controlsList="nodownload"
+                >
+                  <source src={songs[currentSong].file} type="audio/mpeg" />
+                </audio>
+                <p className="text-slate-500 text-sm mt-3">{songs[currentSong].duration}</p>
+              </div>
             </div>
 
             {/* Track Selection */}
@@ -171,12 +270,17 @@ export default function BookingPage() {
                 <button
                   key={idx}
                   onClick={() => setCurrentSong(idx)}
-                  className={`py-3 px-4 rounded font-semibold transition-all ${
+                  className={`py-3 px-4 rounded-xl font-semibold transition-all flex items-center gap-3 ${
                     currentSong === idx
-                      ? 'bg-slate-700 text-white ring-2 ring-slate-600'
-                      : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
+                      ? 'bg-amber-500/15 text-amber-300 ring-1 ring-amber-500/30'
+                      : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
                   }`}
                 >
+                  <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${
+                    currentSong === idx ? 'bg-amber-500/20 text-amber-400' : 'bg-white/10 text-slate-500'
+                  }`}>
+                    {currentSong === idx ? '▶' : idx + 1}
+                  </span>
                   {song.name}
                 </button>
               ))}
@@ -191,21 +295,28 @@ export default function BookingPage() {
                 className="group cursor-pointer"
                 onClick={() => setCurrentSong(idx)}
               >
-                <div className="relative h-48 rounded-lg overflow-hidden border border-slate-700 mb-4 shadow-lg">
+                <div className="relative h-56 rounded-2xl overflow-hidden mb-4 shadow-xl">
                   <Image
                     src={song.image}
                     alt={song.name}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                    <div className="text-4xl opacity-0 group-hover:opacity-100 transition-opacity">
-                      ▶
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 ${
+                      currentSong === idx
+                        ? 'bg-amber-500 text-black scale-100'
+                        : 'bg-white/20 backdrop-blur-sm text-white scale-0 group-hover:scale-100'
+                    }`}>
+                      <span className="text-lg ml-0.5">▶</span>
                     </div>
                   </div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h4 className="font-black text-lg">{song.name}</h4>
+                    <p className="text-slate-400 text-sm">{song.duration}</p>
+                  </div>
                 </div>
-                <h4 className="font-black text-lg mb-1">{song.name}</h4>
-                <p className="text-slate-400 text-sm">{song.duration}</p>
               </div>
             ))}
           </div>
@@ -213,19 +324,23 @@ export default function BookingPage() {
       </section>
 
       {/* VIDEO SECTION */}
-      <section className="py-16 md:py-24 bg-black border-t border-slate-800">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="mb-12">
-            <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Live Performance</span>
-            <h2 className="text-5xl font-black mt-2 mb-2">Live Auftritte</h2>
-            <p className="text-slate-400">Authentische Live-Aufführungen in voller Länge</p>
+      <section id="videos" className="py-24 md:py-32 bg-black relative">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="mb-16">
+            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">Live Performance</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">Live Auftritte</h2>
+            <p className="text-slate-500">Authentische Live-Aufführungen in voller Länge</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {videos.map((video, idx) => (
               <div key={idx} className="group">
-                <p className="text-slate-300 font-semibold mb-4">{video.name}</p>
-                <div className="rounded-lg overflow-hidden border border-slate-700 shadow-lg">
+                <p className="text-white font-bold mb-3 flex items-center gap-2">
+                  <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                  {video.name}
+                </p>
+                <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
                   <video className="w-full aspect-video bg-black" controls controlsList="nodownload">
                     <source src={video.file} type="video/mp4" />
                   </video>
@@ -237,73 +352,76 @@ export default function BookingPage() {
       </section>
 
       {/* SERVICES / PACKAGES */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-slate-950 to-black border-t border-slate-800">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="mb-12">
-            <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Leistungen</span>
-            <h2 className="text-5xl font-black mt-2 mb-2">Was ich anbiete</h2>
-            <p className="text-slate-400">Flexible Sets für jede Veranstaltung</p>
+      <section id="services" className="py-24 md:py-32 bg-black relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
+        <div className="absolute bottom-0 left-1/2 w-[600px] h-[600px] -translate-x-1/2 bg-amber-500/5 rounded-full blur-[120px]"></div>
+        
+        <div className="max-w-6xl mx-auto px-6 relative">
+          <div className="mb-16">
+            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">Leistungen</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">Was ich anbiete</h2>
+            <p className="text-slate-500">Flexible Sets für jede Veranstaltung</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
             {/* 30 Minuten */}
-            <div className="border border-slate-700 rounded-lg p-8 bg-slate-800/30 hover:bg-slate-800/60 transition-colors">
-              <div className="text-4xl font-black mb-4 text-slate-300">30 min</div>
-              <h3 className="text-xl font-bold mb-4">Kurz & prägnant</h3>
-              <ul className="space-y-3 text-slate-300 text-sm">
-                <li className="flex items-start gap-2">
-                  <span className="text-slate-500 mt-1">•</span>
+            <div className="border border-white/10 rounded-2xl p-8 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300 hover:border-white/20 group">
+              <div className="text-4xl font-black mb-2 text-slate-500 group-hover:text-slate-300 transition-colors">30 min</div>
+              <h3 className="text-lg font-bold mb-6 text-slate-300">Kurz & prägnant</h3>
+              <ul className="space-y-4 text-slate-400 text-sm">
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
                   <span>5-6 Songs</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-slate-500 mt-1">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
                   <span>Perfekt für Apéros & Empfänge</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-slate-500 mt-1">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
                   <span>Mix aus Original & Cover</span>
                 </li>
               </ul>
             </div>
 
-            {/* 1 Stunde */}
-            <div className="border-2 border-slate-500 rounded-lg p-8 bg-slate-700/20 relative">
-              <div className="absolute -top-4 left-6 bg-black px-3">
-                <span className="text-xs uppercase tracking-widest font-semibold text-slate-300">Meistgewählt</span>
+            {/* 1 Stunde - Featured */}
+            <div className="border border-amber-500/30 rounded-2xl p-8 bg-amber-500/[0.04] relative group hover:border-amber-500/50 transition-all duration-300">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span className="bg-amber-500 text-black text-[10px] uppercase tracking-widest font-bold px-4 py-1 rounded-full">Meistgewählt</span>
               </div>
-              <div className="text-4xl font-black mb-4">1 h</div>
-              <h3 className="text-xl font-bold mb-4">Standard</h3>
-              <ul className="space-y-3 text-slate-300 text-sm">
-                <li className="flex items-start gap-2">
-                  <span className="text-slate-500 mt-1">•</span>
+              <div className="text-4xl font-black mb-2 text-amber-400">1 h</div>
+              <h3 className="text-lg font-bold mb-6">Standard</h3>
+              <ul className="space-y-4 text-slate-300 text-sm">
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
                   <span>12-14 Songs</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-slate-500 mt-1">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
                   <span>Perfekt für Hochzeiten & Events</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-slate-500 mt-1">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
                   <span>Volle Setlist mit Flow</span>
                 </li>
               </ul>
             </div>
 
             {/* 2 Stunden */}
-            <div className="border border-slate-700 rounded-lg p-8 bg-slate-800/30 hover:bg-slate-800/60 transition-colors">
-              <div className="text-4xl font-black mb-4 text-slate-300">2 h</div>
-              <h3 className="text-xl font-bold mb-4">Vollständig</h3>
-              <ul className="space-y-3 text-slate-300 text-sm">
-                <li className="flex items-start gap-2">
-                  <span className="text-slate-500 mt-1">•</span>
-                  <span>25+ Songs</span>
+            <div className="border border-white/10 rounded-2xl p-8 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300 hover:border-white/20 group">
+              <div className="text-4xl font-black mb-2 text-slate-500 group-hover:text-slate-300 transition-colors">2 h</div>
+              <h3 className="text-lg font-bold mb-6 text-slate-300">Vollständig</h3>
+              <ul className="space-y-4 text-slate-400 text-sm">
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
+                  <span>20 Songs</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-slate-500 mt-1">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
                   <span>Kneipen & Festivals</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-slate-500 mt-1">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
                   <span>Mit Pause + Variabilität</span>
                 </li>
               </ul>
@@ -311,31 +429,74 @@ export default function BookingPage() {
           </div>
 
           {/* Repertoire Overview */}
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-8 backdrop-blur">
-            <h3 className="text-2xl font-black mb-6">Repertoire</h3>
-            <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-10 backdrop-blur-sm">
+            <h3 className="text-2xl font-black mb-8 flex items-center gap-3">
+              <span className="w-8 h-px bg-amber-500"></span>
+              Repertoire
+            </h3>
+            <div className="grid md:grid-cols-2 gap-12">
               <div>
-                <h4 className="font-bold text-lg mb-4 text-slate-200">Original-Kompositionen</h4>
-                <p className="text-slate-400 mb-4">Deutsch & Polnische Songs mit emotionalen Balladen und eingängigen Pop-Rock-Nummern:</p>
-                <ul className="space-y-2 text-slate-400 text-sm">
-                  <li>→ Katze</li>
-                  <li>→ Niebianski Groove</li>
-                  <li>→ Maria</li>
-                  <li>→ Weitere Original-Werke</li>
+                <h4 className="font-bold text-lg mb-4 text-white">Original-Kompositionen</h4>
+                <p className="text-slate-500 mb-5">Deutsch & Polnische Songs mit emotionalen Balladen und eingängigen Pop-Rock-Nummern:</p>
+                <ul className="space-y-3 text-slate-300 text-sm">
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Katze
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Niebianski Groove
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Maria
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Weitere Original-Werke
+                  </li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-bold text-lg mb-4 text-slate-200">Sorgfältig Ausgewählte Covers</h4>
-                <p className="text-slate-400 mb-4">Klassiker & aktuelle Hits in Deutsch und Englisch:</p>
-                <ul className="space-y-2 text-slate-400 text-sm">
-                  <li>→ Pocahontas (Annelyy Kantereit)</li>
-                  <li>→ Country Roads (John Denver)</li>
-                  <li>→ Johnny Cash Klassiker</li>
-                  <li>→ Viele weitere Favoriten</li>
+                <h4 className="font-bold text-lg mb-4 text-white">Sorgfältig Ausgewählte Covers</h4>
+                <p className="text-slate-500 mb-5">Klassiker & Hits in Deutsch, Polnisch und Englisch:</p>
+                <ul className="space-y-3 text-slate-300 text-sm">
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Pocahontas <span className="text-slate-500">(AnnenMayKantereit)</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    This is the Life <span className="text-slate-500">(Amy Macdonald)</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Ring of Fire <span className="text-slate-500">(Johnny Cash)</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Country Roads <span className="text-slate-500">(John Denver)</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Weź nie pytaj <span className="text-slate-500">(Paweł Domagała)</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Verdammt ich lieb dich <span className="text-slate-500">(Matthias Reim)</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Kompliment <span className="text-slate-500">(Sportfreunde Stiller)</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Nie allein <span className="text-slate-500">(Kaffkiez)</span>
+                  </li>
                 </ul>
               </div>
             </div>
-            <p className="text-slate-400 text-sm mt-6 pt-6 border-t border-slate-700">
+            <p className="text-slate-500 text-sm mt-8 pt-8 border-t border-white/10">
               Ich wechsle flexibel zwischen Original-Songs und Covers – je nach Publikum, Stimmung und Veranstaltungstyp.
             </p>
           </div>
@@ -343,76 +504,85 @@ export default function BookingPage() {
       </section>
 
       {/* PORTFOLIO / GALLERY */}
-      <section className="py-16 md:py-24 bg-black border-t border-slate-800">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="mb-12">
-            <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Galerie</span>
-            <h2 className="text-5xl font-black mt-2 mb-2">Pressefotos</h2>
-            <p className="text-slate-400">Hochauflösend & einsatzbereit für Ihre Promotion</p>
+      <section id="gallery" className="py-24 md:py-32 bg-black relative">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="mb-16">
+            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">Galerie</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">Pressefotos</h2>
+            <p className="text-slate-500">Hochauflösend & einsatzbereit für Ihre Promotion</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
+          <div className="grid md:grid-cols-2 gap-6 mb-10">
             {fotos.map((foto, idx) => (
-              <div key={idx} className="group relative rounded-lg overflow-hidden border border-slate-700 shadow-lg h-80">
+              <div key={idx} className="group relative rounded-2xl overflow-hidden h-96 cursor-pointer">
                 <Image
                   src={foto.src}
                   alt={foto.alt}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <p className="text-white font-semibold text-sm">{foto.alt}</p>
+                </div>
               </div>
             ))}
           </div>
 
           <a 
             href="mailto:dawid.faith@gmail.com?subject=Pressefotos in hoher Auflösung anfordern"
-            className="inline-block bg-slate-700 hover:bg-slate-600 text-white font-semibold px-8 py-3 rounded transition"
+            className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 py-3.5 rounded-full border border-white/10 hover:border-white/20 transition-all"
           >
             Fotos per E-Mail anfordern
+            <span className="text-amber-400">→</span>
           </a>
         </div>
       </section>
 
       {/* BOOKING FORM */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-slate-950 to-black border-t border-slate-800">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="mb-12">
-            <span className="text-slate-400 text-xs uppercase tracking-widest font-semibold">Kontakt</span>
-            <h2 className="text-5xl font-black mt-2 mb-2">Booking Anfrage</h2>
-            <p className="text-slate-400">Senden Sie mir eine kurze Nachricht. Ich melde mich schnellstmöglich.</p>
+      <section id="booking" className="py-24 md:py-32 bg-black relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-500/[0.03] rounded-full blur-[120px]"></div>
+        
+        <div className="max-w-4xl mx-auto px-6 relative">
+          <div className="mb-16 text-center">
+            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">Kontakt</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">Booking Anfrage</h2>
+            <p className="text-slate-500">Senden Sie mir eine kurze Nachricht. Ich melde mich schnellstmöglich.</p>
           </div>
 
-          <form className="bg-slate-800/50 border border-slate-700 rounded-lg p-8 backdrop-blur" onSubmit={(e) => e.preventDefault()}>
+          <form className="bg-white/[0.03] border border-white/10 rounded-2xl p-8 md:p-10 backdrop-blur-sm" onSubmit={(e) => e.preventDefault()}>
             <div className="grid md:grid-cols-2 gap-6 mb-6">
               <div>
-                <label className="block text-slate-300 font-semibold mb-2">Ihr Name</label>
+                <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">Ihr Name</label>
                 <input 
                   type="text" 
                   placeholder="Vorname Nachname"
                   value={bookingFormData.name}
                   onChange={(e) => setBookingFormData({...bookingFormData, name: e.target.value})}
-                  className="w-full bg-slate-900/50 border border-slate-600 rounded px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-slate-500"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
                 />
               </div>
               <div>
-                <label className="block text-slate-300 font-semibold mb-2">E-Mail</label>
+                <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">E-Mail</label>
                 <input 
                   type="email" 
                   placeholder="ihre@email.de"
                   value={bookingFormData.email}
                   onChange={(e) => setBookingFormData({...bookingFormData, email: e.target.value})}
-                  className="w-full bg-slate-900/50 border border-slate-600 rounded px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-slate-500"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
                 />
               </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6 mb-6">
               <div>
-                <label className="block text-slate-300 font-semibold mb-2">Veranstaltungstyp</label>
+                <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">Veranstaltungstyp</label>
                 <select 
                   value={bookingFormData.eventType}
                   onChange={(e) => setBookingFormData({...bookingFormData, eventType: e.target.value})}
-                  className="w-full bg-slate-900/50 border border-slate-600 rounded px-4 py-3 text-white focus:outline-none focus:border-slate-500"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
                 >
                   <option value="">Bitte wählen...</option>
                   <option>Hochzeit</option>
@@ -424,67 +594,78 @@ export default function BookingPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-slate-300 font-semibold mb-2">Gewünschtes Datum</label>
+                <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">Gewünschtes Datum</label>
                 <input 
                   type="date" 
                   value={bookingFormData.date}
                   onChange={(e) => setBookingFormData({...bookingFormData, date: e.target.value})}
-                  className="w-full bg-slate-900/50 border border-slate-600 rounded px-4 py-3 text-white focus:outline-none focus:border-slate-500"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
                 />
               </div>
             </div>
 
             <div className="mb-6">
-              <label className="block text-slate-300 font-semibold mb-2">Ort / Venue</label>
+              <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">Ort / Venue</label>
               <input 
                 type="text" 
                 placeholder="Stadt, Venue-Name"
                 value={bookingFormData.location}
                 onChange={(e) => setBookingFormData({...bookingFormData, location: e.target.value})}
-                className="w-full bg-slate-900/50 border border-slate-600 rounded px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-slate-500"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
               />
             </div>
 
             <div className="mb-8">
-              <label className="block text-slate-300 font-semibold mb-2">Nachricht</label>
+              <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">Nachricht</label>
               <textarea 
                 placeholder="Erzählen Sie mir mehr über Ihre Veranstaltung..."
                 value={bookingFormData.message}
                 onChange={(e) => setBookingFormData({...bookingFormData, message: e.target.value})}
                 rows={5}
-                className="w-full bg-slate-900/50 border border-slate-600 rounded px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-slate-500"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all resize-none"
               ></textarea>
             </div>
 
             <div className="flex flex-col md:flex-row gap-4">
               <a 
                 href={`mailto:dawid.faith@gmail.com?subject=Booking Anfrage - ${bookingFormData.eventType || 'Event'}&body=Name: ${bookingFormData.name}%0DEmail: ${bookingFormData.email}%0DDatum: ${bookingFormData.date}%0DOrt: ${bookingFormData.location}%0D%0DVeranstaltung: ${bookingFormData.eventType}%0D%0D${bookingFormData.message}`}
-                className="bg-slate-700 hover:bg-slate-600 text-white font-semibold px-8 py-3 rounded transition flex items-center justify-center"
+                className="bg-amber-500 hover:bg-amber-400 text-black font-bold px-10 py-4 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/25 flex items-center justify-center gap-2"
               >
                 Anfrage senden
+                <span>→</span>
               </a>
               <a 
-                href="tel:+491234567890"
-                className="border border-slate-600 text-white font-semibold px-8 py-3 rounded hover:bg-slate-800 transition flex items-center justify-center"
+                href="tel:+4915237673661"
+                className="border border-white/15 text-white font-semibold px-10 py-4 rounded-full hover:bg-white/5 hover:border-white/25 transition-all flex items-center justify-center gap-2"
               >
                 Oder direkt anrufen
               </a>
             </div>
           </form>
 
-          <div className="mt-8 p-6 bg-slate-800/30 border border-slate-700 rounded-lg text-center">
-            <p className="text-slate-300 mb-2">Weitere Kontaktmöglichkeiten:</p>
-            <p className="text-slate-400 text-sm">
-              <a href="mailto:dawid.faith@gmail.com" className="text-slate-300 hover:text-white font-semibold">dawid.faith@gmail.com</a>
-            </p>
+          <div className="mt-10 flex flex-col md:flex-row items-center justify-center gap-6 text-sm text-slate-500">
+            <a href="mailto:dawid.faith@gmail.com" className="hover:text-amber-400 transition-colors">
+              dawid.faith@gmail.com
+            </a>
+            <span className="hidden md:inline text-slate-700">|</span>
+            <a href="tel:+4915237673661" className="hover:text-amber-400 transition-colors">
+              +49 152 3767 3661
+            </a>
           </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-black border-t border-slate-800 py-12">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <p className="text-slate-500 text-sm">© 2026 Dawid Faith • Professional Singer-Songwriter</p>
+      <footer className="bg-black relative py-10">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent"></div>
+        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-slate-600 text-sm">© 2026 Dawid Faith</p>
+          <button 
+            onClick={() => scrollTo('hero')}
+            className="text-slate-600 hover:text-amber-400 text-sm transition-colors"
+          >
+            Nach oben ↑
+          </button>
         </div>
       </footer>
 
