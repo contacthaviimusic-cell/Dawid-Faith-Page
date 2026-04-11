@@ -8,9 +8,9 @@ export default function BookingPage() {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const songs = [
-    { name: 'Katze', file: '/booking/music/Katze_V4.mp3', duration: '3:45' },
-    { name: 'Niebianski Groove', file: '/booking/music/Niebianski Groove.mp3', duration: '4:12' },
-    { name: 'Maria', file: '/booking/music/Maria.mp3', duration: '3:58' }
+    { name: 'Katze', file: '/booking/music/Katze_V4.mp3', duration: '3:45', image: '/musik/katze/photo_2026-01-06_14-31-47.jpg' },
+    { name: 'Niebianski Groove', file: '/booking/music/Niebianski Groove.mp3', duration: '4:12', image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png' },
+    { name: 'Maria', file: '/booking/music/Maria.mp3', duration: '3:58', image: '/musik/maria/Maria.jpg' }
   ];
 
   const videos = [
@@ -177,16 +177,26 @@ export default function BookingPage() {
           {/* Song Info Cards */}
           <div className="grid md:grid-cols-3 gap-4">
             {songs.map((song, idx) => (
-              <div key={idx} className="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-blue-500 transition-all duration-300">
-                <div className="text-3xl mb-3">🎶</div>
-                <h4 className="font-bold text-lg mb-2">{song.name}</h4>
-                <p className="text-gray-400 text-sm mb-4">{song.duration}</p>
-                <button
-                  onClick={() => setCurrentSong(idx)}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition"
-                >
-                  Abspielen
-                </button>
+              <div key={idx} className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden hover:border-blue-500 transition-all duration-300 group">
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src={song.image}
+                    alt={song.name}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300"></div>
+                </div>
+                <div className="p-4">
+                  <h4 className="font-bold text-lg mb-2">{song.name}</h4>
+                  <p className="text-gray-400 text-sm mb-4">{song.duration}</p>
+                  <button
+                    onClick={() => setCurrentSong(idx)}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition"
+                  >
+                    Abspielen
+                  </button>
+                </div>
               </div>
             ))}
           </div>
