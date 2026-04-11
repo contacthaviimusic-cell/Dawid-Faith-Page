@@ -15,6 +15,34 @@ export default function BookingPage() {
     location: '',
     message: ''
   });
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [formError, setFormError] = useState('');
+
+  const handleBookingSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormStatus('sending');
+    setFormError('');
+
+    try {
+      const res = await fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bookingFormData),
+      });
+
+      if (res.ok) {
+        setFormStatus('success');
+        setBookingFormData({ name: '', email: '', eventType: '', date: '', location: '', message: '' });
+      } else {
+        const data = await res.json();
+        setFormError(data.error || 'Etwas ist schiefgelaufen.');
+        setFormStatus('error');
+      }
+    } catch {
+      setFormError('Verbindungsfehler. Bitte versuchen Sie es später.');
+      setFormStatus('error');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -139,7 +167,7 @@ export default function BookingPage() {
                 </p>
                 <p className="flex items-center gap-3 text-slate-300">
                   <span className="w-1 h-1 bg-amber-400 rounded-full"></span>
-                  Solo Akustik-Gitarre &bull; Keine Playbacks
+                  Solo Akustik-Gitarre
                 </p>
               </div>
 
@@ -441,7 +469,7 @@ export default function BookingPage() {
                 <ul className="space-y-3 text-slate-300 text-sm">
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Katze
+                    Aladine
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
@@ -449,11 +477,55 @@ export default function BookingPage() {
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Słabość
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Jupiter
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Katze
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Huhu
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Schiffchen
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Zacznij
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Mambo
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Frei sein
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
                     Maria
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Weitere Original-Werke
+                    Rapu Tapu Tak Ma
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Mit dir sein
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Holy Children
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Monster
                   </li>
                 </ul>
               </div>
@@ -552,7 +624,22 @@ export default function BookingPage() {
             <p className="text-slate-500">Senden Sie mir eine kurze Nachricht. Ich melde mich schnellstmöglich.</p>
           </div>
 
-          <form className="bg-white/[0.03] border border-white/10 rounded-2xl p-8 md:p-10 backdrop-blur-sm" onSubmit={(e) => e.preventDefault()}>
+          {formStatus === 'success' ? (
+            <div className="bg-white/[0.03] border border-amber-500/30 rounded-2xl p-12 backdrop-blur-sm text-center">
+              <div className="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-amber-400 text-3xl">✓</span>
+              </div>
+              <h3 className="text-2xl font-black mb-3">Anfrage gesendet!</h3>
+              <p className="text-slate-400 mb-8">Vielen Dank für Ihre Nachricht. Ich melde mich schnellstmöglich bei Ihnen.</p>
+              <button
+                onClick={() => setFormStatus('idle')}
+                className="text-amber-400 hover:text-amber-300 font-semibold transition-colors"
+              >
+                Weitere Anfrage senden
+              </button>
+            </div>
+          ) : (
+          <form className="bg-white/[0.03] border border-white/10 rounded-2xl p-8 md:p-10 backdrop-blur-sm" onSubmit={handleBookingSubmit}>
             <div className="grid md:grid-cols-2 gap-6 mb-6">
               <div>
                 <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">Ihr Name</label>
@@ -626,14 +713,21 @@ export default function BookingPage() {
               ></textarea>
             </div>
 
+            {formError && (
+              <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm">
+                {formError}
+              </div>
+            )}
+
             <div className="flex flex-col md:flex-row gap-4">
-              <a 
-                href={`mailto:dawid.faith@gmail.com?subject=Booking Anfrage - ${bookingFormData.eventType || 'Event'}&body=Name: ${bookingFormData.name}%0DEmail: ${bookingFormData.email}%0DDatum: ${bookingFormData.date}%0DOrt: ${bookingFormData.location}%0D%0DVeranstaltung: ${bookingFormData.eventType}%0D%0D${bookingFormData.message}`}
-                className="bg-amber-500 hover:bg-amber-400 text-black font-bold px-10 py-4 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/25 flex items-center justify-center gap-2"
+              <button 
+                type="submit"
+                disabled={formStatus === 'sending'}
+                className="bg-amber-500 hover:bg-amber-400 disabled:bg-amber-500/50 disabled:cursor-not-allowed text-black font-bold px-10 py-4 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/25 flex items-center justify-center gap-2"
               >
-                Anfrage senden
-                <span>→</span>
-              </a>
+                {formStatus === 'sending' ? 'Wird gesendet...' : 'Anfrage senden'}
+                {formStatus !== 'sending' && <span>→</span>}
+              </button>
               <a 
                 href="tel:+4915237673661"
                 className="border border-white/15 text-white font-semibold px-10 py-4 rounded-full hover:bg-white/5 hover:border-white/25 transition-all flex items-center justify-center gap-2"
@@ -642,6 +736,7 @@ export default function BookingPage() {
               </a>
             </div>
           </form>
+          )}
 
           <div className="mt-10 flex flex-col md:flex-row items-center justify-center gap-6 text-sm text-slate-500">
             <a href="mailto:dawid.faith@gmail.com" className="hover:text-amber-400 transition-colors">
