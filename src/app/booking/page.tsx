@@ -25,34 +25,72 @@ export default function BookingPage() {
   return (
     <div className="min-h-screen bg-black text-white">
       
-      {/* HERO SECTION - Kompakt */}
-      <section className="relative h-[500px] flex items-center justify-center overflow-hidden group">
-        <div className="absolute inset-0 opacity-50 group-hover:opacity-60 transition-opacity duration-1000">
-          <Image
-            src={fotos[0].src}
-            alt="Dawid Faith"
-            fill
-            className="object-cover"
-            priority
-          />
+      {/* HERO SECTION - Clean Modern Design */}
+      <section className="relative bg-gradient-to-br from-gray-900 via-black to-black py-16 md:py-20">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
+            {/* Text */}
+            <div className="flex-1">
+              <h1 className="text-5xl md:text-6xl font-black mb-4 leading-tight">
+                Authentische Live Musik
+              </h1>
+              <h2 className="text-3xl md:text-4xl font-bold text-blue-400 mb-6">
+                Für Kneipen, Bars & Events
+              </h2>
+              <p className="text-lg text-gray-300 mb-6 leading-relaxed max-w-lg">
+                Singer-Songwriter mit Deutsch & Polnisch 🎸 Wechsel zwischen bekannten Covers & eigenen Songs • Akustik-Gitarre • Keine Playbacks – echte Live-Performance
+              </p>
+              <button 
+                onClick={() => document.getElementById('music')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition transform hover:scale-105"
+              >
+                ▶ Zur Musik
+              </button>
+            </div>
+            
+            {/* Portrait */}
+            <div className="flex-1">
+              <div className="relative h-64 md:h-80 rounded-lg overflow-hidden border border-gray-700 shadow-lg">
+                <Image
+                  src={fotos[0].src}
+                  alt="Dawid Faith"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent"></div>
-        
-        <div className="relative z-20 text-left px-6 md:px-12 max-w-2xl w-full">
-          <h1 className="text-6xl md:text-7xl font-black mb-3 leading-tight drop-shadow-2xl">
-            DAWID FAITH
-          </h1>
-          
-          <p className="text-lg md:text-xl text-gray-200 mb-6 max-w-xl">
-            Singer-Songwriter • Deutsch & Polnisch • Akustik-Gitarre
-          </p>
-          
-          <button 
-            onClick={() => document.getElementById('music')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition transform hover:scale-105"
-          >
-            ▶ Musik hören
-          </button>
+      </section>
+
+      {/* ABOUT SECTION - Wer ist Dawid Faith */}
+      <section className="py-12 md:py-16 bg-gray-950 border-t border-gray-800">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div className="relative h-64 rounded-lg overflow-hidden border border-gray-700">
+              <Image
+                src={fotos[1].src}
+                alt="Dawid Faith mit Gruppe"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <h2 className="text-4xl font-black mb-5">
+                Wer ist <span className="text-blue-400">Dawid Faith?</span>
+              </h2>
+              <p className="text-gray-300 leading-relaxed mb-4">
+                Ein Singer-Songwriter, der die Musik-Brücke zwischen Deutschland und Polen schlägt. Mit Songs in <strong>Deutsch und Polnisch</strong> schaffe ich eine emotionale Verbindung zum Publikum.
+              </p>
+              <p className="text-gray-300 leading-relaxed mb-4">
+                Mein Sound: <strong>Slavischer Pop-Rock</strong> mit authentischer Akustik-Gitarre. Balladen mit Gefühl, eingängige Pop-Rock-Songs – immer live gespielt, nie aus der Dose.
+              </p>
+              <p className="text-gray-400 italic">
+                <strong>Der Name Dawid Faith?</strong> Mein Glaube an die Kraft der Musik und daran, dass echte Live-Performance zählt. Kein Playback, kein Kommerz – nur Gitarre, Stimme und Emotion.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -157,24 +195,28 @@ export default function BookingPage() {
 
             {/* Setlängen */}
             <div className="bg-gray-900 border border-gray-800 rounded-lg p-6">
-              <h3 className="text-xl font-black mb-4">⏱️ Setlängen</h3>
+              <h3 className="text-xl font-black mb-4">⏱️ Setlänge</h3>
               <div className="space-y-2 text-sm">
-                <p><span className="text-blue-400 font-bold">Short:</span> 30 Min</p>
-                <p><span className="text-blue-400 font-bold">Standard:</span> 60 Min</p>
-                <p><span className="text-blue-400 font-bold">Extended:</span> 90+ Min</p>
+                <p className="text-lg"><span className="text-blue-400 font-bold">2 Stunden</span></p>
+                <p className="text-gray-400 text-xs">Flexibel anpassbar nach deinen Wünschen</p>
               </div>
             </div>
           </div>
 
-          {/* Tech Requirements */}
+          {/* Covers vs Eigene Songs */}
           <div className="bg-gradient-to-r from-blue-900 to-blue-800 rounded-lg p-6 border border-blue-700">
-            <h3 className="text-xl font-black text-white mb-4">🔧 Technisches Setup</h3>
-            <div className="grid md:grid-cols-2 gap-4 text-sm text-blue-100">
-              <p><span className="font-bold">Bühne:</span> Klein oder Floor-Level</p>
-              <p><span className="font-bold">Ton:</span> 1 Mic + Monitor</p>
-              <p><span className="font-bold">Licht:</span> Standard oder Ambient</p>
-              <p><span className="font-bold">Setup:</span> 15-20 Min</p>
+            <h3 className="text-xl font-black text-white mb-4">🎵 Mein Repertoire</h3>
+            <div className="grid md:grid-cols-2 gap-6 text-sm text-blue-100">
+              <div>
+                <p className="font-bold text-white mb-2">🎤 Meine Original-Songs</p>
+                <p>Katze, Niebianski Groove, Maria + mehr</p>
+              </div>
+              <div>
+                <p className="font-bold text-white mb-2">🎵 Bekannte Covers</p>
+                <p>Deutsch & Englisch: Pocahontas, Country Roads, Johnny Cash, u.v.m.</p>
+              </div>
             </div>
+            <p className="text-blue-200 text-xs mt-4">💡 Ich wechsle zwischen Covers & eigenen Songs – je nach Stimmung und Publikum</p>
           </div>
         </div>
       </section>
