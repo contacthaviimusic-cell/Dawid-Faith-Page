@@ -93,13 +93,16 @@ export default function BookingPage() {
                 Wer ist<br /><span className="text-blue-500">Dawid Faith?</span>
               </h2>
               <p className="text-lg text-gray-300 leading-relaxed mb-6">
-                Ein Singer-Songwriter, der die Kultur-Grenzen zwischen Deutschland und Polen überbrückt. Mit Liedern in Deutsch und Polnisch schaffe ich emotionale Verbindungen mit dem Publikum.
+                Ein Singer-Songwriter, der die Kultur-Grenzen zwischen Deutschland und Polen überbrückt. Mit Liedern in <strong>Deutsch und Polnisch</strong> schaffe ich emotionale Verbindungen mit dem Publikum.
+              </p>
+              <p className="text-lg text-gray-300 leading-relaxed mb-6">
+                Mein Sound: <strong>Slavischer Pop-Rock</strong> mit authentischer Akustik-Gitarre. Balladen mit Tiefe, Pop-Rock mit Power. Dazu kommen handverlesene Covers – schwerpunktmäßig Country-Klassiker, die ich in mein Repertoire integriere.
               </p>
               <p className="text-lg text-gray-300 leading-relaxed mb-6">
                 <strong>Der Name Dawid Faith</strong> steht für meinen Glauben an die Kraft der Musik und daran, dass wir alle an uns selbst glauben können – egal woher wir kommen.
               </p>
               <p className="text-gray-400 italic">
-                Meine Musik ist authentisch, roh und von Herzen. Perfekt für Events, Hochzeiten, Festivals und Veranstaltungen, wo echte Musik zählt.
+                Meine Musik ist authentisch, roh und von Herzen. Perfekt für Events, Hochzeiten, Festivals und Veranstaltungen, wo echte Live-Musik zählt – kein Playback, keine Tricks. Nur Gitarre, Stimme und Emotion.
               </p>
             </div>
             <div className="relative h-96 rounded-xl overflow-hidden shadow-2xl border border-gray-800">
@@ -120,7 +123,7 @@ export default function BookingPage() {
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-5xl md:text-6xl font-black mb-4">🎵 Höre meine Musik</h2>
-            <p className="text-xl text-gray-400">Meine besten Songs - direkt hier anhören</p>
+            <p className="text-xl text-gray-400">Mein Genre, Setlängen & alles was Veranstalter wissen müssen</p>
           </div>
 
           {/* Large Music Player */}
@@ -216,15 +219,164 @@ export default function BookingPage() {
         </div>
       </section>
 
-      {/* PRESS PHOTOS */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-black to-gray-950 border-t border-gray-800">
+      {/* EPK / GENRE SECTION */}
+      <section className="py-16 md:py-24 bg-gray-950 border-t border-gray-800">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-5xl md:text-6xl font-black mb-4 text-center">📸 Pressefotos</h2>
-          <p className="text-center text-gray-400 mb-12">Hochauflösend • Marketing-Ready • Sofort einsatzbereit</p>
+          <h2 className="text-5xl md:text-6xl font-black mb-12 text-center">🎸 Mein Sound</h2>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {/* Genre Card */}
+            <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-8 border border-blue-500 shadow-xl">
+              <h3 className="text-3xl font-black text-white mb-4">Genre</h3>
+              <div className="space-y-3">
+                <p className="text-blue-100 font-bold text-lg">🎭 <strong>Slavischer Pop Rock</strong></p>
+                <p className="text-blue-100 text-sm leading-relaxed">
+                  Deutsch & Polnische Texte mit modernem Rock-Pop Sound und emotionalen Balladen. Authentische Gitarrenmusik mit Tiefe.
+                </p>
+              </div>
+            </div>
+
+            {/* Covers Card */}
+            <div className="bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-8 border border-purple-500 shadow-xl">
+              <h3 className="text-3xl font-black text-white mb-4">Covers</h3>
+              <div className="space-y-3">
+                <p className="text-purple-100 font-bold text-lg">🎼 <strong>Sorgfältig ausgewählt</strong></p>
+                <p className="text-purple-100 text-sm leading-relaxed mb-3">
+                  Mix aus Deutsch & Englisch. Beispiele:
+                </p>
+                <div className="text-sm text-purple-100 space-y-1">
+                  <p>🎤 Pocahontas – Annelyy Kantereit</p>
+                  <p>🎤 Country Roads – John Denver</p>
+                  <p>🎤 Johnny Cash Klassiker</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Vibe Card */}
+            <div className="bg-gradient-to-br from-pink-600 to-pink-800 rounded-2xl p-8 border border-pink-500 shadow-xl">
+              <h3 className="text-3xl font-black text-white mb-4">Vibe</h3>
+              <div className="space-y-3">
+                <p className="text-pink-100 font-bold text-lg">✨ <strong>Authentisch & Raw</strong></p>
+                <p className="text-pink-100 text-sm leading-relaxed">
+                  Keine Backing-Tracks, keine Tricks. Nur Gitarre, Stimme und echte Emotionen – direkter Kontakt zum Publikum.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* EPK - ELECTRONIC PRESS KIT */}
+      <section className="py-16 md:py-24 bg-black border-t border-gray-800">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-5xl md:text-6xl font-black mb-4 text-center">📋 Electronic Press Kit (EPK)</h2>
+          <p className="text-center text-gray-400 mb-12">Alle Infos für Veranstalter auf einen Blick</p>
+          
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* Setlängen */}
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 border border-gray-700">
+              <h3 className="text-2xl font-black text-white mb-6 flex items-center gap-3">⏱️ Setlängen</h3>
+              <div className="space-y-4">
+                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                  <p className="text-blue-400 font-bold mb-1">SHORT SET</p>
+                  <p className="text-white text-lg font-bold">30 Minuten</p>
+                  <p className="text-gray-400 text-sm">Perfekt für Apéros, kleine Events</p>
+                </div>
+                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                  <p className="text-blue-400 font-bold mb-1">STANDARD SET</p>
+                  <p className="text-white text-lg font-bold">60 Minuten</p>
+                  <p className="text-gray-400 text-sm">Für die meisten Events & Hochzeiten</p>
+                </div>
+                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                  <p className="text-blue-400 font-bold mb-1">EXTENDED SET</p>
+                  <p className="text-white text-lg font-bold">90+ Minuten</p>
+                  <p className="text-gray-400 text-sm">Festivals, volle Events, mehrere Sessions</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Besetzung */}
+            <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 border border-gray-700">
+              <h3 className="text-2xl font-black text-white mb-6 flex items-center gap-3">🎤 Besetzung & Setup</h3>
+              <div className="space-y-4">
+                <div className="bg-blue-600 p-4 rounded-lg">
+                  <p className="font-bold text-white mb-2">🎸 ACOUSTIC SOLO</p>
+                  <p className="text-blue-100 text-sm">Solo mit Akustik-Gitarre. Minimal, authentisch, direkt.</p>
+                </div>
+                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                  <p className="text-gray-400 font-bold mb-2">Optional: Loop-Station</p>
+                  <p className="text-gray-300 text-sm">Kann für Extra-Effekte & Beatboxing hinzugefügt werden</p>
+                </div>
+                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                  <p className="text-gray-400 font-bold mb-2">Easy zu Transportation</p>
+                  <p className="text-gray-300 text-sm">Braucht nur Gitarre + Mikro. Einfaches Setup.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tech Specs */}
+          <div className="bg-gray-900 border border-gray-700 rounded-2xl p-8 mb-12">
+            <h3 className="text-2xl font-black text-white mb-6">🔧 Technische Anforderungen</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Bühne</p>
+                <p className="text-white">Kleine Bühne oder Floor-Level möglich</p>
+              </div>
+              <div>
+                <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Ton</p>
+                <p className="text-white">Einkanal Mikro + Monitor</p>
+              </div>
+              <div>
+                <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Licht</p>
+                <p className="text-white">Standard spot oder Ambient</p>
+              </div>
+              <div>
+                <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Aufbau</p>
+                <p className="text-white">15–20 Minuten Setup</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Repertoire */}
+          <div className="bg-gradient-to-r from-blue-900 to-purple-900 rounded-2xl p-8 border border-blue-700">
+            <h3 className="text-2xl font-black text-white mb-4">🎸 Repertoire & Song-Beispiele</h3>
+            <p className="text-blue-100 mb-6">
+              Mix aus eigenen Songs (Deutsch/Polnisch) + handverlesene Covers (Deutsch/Englisch). Flexible Playlist je nach Event, Publikum & Stimmung.
+            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <p className="text-blue-300 font-bold mb-3">🎤 Meine Songs</p>
+                <ul className="text-blue-100 space-y-1 text-sm">
+                  <li>• Katze</li>
+                  <li>• Niebianski Groove</li>
+                  <li>• Maria</li>
+                  <li>• Weitere Original-Songs</li>
+                </ul>
+              </div>
+              <div>
+                <p className="text-purple-300 font-bold mb-3">🎵 Cover-Beispiele</p>
+                <ul className="text-blue-100 space-y-1 text-sm">
+                  <li>• Pocahontas (Annelyy Kantereit)</li>
+                  <li>• Country Roads (John Denver)</li>
+                  <li>• Johnny Cash Klassiker</li>
+                  <li>• Weitere passende Covers</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PRESSEFOTOS DOWNLOAD */}
+      <section className="py-16 md:py-24 bg-gray-950 border-t border-gray-800">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-5xl md:text-6xl font-black mb-4 text-center">📸 Pressefotos Download</h2>
+          <p className="text-center text-gray-400 mb-12">Hochauflösend • HD-Quality • Sofort einsatzbereit für Promotion</p>
+          
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
             {fotos.map((foto, idx) => (
-              <div key={idx} className="group relative rounded-2xl overflow-hidden border border-gray-800 hover:border-blue-500 transition-all duration-300 h-96 shadow-xl">
+              <div key={idx} className="group relative rounded-2xl overflow-hidden border border-gray-700 hover:border-blue-500 transition-all duration-300 h-96 shadow-xl">
                 <Image
                   src={foto.src}
                   alt={foto.alt}
@@ -238,39 +390,46 @@ export default function BookingPage() {
             ))}
           </div>
 
-          <div className="mt-8 bg-gray-900 border border-gray-800 rounded-xl p-8 text-center">
-            <p className="text-gray-300 mb-4">
-              Alle Fotos in HD-Qualität und optimal für Promotion & Marketing
+          <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-center border border-blue-500">
+            <h3 className="text-2xl font-bold text-white mb-3">📥 Fotos herunterladen</h3>
+            <p className="text-blue-100 mb-6">
+              Alle Pressefotos in voller Auflösung – perfekt für Flyer, Social Media, Website & Promotion
             </p>
+            <a 
+              href="mailto:dawid.faith@gmail.com?subject=Pressefotos Download Anfrage"
+              className="inline-block bg-white text-blue-600 font-bold px-8 py-3 rounded-xl hover:bg-gray-100 transition transform hover:scale-105"
+            >
+              📧 Fotos per Email anfordern
+            </a>
           </div>
         </div>
       </section>
 
-      {/* SPECS / DETAILS */}
-      <section className="py-16 md:py-24 bg-black border-t border-gray-800">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-5xl md:text-6xl font-black mb-12 text-center">📋 Schnelle Infos</h2>
+      {/* SPECS / DETAILS */}🎯 Quick Facts für Veranstalter</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center hover:border-blue-500 transition-all">
-              <div className="text-4xl mb-4">⏱️</div>
-              <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Setlänge</p>
-              <p className="text-2xl font-black text-white">45–90 Min</p>
-            </div>
-
-            <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center hover:border-blue-500 transition-all">
               <div className="text-4xl mb-4">🎸</div>
-              <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Format</p>
-              <p className="text-2xl font-black text-white">Solo Akustik</p>
+              <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Genre</p>
+              <p className="text-2xl font-black text-white">Slavischer<br/>Pop-Rock</p>
             </div>
 
             <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center hover:border-blue-500 transition-all">
               <div className="text-4xl mb-4">🌍</div>
               <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Sprachen</p>
-              <p className="text-2xl font-black text-white">DE & PL</p>
+              <p className="text-2xl font-black text-white">Deutsch<br/>& Polnisch</p>
             </div>
 
             <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center hover:border-blue-500 transition-all">
+              <div className="text-4xl mb-4">🎤</div>
+              <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Format</p>
+              <p className="text-2xl font-black text-white">Solo<br/>Akustik</p>
+            </div>
+
+            <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center hover:border-blue-500 transition-all">
+              <div className="text-4xl mb-4">⏱️</div>
+              <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Sets</p>
+              <p className="text-2xl font-black text-white">30–90<br/>Minutenxl p-8 text-center hover:border-blue-500 transition-all">
               <div className="text-4xl mb-4">✨</div>
               <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Vibe</p>
               <p className="text-2xl font-black text-white">Authentisch</p>
