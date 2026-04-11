@@ -405,7 +405,10 @@ export default function BookingPage() {
         </div>
       </section>
 
-      {/* SPECS / DETAILS */}🎯 Quick Facts für Veranstalter</h2>
+      {/* SPECS / DETAILS */}
+      <section className="py-16 md:py-24 bg-black border-t border-gray-800">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-5xl md:text-6xl font-black mb-12 text-center">🎯 Quick Facts für Veranstalter</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center hover:border-blue-500 transition-all">
@@ -429,10 +432,7 @@ export default function BookingPage() {
             <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center hover:border-blue-500 transition-all">
               <div className="text-4xl mb-4">⏱️</div>
               <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Sets</p>
-              <p className="text-2xl font-black text-white">30–90<br/>Minutenxl p-8 text-center hover:border-blue-500 transition-all">
-              <div className="text-4xl mb-4">✨</div>
-              <p className="text-gray-400 text-sm uppercase tracking-widest mb-2">Vibe</p>
-              <p className="text-2xl font-black text-white">Authentisch</p>
+              <p className="text-2xl font-black text-white">30–90<br/>Minuten</p>
             </div>
           </div>
         </div>
