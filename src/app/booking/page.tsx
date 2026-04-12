@@ -462,69 +462,100 @@ export default function BookingPage() {
             <p className="text-slate-500">Flexible Sets für jede Veranstaltung</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-16">
-            {/* 30 Minuten */}
-            <div className="border border-white/10 rounded-2xl p-8 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300 hover:border-white/20 group">
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {/* 30 Minuten – Opener */}
+            <div className="border border-white/10 rounded-2xl p-8 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300 hover:border-white/20 group flex flex-col">
               <div className="text-4xl font-black mb-2 text-slate-500 group-hover:text-slate-300 transition-colors">30 min</div>
-              <h3 className="text-lg font-bold mb-6 text-slate-300">Kurz & prägnant</h3>
-              <ul className="space-y-4 text-slate-400 text-sm">
+              <h3 className="text-lg font-bold mb-6 text-slate-300">Opener</h3>
+              <ul className="space-y-4 text-slate-400 text-sm flex-1">
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>5-6 Songs</span>
+                  <span>5–6 Songs</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>Perfekt für Apéros & Empfänge</span>
+                  <span>Perfekt für Apéros, Empfänge & Einlass</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
                   <span>Mix aus Original & Cover</span>
                 </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
+                  <span>Soundcheck inklusive</span>
+                </li>
               </ul>
+              <p className="text-slate-600 text-xs mt-6 pt-4 border-t border-white/5">Preis auf Anfrage</p>
             </div>
 
-            {/* 1 Stunde - Featured */}
-            <div className="border border-amber-500/30 rounded-2xl p-8 bg-amber-500/[0.04] relative group hover:border-amber-500/50 transition-all duration-300">
+            {/* 1 Stunde – Full Set */}
+            <div className="border border-amber-500/30 rounded-2xl p-8 bg-amber-500/[0.04] relative group hover:border-amber-500/50 transition-all duration-300 flex flex-col">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                 <span className="bg-amber-500 text-black text-[10px] uppercase tracking-widest font-bold px-4 py-1 rounded-full">Meistgewählt</span>
               </div>
               <div className="text-4xl font-black mb-2 text-amber-400">1 h</div>
-              <h3 className="text-lg font-bold mb-6">Standard</h3>
-              <ul className="space-y-4 text-slate-300 text-sm">
+              <h3 className="text-lg font-bold mb-6">Full Set</h3>
+              <ul className="space-y-4 text-slate-300 text-sm flex-1">
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
-                  <span>12-14 Songs</span>
+                  <span>12–14 Songs</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
-                  <span>Perfekt für Hochzeiten & Events</span>
+                  <span>Club-Abend, Kulturhaus, Open Air</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
-                  <span>Volle Setlist mit Flow</span>
+                  <span>Durchgängiger Flow mit Stimmungsbogen</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
+                  <span>Soundcheck + Auf-/Abbau inklusive</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
+                  <span>Wunschsong nach Absprache möglich</span>
                 </li>
               </ul>
+              <p className="text-amber-500/60 text-xs mt-6 pt-4 border-t border-amber-500/10">Individuelles Angebot</p>
             </div>
 
-            {/* 2 Stunden */}
-            <div className="border border-white/10 rounded-2xl p-8 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300 hover:border-white/20 group">
+            {/* 2 Stunden – Abendfüllend */}
+            <div className="border border-white/10 rounded-2xl p-8 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300 hover:border-white/20 group flex flex-col">
               <div className="text-4xl font-black mb-2 text-slate-500 group-hover:text-slate-300 transition-colors">2 h</div>
-              <h3 className="text-lg font-bold mb-6 text-slate-300">Vollständig</h3>
-              <ul className="space-y-4 text-slate-400 text-sm">
+              <h3 className="text-lg font-bold mb-6 text-slate-300">Abendfüllend</h3>
+              <ul className="space-y-4 text-slate-400 text-sm flex-1">
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>20 Songs</span>
+                  <span>20 Songs (2 Sets mit Pause)</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>Kneipen & Festivals</span>
+                  <span>Festivals, Kneipen, volle Events</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>Mit Pause + Variabilität</span>
+                  <span>Flexible Setlist je nach Stimmung</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
+                  <span>Soundcheck + Auf-/Abbau inklusive</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
+                  <span>Wunschsongs möglich</span>
                 </li>
               </ul>
+              <p className="text-slate-600 text-xs mt-6 pt-4 border-t border-white/5">Preis auf Anfrage</p>
             </div>
+          </div>
+
+          {/* Zusatzleistungen */}
+          <div className="flex flex-wrap gap-3 mb-16 justify-center">
+            <span className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-xs font-semibold">Weite Anfahrt? Kein Problem</span>
+            <span className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-xs font-semibold">Open Air mit eigener PA möglich</span>
+            <span className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-xs font-semibold">Sonderwünsche auf Anfrage</span>
+            <span className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-xs font-semibold">Zugabe möglich</span>
           </div>
 
           {/* TECHNIK & SETUP – Plug & Play */}
@@ -568,118 +599,147 @@ export default function BookingPage() {
 
           {/* Repertoire Overview */}
           <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-10 backdrop-blur-sm">
-            <h3 className="text-2xl font-black mb-8 flex items-center gap-3">
-              <span className="w-8 h-px bg-amber-500"></span>
-              Repertoire
-            </h3>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
+              <h3 className="text-2xl font-black flex items-center gap-3">
+                <span className="w-8 h-px bg-amber-500"></span>
+                Repertoire
+              </h3>
+              <p className="text-amber-400/70 text-sm mt-2 md:mt-0">Aktuell 23 Songs – Repertoire wird stetig erweitert</p>
+            </div>
+
             <div className="grid md:grid-cols-2 gap-12">
+              {/* Originals */}
               <div>
-                <h4 className="font-bold text-lg mb-4 text-white">Original-Kompositionen</h4>
-                <p className="text-slate-500 mb-5">Deutsch & Polnische Songs mit emotionalen Balladen und eingängigen Pop-Rock-Nummern:</p>
-                <ul className="space-y-3 text-slate-300 text-sm">
+                <h4 className="font-bold text-lg mb-6 text-white">Original-Kompositionen <span className="text-slate-500 text-sm font-normal">(15 Songs)</span></h4>
+                
+                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">Balladen & Emotionale Songs</p>
+                <ul className="space-y-2.5 text-slate-300 text-sm mb-6">
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Aladine
+                    Maria <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Niebianski Groove
+                    Słabość <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Słabość
+                    Mit dir sein <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Jupiter
+                    Frei sein <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Katze
+                    Holy Children <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">EN</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Huhu
+                    Schiffchen <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
+                  </li>
+                </ul>
+
+                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">Uptempo & Pop-Rock</p>
+                <ul className="space-y-2.5 text-slate-300 text-sm">
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Katze <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Schiffchen
+                    Niebianski Groove <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Zacznij
+                    Aladine <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Mambo
+                    Jupiter <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Frei sein
+                    Mambo <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Maria
+                    Huhu <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Rapu Tapu Tak Ma
+                    Zacznij <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Mit dir sein
+                    Rapu Tapu Tak Ma <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Holy Children
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Monster
+                    Monster <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                 </ul>
               </div>
+
+              {/* Covers */}
               <div>
-                <h4 className="font-bold text-lg mb-4 text-white">Sorgfältig Ausgewählte Covers</h4>
-                <p className="text-slate-500 mb-5">Klassiker & Hits in Deutsch, Polnisch und Englisch:</p>
-                <ul className="space-y-3 text-slate-300 text-sm">
+                <h4 className="font-bold text-lg mb-6 text-white">Sorgfältig Ausgewählte Covers <span className="text-slate-500 text-sm font-normal">(8 Songs)</span></h4>
+                
+                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">Deutsch</p>
+                <ul className="space-y-2.5 text-slate-300 text-sm mb-6">
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
                     Pocahontas <span className="text-slate-500">(AnnenMayKantereit)</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    This is the Life <span className="text-slate-500">(Amy Macdonald)</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Ring of Fire <span className="text-slate-500">(Johnny Cash)</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Country Roads <span className="text-slate-500">(John Denver)</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Weź nie pytaj <span className="text-slate-500">(Paweł Domagała)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
                     Verdammt ich lieb dich <span className="text-slate-500">(Matthias Reim)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
                     Kompliment <span className="text-slate-500">(Sportfreunde Stiller)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
                     Nie allein <span className="text-slate-500">(Kaffkiez)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
+                  </li>
+                </ul>
+
+                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">Englisch</p>
+                <ul className="space-y-2.5 text-slate-300 text-sm mb-6">
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    This is the Life <span className="text-slate-500">(Amy Macdonald)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">EN</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Ring of Fire <span className="text-slate-500">(Johnny Cash)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">EN</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Country Roads <span className="text-slate-500">(John Denver)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">EN</span>
+                  </li>
+                </ul>
+
+                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">Polnisch</p>
+                <ul className="space-y-2.5 text-slate-300 text-sm">
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Weź nie pytaj <span className="text-slate-500">(Paweł Domagała)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
                   </li>
                 </ul>
               </div>
             </div>
             <p className="text-slate-500 text-sm mt-8 pt-8 border-t border-white/10">
-              Ich wechsle flexibel zwischen Original-Songs und Covers – je nach Publikum, Stimmung und Veranstaltungstyp.
+              Ich wechsle flexibel zwischen Original-Songs und Covers – je nach Publikum, Stimmung und Veranstaltungstyp. Repertoire wird laufend erweitert.
             </p>
           </div>
         </div>
