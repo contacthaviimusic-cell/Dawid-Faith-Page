@@ -247,28 +247,6 @@ export default function BookingPage() {
         </div>
       </section>
 
-      {/* Stats bar – sits right below hero, outside of the min-h-screen container */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 -mt-1">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 py-8">
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
-            <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Genre</p>
-            <p className="text-base font-black leading-tight">Slavischer Pop-Rock</p>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
-            <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Sprachen</p>
-            <p className="text-base font-black leading-tight">DE / PL / EN</p>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
-            <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Format</p>
-            <p className="text-base font-black leading-tight">Solo Akustik</p>
-          </div>
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
-            <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Repertoire</p>
-            <p className="text-base font-black leading-tight">23 Songs</p>
-          </div>
-        </div>
-      </div>
-
       {/* ABOUT SECTION */}
       <section id="about" className="scroll-mt-16 py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
