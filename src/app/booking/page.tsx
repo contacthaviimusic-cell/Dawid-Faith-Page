@@ -587,7 +587,12 @@ export default function BookingPage() {
 
           <div className="grid md:grid-cols-2 gap-6 mb-10">
             {fotos.map((foto, idx) => (
-              <div key={idx} className="group relative rounded-2xl overflow-hidden h-96 cursor-pointer">
+              <a 
+                key={idx} 
+                href={foto.src} 
+                download
+                className="group relative rounded-2xl overflow-hidden h-96 cursor-pointer block"
+              >
                 <Image
                   src={foto.src}
                   alt={foto.alt}
@@ -595,31 +600,15 @@ export default function BookingPage() {
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 flex items-center justify-between">
                   <p className="text-white font-semibold text-sm">{foto.alt}</p>
+                  <span className="text-amber-400 text-xl">↓</span>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-4">
-            <a 
-              href="https://drive.google.com/drive/folders/DEIN_FOLDER_ID"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/25"
-            >
-              Presse-Paket (EPK) herunterladen
-              <span>↓</span>
-            </a>
-            <a 
-              href="mailto:dawid.faith@gmail.com?subject=Pressefotos in hoher Auflösung anfordern"
-              className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 py-3.5 rounded-full border border-white/10 hover:border-white/20 transition-all"
-            >
-              Oder per E-Mail anfordern
-              <span className="text-amber-400">→</span>
-            </a>
-          </div>
+          <p className="text-slate-500 text-sm">Klicken Sie auf ein Foto zum Herunterladen.</p>
         </div>
       </section>
 
