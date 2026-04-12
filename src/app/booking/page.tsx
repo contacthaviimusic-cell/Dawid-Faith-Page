@@ -153,7 +153,7 @@ export default function BookingPage() {
               </h1>
 
               <p className="text-lg text-slate-300 mb-10 leading-relaxed max-w-lg">
-                Professional Singer-Songwriter für Ihre Hochzeiten, Veranstaltungen und Events. Live Musik direkt vom Herzen – authentisch, leidenschaftlich, unvergesslich.
+                Authentischer Live-Sound für Clubs, Festivals, Kulturveranstaltungen und private Events. Solo Akustik-Gitarre direkt vom Herzen – leidenschaftlich, ehrlich, unvergesslich.
               </p>
 
               <div className="space-y-3 mb-10">
@@ -602,13 +602,24 @@ export default function BookingPage() {
             ))}
           </div>
 
-          <a 
-            href="mailto:dawid.faith@gmail.com?subject=Pressefotos in hoher Auflösung anfordern"
-            className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 py-3.5 rounded-full border border-white/10 hover:border-white/20 transition-all"
-          >
-            Fotos per E-Mail anfordern
-            <span className="text-amber-400">→</span>
-          </a>
+          <div className="flex flex-wrap gap-4">
+            <a 
+              href="https://drive.google.com/drive/folders/DEIN_FOLDER_ID"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/25"
+            >
+              Presse-Paket (EPK) herunterladen
+              <span>↓</span>
+            </a>
+            <a 
+              href="mailto:dawid.faith@gmail.com?subject=Pressefotos in hoher Auflösung anfordern"
+              className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white font-semibold px-8 py-3.5 rounded-full border border-white/10 hover:border-white/20 transition-all"
+            >
+              Oder per E-Mail anfordern
+              <span className="text-amber-400">→</span>
+            </a>
+          </div>
         </div>
       </section>
 
