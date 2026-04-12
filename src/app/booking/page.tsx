@@ -671,13 +671,13 @@ export default function BookingPage() {
                   onChange={(e) => setBookingFormData({...bookingFormData, eventType: e.target.value})}
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
                 >
-                  <option value="">Bitte wählen...</option>
-                  <option>Hochzeit</option>
-                  <option>Kneipe / Bar</option>
-                  <option>Privatanlass</option>
-                  <option>Corporate Event</option>
-                  <option>Festival</option>
-                  <option>Sonstiges</option>
+                  <option value="" className="bg-neutral-900 text-white">Bitte wählen...</option>
+                  <option className="bg-neutral-900 text-white">Hochzeit</option>
+                  <option className="bg-neutral-900 text-white">Kneipe / Bar</option>
+                  <option className="bg-neutral-900 text-white">Privatanlass</option>
+                  <option className="bg-neutral-900 text-white">Corporate Event</option>
+                  <option className="bg-neutral-900 text-white">Festival</option>
+                  <option className="bg-neutral-900 text-white">Sonstiges</option>
                 </select>
               </div>
               <div>
