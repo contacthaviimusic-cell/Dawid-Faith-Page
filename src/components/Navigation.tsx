@@ -139,7 +139,8 @@ export default function Navigation() {
                 onClick={() => {
                   const element = document.querySelector(item.href);
                   if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const top = element.getBoundingClientRect().top + window.scrollY - 64;
+                    window.scrollTo({ top, behavior: 'smooth' });
                   }
                 }}
                 whileHover={{ y: -2 }}
@@ -175,7 +176,8 @@ export default function Navigation() {
                   setIsOpen(false);
                   const element = document.querySelector(item.href);
                   if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const top = element.getBoundingClientRect().top + window.scrollY - 64;
+                    window.scrollTo({ top, behavior: 'smooth' });
                   }
                 }}
                 initial={{ opacity: 0, x: -20 }}

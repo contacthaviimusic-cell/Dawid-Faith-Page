@@ -93,7 +93,7 @@ export default function Newsletter() {
   }, []);
 
   return (
-    <section id="newsletter" className="py-20 px-4 relative bg-gradient-to-b from-slate-900/20 to-purple-900/10">
+    <section id="newsletter" className="scroll-mt-16 py-20 px-4 relative bg-gradient-to-b from-slate-900/20 to-purple-900/10">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

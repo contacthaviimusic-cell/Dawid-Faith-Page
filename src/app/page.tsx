@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Music, Play, Pause, Sparkles, Users, Trophy, ArrowRight, Download, Instagram, Youtube, ShoppingBag, Calendar, Heart, ExternalLink, ChevronDown } from 'lucide-react';
+import { Play, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useMobileDetection } from '../hooks/useMobileDetection';
@@ -103,111 +103,107 @@ export default function Home() {
           </div>
         )}
       </div>
-        {/* Studio Lighting Effects */}
-        <div className="absolute inset-0">
-          {/* Neon Strips */}
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 animate-pulse" />
-          <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-pulse" />
-          
-          {/* Studio Spotlights */}
-          <motion.div
-            className="absolute top-20 left-20 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl"
-            animate={{ 
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.6, 0.3]
-            }}
-            transition={{ duration: 4, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute top-40 right-32 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl"
-            animate={{ 
-              scale: [1.2, 1, 1.2],
-              opacity: [0.4, 0.2, 0.4]
-            }}
-            transition={{ duration: 3, repeat: Infinity, delay: 1 }}
-          />
+        {/* Ambient Background Glows */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 left-20 w-64 h-64 bg-purple-500/8 rounded-full blur-[100px]" />
+          <div className="absolute top-40 right-32 w-48 h-48 bg-pink-500/6 rounded-full blur-[80px]" />
         </div>
 
         {/* Hero Landing Section */}
-        <section id="home" className="min-h-screen flex items-center justify-center px-4 relative">
-          {/* Background Image - Ökosystem */}
-          <div 
-            className="absolute inset-0 z-0"
-            style={{
-              backgroundImage: 'url(/dawid-faith-bg.jpg)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
-            }}
-          >
-            <div className="absolute inset-0 bg-black/60" />
+        <section id="home" className="relative min-h-screen flex flex-col justify-end overflow-hidden">
+          {/* Full-screen Background Image with cinematic overlays */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/dawid-faith-bg.jpg"
+              alt="Dawid Faith"
+              fill
+              className="object-cover object-center"
+              priority
+              quality={90}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20" />
           </div>
 
-          <div className="container mx-auto relative z-10">
-            <div className="flex flex-col items-center gap-8 relative">
-              
-              {/* Main Title - Now at Top */}
-              <div className="text-center relative">
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 0.3 }}
+          {/* Neon accent line at top */}
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 z-10" />
+
+          {/* Hero Content – bottom-aligned for cinematic feel */}
+          <div className="relative z-10 container mx-auto px-4 pb-28 md:pb-32">
+            <div className="max-w-3xl">
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.3 }}
+              >
+                <h1 
+                  className="text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 tracking-wider [font-family:var(--font-pirata),cursive]"
                 >
-                  <h1 
-                    className="text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 tracking-wider [font-family:var(--font-pirata),cursive]"
+                  DAWID FAITH
+                </h1>
+                <div className="flex items-center gap-4 text-xl lg:text-2xl mb-8">
+                  <span className="w-8 h-px bg-gradient-to-r from-purple-400 to-pink-400" />
+                  <span className="text-gray-200 font-semibold">{PageTranslations[lang].heroSubtitle}</span>
+                </div>
+                
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <motion.button
+                    whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(147, 51, 234, 0.5)" }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2"
+                    onClick={() => {
+                      const el = document.querySelector('#news');
+                      if (el) {
+                        const top = el.getBoundingClientRect().top + window.scrollY - 64;
+                        window.scrollTo({ top, behavior: 'smooth' });
+                      }
+                      setTimeout(() => {
+                        const event = new CustomEvent('openReleaseNews');
+                        window.dispatchEvent(event);
+                      }, 800);
+                    }}
                   >
-                    DAWID FAITH
-                  </h1>
-                  <div className="flex items-center justify-center gap-4 text-xl lg:text-2xl mb-8">
-                    <Music className="text-purple-400 animate-pulse" />
-                    <span className="text-gray-200 font-semibold">{PageTranslations[lang].heroSubtitle}</span>
-                    <Sparkles className="text-pink-400 animate-pulse" />
-                  </div>
-                  
-                  {/* CTA Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <motion.button
-                      whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(147, 51, 234, 0.6)" }}
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-2 sm:px-8 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 flex items-center justify-center gap-2"
-                      onClick={() => {
-                        // Scroll to news section first
-                        const el = document.querySelector('#news');
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        // Then trigger news modal open after scroll
-                        setTimeout(() => {
-                          const event = new CustomEvent('openReleaseNews');
-                          window.dispatchEvent(event);
-                        }, 800);
-                      }}
-                    >
-                      <Play size={20} />
-                      {PageTranslations[lang].ctaInvite}
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="border border-purple-500 hover:bg-purple-500/10 px-5 py-2 sm:px-8 sm:py-4 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 flex items-center justify-center gap-2"
-                      onClick={() => {
-                        const el = document.querySelector('#dfaith');
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                      }}
-                    >
-                      <div className="relative w-5 h-5">
-                        <Image
-                          src="/dfaith-token.png"
-                          alt="D.FAITH Token"
-                          fill
-                          className="object-contain"
-                        />
-                      </div>
-                      {PageTranslations[lang].ctaExperience}
-                    </motion.button>
-                  </div>
-                </motion.div>
-              </div>
+                    <Play size={20} />
+                    {PageTranslations[lang].ctaInvite}
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="border border-purple-500/50 hover:bg-purple-500/10 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
+                    onClick={() => {
+                      const el = document.querySelector('#dfaith');
+                      if (el) {
+                        const top = el.getBoundingClientRect().top + window.scrollY - 64;
+                        window.scrollTo({ top, behavior: 'smooth' });
+                      }
+                    }}
+                  >
+                    <div className="relative w-5 h-5">
+                      <Image
+                        src="/dfaith-token.png"
+                        alt="D.FAITH Token"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    {PageTranslations[lang].ctaExperience}
+                  </motion.button>
+                </div>
+              </motion.div>
             </div>
           </div>
+
+          {/* Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 1 }}
+            className="relative z-10 flex flex-col items-center gap-2 pb-6 animate-bounce"
+          >
+            <span className="text-gray-500 text-[10px] uppercase tracking-widest">Scroll</span>
+            <div className="w-px h-8 bg-gradient-to-b from-purple-400/50 to-transparent" />
+          </motion.div>
         </section>
 
   {/* News Section */}

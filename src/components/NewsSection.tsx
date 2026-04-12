@@ -189,7 +189,7 @@ const NewsSection = () => {
   }), []);
 
   return (
-    <section id="news" className="relative py-20 px-4 bg-gradient-to-b from-slate-900/30 to-purple-900/10">
+    <section id="news" className="scroll-mt-16 relative py-20 px-4 bg-gradient-to-b from-slate-900/30 to-purple-900/10">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-r from-purple-900/5 to-pink-900/5"></div>
 

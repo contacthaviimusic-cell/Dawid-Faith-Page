@@ -5,7 +5,7 @@ const PageTranslations = {
     ctaInvite: 'Waterfall Release – Hier erfahren',
     ctaExperience: 'D.FAITH erleben',
     footerTagline: 'Wo Musik auf Blockchain trifft',
-    copyright: '© 2025 Dawid Faith. Alle Rechte vorbehalten.',
+    copyright: '© 2026 Dawid Faith. Alle Rechte vorbehalten.',
     poweredBy: 'Powered by D.FAITH Ecosystem'
   },
   en: {
@@ -14,7 +14,7 @@ const PageTranslations = {
     ctaInvite: 'Waterfall Release – Learn More',
     ctaExperience: 'Experience D.FAITH',
     footerTagline: 'Where music meets blockchain',
-    copyright: '© 2025 Dawid Faith. All rights reserved.',
+    copyright: '© 2026 Dawid Faith. All rights reserved.',
     poweredBy: 'Powered by D.FAITH Ecosystem'
   },
   pl: {
@@ -23,7 +23,7 @@ const PageTranslations = {
     ctaInvite: 'Waterfall Release – Dowiedz się więcej',
     ctaExperience: 'Doświadcz D.FAITH',
     footerTagline: 'Gdzie muzyka spotyka blockchain',
-    copyright: '© 2025 Dawid Faith. Wszelkie prawa zastrzeżone.',
+    copyright: '© 2026 Dawid Faith. Wszelkie prawa zastrzeżone.',
     poweredBy: 'Powered by D.FAITH Ecosystem'
   }
 };

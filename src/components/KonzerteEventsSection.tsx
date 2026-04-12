@@ -118,7 +118,7 @@ export default function KonzerteEventsSection() {
   }, []);
 
   return (
-    <section id="konzerte" className="py-20 px-4 relative bg-gradient-to-b from-slate-900/20 to-purple-900/10">
+    <section id="konzerte" className="scroll-mt-16 py-20 px-4 relative bg-gradient-to-b from-slate-900/20 to-purple-900/10">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div

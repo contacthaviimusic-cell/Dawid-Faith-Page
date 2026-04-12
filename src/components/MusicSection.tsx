@@ -70,7 +70,7 @@ const MusicSection = () => {
   }, []);
 
   return (
-    <section id="music" className="relative py-20 px-4 bg-gradient-to-b from-purple-900/10 to-slate-900/30 overflow-hidden">
+    <section id="music" className="scroll-mt-16 relative py-20 px-4 bg-gradient-to-b from-purple-900/10 to-slate-900/30 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-r from-pink-900/5 to-purple-900/5" />
       

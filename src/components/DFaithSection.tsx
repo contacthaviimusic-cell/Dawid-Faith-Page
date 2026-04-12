@@ -38,7 +38,7 @@ const DFaithSection = () => {
   }, []);
 
   return (
-    <section id="dfaith" className="relative py-20 px-4 bg-gradient-to-b from-slate-900/30 to-purple-900/10 overflow-hidden">
+    <section id="dfaith" className="scroll-mt-16 relative py-20 px-4 bg-gradient-to-b from-slate-900/30 to-purple-900/10 overflow-hidden">
       {/* Background similar to News */}
       <div className="absolute inset-0 bg-gradient-to-r from-purple-900/5 to-pink-900/5" />
 
