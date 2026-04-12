@@ -79,7 +79,12 @@ export default function BookingPage() {
   ];
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById(id);
+    if (el) {
+      const navHeight = 56; // h-14 = 3.5rem = 56px
+      const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
     setMenuOpen(false);
   };
 
@@ -163,113 +168,109 @@ export default function BookingPage() {
       </nav>
       
       {/* HERO SECTION */}
-      <section id="hero" className="relative flex flex-col justify-center overflow-hidden">
-        {/* Dark background base */}
-        <div className="absolute inset-0 bg-black"></div>
+      <section id="hero" className="relative min-h-screen flex flex-col justify-end overflow-hidden">
+        {/* Full-screen Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/background-hero.jpg"
+            alt="Dawid Faith Hero"
+            fill
+            className="object-cover object-center"
+            priority
+            quality={90}
+          />
+          {/* Cinematic gradient overlays */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/30"></div>
+        </div>
 
-        {/* Subtle ambient glow */}
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-amber-500/10 rounded-full blur-[128px]"></div>
-        <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-[96px]"></div>
+        {/* Ambient glow accents */}
+        <div className="absolute top-1/3 -left-32 w-96 h-96 bg-amber-500/8 rounded-full blur-[128px]"></div>
+        <div className="absolute bottom-1/3 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-[96px]"></div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 w-full pt-24 pb-10">
-          <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
-            {/* Content */}
-            <div>
-              <div className="mb-6">
-                <span className="text-amber-400/80 text-sm uppercase tracking-[0.3em] font-semibold">Artist Profile</span>
-              </div>
-              
-              <h1 className="text-6xl md:text-8xl font-black mb-6 leading-[0.9] tracking-tight">
-                Dawid<br/>
-                <span className="bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">Faith</span>
-              </h1>
+        {/* Hero Content – pushed to bottom half of viewport */}
+        <div className="relative z-10 max-w-6xl mx-auto px-6 w-full pb-28 md:pb-32">
+          <div className="max-w-2xl">
+            <div className="mb-4">
+              <span className="inline-block text-amber-400/90 text-xs uppercase tracking-[0.35em] font-semibold px-4 py-1.5 border border-amber-500/20 rounded-full bg-amber-500/5 backdrop-blur-sm">
+                Booking &amp; EPK
+              </span>
+            </div>
+            
+            <h1 className="text-7xl md:text-9xl font-black mb-5 leading-[0.85] tracking-tight">
+              Dawid<br/>
+              <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 bg-clip-text text-transparent">Faith</span>
+            </h1>
 
-              <p className="text-base text-slate-300 mb-6 leading-relaxed max-w-lg">
-                Authentischer Live-Sound für Clubs, Festivals, Kulturveranstaltungen und private Events. Solo Akustik-Gitarre direkt vom Herzen – leidenschaftlich, ehrlich, unvergesslich.
-              </p>
+            <p className="text-lg md:text-xl text-slate-200/90 mb-8 leading-relaxed max-w-lg font-light">
+              Slavischer Pop-Rock mit Akustik-Gitarre.<br className="hidden md:block" />
+              Leidenschaftlich, ehrlich, unvergesslich.
+            </p>
 
-              <div className="space-y-2 mb-8">
-                <p className="flex items-center gap-3 text-slate-300">
-                  <span className="w-1 h-1 bg-amber-400 rounded-full"></span>
-                  Deutsch, Polnische & Englische Songs
-                </p>
-                <p className="flex items-center gap-3 text-slate-300">
-                  <span className="w-1 h-1 bg-amber-400 rounded-full"></span>
-                  Sorgfältig ausgewählte Cover
-                </p>
-                <p className="flex items-center gap-3 text-slate-300">
-                  <span className="w-1 h-1 bg-amber-400 rounded-full"></span>
-                  Solo Akustik-Gitarre
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-4">
-                <button 
-                  onClick={() => scrollTo('music')}
-                  className="bg-amber-500 hover:bg-amber-400 text-black font-bold px-8 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/25"
-                >
-                  Musik anhören
-                </button>
-                <button 
-                  onClick={() => scrollTo('booking')}
-                  className="border border-white/20 hover:border-amber-400/50 text-white font-semibold px-8 py-3.5 rounded-full transition-all hover:bg-white/5"
-                >
-                  Jetzt buchen
-                </button>
-              </div>
+            <div className="flex flex-wrap gap-4 mb-10">
+              <button 
+                onClick={() => scrollTo('booking')}
+                className="bg-amber-500 hover:bg-amber-400 text-black font-bold px-9 py-4 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/30 text-sm uppercase tracking-wider"
+              >
+                Jetzt buchen
+              </button>
+              <button 
+                onClick={() => scrollTo('music')}
+                className="border border-white/25 hover:border-amber-400/50 text-white font-semibold px-9 py-4 rounded-full transition-all hover:bg-white/5 backdrop-blur-sm text-sm uppercase tracking-wider"
+              >
+                Musik anhören
+              </button>
             </div>
 
-            {/* Artist Portrait - prominently visible */}
-            <div className="flex justify-center md:justify-end">
-              <div className="relative w-[240px] h-[300px] md:w-[280px] md:h-[360px] lg:w-[320px] lg:h-[420px]">
-                {/* Glow behind portrait */}
-                <div className="absolute -inset-4 bg-gradient-to-br from-amber-500/20 via-amber-400/10 to-transparent rounded-3xl blur-2xl"></div>
-                <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/60">
-                  <Image
-                    src={fotos[0].src}
-                    alt="Dawid Faith"
-                    fill
-                    className="object-cover object-top"
-                    priority
-                    sizes="(max-width: 768px) 240px, (max-width: 1024px) 280px, 320px"
-                  />
-                  {/* Subtle gradient at bottom only */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Stats bar below hero content */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10">
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Genre</p>
-              <p className="text-base font-black leading-tight">Slavischer Pop-Rock</p>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Sprachen</p>
-              <p className="text-base font-black leading-tight">DE / PL / EN</p>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Format</p>
-              <p className="text-base font-black leading-tight">Solo Akustik</p>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Repertoire</p>
-              <p className="text-base font-black leading-tight">23 Songs</p>
+            {/* Quick facts inline */}
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-400">
+              <span className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+                Deutsch · Polnisch · Englisch
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+                Solo Akustik-Gitarre
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+                23 Songs Repertoire
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+        {/* Scroll Indicator – sits at the very bottom of the hero viewport */}
+        <div className="relative z-10 flex flex-col items-center gap-2 pb-6 animate-bounce">
           <span className="text-slate-500 text-[10px] uppercase tracking-widest">Scroll</span>
           <div className="w-px h-8 bg-gradient-to-b from-slate-500 to-transparent"></div>
         </div>
       </section>
 
+      {/* Stats bar – sits right below hero, outside of the min-h-screen container */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 -mt-1">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 py-8">
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
+            <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Genre</p>
+            <p className="text-base font-black leading-tight">Slavischer Pop-Rock</p>
+          </div>
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
+            <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Sprachen</p>
+            <p className="text-base font-black leading-tight">DE / PL / EN</p>
+          </div>
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
+            <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Format</p>
+            <p className="text-base font-black leading-tight">Solo Akustik</p>
+          </div>
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
+            <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Repertoire</p>
+            <p className="text-base font-black leading-tight">23 Songs</p>
+          </div>
+        </div>
+      </div>
+
       {/* ABOUT SECTION */}
-      <section id="about" className="py-24 md:py-32 bg-black relative overflow-hidden">
+      <section id="about" className="scroll-mt-16 py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -325,7 +326,7 @@ export default function BookingPage() {
       </section>
 
       {/* AUDIO PLAYER SECTION */}
-      <section id="music" className="py-24 md:py-32 bg-black relative overflow-hidden">
+      <section id="music" className="scroll-mt-16 py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="absolute top-1/3 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-[100px]"></div>
         
@@ -427,7 +428,7 @@ export default function BookingPage() {
       </section>
 
       {/* VIDEO SECTION */}
-      <section id="videos" className="py-24 md:py-32 bg-black relative">
+      <section id="videos" className="scroll-mt-16 py-24 md:py-32 bg-black relative">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-16">
@@ -455,7 +456,7 @@ export default function BookingPage() {
       </section>
 
       {/* REFERENZEN / SOCIAL PROOF */}
-      <section id="referenzen" className="py-24 md:py-32 bg-black relative overflow-hidden">
+      <section id="referenzen" className="scroll-mt-16 py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="absolute top-1/2 right-0 w-72 h-72 bg-amber-500/5 rounded-full blur-[100px]"></div>
         
@@ -502,7 +503,7 @@ export default function BookingPage() {
       </section>
 
       {/* SERVICES / PACKAGES */}
-      <section id="services" className="py-24 md:py-32 bg-black relative overflow-hidden">
+      <section id="services" className="scroll-mt-16 py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="absolute bottom-0 left-1/2 w-[600px] h-[600px] -translate-x-1/2 bg-amber-500/5 rounded-full blur-[120px]"></div>
         
@@ -797,7 +798,7 @@ export default function BookingPage() {
       </section>
 
       {/* PORTFOLIO / GALLERY */}
-      <section id="gallery" className="py-24 md:py-32 bg-black relative">
+      <section id="gallery" className="scroll-mt-16 py-24 md:py-32 bg-black relative">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-16">
@@ -834,7 +835,7 @@ export default function BookingPage() {
       </section>
 
       {/* BOOKING FORM */}
-      <section id="booking" className="py-24 md:py-32 bg-black relative overflow-hidden">
+      <section id="booking" className="scroll-mt-16 py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-500/[0.03] rounded-full blur-[120px]"></div>
         
