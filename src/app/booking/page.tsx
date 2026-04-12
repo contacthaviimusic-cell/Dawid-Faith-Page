@@ -163,7 +163,7 @@ export default function BookingPage() {
       </nav>
       
       {/* HERO SECTION */}
-      <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+      <section id="hero" className="relative flex flex-col justify-center overflow-hidden">
         {/* Dark background base */}
         <div className="absolute inset-0 bg-black"></div>
 
@@ -171,7 +171,7 @@ export default function BookingPage() {
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-amber-500/10 rounded-full blur-[128px]"></div>
         <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-[96px]"></div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 w-full pt-28 pb-12">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 w-full pt-24 pb-10">
           <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Content */}
             <div>
@@ -184,11 +184,11 @@ export default function BookingPage() {
                 <span className="bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">Faith</span>
               </h1>
 
-              <p className="text-lg text-slate-300 mb-10 leading-relaxed max-w-lg">
+              <p className="text-base text-slate-300 mb-6 leading-relaxed max-w-lg">
                 Authentischer Live-Sound für Clubs, Festivals, Kulturveranstaltungen und private Events. Solo Akustik-Gitarre direkt vom Herzen – leidenschaftlich, ehrlich, unvergesslich.
               </p>
 
-              <div className="space-y-3 mb-10">
+              <div className="space-y-2 mb-8">
                 <p className="flex items-center gap-3 text-slate-300">
                   <span className="w-1 h-1 bg-amber-400 rounded-full"></span>
                   Deutsch, Polnische & Englische Songs
@@ -221,7 +221,7 @@ export default function BookingPage() {
 
             {/* Artist Portrait - prominently visible */}
             <div className="flex justify-center md:justify-end">
-              <div className="relative w-[320px] h-[420px] md:w-[380px] md:h-[500px] lg:w-[440px] lg:h-[580px]">
+              <div className="relative w-[240px] h-[300px] md:w-[280px] md:h-[360px] lg:w-[320px] lg:h-[420px]">
                 {/* Glow behind portrait */}
                 <div className="absolute -inset-4 bg-gradient-to-br from-amber-500/20 via-amber-400/10 to-transparent rounded-3xl blur-2xl"></div>
                 <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/60">
@@ -231,7 +231,7 @@ export default function BookingPage() {
                     fill
                     className="object-cover object-top"
                     priority
-                    sizes="(max-width: 768px) 320px, (max-width: 1024px) 380px, 440px"
+                    sizes="(max-width: 768px) 240px, (max-width: 1024px) 280px, 320px"
                   />
                   {/* Subtle gradient at bottom only */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
@@ -241,22 +241,22 @@ export default function BookingPage() {
           </div>
 
           {/* Stats bar below hero content */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-5 rounded-2xl hover:bg-white/10 transition-colors">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Genre</p>
-              <p className="text-lg font-black leading-tight">Slavischer Pop-Rock</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
+              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Genre</p>
+              <p className="text-base font-black leading-tight">Slavischer Pop-Rock</p>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-5 rounded-2xl hover:bg-white/10 transition-colors">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Sprachen</p>
-              <p className="text-lg font-black leading-tight">DE / PL / EN</p>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
+              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Sprachen</p>
+              <p className="text-base font-black leading-tight">DE / PL / EN</p>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-5 rounded-2xl hover:bg-white/10 transition-colors">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Format</p>
-              <p className="text-lg font-black leading-tight">Solo Akustik</p>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
+              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Format</p>
+              <p className="text-base font-black leading-tight">Solo Akustik</p>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-5 rounded-2xl hover:bg-white/10 transition-colors">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Repertoire</p>
-              <p className="text-lg font-black leading-tight">23 Songs</p>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 rounded-xl hover:bg-white/10 transition-colors">
+              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-1">Repertoire</p>
+              <p className="text-base font-black leading-tight">23 Songs</p>
             </div>
           </div>
         </div>
