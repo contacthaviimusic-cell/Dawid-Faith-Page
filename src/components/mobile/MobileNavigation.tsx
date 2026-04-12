@@ -53,7 +53,7 @@ export default function MobileNavigation() {
     { icon: Home, label: translations[lang].home, href: '#home' },
     { icon: Newspaper, label: translations[lang].news, href: '#news' },
     { icon: Coins, label: translations[lang].dfaith, href: '#dfaith' },
-    { icon: Music, label: translations[lang].musik, href: '#musik' },
+    { icon: Music, label: translations[lang].musik, href: '#music' },
     { icon: Calendar, label: translations[lang].konzerte, href: '#konzerte' },
   ];
 

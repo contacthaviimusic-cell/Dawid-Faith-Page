@@ -58,7 +58,7 @@ export default function Navigation() {
     { key: 'home', name: translations[lang].home, href: '#home', icon: User, type: 'scroll' },
     { key: 'news', name: translations[lang].news, href: '#news', icon: Newspaper, type: 'scroll' },
     { key: 'dfaith', name: translations[lang].dfaith, href: '#dfaith', icon: Sparkles, type: 'scroll' },
-    { key: 'musik', name: translations[lang].musik, href: '#musik', icon: Music, type: 'scroll' },
+    { key: 'musik', name: translations[lang].musik, href: '#music', icon: Music, type: 'scroll' },
     { key: 'konzerte', name: translations[lang].konzerte, href: '#konzerte', icon: Calendar, type: 'scroll' },
   ];
 
