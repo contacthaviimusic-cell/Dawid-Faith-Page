@@ -204,7 +204,7 @@ export default function BookingPage() {
               </div>
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors">
                 <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Repertoire</p>
-                <p className="text-xl font-black leading-tight">20 Songs</p>
+                <p className="text-xl font-black leading-tight">23 Songs</p>
               </div>
             </div>
           </div>
@@ -527,7 +527,7 @@ export default function BookingPage() {
               <ul className="space-y-4 text-slate-400 text-sm flex-1">
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>20 Songs (2 Sets mit Pause)</span>
+                  <span>23 Songs (2 Sets mit Pause)</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
