@@ -75,7 +75,9 @@ export default function BookingPage() {
 
   const fotos = [
     { src: '/booking/pressefotos/Dawid Faith.jpg', alt: 'Dawid Faith - Portrait' },
-    { src: '/booking/pressefotos/Dawid und Gruppe.jpg', alt: 'Dawid Faith mit Gruppe' }
+    { src: '/booking/pressefotos/Dawid und Gruppe.jpg', alt: 'Dawid Faith mit Gruppe' },
+    { src: '/booking/pressefotos/Dawid Faith Tatoo.jpg', alt: 'Dawid Faith - Tattoo' },
+    { src: '/booking/pressefotos/Dawid Faith black.jpg', alt: 'Dawid Faith - Black' },
   ];
 
   const scrollTo = (id: string) => {
