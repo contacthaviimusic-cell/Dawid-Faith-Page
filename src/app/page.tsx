@@ -128,26 +128,27 @@ export default function Home() {
           {/* Neon accent line at top */}
           <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 z-10" />
 
-          {/* Hero Content – bottom-aligned for cinematic feel */}
+          {/* Hero Content – centered */}
           <div className="relative z-10 container mx-auto px-4 pb-28 md:pb-32">
-            <div className="max-w-3xl">
+            <div className="max-w-3xl mx-auto text-center">
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.3 }}
               >
                 <h1 
-                  className="text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 tracking-wider [font-family:var(--font-pirata),cursive]"
+                  className="text-5xl sm:text-6xl lg:text-8xl xl:text-9xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 tracking-wider [font-family:var(--font-pirata),cursive]"
                 >
                   DAWID FAITH
                 </h1>
-                <div className="flex items-center gap-4 text-xl lg:text-2xl mb-8">
+                <div className="flex items-center justify-center gap-4 text-lg sm:text-xl lg:text-2xl mb-8">
                   <span className="w-8 h-px bg-gradient-to-r from-purple-400 to-pink-400" />
                   <span className="text-gray-200 font-semibold">{PageTranslations[lang].heroSubtitle}</span>
+                  <span className="w-8 h-px bg-gradient-to-r from-pink-400 to-purple-400" />
                 </div>
                 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.button
                     whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(147, 51, 234, 0.5)" }}
                     whileTap={{ scale: 0.95 }}

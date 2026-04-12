@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Music, Play, Sparkles, Heart, Calendar, Mail } from 'lucide-react';
+import { Play } from 'lucide-react';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import MobileNavigation from '../../components/mobile/MobileNavigation';
@@ -47,39 +47,35 @@ export default function MobilePage() {
       <div className="min-h-screen bg-black text-white overflow-hidden relative">
         
         {/* Mobile Hero Section */}
-        <section id="home" className="min-h-screen flex items-center justify-center px-4 relative">
+        <section id="home" className="min-h-screen flex flex-col justify-end relative overflow-hidden">
           {/* Background */}
-          <div 
-            className="absolute inset-0 z-0"
-            style={{
-              backgroundImage: 'url(/dawid-faith-bg.jpg)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
-            }}
-          >
-            {/* Reduced overlay opacity on mobile to make the background image appear brighter */}
-            <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/dawid-faith-bg.jpg"
+              alt="Dawid Faith"
+              fill
+              className="object-cover object-center"
+              priority
+              quality={85}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20" />
           </div>
 
-          <div className="container mx-auto relative z-10 text-center">
-            {/* Artist Image removed for a cleaner mobile hero (requested) */}
-            <div className="mb-2" />
-
+          <div className="relative z-10 px-6 pb-20 text-center">
             {/* Title */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 tracking-wider [font-family:var(--font-pirata),cursive]">
+              <h1 className="text-5xl sm:text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 tracking-wider [font-family:var(--font-pirata),cursive]">
                 DAWID FAITH
               </h1>
               
-              <div className="flex items-center justify-center gap-2 text-lg mb-6">
-                <Music className="text-purple-400 animate-pulse" size={20} />
+              <div className="flex items-center justify-center gap-3 text-lg mb-8">
+                <span className="w-6 h-px bg-gradient-to-r from-purple-400 to-pink-400" />
                 <span className="text-gray-200 font-medium">{PageTranslations[lang].heroSubtitle}</span>
-                <Sparkles className="text-pink-400 animate-pulse" size={20} />
+                <span className="w-6 h-px bg-gradient-to-r from-pink-400 to-purple-400" />
               </div>
             </motion.div>
 
@@ -91,29 +87,33 @@ export default function MobilePage() {
               className="space-y-3"
             >
               <motion.button
-                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-purple-600/90 to-pink-600/90 px-5 py-3 rounded-xl font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-3.5 rounded-full font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
                 onClick={() => {
                   const el = document.querySelector('#news');
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  if (el) {
+                    const top = el.getBoundingClientRect().top + window.scrollY - 56;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                  }
                   setTimeout(() => {
                     const event = new CustomEvent('openDInvestNews');
                     window.dispatchEvent(event);
                   }, 800);
                 }}
               >
-                <Calendar size={18} />
+                <Play size={18} />
                 <span>{PageTranslations[lang].ctaInvite}</span>
               </motion.button>
 
               <motion.button
-                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full border border-purple-500/60 hover:bg-purple-500/10 px-5 py-3 rounded-xl font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full border border-purple-500/50 hover:bg-purple-500/10 px-5 py-3.5 rounded-full font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
                 onClick={() => {
                   const el = document.querySelector('#dfaith');
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  if (el) {
+                    const top = el.getBoundingClientRect().top + window.scrollY - 56;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                  }
                 }}
               >
                 <div className="relative w-5 h-5">
@@ -127,6 +127,12 @@ export default function MobilePage() {
                 <span>{PageTranslations[lang].ctaExperience}</span>
               </motion.button>
             </motion.div>
+
+            {/* Scroll Indicator */}
+            <div className="mt-8 flex flex-col items-center gap-1.5 animate-bounce">
+              <span className="text-gray-500 text-[9px] uppercase tracking-widest">Scroll</span>
+              <div className="w-px h-6 bg-gradient-to-b from-purple-400/50 to-transparent" />
+            </div>
           </div>
         </section>
 
@@ -183,7 +189,7 @@ export default function MobilePage() {
             </motion.div>
             
             <div className="text-gray-500 text-xs">
-              <p>&copy; 2025 Dawid Faith. Alle Rechte vorbehalten.</p>
+              <p>&copy; 2026 Dawid Faith. Alle Rechte vorbehalten.</p>
               <p className="mt-1">Powered by D.FAITH Ecosystem</p>
             </div>
           </div>
