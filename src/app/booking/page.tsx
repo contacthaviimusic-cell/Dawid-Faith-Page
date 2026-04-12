@@ -48,7 +48,7 @@ export default function BookingPage() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 100);
       
-      const sections = ['hero', 'about', 'music', 'videos', 'services', 'gallery', 'booking'];
+      const sections = ['hero', 'about', 'music', 'videos', 'referenzen', 'services', 'gallery', 'booking'];
       for (const id of sections.reverse()) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 200) {
@@ -85,6 +85,7 @@ export default function BookingPage() {
     { id: 'about', label: 'Über mich' },
     { id: 'music', label: 'Musik' },
     { id: 'videos', label: 'Live' },
+    { id: 'referenzen', label: 'Referenzen' },
     { id: 'services', label: 'Leistungen' },
     { id: 'gallery', label: 'Fotos' },
     { id: 'booking', label: 'Booking' },
@@ -249,6 +250,29 @@ export default function BookingPage() {
         </div>
       </section>
 
+      {/* SLAVISCHER POP-ROCK USP */}
+      <section className="py-16 md:py-20 bg-black relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/[0.04] via-transparent to-amber-500/[0.04]"></div>
+        
+        <div className="max-w-4xl mx-auto px-6 text-center relative">
+          <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4 block">Alleinstellungsmerkmal</span>
+          <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">
+            <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">Die Melancholie Polens</span><br/>
+            trifft auf moderne Pop-Rock-Einflüsse
+          </h2>
+          <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Nicht noch ein Singer-Songwriter mit Akustikgitarre. Slavischer Pop-Rock vereint emotionale polnische Balladen mit deutschem Pop-Rock und englischen Klassikern – ein Sound, den es so kein zweites Mal gibt.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">Polnische Melancholie</span>
+            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">Deutscher Pop-Rock</span>
+            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">Englische Klassiker</span>
+            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">Authentische Akustik</span>
+          </div>
+        </div>
+      </section>
+
       {/* AUDIO PLAYER SECTION */}
       <section id="music" className="py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
@@ -379,6 +403,53 @@ export default function BookingPage() {
         </div>
       </section>
 
+      {/* REFERENZEN / SOCIAL PROOF */}
+      <section id="referenzen" className="py-24 md:py-32 bg-black relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
+        <div className="absolute top-1/2 right-0 w-72 h-72 bg-amber-500/5 rounded-full blur-[100px]"></div>
+        
+        <div className="max-w-6xl mx-auto px-6 relative">
+          <div className="mb-16">
+            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">Referenzen</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">Bisherige Auftritte</h2>
+            <p className="text-slate-500">Erfahrungen von der Straße bis zur Bühne</p>
+          </div>
+
+          {/* Testimonial Quote */}
+          <div className="bg-white/[0.03] border border-amber-500/20 rounded-2xl p-10 md:p-14 mb-16 text-center relative">
+            <div className="absolute top-6 left-10 text-6xl text-amber-500/20 font-serif">&ldquo;</div>
+            <blockquote className="text-2xl md:text-3xl font-black text-white leading-relaxed mb-6 max-w-3xl mx-auto">
+              Dawid hat mit seiner Stimme und Gitarre alle in den Bann gezogen. Authentisch, leidenschaftlich und unglaublich mitreißend.
+            </blockquote>
+            <cite className="text-slate-500 text-sm not-italic">— Feedback nach einem Wohnzimmerkonzert in Rostock</cite>
+          </div>
+
+          {/* Auftrittsorte */}
+          <div className="grid md:grid-cols-4 gap-4">
+            <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
+              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Live</p>
+              <p className="text-white font-bold">Wohnzimmerkonzerte</p>
+              <p className="text-slate-500 text-sm mt-1">Rostock & Umgebung</p>
+            </div>
+            <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
+              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Straße</p>
+              <p className="text-white font-bold">Straßenmusik-Sessions</p>
+              <p className="text-slate-500 text-sm mt-1">Innenstädte & Fußgängerzonen</p>
+            </div>
+            <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
+              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Events</p>
+              <p className="text-white font-bold">Private Veranstaltungen</p>
+              <p className="text-slate-500 text-sm mt-1">Feiern & Gartenpartys</p>
+            </div>
+            <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
+              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Gastro</p>
+              <p className="text-white font-bold">Kneipen & Bars</p>
+              <p className="text-slate-500 text-sm mt-1">Lokale Live-Musik-Abende</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* SERVICES / PACKAGES */}
       <section id="services" className="py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
@@ -454,6 +525,45 @@ export default function BookingPage() {
                 </li>
               </ul>
             </div>
+          </div>
+
+          {/* TECHNIK & SETUP – Plug & Play */}
+          <div className="bg-gradient-to-r from-amber-500/[0.08] to-transparent border border-amber-500/20 rounded-2xl p-10 mb-16">
+            <h3 className="text-2xl font-black mb-2 flex items-center gap-3">
+              <span className="w-8 h-px bg-amber-500"></span>
+              Technik & Setup
+            </h3>
+            <p className="text-amber-400/70 text-sm mb-8">Plug & Play – stressfrei für jeden Veranstalter</p>
+            
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
+                <div className="text-amber-400 font-black text-sm uppercase tracking-wider mb-3">Plug & Play</div>
+                <p className="text-slate-300 text-sm leading-relaxed">
+                  Ich liefere ein fertig abgemischtes Stereo-Signal (Vocals & Gitarre) aus meinem TC Helicon direkt an euer Mischpult. Kein aufwendiger Soundcheck nötig.
+                </p>
+              </div>
+              <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
+                <div className="text-amber-400 font-black text-sm uppercase tracking-wider mb-3">In-Ear Monitoring</div>
+                <p className="text-slate-300 text-sm leading-relaxed">
+                  Mache ich selbst. Ich benötige keine Monitore auf der Bühne – weniger Technik, weniger Aufwand für euch.
+                </p>
+              </div>
+              <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
+                <div className="text-amber-400 font-black text-sm uppercase tracking-wider mb-3">Komplett Autark</div>
+                <p className="text-slate-300 text-sm leading-relaxed">
+                  Keine PA vor Ort? Kein Problem. Ich bringe auf Wunsch meinen eigenen Verstärker mit und brauche nur eine Steckdose.
+                </p>
+              </div>
+            </div>
+            
+            <a 
+              href="/booking/Technical_Rider_Dawid_Faith_V2.pdf"
+              download
+              className="inline-flex items-center gap-2 bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 font-semibold px-6 py-3 rounded-full border border-amber-500/30 transition-all"
+            >
+              Technical Rider herunterladen
+              <span>↓</span>
+            </a>
           </div>
 
           {/* Repertoire Overview */}
