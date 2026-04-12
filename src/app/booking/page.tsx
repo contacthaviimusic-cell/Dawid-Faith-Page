@@ -616,11 +616,11 @@ export default function BookingPage() {
                 <ul className="space-y-2.5 text-slate-300 text-sm mb-6">
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Maria <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
+                    Maria / Znikła <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE / PL</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Słabość <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
+                    Katze <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
@@ -634,25 +634,25 @@ export default function BookingPage() {
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
                     Holy Children <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">EN</span>
                   </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Schiffchen <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
-                  </li>
                 </ul>
 
                 <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">Uptempo & Pop-Rock</p>
                 <ul className="space-y-2.5 text-slate-300 text-sm">
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Katze <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
                     Niebianski Groove <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Aladine <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
+                    Aladdine <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Słabość <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Schiffchen <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
