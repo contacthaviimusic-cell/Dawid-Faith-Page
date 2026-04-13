@@ -153,10 +153,10 @@ export default function BookingPage() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled 
           ? 'bg-black/90 backdrop-blur-lg border-b border-amber-900/30 shadow-lg shadow-black/50' 
-          : 'bg-transparent'
+          : 'bg-black/70 backdrop-blur-md md:bg-transparent'
       }`}>
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-14">
-          <button onClick={() => scrollTo('hero')} className={`font-black text-lg transition-colors ${scrolled ? 'text-amber-400' : 'text-white/0 pointer-events-none'}`}>
+          <button onClick={() => scrollTo('hero')} className={`font-black text-lg transition-colors ${scrolled ? 'text-amber-400' : 'text-amber-400 md:text-white/0 md:pointer-events-none'}`}>
             DF
           </button>
           {/* Desktop Nav */}
@@ -181,7 +181,7 @@ export default function BookingPage() {
             <div className="relative" ref={langRef}>
               <button
                 onClick={() => setLangOpen((s) => !s)}
-                className={`flex items-center gap-1.5 px-2 py-1.5 rounded-full border border-white/10 hover:border-amber-500/30 transition-all ${scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto'}`}
+                className="flex items-center gap-1.5 px-2 py-1.5 rounded-full border border-white/10 hover:border-amber-500/30 transition-all"
               >
                 <FlagForLang lang={lang} />
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-400"><path d="M6 9l6 6 6-6"/></svg>
@@ -202,7 +202,7 @@ export default function BookingPage() {
             </div>
             <button 
               onClick={() => setMenuOpen(!menuOpen)}
-              className={`md:hidden transition-all duration-500 ${scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+              className="md:hidden transition-all duration-500"
               aria-label={t.menuAriaLabel}
             >
               <div className="w-6 h-5 relative flex flex-col justify-between">
@@ -214,7 +214,7 @@ export default function BookingPage() {
           </div>
         </div>
         {/* Mobile Menu Overlay */}
-        <div className={`md:hidden transition-all duration-300 overflow-hidden ${menuOpen && scrolled ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className={`md:hidden transition-all duration-300 overflow-hidden ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
           <div className="bg-black/95 backdrop-blur-xl border-t border-amber-900/20 px-6 py-4 flex flex-col gap-1">
             {navItems.map(item => (
               <button
