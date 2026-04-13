@@ -1,12 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import BookingPageTrans from '@/lib/translations/BookingPageTrans';
+import FlagForLang, { FlagDE, FlagGB, FlagPL } from '@/components/FlagIcon';
 
 export default function BookingPage() {
   const [currentSong, setCurrentSong] = useState(0);
   const [activeSection, setActiveSection] = useState('hero');
   const [scrolled, setScrolled] = useState(false);
+  const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
   const [bookingFormData, setBookingFormData] = useState({
     name: '',
     email: '',
@@ -36,14 +41,48 @@ export default function BookingPage() {
         setBookingFormData({ name: '', email: '', eventType: '', date: '', location: '', message: '' });
       } else {
         const data = await res.json();
-        setFormError(data.error || 'Etwas ist schiefgelaufen.');
+        setFormError(data.error || t.formErrorDefault);
         setFormStatus('error');
       }
     } catch {
-      setFormError('Verbindungsfehler. Bitte versuchen Sie es später.');
+      setFormError(t.formErrorConnection);
       setFormStatus('error');
     }
   };
+
+  // Language sync
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('site-lang') as 'de' | 'en' | 'pl' | null;
+      if (stored === 'de' || stored === 'en' || stored === 'pl') setLang(stored);
+    } catch {}
+    function onLang(e: Event) {
+      const ce = e as CustomEvent<{ lang: 'de' | 'en' | 'pl' }>;
+      if (ce?.detail?.lang) setLang(ce.detail.lang);
+    }
+    window.addEventListener('site-lang-changed', onLang as EventListener);
+    return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
+
+  // Broadcast language change
+  useEffect(() => {
+    try {
+      localStorage.setItem('site-lang', lang);
+      document.documentElement.lang = lang;
+      window.dispatchEvent(new CustomEvent('site-lang-changed', { detail: { lang } }));
+    } catch {}
+  }, [lang]);
+
+  // Close language dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false);
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const t = BookingPageTrans[lang];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,13 +137,13 @@ export default function BookingPage() {
   ];
 
   const navItems = [
-    { id: 'about', label: 'Über mich' },
-    { id: 'music', label: 'Musik' },
-    { id: 'videos', label: 'Live' },
-    { id: 'referenzen', label: 'Referenzen' },
-    { id: 'services', label: 'Leistungen' },
-    { id: 'gallery', label: 'Fotos' },
-    { id: 'booking', label: 'Booking' },
+    { id: 'about', label: t.navAbout },
+    { id: 'music', label: t.navMusic },
+    { id: 'videos', label: t.navLive },
+    { id: 'referenzen', label: t.navReferences },
+    { id: 'services', label: t.navServices },
+    { id: 'gallery', label: t.navPhotos },
+    { id: 'booking', label: t.navBooking },
   ];
 
   return (
@@ -137,17 +176,42 @@ export default function BookingPage() {
             ))}
           </div>
           {/* Mobile Hamburger */}
-          <button 
-            onClick={() => setMenuOpen(!menuOpen)}
-            className={`md:hidden transition-all duration-500 ${scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-            aria-label="Menü öffnen"
-          >
-            <div className="w-6 h-5 relative flex flex-col justify-between">
-              <span className={`w-full h-0.5 bg-white rounded transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[9px]' : ''}`}></span>
-              <span className={`w-full h-0.5 bg-white rounded transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`}></span>
-              <span className={`w-full h-0.5 bg-white rounded transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[9px]' : ''}`}></span>
+          <div className="flex items-center gap-2">
+            {/* Language Selector */}
+            <div className="relative" ref={langRef}>
+              <button
+                onClick={() => setLangOpen((s) => !s)}
+                className={`flex items-center gap-1.5 px-2 py-1.5 rounded-full border border-white/10 hover:border-amber-500/30 transition-all ${scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto'}`}
+              >
+                <FlagForLang lang={lang} />
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-slate-400"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              {langOpen && (
+                <div className="absolute right-0 mt-2 w-36 bg-black/95 backdrop-blur-xl border border-amber-500/20 rounded-xl shadow-2xl overflow-hidden z-50">
+                  <button onClick={() => { setLang('de'); setLangOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${lang === 'de' ? 'text-amber-400 bg-amber-500/10' : 'text-slate-300 hover:bg-white/5'}`}>
+                    <FlagDE /> <span>Deutsch</span>
+                  </button>
+                  <button onClick={() => { setLang('en'); setLangOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${lang === 'en' ? 'text-amber-400 bg-amber-500/10' : 'text-slate-300 hover:bg-white/5'}`}>
+                    <FlagGB /> <span>English</span>
+                  </button>
+                  <button onClick={() => { setLang('pl'); setLangOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${lang === 'pl' ? 'text-amber-400 bg-amber-500/10' : 'text-slate-300 hover:bg-white/5'}`}>
+                    <FlagPL /> <span>Polski</span>
+                  </button>
+                </div>
+              )}
             </div>
-          </button>
+            <button 
+              onClick={() => setMenuOpen(!menuOpen)}
+              className={`md:hidden transition-all duration-500 ${scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+              aria-label={t.menuAriaLabel}
+            >
+              <div className="w-6 h-5 relative flex flex-col justify-between">
+                <span className={`w-full h-0.5 bg-white rounded transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[9px]' : ''}`}></span>
+                <span className={`w-full h-0.5 bg-white rounded transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`}></span>
+                <span className={`w-full h-0.5 bg-white rounded transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[9px]' : ''}`}></span>
+              </div>
+            </button>
+          </div>
         </div>
         {/* Mobile Menu Overlay */}
         <div className={`md:hidden transition-all duration-300 overflow-hidden ${menuOpen && scrolled ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
@@ -195,7 +259,7 @@ export default function BookingPage() {
           <div className="max-w-2xl">
             <div className="mb-4">
               <span className="inline-block text-amber-400/90 text-xs uppercase tracking-[0.35em] font-semibold px-4 py-1.5 border border-amber-500/20 rounded-full bg-amber-500/5 backdrop-blur-sm">
-                Booking &amp; EPK
+                {t.heroBadge}
               </span>
             </div>
             
@@ -204,9 +268,8 @@ export default function BookingPage() {
               <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 bg-clip-text text-transparent">Faith</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-slate-200/90 mb-8 leading-relaxed max-w-lg font-light">
-              Slavischer Pop-Rock mit Akustik-Gitarre.<br className="hidden md:block" />
-              Leidenschaftlich, ehrlich, unvergesslich.
+            <p className="text-lg md:text-xl text-slate-200/90 mb-8 leading-relaxed max-w-lg font-light whitespace-pre-line">
+              {t.heroSubtitle}
             </p>
 
             <div className="flex flex-wrap gap-4 mb-10">
@@ -214,13 +277,13 @@ export default function BookingPage() {
                 onClick={() => scrollTo('booking')}
                 className="bg-amber-500 hover:bg-amber-400 text-black font-bold px-9 py-4 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/30 text-sm uppercase tracking-wider"
               >
-                Jetzt buchen
+                {t.heroCtaBook}
               </button>
               <button 
                 onClick={() => scrollTo('music')}
                 className="border border-white/25 hover:border-amber-400/50 text-white font-semibold px-9 py-4 rounded-full transition-all hover:bg-white/5 backdrop-blur-sm text-sm uppercase tracking-wider"
               >
-                Musik anhören
+                {t.heroCtaListen}
               </button>
             </div>
 
@@ -228,15 +291,15 @@ export default function BookingPage() {
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-400">
               <span className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
-                Deutsch · Polnisch · Englisch
+                {t.heroLanguages}
               </span>
               <span className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
-                Solo Akustik-Gitarre
+                {t.heroGuitar}
               </span>
               <span className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
-                23 Songs Repertoire
+                {t.heroRepertoire}
               </span>
             </div>
           </div>
@@ -244,7 +307,7 @@ export default function BookingPage() {
 
         {/* Scroll Indicator – sits at the very bottom of the hero viewport */}
         <div className="relative z-10 flex flex-col items-center gap-2 pb-6 animate-bounce">
-          <span className="text-slate-500 text-[10px] uppercase tracking-widest">Scroll</span>
+          <span className="text-slate-500 text-[10px] uppercase tracking-widest">{t.heroScroll}</span>
           <div className="w-px h-8 bg-gradient-to-b from-slate-500 to-transparent"></div>
         </div>
       </section>
@@ -264,18 +327,18 @@ export default function BookingPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
             </div>
             <div>
-              <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-6 block">Über mich</span>
+              <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-6 block">{t.aboutLabel}</span>
               <h2 className="text-4xl md:text-5xl font-black mb-8 leading-tight">
-                Wer ist<br/><span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">Dawid Faith?</span>
+                {t.aboutTitle1}<br/><span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">{t.aboutTitle2}</span>
               </h2>
               <p className="text-slate-300 leading-relaxed mb-5 text-lg">
-                Ein Musiker, der die Kulturgrenzen zwischen Deutschland und Polen überbrückt. Mit Songs in Deutsch und Polnisch schaffe ich emotionale Verbindungen, die lange nachwirken.
+                {t.aboutP1}
               </p>
               <p className="text-slate-300 leading-relaxed mb-5 text-lg">
-                Mein Sound: Slavischer Pop-Rock mit authentischer Akustik-Gitarre. Balladen mit Gefühl, eingängige Pop-Rock-Songs – immer live gespielt, immer vom Herzen.
+                {t.aboutP2}
               </p>
               <p className="text-slate-500 italic border-l-2 border-amber-500/40 pl-4">
-                Echte Live-Performance ohne Kompromisse. Nur Gitarre, Stimme und eine Menge Leidenschaft für gute Musik.
+                {t.aboutQuote}
               </p>
             </div>
           </div>
@@ -288,19 +351,19 @@ export default function BookingPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-amber-500/[0.04] via-transparent to-amber-500/[0.04]"></div>
         
         <div className="max-w-4xl mx-auto px-6 text-center relative">
-          <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4 block">Alleinstellungsmerkmal</span>
+          <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4 block">{t.uspLabel}</span>
           <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">
-            <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">Die Melancholie Polens</span><br/>
-            trifft auf moderne Pop-Rock-Einflüsse
+            <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">{t.uspTitle1}</span><br/>
+            {t.uspTitle2}
           </h2>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Nicht noch ein Singer-Songwriter mit Akustikgitarre. Slavischer Pop-Rock vereint emotionale polnische Balladen mit deutschem Pop-Rock und englischen Klassikern – ein Sound, den es so kein zweites Mal gibt.
+            {t.uspDesc}
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">Polnische Melancholie</span>
-            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">Deutscher Pop-Rock</span>
-            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">Englische Klassiker</span>
-            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">Authentische Akustik</span>
+            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">{t.uspTag1}</span>
+            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">{t.uspTag2}</span>
+            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">{t.uspTag3}</span>
+            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">{t.uspTag4}</span>
           </div>
         </div>
       </section>
@@ -312,9 +375,9 @@ export default function BookingPage() {
         
         <div className="max-w-6xl mx-auto px-6 relative">
           <div className="mb-16">
-            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">Musik</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">Höre meine Songs</h2>
-            <p className="text-slate-500">Meine Original-Kompositionen und handverlesene Covers</p>
+            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">{t.musicLabel}</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">{t.musicTitle}</h2>
+            <p className="text-slate-500">{t.musicSubtitle}</p>
           </div>
 
           {/* Main Player */}
@@ -332,7 +395,7 @@ export default function BookingPage() {
               </div>
               {/* Player Controls */}
               <div className="flex-1 w-full">
-                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] mb-1">Jetzt spielen</p>
+                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] mb-1">{t.musicNowPlaying}</p>
                 <h3 className="text-3xl font-black mb-4 text-white">
                   {songs[currentSong].name}
                 </h3>
@@ -412,9 +475,9 @@ export default function BookingPage() {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-16">
-            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">Live Performance</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">Live Auftritte</h2>
-            <p className="text-slate-500">Authentische Live-Aufführungen in voller Länge</p>
+            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">{t.videosLabel}</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">{t.videosTitle}</h2>
+            <p className="text-slate-500">{t.videosSubtitle}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -442,41 +505,41 @@ export default function BookingPage() {
         
         <div className="max-w-6xl mx-auto px-6 relative">
           <div className="mb-16">
-            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">Referenzen</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">Bisherige Auftritte</h2>
-            <p className="text-slate-500">Erfahrungen von der Straße bis zur Bühne</p>
+            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">{t.refLabel}</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">{t.refTitle}</h2>
+            <p className="text-slate-500">{t.refSubtitle}</p>
           </div>
 
           {/* Testimonial Quote */}
           <div className="bg-white/[0.03] border border-amber-500/20 rounded-2xl p-10 md:p-14 mb-16 text-center relative">
             <div className="absolute top-6 left-10 text-6xl text-amber-500/20 font-serif">&ldquo;</div>
             <blockquote className="text-2xl md:text-3xl font-black text-white leading-relaxed mb-6 max-w-3xl mx-auto">
-              Dawid hat mit seiner Stimme und Gitarre alle in den Bann gezogen. Authentisch, leidenschaftlich und unglaublich mitreißend.
+              {t.refQuote}
             </blockquote>
-            <cite className="text-slate-500 text-sm not-italic">— Feedback nach einem Private Event in Rostock</cite>
+            <cite className="text-slate-500 text-sm not-italic">{t.refQuoteCite}</cite>
           </div>
 
           {/* Auftrittsorte */}
           <div className="grid md:grid-cols-4 gap-4">
             <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Live</p>
-              <p className="text-white font-bold">Private Events</p>
-              <p className="text-slate-500 text-sm mt-1">Rostock & Umgebung</p>
+              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">{t.refCardLiveLabel}</p>
+              <p className="text-white font-bold">{t.refCardLive}</p>
+              <p className="text-slate-500 text-sm mt-1">{t.refCardLiveLocation}</p>
             </div>
             <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Straße</p>
-              <p className="text-white font-bold">Straßenmusik-Sessions</p>
-              <p className="text-slate-500 text-sm mt-1">Innenstädte & Fußgängerzonen</p>
+              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">{t.refCardStreetLabel}</p>
+              <p className="text-white font-bold">{t.refCardStreet}</p>
+              <p className="text-slate-500 text-sm mt-1">{t.refCardStreetLocation}</p>
             </div>
             <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Events</p>
-              <p className="text-white font-bold">Private Veranstaltungen</p>
-              <p className="text-slate-500 text-sm mt-1">Feiern & Gartenpartys</p>
+              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">{t.refCardEventsLabel}</p>
+              <p className="text-white font-bold">{t.refCardEvents}</p>
+              <p className="text-slate-500 text-sm mt-1">{t.refCardEventsLocation}</p>
             </div>
             <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Gastro</p>
-              <p className="text-white font-bold">Kneipen & Bars</p>
-              <p className="text-slate-500 text-sm mt-1">Lokale Live-Musik-Abende</p>
+              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">{t.refCardGastroLabel}</p>
+              <p className="text-white font-bold">{t.refCardGastro}</p>
+              <p className="text-slate-500 text-sm mt-1">{t.refCardGastroLocation}</p>
             </div>
           </div>
         </div>
@@ -489,132 +552,132 @@ export default function BookingPage() {
         
         <div className="max-w-6xl mx-auto px-6 relative">
           <div className="mb-16">
-            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">Leistungen</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">Was ich anbiete</h2>
-            <p className="text-slate-500">Flexible Sets für jede Veranstaltung</p>
+            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">{t.svcLabel}</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">{t.svcTitle}</h2>
+            <p className="text-slate-500">{t.svcSubtitle}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             {/* 30 Minuten – Opener */}
             <div className="border border-white/10 rounded-2xl p-8 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300 hover:border-white/20 group flex flex-col">
               <div className="text-4xl font-black mb-2 text-slate-500 group-hover:text-slate-300 transition-colors">30 min</div>
-              <h3 className="text-lg font-bold mb-6 text-slate-300">Opener</h3>
+              <h3 className="text-lg font-bold mb-6 text-slate-300">{t.svc30Title}</h3>
               <ul className="space-y-4 text-slate-400 text-sm flex-1">
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>5–6 Songs</span>
+                  <span>{t.svc30Item1}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>Perfekt für Apéros, Empfänge & Einlass</span>
+                  <span>{t.svc30Item2}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>Mix aus Original & Cover</span>
+                  <span>{t.svc30Item3}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>Soundcheck inklusive</span>
+                  <span>{t.svc30Item4}</span>
                 </li>
               </ul>
-              <p className="text-slate-600 text-xs mt-6 pt-4 border-t border-white/5">Preis auf Anfrage</p>
+              <p className="text-slate-600 text-xs mt-6 pt-4 border-t border-white/5">{t.svcPriceOnRequest}</p>
             </div>
 
             {/* 1 Stunde – Full Set */}
             <div className="border border-amber-500/30 rounded-2xl p-8 bg-amber-500/[0.04] relative group hover:border-amber-500/50 transition-all duration-300 flex flex-col">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-amber-500 text-black text-[10px] uppercase tracking-widest font-bold px-4 py-1 rounded-full">Meistgewählt</span>
+                <span className="bg-amber-500 text-black text-[10px] uppercase tracking-widest font-bold px-4 py-1 rounded-full">{t.svcMostChosen}</span>
               </div>
               <div className="text-4xl font-black mb-2 text-amber-400">1 h</div>
-              <h3 className="text-lg font-bold mb-6">Full Set</h3>
+              <h3 className="text-lg font-bold mb-6">{t.svc60Title}</h3>
               <ul className="space-y-4 text-slate-300 text-sm flex-1">
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
-                  <span>12–14 Songs</span>
+                  <span>{t.svc60Item1}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
-                  <span>Club-Abend, Kulturhaus, Open Air</span>
+                  <span>{t.svc60Item2}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
-                  <span>Durchgängiger Flow mit Stimmungsbogen</span>
+                  <span>{t.svc60Item3}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
-                  <span>Soundcheck + Auf-/Abbau inklusive</span>
+                  <span>{t.svc60Item4}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-amber-400">✓</span>
-                  <span>Wunschsong nach Absprache möglich</span>
+                  <span>{t.svc60Item5}</span>
                 </li>
               </ul>
-              <p className="text-amber-500/60 text-xs mt-6 pt-4 border-t border-amber-500/10">Individuelles Angebot</p>
+              <p className="text-amber-500/60 text-xs mt-6 pt-4 border-t border-amber-500/10">{t.svcCustomOffer}</p>
             </div>
 
             {/* 2 Stunden – Abendfüllend */}
             <div className="border border-white/10 rounded-2xl p-8 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300 hover:border-white/20 group flex flex-col">
               <div className="text-4xl font-black mb-2 text-slate-500 group-hover:text-slate-300 transition-colors">2 h</div>
-              <h3 className="text-lg font-bold mb-6 text-slate-300">Abendfüllend</h3>
+              <h3 className="text-lg font-bold mb-6 text-slate-300">{t.svc120Title}</h3>
               <ul className="space-y-4 text-slate-400 text-sm flex-1">
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>23 Songs (2 Sets mit Pause)</span>
+                  <span>{t.svc120Item1}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>Festivals, Kneipen, volle Events</span>
+                  <span>{t.svc120Item2}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>Flexible Setlist je nach Stimmung</span>
+                  <span>{t.svc120Item3}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>Soundcheck + Auf-/Abbau inklusive</span>
+                  <span>{t.svc120Item4}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] text-slate-500">✓</span>
-                  <span>Wunschsongs möglich</span>
+                  <span>{t.svc120Item5}</span>
                 </li>
               </ul>
-              <p className="text-slate-600 text-xs mt-6 pt-4 border-t border-white/5">Preis auf Anfrage</p>
+              <p className="text-slate-600 text-xs mt-6 pt-4 border-t border-white/5">{t.svcPriceOnRequest}</p>
             </div>
           </div>
 
           {/* Zusatzleistungen */}
           <div className="flex flex-wrap gap-3 mb-16 justify-center">
-            <span className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-xs font-semibold">Weite Anfahrt? Kein Problem</span>
-            <span className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-xs font-semibold">Open Air mit eigener PA möglich</span>
-            <span className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-xs font-semibold">Sonderwünsche auf Anfrage</span>
-            <span className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-xs font-semibold">Zugabe möglich</span>
+            <span className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-xs font-semibold">{t.svcExtraTravel}</span>
+            <span className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-xs font-semibold">{t.svcExtraPA}</span>
+            <span className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-xs font-semibold">{t.svcExtraSpecial}</span>
+            <span className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-xs font-semibold">{t.svcExtraEncore}</span>
           </div>
 
           {/* TECHNIK & SETUP – Plug & Play */}
           <div className="bg-gradient-to-r from-amber-500/[0.08] to-transparent border border-amber-500/20 rounded-2xl p-10 mb-16">
             <h3 className="text-2xl font-black mb-2 flex items-center gap-3">
               <span className="w-8 h-px bg-amber-500"></span>
-              Technik & Setup
+              {t.techTitle}
             </h3>
-            <p className="text-amber-400/70 text-sm mb-8">Plug & Play – stressfrei für jeden Veranstalter</p>
+            <p className="text-amber-400/70 text-sm mb-8">{t.techSubtitle}</p>
             
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
-                <div className="text-amber-400 font-black text-sm uppercase tracking-wider mb-3">Plug & Play</div>
+                <div className="text-amber-400 font-black text-sm uppercase tracking-wider mb-3">{t.techPlugPlay}</div>
                 <p className="text-slate-300 text-sm leading-relaxed">
-                  Ich liefere ein fertig abgemischtes Stereo-Signal (Vocals & Gitarre) aus meinem TC Helicon direkt an euer Mischpult. Kein aufwendiger Soundcheck nötig.
+                  {t.techPlugPlayDesc}
                 </p>
               </div>
               <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
-                <div className="text-amber-400 font-black text-sm uppercase tracking-wider mb-3">In-Ear Monitoring</div>
+                <div className="text-amber-400 font-black text-sm uppercase tracking-wider mb-3">{t.techInEar}</div>
                 <p className="text-slate-300 text-sm leading-relaxed">
-                  Mache ich selbst. Ich benötige keine Monitore auf der Bühne – weniger Technik, weniger Aufwand für euch.
+                  {t.techInEarDesc}
                 </p>
               </div>
               <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6">
-                <div className="text-amber-400 font-black text-sm uppercase tracking-wider mb-3">Komplett Autark</div>
+                <div className="text-amber-400 font-black text-sm uppercase tracking-wider mb-3">{t.techAutark}</div>
                 <p className="text-slate-300 text-sm leading-relaxed">
-                  Keine PA vor Ort? Kein Problem. Ich bringe auf Wunsch meinen eigenen Verstärker mit und brauche nur eine Steckdose.
+                  {t.techAutarkDesc}
                 </p>
               </div>
             </div>
@@ -624,7 +687,7 @@ export default function BookingPage() {
               download
               className="inline-flex items-center gap-2 bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 font-semibold px-6 py-3 rounded-full border border-amber-500/30 transition-all"
             >
-              Technical Rider herunterladen
+              {t.techRiderDownload}
               <span>↓</span>
             </a>
           </div>
@@ -634,17 +697,17 @@ export default function BookingPage() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
               <h3 className="text-2xl font-black flex items-center gap-3">
                 <span className="w-8 h-px bg-amber-500"></span>
-                Repertoire
+                {t.repTitle}
               </h3>
-              <p className="text-amber-400/70 text-sm mt-2 md:mt-0">Aktuell 23 Songs – Repertoire wird stetig erweitert</p>
+              <p className="text-amber-400/70 text-sm mt-2 md:mt-0">{t.repSubtitle}</p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-12">
               {/* Originals */}
               <div>
-                <h4 className="font-bold text-lg mb-6 text-white">Original-Kompositionen <span className="text-slate-500 text-sm font-normal">(15 Songs)</span></h4>
+                <h4 className="font-bold text-lg mb-6 text-white">{t.repOriginals} <span className="text-slate-500 text-sm font-normal">({t.repOriginalCount})</span></h4>
                 
-                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">Balladen & Emotionale Songs</p>
+                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">{t.repBallads}</p>
                 <ul className="space-y-2.5 text-slate-300 text-sm mb-6">
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
@@ -668,7 +731,7 @@ export default function BookingPage() {
                   </li>
                 </ul>
 
-                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">Uptempo & Pop-Rock</p>
+                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">{t.repUptempo}</p>
                 <ul className="space-y-2.5 text-slate-300 text-sm">
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
@@ -715,9 +778,9 @@ export default function BookingPage() {
 
               {/* Covers */}
               <div>
-                <h4 className="font-bold text-lg mb-6 text-white">Sorgfältig Ausgewählte Covers <span className="text-slate-500 text-sm font-normal">(8 Songs)</span></h4>
+                <h4 className="font-bold text-lg mb-6 text-white">{t.repCovers} <span className="text-slate-500 text-sm font-normal">({t.repCoverCount})</span></h4>
                 
-                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">Deutsch</p>
+                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">{t.repGerman}</p>
                 <ul className="space-y-2.5 text-slate-300 text-sm mb-6">
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
@@ -741,7 +804,7 @@ export default function BookingPage() {
                   </li>
                 </ul>
 
-                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">Englisch</p>
+                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">{t.repEnglish}</p>
                 <ul className="space-y-2.5 text-slate-300 text-sm mb-6">
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
@@ -760,7 +823,7 @@ export default function BookingPage() {
                   </li>
                 </ul>
 
-                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">Polnisch</p>
+                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">{t.repPolish}</p>
                 <ul className="space-y-2.5 text-slate-300 text-sm">
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
@@ -771,7 +834,7 @@ export default function BookingPage() {
               </div>
             </div>
             <p className="text-slate-500 text-sm mt-8 pt-8 border-t border-white/10">
-              Ich wechsle flexibel zwischen Original-Songs und Covers – je nach Publikum, Stimmung und Veranstaltungstyp. Repertoire wird laufend erweitert.
+              {t.repNote}
             </p>
           </div>
         </div>
@@ -782,9 +845,9 @@ export default function BookingPage() {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-16">
-            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">Galerie</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">Pressefotos</h2>
-            <p className="text-slate-500">Hochauflösend & einsatzbereit für Ihre Promotion</p>
+            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">{t.galLabel}</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">{t.galTitle}</h2>
+            <p className="text-slate-500">{t.galSubtitle}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 mb-10">
@@ -810,7 +873,7 @@ export default function BookingPage() {
             ))}
           </div>
 
-          <p className="text-slate-500 text-sm">Klicken Sie auf ein Foto zum Herunterladen.</p>
+          <p className="text-slate-500 text-sm">{t.galDownloadHint}</p>
         </div>
       </section>
 
@@ -821,9 +884,9 @@ export default function BookingPage() {
         
         <div className="max-w-4xl mx-auto px-6 relative">
           <div className="mb-16 text-center">
-            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">Kontakt</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">Booking Anfrage</h2>
-            <p className="text-slate-500">Senden Sie mir eine kurze Nachricht. Ich melde mich schnellstmöglich.</p>
+            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">{t.formLabel}</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">{t.formTitle}</h2>
+            <p className="text-slate-500">{t.formSubtitle}</p>
           </div>
 
           {formStatus === 'success' ? (
@@ -831,23 +894,23 @@ export default function BookingPage() {
               <div className="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-amber-400 text-3xl">✓</span>
               </div>
-              <h3 className="text-2xl font-black mb-3">Anfrage gesendet!</h3>
-              <p className="text-slate-400 mb-8">Vielen Dank für Ihre Nachricht. Ich melde mich schnellstmöglich bei Ihnen.</p>
+              <h3 className="text-2xl font-black mb-3">{t.formSuccessTitle}</h3>
+              <p className="text-slate-400 mb-8">{t.formSuccessText}</p>
               <button
                 onClick={() => setFormStatus('idle')}
                 className="text-amber-400 hover:text-amber-300 font-semibold transition-colors"
               >
-                Weitere Anfrage senden
+                {t.formSuccessAnother}
               </button>
             </div>
           ) : (
           <form className="bg-white/[0.03] border border-white/10 rounded-2xl p-8 md:p-10 backdrop-blur-sm" onSubmit={handleBookingSubmit}>
             <div className="grid md:grid-cols-2 gap-6 mb-6">
               <div>
-                <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">Ihr Name</label>
+                <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">{t.formName}</label>
                 <input 
                   type="text" 
-                  placeholder="Vorname Nachname"
+                  placeholder={t.formNamePlaceholder}
                   required
                   value={bookingFormData.name}
                   onChange={(e) => setBookingFormData({...bookingFormData, name: e.target.value})}
@@ -855,10 +918,10 @@ export default function BookingPage() {
                 />
               </div>
               <div>
-                <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">E-Mail</label>
+                <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">{t.formEmail}</label>
                 <input 
                   type="email" 
-                  placeholder="ihre@email.de"
+                  placeholder={t.formEmailPlaceholder}
                   required
                   value={bookingFormData.email}
                   onChange={(e) => setBookingFormData({...bookingFormData, email: e.target.value})}
@@ -869,24 +932,24 @@ export default function BookingPage() {
 
             <div className="grid md:grid-cols-2 gap-6 mb-6">
               <div>
-                <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">Veranstaltungstyp</label>
+                <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">{t.formEventType}</label>
                 <select 
                   value={bookingFormData.eventType}
                   required
                   onChange={(e) => setBookingFormData({...bookingFormData, eventType: e.target.value})}
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
                 >
-                  <option value="" className="bg-neutral-900 text-white">Bitte wählen...</option>
-                  <option className="bg-neutral-900 text-white">Hochzeit</option>
-                  <option className="bg-neutral-900 text-white">Kneipe / Bar</option>
-                  <option className="bg-neutral-900 text-white">Privatanlass</option>
-                  <option className="bg-neutral-900 text-white">Corporate Event</option>
-                  <option className="bg-neutral-900 text-white">Festival</option>
-                  <option className="bg-neutral-900 text-white">Sonstiges</option>
+                  <option value="" className="bg-neutral-900 text-white">{t.formEventTypeDefault}</option>
+                  <option className="bg-neutral-900 text-white">{t.formEventWedding}</option>
+                  <option className="bg-neutral-900 text-white">{t.formEventBar}</option>
+                  <option className="bg-neutral-900 text-white">{t.formEventPrivate}</option>
+                  <option className="bg-neutral-900 text-white">{t.formEventCorporate}</option>
+                  <option className="bg-neutral-900 text-white">{t.formEventFestival}</option>
+                  <option className="bg-neutral-900 text-white">{t.formEventOther}</option>
                 </select>
               </div>
               <div>
-                <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">Gewünschtes Datum</label>
+                <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">{t.formDate}</label>
                 <input 
                   type="date" 
                   value={bookingFormData.date}
@@ -897,10 +960,10 @@ export default function BookingPage() {
             </div>
 
             <div className="mb-6">
-              <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">Ort / Venue</label>
+              <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">{t.formLocation}</label>
               <input 
                 type="text" 
-                placeholder="Stadt, Venue-Name"
+                placeholder={t.formLocationPlaceholder}
                 value={bookingFormData.location}
                 onChange={(e) => setBookingFormData({...bookingFormData, location: e.target.value})}
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
@@ -908,9 +971,9 @@ export default function BookingPage() {
             </div>
 
             <div className="mb-8">
-              <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">Nachricht</label>
+              <label className="block text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wider">{t.formMessage}</label>
               <textarea 
-                placeholder="Erzählen Sie mir mehr über Ihre Veranstaltung..."
+                placeholder={t.formMessagePlaceholder}
                 value={bookingFormData.message}
                 onChange={(e) => setBookingFormData({...bookingFormData, message: e.target.value})}
                 rows={5}
@@ -930,14 +993,14 @@ export default function BookingPage() {
                 disabled={formStatus === 'sending'}
                 className="bg-amber-500 hover:bg-amber-400 disabled:bg-amber-500/50 disabled:cursor-not-allowed text-black font-bold px-10 py-4 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/25 flex items-center justify-center gap-2"
               >
-                {formStatus === 'sending' ? 'Wird gesendet...' : 'Anfrage senden'}
+                {formStatus === 'sending' ? t.formSending : t.formSubmit}
                 {formStatus !== 'sending' && <span>→</span>}
               </button>
               <a 
                 href="tel:+4915237673661"
                 className="border border-white/15 text-white font-semibold px-10 py-4 rounded-full hover:bg-white/5 hover:border-white/25 transition-all flex items-center justify-center gap-2"
               >
-                Oder direkt anrufen
+                {t.formCallDirect}
               </a>
             </div>
           </form>
@@ -982,7 +1045,7 @@ export default function BookingPage() {
               onClick={() => scrollTo('hero')}
               className="text-slate-600 hover:text-amber-400 text-sm transition-colors"
             >
-              Nach oben ↑
+              {t.footerBackToTop}
             </button>
           </div>
         </div>
@@ -995,12 +1058,12 @@ export default function BookingPage() {
             onClick={() => scrollTo('booking')}
             className="flex-1 bg-amber-500 hover:bg-amber-400 text-black font-bold py-3 rounded-full transition-all text-sm"
           >
-            Jetzt buchen
+            {t.mobileCtaBook}
           </button>
           <a
             href="tel:+4915237673661"
             className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/5 transition-all flex-shrink-0"
-            aria-label="Anrufen"
+            aria-label={t.mobileCtaCallLabel}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
