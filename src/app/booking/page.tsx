@@ -821,6 +821,16 @@ export default function BookingPage() {
                     Country Roads <span className="text-slate-500">(John Denver)</span>
                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">EN</span>
                   </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Believer <span className="text-slate-500">(Imagine Dragons)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">EN</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Walk the Line <span className="text-slate-500">(Johnny Cash)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">EN</span>
+                  </li>
                 </ul>
 
                 <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">{t.repPolish}</p>
@@ -828,6 +838,21 @@ export default function BookingPage() {
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
                     Weź nie pytaj <span className="text-slate-500">(Paweł Domagała)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Zawsze tam gdzie ty <span className="text-slate-500">(Perfect)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Czarny chleb i czarna kawa <span className="text-slate-500">(Strachy na Lachy)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Aisha <span className="text-slate-500">(Magma)</span>
                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
                   </li>
                 </ul>

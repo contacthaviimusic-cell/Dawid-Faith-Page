@@ -16,7 +16,7 @@ const translations = {
     card3Title: 'Private Events',
     card3Desc: 'Hochzeiten, Firmenfeiern, Gartenpartys – maßgeschneidert für euch.',
     cta: 'Booking-Seite öffnen',
-    tagline: 'Solo Akustik-Gitarre · Deutsch · Polnisch · Englisch · 23 Songs Repertoire',
+    tagline: 'Solo Akustik-Gitarre · Deutsch · Polnisch · Englisch · 28 Songs Repertoire',
   },
   en: {
     title: 'Book Live',
@@ -28,7 +28,7 @@ const translations = {
     card3Title: 'Private Events',
     card3Desc: 'Weddings, corporate events, living room concerts – tailored for you.',
     cta: 'Open Booking Page',
-    tagline: 'Solo Acoustic Guitar · German · Polish · English · 23 Songs Repertoire',
+    tagline: 'Solo Acoustic Guitar · German · Polish · English · 28 Songs Repertoire',
   },
   pl: {
     title: 'Zarezerwuj na żywo',
@@ -40,7 +40,7 @@ const translations = {
     card3Title: 'Wydarzenia prywatne',
     card3Desc: 'Śluby, imprezy firmowe, koncerty domowe – dostosowane do Was.',
     cta: 'Otwórz stronę bookingu',
-    tagline: 'Gitara akustyczna solo · Niemiecki · Polski · Angielski · 23 utwory w repertuarze',
+    tagline: 'Gitara akustyczna solo · Niemiecki · Polski · Angielski · 28 utworów w repertuarze',
   },
 };
 

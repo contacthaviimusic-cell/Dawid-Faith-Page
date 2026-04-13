@@ -16,7 +16,7 @@ const translations = {
     card3Title: 'Private Events',
     card3Desc: 'Hochzeiten, Feiern, Gartenpartys.',
     cta: 'Booking-Seite öffnen',
-    tagline: 'Solo Akustik · DE / PL / EN · 23 Songs',
+    tagline: 'Solo Akustik · DE / PL / EN · 28 Songs',
   },
   en: {
     title: 'Book Live',
@@ -28,7 +28,7 @@ const translations = {
     card3Title: 'Private Events',
     card3Desc: 'Weddings, parties, living room concerts.',
     cta: 'Open Booking Page',
-    tagline: 'Solo Acoustic · DE / PL / EN · 23 Songs',
+    tagline: 'Solo Acoustic · DE / PL / EN · 28 Songs',
   },
   pl: {
     title: 'Zarezerwuj na żywo',
@@ -40,7 +40,7 @@ const translations = {
     card3Title: 'Wydarzenia prywatne',
     card3Desc: 'Śluby, imprezy, koncerty domowe.',
     cta: 'Otwórz stronę bookingu',
-    tagline: 'Gitara akustyczna · DE / PL / EN · 23 utwory',
+    tagline: 'Gitara akustyczna · DE / PL / EN · 28 utworów',
   },
 };
 

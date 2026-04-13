@@ -186,7 +186,7 @@ const BookingPageTrans: Record<LangKey, {
     heroCtaListen: 'Musik anhören',
     heroLanguages: 'Deutsch · Polnisch · Englisch',
     heroGuitar: 'Solo Akustik-Gitarre',
-    heroRepertoire: '23 Songs Repertoire',
+    heroRepertoire: '28 Songs Repertoire',
     heroScroll: 'Scroll',
 
     // About
@@ -254,7 +254,7 @@ const BookingPageTrans: Record<LangKey, {
     svc60Item4: 'Soundcheck + Auf-/Abbau inklusive',
     svc60Item5: 'Wunschsong nach Absprache möglich',
     svc120Title: 'Abendfüllend',
-    svc120Item1: '23 Songs (2 Sets mit Pause)',
+    svc120Item1: '28 Songs (2 Sets mit Pause)',
     svc120Item2: 'Festivals, Kneipen, volle Events',
     svc120Item3: 'Flexible Setlist je nach Stimmung',
     svc120Item4: 'Soundcheck + Auf-/Abbau inklusive',
@@ -280,13 +280,13 @@ const BookingPageTrans: Record<LangKey, {
 
     // Repertoire
     repTitle: 'Repertoire',
-    repSubtitle: 'Aktuell 23 Songs – Repertoire wird stetig erweitert',
+    repSubtitle: 'Aktuell 28 Songs – Repertoire wird stetig erweitert',
     repOriginals: 'Original-Kompositionen',
     repOriginalCount: '15 Songs',
     repBallads: 'Balladen & Emotionale Songs',
     repUptempo: 'Uptempo & Pop-Rock',
     repCovers: 'Sorgfältig Ausgewählte Covers',
-    repCoverCount: '8 Songs',
+    repCoverCount: '13 Songs',
     repGerman: 'Deutsch',
     repEnglish: 'Englisch',
     repPolish: 'Polnisch',
@@ -354,7 +354,7 @@ const BookingPageTrans: Record<LangKey, {
     heroCtaListen: 'Listen to music',
     heroLanguages: 'German · Polish · English',
     heroGuitar: 'Solo Acoustic Guitar',
-    heroRepertoire: '23 Songs Repertoire',
+    heroRepertoire: '28 Songs Repertoire',
     heroScroll: 'Scroll',
 
     // About
@@ -422,7 +422,7 @@ const BookingPageTrans: Record<LangKey, {
     svc60Item4: 'Sound check + setup/teardown included',
     svc60Item5: 'Song requests possible by arrangement',
     svc120Title: 'Full Evening',
-    svc120Item1: '23 Songs (2 sets with break)',
+    svc120Item1: '28 Songs (2 sets with break)',
     svc120Item2: 'Festivals, pubs, full events',
     svc120Item3: 'Flexible setlist based on the mood',
     svc120Item4: 'Sound check + setup/teardown included',
@@ -448,13 +448,13 @@ const BookingPageTrans: Record<LangKey, {
 
     // Repertoire
     repTitle: 'Repertoire',
-    repSubtitle: 'Currently 23 songs – repertoire is constantly growing',
+    repSubtitle: 'Currently 28 songs – repertoire is constantly growing',
     repOriginals: 'Original Compositions',
     repOriginalCount: '15 Songs',
     repBallads: 'Ballads & Emotional Songs',
     repUptempo: 'Uptempo & Pop-Rock',
     repCovers: 'Carefully Selected Covers',
-    repCoverCount: '8 Songs',
+    repCoverCount: '13 Songs',
     repGerman: 'German',
     repEnglish: 'English',
     repPolish: 'Polish',
@@ -522,7 +522,7 @@ const BookingPageTrans: Record<LangKey, {
     heroCtaListen: 'Posłuchaj muzyki',
     heroLanguages: 'Niemiecki · Polski · Angielski',
     heroGuitar: 'Solo gitara akustyczna',
-    heroRepertoire: '23 utwory w repertuarze',
+    heroRepertoire: '28 utworów w repertuarze',
     heroScroll: 'Scroll',
 
     // About
@@ -590,7 +590,7 @@ const BookingPageTrans: Record<LangKey, {
     svc60Item4: 'Próba dźwięku + montaż/demontaż w cenie',
     svc60Item5: 'Utwór na życzenie po uzgodnieniu',
     svc120Title: 'Cały wieczór',
-    svc120Item1: '23 utwory (2 sety z przerwą)',
+    svc120Item1: '28 utworów (2 sety z przerwą)',
     svc120Item2: 'Festiwale, puby, duże eventy',
     svc120Item3: 'Elastyczna setlista według nastroju',
     svc120Item4: 'Próba dźwięku + montaż/demontaż w cenie',
@@ -616,13 +616,13 @@ const BookingPageTrans: Record<LangKey, {
 
     // Repertoire
     repTitle: 'Repertuar',
-    repSubtitle: 'Aktualnie 23 utwory – repertuar stale się rozwija',
+    repSubtitle: 'Aktualnie 28 utworów – repertuar stale się rozwija',
     repOriginals: 'Autorskie kompozycje',
     repOriginalCount: '15 utworów',
     repBallads: 'Ballady i utwory emocjonalne',
     repUptempo: 'Uptempo & Pop-Rock',
     repCovers: 'Starannie wybrane covery',
-    repCoverCount: '8 utworów',
+    repCoverCount: '13 utworów',
     repGerman: 'Niemiecki',
     repEnglish: 'Angielski',
     repPolish: 'Polski',
