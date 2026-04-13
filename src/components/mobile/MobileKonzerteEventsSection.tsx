@@ -14,7 +14,7 @@ const translations = {
     card2Title: 'Festivals & Open Air',
     card2Desc: 'Energie und Leidenschaft auf der Bühne.',
     card3Title: 'Private Events',
-    card3Desc: 'Hochzeiten, Feiern, Wohnzimmerkonzerte.',
+    card3Desc: 'Hochzeiten, Feiern, Gartenpartys.',
     cta: 'Booking-Seite öffnen',
     tagline: 'Solo Akustik · DE / PL / EN · 23 Songs',
   },

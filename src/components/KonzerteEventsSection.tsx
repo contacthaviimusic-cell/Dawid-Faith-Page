@@ -14,7 +14,7 @@ const translations = {
     card2Title: 'Festivals & Open Air',
     card2Desc: 'Energie und Leidenschaft auf der großen Bühne – Solo oder mit Band-Sound.',
     card3Title: 'Private Events',
-    card3Desc: 'Hochzeiten, Firmenfeiern, Wohnzimmerkonzerte – maßgeschneidert für euch.',
+    card3Desc: 'Hochzeiten, Firmenfeiern, Gartenpartys – maßgeschneidert für euch.',
     cta: 'Booking-Seite öffnen',
     tagline: 'Solo Akustik-Gitarre · Deutsch · Polnisch · Englisch · 23 Songs Repertoire',
   },

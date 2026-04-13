@@ -453,14 +453,14 @@ export default function BookingPage() {
             <blockquote className="text-2xl md:text-3xl font-black text-white leading-relaxed mb-6 max-w-3xl mx-auto">
               Dawid hat mit seiner Stimme und Gitarre alle in den Bann gezogen. Authentisch, leidenschaftlich und unglaublich mitreißend.
             </blockquote>
-            <cite className="text-slate-500 text-sm not-italic">— Feedback nach einem Wohnzimmerkonzert in Rostock</cite>
+            <cite className="text-slate-500 text-sm not-italic">— Feedback nach einem Private Event in Rostock</cite>
           </div>
 
           {/* Auftrittsorte */}
           <div className="grid md:grid-cols-4 gap-4">
             <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
               <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">Live</p>
-              <p className="text-white font-bold">Wohnzimmerkonzerte</p>
+              <p className="text-white font-bold">Private Events</p>
               <p className="text-slate-500 text-sm mt-1">Rostock & Umgebung</p>
             </div>
             <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">

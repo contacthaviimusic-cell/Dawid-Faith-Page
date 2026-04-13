@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import NewsTranslations from '@/lib/translations/NewsSectionTrans';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Newspaper, Clock, Tag, X, ExternalLink, Share, Calendar, Star, ArrowRight } from 'lucide-react';
+import { Newspaper, Clock, Tag, X, ExternalLink, Share, Star, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import type { NewsItem } from '@/types/news';
 import NewsDetailRenderer from '@/components/news';
@@ -222,37 +222,7 @@ export default function MobileNewsSection() {
         )}
 
         {/* Featured Release Banner */}
-        {news.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="mt-8 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-6 text-center"
-          >
-            <Calendar className="mx-auto mb-3 text-white" size={32} />
-            <h3 className="text-xl font-bold text-white mb-2">
-              {lang === 'de' ? 'Private Wohnzimmerkonzerte' :
-               lang === 'en' ? 'Private Living Room Concerts' :
-               'Prywatne koncerty w salonie'}
-            </h3>
-            <p className="text-purple-100 text-sm mb-4">
-              {lang === 'de' ? 'Erlebe ein einzigartiges Konzert in deinem Wohnzimmer.' :
-               lang === 'en' ? 'Experience a unique concert in your living room.' :
-               'Doświadcz wyjątkowego koncertu w swoim salonie.'}
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => window.location.href = '#konzerte'}
-              className="bg-white text-purple-600 px-6 py-3 rounded-xl font-bold transition-all duration-300"
-            >
-              {lang === 'de' ? 'Jetzt buchen' :
-               lang === 'en' ? 'Book now' :
-               'Zarezerwuj teraz'}
-            </motion.button>
-          </motion.div>
-        )}
+
       </div>
 
       {/* News Detail Modal */}
