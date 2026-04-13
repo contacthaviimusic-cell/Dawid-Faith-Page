@@ -48,10 +48,10 @@ export default function Navigation() {
     return () => document.removeEventListener('click', onDoc);
   }, []);
 
-  const translations: Record<string, { home: string; news: string; dfaith: string; musik: string; konzerte: string }> = {
-    de: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Musik', konzerte: 'Konzerte' },
-    en: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Music', konzerte: 'Shows' },
-    pl: { home: 'Home', news: 'Aktualności', dfaith: 'D.FAITH', musik: 'Muzyka', konzerte: 'Koncerty' },
+  const translations: Record<string, { home: string; news: string; dfaith: string; musik: string; booking: string }> = {
+    de: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Musik', booking: 'Booking' },
+    en: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Music', booking: 'Booking' },
+    pl: { home: 'Home', news: 'Aktualności', dfaith: 'D.FAITH', musik: 'Muzyka', booking: 'Booking' },
   };
 
   const navItems = [
@@ -59,7 +59,7 @@ export default function Navigation() {
     { key: 'news', name: translations[lang].news, href: '#news', icon: Newspaper, type: 'scroll' },
     { key: 'dfaith', name: translations[lang].dfaith, href: '#dfaith', icon: Sparkles, type: 'scroll' },
     { key: 'musik', name: translations[lang].musik, href: '#music', icon: Music, type: 'scroll' },
-    { key: 'konzerte', name: translations[lang].konzerte, href: '#konzerte', icon: Calendar, type: 'scroll' },
+    { key: 'booking', name: translations[lang].booking, href: '#konzerte', icon: Calendar, type: 'scroll' },
   ];
 
   return (
