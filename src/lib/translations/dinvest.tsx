@@ -1,66 +1,66 @@
 const DInvestTokenNewsTranslations = {
   de: {
     title: 'D.INVEST Token',
-    intro: 'D.INVEST verbindet Fans mit dem D.FAITH Projekt. Mit dem Token unterstützt du die Musik und wirst ein aktiver Teil der Community.',
-    detailsTitle: 'Projekt im Überblick',
+    intro: 'D.INVEST ist für Unterstützer und Investoren gedacht, die Dawid Faith langfristig begleiten möchten. Mit dem Kauf von D.INVEST erhältst du passiv D.FAITH im Rahmen des Projekts.',
+    detailsTitle: 'So funktioniert D.INVEST',
     details: [
-      'Community-orientiertes Musikprojekt',
+      'D.INVEST kaufen und Projekt direkt unterstützen',
+      'Passive D.FAITH-Zuteilung ohne Social-Media-Aufgaben',
       'Digitale Abbildung auf der Base-Chain',
-      'Fokus auf Transparenz und Weiterentwicklung',
-      'Regelmäßige Kommunikation mit der Community'
+      'Transparente Kommunikation zum Projektfortschritt'
     ],
-    stakingTitle: 'Community & Nutzen',
+    stakingTitle: 'Passive D.FAITH-Zuteilung',
     staking: [
-      'Zugang zu geplanten Community-Aktionen',
-      'Teilnahme an ausgewählten Fan-Features',
-      'Regelmäßige Updates zu Projekt-Meilensteinen',
-      'Transparente Kommunikation rund um das Projekt'
+      'Keine aktiven Social-Media-Aktionen erforderlich',
+      'Für Unterstützer mit langfristiger Perspektive',
+      'Klar auf Investoren- und Supporter-Ansatz ausgerichtet',
+      'Community-Updates bleiben zentraler Bestandteil'
     ],
-    investTitle: 'Warum als Fan mitmachen?',
-    investDesc: 'Du magst die Musik? Dann sei nicht nur Hörer, sondern aktiver Teil des Projekts. D.INVEST steht für Nähe zur Entwicklung, Community und langfristige Unterstützung der Vision von Dawid Faith.',
-    badges: ['Für echte Fans', 'Community-first', 'Teil der Bewegung']
+    investTitle: 'Für Unterstützer und Investoren',
+    investDesc: 'D.INVEST richtet sich an Menschen, die das Projekt aktiv unterstützen möchten, ohne durch tägliche Social-Media-Aufgaben Punkte zu sammeln. Der Fokus liegt auf passiver D.FAITH-Zuteilung und nachhaltiger Projektunterstützung.',
+    badges: ['Passive D.FAITH-Zuteilung', 'Für Unterstützer', 'Investoren-fokussiert']
   },
   en: {
     title: 'D.INVEST Token',
-    intro: 'D.INVEST connects fans with the D.FAITH project. With this token, you support the music and become an active part of the community.',
-    detailsTitle: 'Project Overview',
+    intro: 'D.INVEST is designed for supporters and investors who want to back Dawid Faith long term. By buying D.INVEST, you receive D.FAITH passively within the project model.',
+    detailsTitle: 'How D.INVEST Works',
     details: [
-      'Community-driven music project',
+      'Buy D.INVEST to directly support the project',
+      'Passive D.FAITH allocation without social media tasks',
       'Digitally represented on Base Chain',
-      'Focus on transparency and development',
-      'Regular communication with the community'
+      'Transparent communication about project progress'
     ],
-    stakingTitle: 'Community & Utility',
+    stakingTitle: 'Passive D.FAITH Allocation',
     staking: [
-      'Access to planned community activations',
-      'Participation in selected fan features',
-      'Regular updates on project milestones',
-      'Transparent communication around the project'
+      'No active social media actions required',
+      'Built for supporters with a long-term view',
+      'Clearly focused on investor and supporter utility',
+      'Community updates remain a core element'
     ],
-    investTitle: 'Why Join as a Fan?',
-    investDesc: 'Love the music? Then be more than just a listener and become an active part of the project. D.INVEST is about community, closer participation, and long-term support for Dawid Faith\'s vision.',
-    badges: ['For True Fans', 'Community-first', 'Part of the Movement']
+    investTitle: 'For Supporters and Investors',
+    investDesc: 'D.INVEST is for people who want to support the project without completing daily social media actions. The focus is passive D.FAITH allocation and sustainable long-term backing of Dawid Faith\'s vision.',
+    badges: ['Passive D.FAITH allocation', 'For supporters', 'Investor-focused']
   },
   pl: {
     title: 'Token D.INVEST',
-    intro: 'D.INVEST łączy fanów z projektem D.FAITH. Dzięki temu tokenowi wspierasz muzykę i stajesz się aktywną częścią społeczności.',
-    detailsTitle: 'Przegląd projektu',
+    intro: 'D.INVEST jest przeznaczony dla wspierających i inwestorów, którzy chcą długoterminowo wspierać Dawida Faith\'a. Kupując D.INVEST, otrzymujesz D.FAITH pasywnie w ramach modelu projektu.',
+    detailsTitle: 'Jak działa D.INVEST',
     details: [
-      'Projekt muzyczny oparty na społeczności',
+      'Kup D.INVEST i bezpośrednio wspieraj projekt',
+      'Pasywna alokacja D.FAITH bez zadań w social mediach',
       'Cyfrowa reprezentacja na sieci Base',
-      'Nacisk na transparentność i rozwój',
-      'Regularna komunikacja ze społecznością'
+      'Transparentna komunikacja o postępie projektu'
     ],
-    stakingTitle: 'Społeczność i użyteczność',
+    stakingTitle: 'Pasywna alokacja D.FAITH',
     staking: [
-      'Dostęp do planowanych aktywacji społeczności',
-      'Udział w wybranych funkcjach dla fanów',
-      'Regularne aktualizacje o kamieniach milowych projektu',
-      'Transparentna komunikacja wokół projektu'
+      'Bez konieczności aktywnych działań w social mediach',
+      'Dla wspierających z długoterminową perspektywą',
+      'Skoncentrowane na wartości dla inwestorów i wspierających',
+      'Aktualizacje społeczności pozostają kluczowe'
     ],
-    investTitle: 'Dlaczego dołączyć jako fan?',
-    investDesc: 'Kochasz muzykę? Bądź kimś więcej niż słuchaczem i stań się aktywną częścią projektu. D.INVEST to społeczność, bliższy udział i długoterminowe wsparcie wizji Dawida Faith\'a.',
-    badges: ['Dla prawdziwych fanów', 'Community-first', 'Część wspólnoty']
+    investTitle: 'Dla wspierających i inwestorów',
+    investDesc: 'D.INVEST jest dla osób, które chcą wspierać projekt bez codziennego wykonywania zadań w social mediach. Fokus to pasywna alokacja D.FAITH i długoterminowe wsparcie wizji Dawida Faith\'a.',
+    badges: ['Pasywna alokacja D.FAITH', 'Dla wspierających', 'Skoncentrowane na inwestorach']
   }
 };
 
