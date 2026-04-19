@@ -1,66 +1,66 @@
 const DInvestTokenNewsTranslations = {
   de: {
     title: 'D.INVEST Token',
-    intro: 'D.INVEST ist dein direkter Anteil am Erfolg von Dawid Faith. Mit diesem Token unterstützt du nicht nur die Musik, sondern profitierst auch davon: Durch regelmäßiges Staking erhältst du 80% des gesamten D.FAITH Supplys und wirst zum echten Teil der Bewegung.',
-    detailsTitle: 'Dein Investment im Detail',
+    intro: 'D.INVEST verbindet Fans mit dem D.FAITH Projekt. Mit dem Token unterstützt du die Musik und wirst ein aktiver Teil der Community.',
+    detailsTitle: 'Projekt im Überblick',
     details: [
-      'Fester Preis: 5,00€ pro Token',
-      'Limited Supply: 10.000 Token (exklusiv)',
-      'Gesamtkapital: 50.000€',
-      'Auf der Base-Chain blockchain-verwaltet'
+      'Community-orientiertes Musikprojekt',
+      'Digitale Abbildung auf der Base-Chain',
+      'Fokus auf Transparenz und Weiterentwicklung',
+      'Regelmäßige Kommunikation mit der Community'
     ],
-    stakingTitle: 'Deine Rewards als Fan',
+    stakingTitle: 'Community & Nutzen',
     staking: [
-      'Wöchentliche D.FAITH Rewards direkt verdienen',
-      'Je länger du hältst, desto besser wird dein ROI',
-      'Bis zu 104% ROI über die Laufzeit',
-      'Automatische, transparente Auszahlungen'
+      'Zugang zu geplanten Community-Aktionen',
+      'Teilnahme an ausgewählten Fan-Features',
+      'Regelmäßige Updates zu Projekt-Meilensteinen',
+      'Transparente Kommunikation rund um das Projekt'
     ],
-    investTitle: 'Warum als Fan investieren?',
-    investDesc: 'Du magst die Musik? Dann sei nicht nur Hörer, sondern aktiver Teil des Projekts. Mit D.INVEST profitierst du direkt vom Erfolg von Dawid Faith. Deine Unterstützung wird belohnt – mit passiven Einnahmen und dem guten Gefühl, etwas zu bewegen.',
-    badges: ['Für echte Fans', 'Passive Rewards verdienen', 'Teil der Bewegung']
+    investTitle: 'Warum als Fan mitmachen?',
+    investDesc: 'Du magst die Musik? Dann sei nicht nur Hörer, sondern aktiver Teil des Projekts. D.INVEST steht für Nähe zur Entwicklung, Community und langfristige Unterstützung der Vision von Dawid Faith.',
+    badges: ['Für echte Fans', 'Community-first', 'Teil der Bewegung']
   },
   en: {
     title: 'D.INVEST Token',
-    intro: 'D.INVEST is your direct share in Dawid Faith\'s success. With this token, you don\'t just support the music – you benefit from it too: Through regular staking, you receive 80% of the total D.FAITH supply and become a real part of the movement.',
-    detailsTitle: 'Your Investment Details',
+    intro: 'D.INVEST connects fans with the D.FAITH project. With this token, you support the music and become an active part of the community.',
+    detailsTitle: 'Project Overview',
     details: [
-      'Fixed Price: €5.00 per token',
-      'Limited Supply: 10,000 tokens (exclusive)',
-      'Total Capital: €50,000',
-      'Blockchain-managed on Base Chain'
+      'Community-driven music project',
+      'Digitally represented on Base Chain',
+      'Focus on transparency and development',
+      'Regular communication with the community'
     ],
-    stakingTitle: 'Your Rewards as a Fan',
+    stakingTitle: 'Community & Utility',
     staking: [
-      'Earn weekly D.FAITH rewards directly',
-      'The longer you hold, the better your ROI',
-      'Up to 104% ROI over time',
-      'Automatic, transparent payouts'
+      'Access to planned community activations',
+      'Participation in selected fan features',
+      'Regular updates on project milestones',
+      'Transparent communication around the project'
     ],
-    investTitle: 'Why Invest as a Fan?',
-    investDesc: 'Love the music? Then be more than just a listener – be an active part of the project. With D.INVEST, you benefit directly from Dawid Faith\'s success. Your support is rewarded – with passive income and the good feeling of making a difference.',
-    badges: ['For True Fans', 'Earn Passive Rewards', 'Part of the Movement']
+    investTitle: 'Why Join as a Fan?',
+    investDesc: 'Love the music? Then be more than just a listener and become an active part of the project. D.INVEST is about community, closer participation, and long-term support for Dawid Faith\'s vision.',
+    badges: ['For True Fans', 'Community-first', 'Part of the Movement']
   },
   pl: {
     title: 'Token D.INVEST',
-    intro: 'D.INVEST to Twój bezpośredni udział w sukcesie Dawida Faith\'a. Dzięki temu tokenowi nie tylko wspierasz muzykę – również z niej korzystasz: Poprzez regularne stakowanie otrzymujesz 80% całkowitej podaży D.FAITH i staniem się naprawdę częścią tego ruchu.',
-    detailsTitle: 'Szczegóły Twojej inwestycji',
+    intro: 'D.INVEST łączy fanów z projektem D.FAITH. Dzięki temu tokenowi wspierasz muzykę i stajesz się aktywną częścią społeczności.',
+    detailsTitle: 'Przegląd projektu',
     details: [
-      'Stała cena: 5,00€ za token',
-      'Ograniczona ilość: 10 000 tokenów (tylko dla Ciebie)',
-      'Całkowity kapitał: 50 000€',
-      'Zabezpieczone blockchain\'em na sieci Base'
+      'Projekt muzyczny oparty na społeczności',
+      'Cyfrowa reprezentacja na sieci Base',
+      'Nacisk na transparentność i rozwój',
+      'Regularna komunikacja ze społecznością'
     ],
-    stakingTitle: 'Twoje nagrody jako Fan',
+    stakingTitle: 'Społeczność i użyteczność',
     staking: [
-      'Zarabiaj cotygodniowe nagrody D.FAITH',
-      'Im dłużej posiadasz, tym wyższy Twój zwrot',
-      'Do 104% zwrotu z inwestycji w ciągu czasu',
-      'Automatyczne i transparentne wypłaty'
+      'Dostęp do planowanych aktywacji społeczności',
+      'Udział w wybranych funkcjach dla fanów',
+      'Regularne aktualizacje o kamieniach milowych projektu',
+      'Transparentna komunikacja wokół projektu'
     ],
-    investTitle: 'Dlaczego inwestować jako Fan?',
-    investDesc: 'Kochasz muzykę? Bądź więcej niż słuchaczem – bądź aktywną częścią projektu. Dzięki D.INVEST bezpośrednio korzystasz z sukcesów Dawida Faith\'a. Twoje wsparcie jest nagradzane – pasywnym dochodem i wspaniałym uczuciem, że robisz różnicę.',
-    badges: ['Dla prawdziwych fanów', 'Zarabiaj nagrody', 'Część wspólnoty']
+    investTitle: 'Dlaczego dołączyć jako fan?',
+    investDesc: 'Kochasz muzykę? Bądź kimś więcej niż słuchaczem i stań się aktywną częścią projektu. D.INVEST to społeczność, bliższy udział i długoterminowe wsparcie wizji Dawida Faith\'a.',
+    badges: ['Dla prawdziwych fanów', 'Community-first', 'Część wspólnoty']
   }
 };
 
