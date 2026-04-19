@@ -795,7 +795,7 @@ export default function BookingPage() {
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
                     Your Man <span className="text-slate-500">(Josh Turner)</span>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">EN</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
