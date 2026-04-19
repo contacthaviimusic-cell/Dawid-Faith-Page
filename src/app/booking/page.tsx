@@ -794,11 +794,6 @@ export default function BookingPage() {
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Your Man <span className="text-slate-500">(Josh Turner)</span>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">EN</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
                     Nie allein <span className="text-slate-500">(Kaffkiez)</span>
                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">DE</span>
                   </li>
@@ -806,6 +801,11 @@ export default function BookingPage() {
 
                 <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] font-semibold mb-3">{t.repEnglish}</p>
                 <ul className="space-y-2.5 text-slate-300 text-sm mb-6">
+                  <li className="flex items-center gap-3">
+                    <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
+                    Your Man <span className="text-slate-500">(Josh Turner)</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">EN</span>
+                  </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
                     This is the Life <span className="text-slate-500">(Amy Macdonald)</span>
