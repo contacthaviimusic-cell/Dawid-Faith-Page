@@ -114,6 +114,12 @@ export default function AdminNewsPage() {
           >
             📧 Newsletter-Management
           </button>
+          <button
+            onClick={() => router.push('/admin/outreach')}
+            className="px-4 py-2 rounded bg-gradient-to-r from-amber-500 to-orange-500"
+          >
+            🎤 Booking Outreach
+          </button>
         </div>
 
         {loading ? (

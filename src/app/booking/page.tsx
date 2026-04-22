@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import BookingPageTrans from '@/lib/translations/BookingPageTrans';
 import FlagForLang, { FlagDE, FlagGB, FlagPL } from '@/components/FlagIcon';
 
 export default function BookingPage() {
+  const searchParams = useSearchParams();
   const [currentSong, setCurrentSong] = useState(0);
   const [activeSection, setActiveSection] = useState('hero');
   const [scrolled, setScrolled] = useState(false);
@@ -63,6 +65,13 @@ export default function BookingPage() {
     window.addEventListener('site-lang-changed', onLang as EventListener);
     return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
   }, []);
+
+  // Outreach ref tracking
+  useEffect(() => {
+    const ref = searchParams.get('ref');
+    if (!ref || !/^[\w-]+$/.test(ref)) return;
+    fetch(`/api/outreach/${ref}`, { method: 'POST' }).catch(() => {});
+  }, [searchParams]);
 
   // Broadcast language change
   useEffect(() => {
