@@ -1,13 +1,22 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import BookingPageTrans from '@/lib/translations/BookingPageTrans';
 import FlagForLang, { FlagDE, FlagGB, FlagPL } from '@/components/FlagIcon';
 
-export default function BookingPage() {
+function OutreachTracker() {
   const searchParams = useSearchParams();
+  useEffect(() => {
+    const ref = searchParams.get('ref');
+    if (!ref || !/^[\w-]+$/.test(ref)) return;
+    fetch(`/api/outreach/${ref}`, { method: 'POST' }).catch(() => {});
+  }, [searchParams]);
+  return null;
+}
+
+export default function BookingPage() {
   const [currentSong, setCurrentSong] = useState(0);
   const [activeSection, setActiveSection] = useState('hero');
   const [scrolled, setScrolled] = useState(false);
@@ -65,13 +74,6 @@ export default function BookingPage() {
     window.addEventListener('site-lang-changed', onLang as EventListener);
     return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
   }, []);
-
-  // Outreach ref tracking
-  useEffect(() => {
-    const ref = searchParams.get('ref');
-    if (!ref || !/^[\w-]+$/.test(ref)) return;
-    fetch(`/api/outreach/${ref}`, { method: 'POST' }).catch(() => {});
-  }, [searchParams]);
 
   // Broadcast language change
   useEffect(() => {
@@ -157,6 +159,9 @@ export default function BookingPage() {
 
   return (
     <div className="min-h-screen bg-black text-white scroll-smooth">
+      <Suspense fallback={null}>
+        <OutreachTracker />
+      </Suspense>
 
       {/* STICKY NAVIGATION */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
