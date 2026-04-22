@@ -12,7 +12,11 @@ export async function POST(
   if (!/^[\w-]+$/.test(id)) {
     return NextResponse.json({ error: 'Invalid id' }, { status: 400 });
   }
-  await recordClick(id);
+  try {
+    await recordClick(id);
+  } catch (err) {
+    console.error('[outreach click]', err);
+  }
   return NextResponse.json({ ok: true });
 }
 

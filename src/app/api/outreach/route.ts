@@ -5,8 +5,13 @@ import { getAllOutreach, createOutreach } from '@/lib/outreachStore';
 export async function GET() {
   if (!(await isAdminAuthenticated()))
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  const entries = await getAllOutreach();
-  return NextResponse.json(entries);
+  try {
+    const entries = await getAllOutreach();
+    return NextResponse.json(entries);
+  } catch (err) {
+    console.error('[outreach GET]', err);
+    return NextResponse.json({ error: 'Interner Fehler.' }, { status: 500 });
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -31,6 +36,11 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const entry = await createOutreach(label, sentTo, note ?? '');
-  return NextResponse.json(entry, { status: 201 });
+  try {
+    const entry = await createOutreach(label, sentTo, note ?? '');
+    return NextResponse.json(entry, { status: 201 });
+  } catch (err) {
+    console.error('[outreach POST]', err);
+    return NextResponse.json({ error: 'Interner Fehler beim Speichern.' }, { status: 500 });
+  }
 }

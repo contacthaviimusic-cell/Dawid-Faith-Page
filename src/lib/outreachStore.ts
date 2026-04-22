@@ -12,18 +12,36 @@ export interface OutreachEntry {
   lastClickAt: string | null;
 }
 
-const DATA_FILE = path.join(process.cwd(), 'data', 'outreach.json');
+// On Vercel the project directory is read-only at runtime → use /tmp
+const IS_VERCEL = !!process.env.VERCEL;
+const DATA_FILE = IS_VERCEL
+  ? '/tmp/outreach.json'
+  : path.join(process.cwd(), 'data', 'outreach.json');
+const SEED_FILE = path.join(process.cwd(), 'data', 'outreach.json');
 
 async function readAll(): Promise<OutreachEntry[]> {
   try {
     const raw = await fs.readFile(DATA_FILE, 'utf8');
     return JSON.parse(raw) as OutreachEntry[];
   } catch {
+    // On Vercel first call: seed from committed file if it has data
+    if (IS_VERCEL) {
+      try {
+        const seed = await fs.readFile(SEED_FILE, 'utf8');
+        const data = JSON.parse(seed) as OutreachEntry[];
+        if (data.length > 0) await writeAll(data);
+        return data;
+      } catch {
+        return [];
+      }
+    }
     return [];
   }
 }
 
 async function writeAll(entries: OutreachEntry[]): Promise<void> {
+  const dir = path.dirname(DATA_FILE);
+  await fs.mkdir(dir, { recursive: true });
   await fs.writeFile(DATA_FILE, JSON.stringify(entries, null, 2), 'utf8');
 }
 
