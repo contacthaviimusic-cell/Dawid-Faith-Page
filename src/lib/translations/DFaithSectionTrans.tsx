@@ -17,16 +17,16 @@ export const DFaithTranslations: Record<LangKey, {
 }> = {
   de: {
     title: 'D.FAITH Ökosystem – kurz erklärt',
-    subtitle: 'Likes, Kommentare, Shares – dein Support bringt dir Tokens. Frühere Musik, exklusive Vorteile, einfache Auszahlung.',
+    subtitle: 'Likes, Kommentare, Shares – dein Support bringt dir Tokens. Frühere Musik, exklusive Vorteile und mehr.',
     tagline: 'Einfach. Fair. Sofort.',
     badgeLabel: 'Für Fans & Supporter',
-    smallValues: ['💬 Interagiere & erhalte Token', '🎧 Früher Zugang zu Songs', '💸 Einfach auszahlen'],
+    smallValues: ['💬 Interagiere & erhalte Token', '🎧 Früher Zugang zu Songs', '🎁 Exklusive Vorteile'],
     tabFans: 'Für Fans',
     tabSupporter: 'Für Supporter',
     fansList: [
       'Like, kommentiere, teile – sammle automatisch D.FAITH Token.',
       'Nutze Token für frühen Zugang, VIP-Erlebnisse und Rabatte.',
-      'Willst du auszahlen? Einfach und transparent möglich.'
+      'Das Ökosystem wächst mit jeder Interaktion – sei von Anfang an dabei.'
     ],
     supporterList: [
       'Kaufe D.INVEST zum Fixpreis (5€) und unterstütze die Musik direkt.',
@@ -38,16 +38,16 @@ export const DFaithTranslations: Record<LangKey, {
   },
   en: {
     title: 'D.FAITH ecosystem — a short explanation',
-    subtitle: 'Likes, comments, shares — your support earns you tokens. Early music access, exclusive perks, easy payouts.',
+    subtitle: 'Likes, comments, shares — your support earns you tokens. Early music access, exclusive perks and more.',
     tagline: 'Simple. Fair. Instant.',
     badgeLabel: 'For Fans & Supporters',
-    smallValues: ['💬 Interact & earn tokens', '🎧 Early access to songs', '💸 Easy to cash out'],
+    smallValues: ['💬 Interact & earn tokens', '🎧 Early access to songs', '🎁 Exclusive perks'],
     tabFans: 'For Fans',
     tabSupporter: 'For Supporters',
     fansList: [
       'Like, comment, share — automatically collect D.FAITH tokens.',
       'Use tokens for early access, VIP experiences and discounts.',
-      'Want to cash out? Simple and transparent.'
+      'The ecosystem grows with every interaction — be there from the start.'
     ],
     supporterList: [
       'Buy D.INVEST at a fixed price (5€) and support the music directly.',
@@ -59,16 +59,16 @@ export const DFaithTranslations: Record<LangKey, {
   },
   pl: {
     title: 'Ekosystem D.FAITH — krótko wyjaśniony',
-    subtitle: 'Polubienia, komentarze, udostępnienia — Twój support daje tokeny. Wczesny dostęp do muzyki, ekskluzywne korzyści, łatwe wypłaty.',
+    subtitle: 'Polubienia, komentarze, udostępnienia — Twój support daje tokeny. Wczesny dostęp do muzyki, ekskluzywne korzyści i więcej.',
     tagline: 'Prosto. Sprawiedliwie. Natychmiast.',
     badgeLabel: 'Dla fanów i wspierających',
-    smallValues: ['💬 Angażuj się i zdobywaj tokeny', '🎧 Wczesny dostęp do utworów', '💸 Łatwe wypłacanie'],
+    smallValues: ['💬 Angażuj się i zdobywaj tokeny', '🎧 Wczesny dostęp do utworów', '🎁 Ekskluzywne korzyści'],
     tabFans: 'Dla fanów',
     tabSupporter: 'Dla wspierających',
     fansList: [
       'Polub, skomentuj, udostępnij — automatycznie zbieraj tokeny D.FAITH.',
       'Wykorzystaj tokeny na wczesny dostęp, doświadczenia VIP i zniżki.',
-      'Chcesz wypłacić? Prosto i przejrzyście.'
+      'Ekosystem rośnie z każdą interakcją — bądź z nami od początku.'
     ],
     supporterList: [
       'Kup D.INVEST po stałej cenie (5€) i wspieraj muzykę bezpośrednio.',
