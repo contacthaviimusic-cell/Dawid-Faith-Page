@@ -402,29 +402,48 @@ export default function BookingPage() {
                 key={song.id}
                 className="group relative bg-white/[0.03] border border-white/10 rounded-2xl hover:border-amber-500/30 transition-all duration-500 overflow-hidden"
               >
-                {/* Song Image */}
+                {/* Thumbnail / Video Container */}
                 <div className="relative h-64 rounded-t-2xl overflow-hidden">
+                  {/* Thumbnail */}
                   <Image
                     src={song.image}
                     alt={song.name}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className={`object-cover transition-transform duration-500 ${showVideo === song.id ? 'opacity-0' : 'group-hover:scale-105'}`}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent transition-opacity duration-300 ${showVideo === song.id ? 'opacity-0' : ''}`} />
 
-                  {/* Play Button Overlay */}
-                  <button
-                    onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-amber-500 hover:bg-amber-400 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg shadow-amber-500/30"
-                  >
-                    <span className="text-black text-xl ml-1">▶</span>
-                  </button>
+                  {/* Video overlay – ersetzt das Thumbnail */}
+                  {showVideo === song.id && (
+                    <video
+                      autoPlay
+                      controls
+                      className="absolute inset-0 w-full h-full object-cover"
+                      poster={song.image}
+                      preload="metadata"
+                    >
+                      <source src={song.video} type="video/mp4" />
+                      Dein Browser unterstützt keine Videos.
+                    </video>
+                  )}
 
-                  {/* Title Overlay */}
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-2xl font-black text-white mb-1">{song.name}</h3>
-                    <p className="text-slate-300 text-sm">{song.desc[lang]}</p>
-                  </div>
+                  {/* Play Button – nur wenn kein Video läuft */}
+                  {showVideo !== song.id && (
+                    <button
+                      onClick={() => setShowVideo(song.id)}
+                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-amber-500 hover:bg-amber-400 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg shadow-amber-500/30"
+                    >
+                      <span className="text-black text-xl ml-1">▶</span>
+                    </button>
+                  )}
+
+                  {/* Title Overlay – nur wenn kein Video läuft */}
+                  {showVideo !== song.id && (
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h3 className="text-2xl font-black text-white mb-1">{song.name}</h3>
+                      <p className="text-slate-300 text-sm">{song.desc[lang]}</p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Card Controls */}
@@ -435,21 +454,6 @@ export default function BookingPage() {
                   >
                     <span className="text-sm">{showVideo === song.id ? t.musicVideoClose : t.musicVideoOpen}</span>
                   </button>
-
-                  {/* Video Player */}
-                  {showVideo === song.id && (
-                    <div className="mt-4 rounded-xl overflow-hidden">
-                      <video
-                        controls
-                        className="w-full h-64 object-cover"
-                        poster={song.image}
-                        preload="metadata"
-                      >
-                        <source src={song.video} type="video/mp4" />
-                        Dein Browser unterstützt keine Videos.
-                      </video>
-                    </div>
-                  )}
                 </div>
               </div>
             ))}
