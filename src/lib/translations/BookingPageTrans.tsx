@@ -44,6 +44,8 @@ const BookingPageTrans: Record<LangKey, {
   musicTitle: string;
   musicSubtitle: string;
   musicNowPlaying: string;
+  musicVideoOpen: string;
+  musicVideoClose: string;
 
   // Videos
   videosLabel: string;
@@ -209,9 +211,11 @@ const BookingPageTrans: Record<LangKey, {
 
     // Music
     musicLabel: 'Musik',
-    musicTitle: 'Höre meine Songs',
-    musicSubtitle: 'Meine Original-Kompositionen und handverlesene Covers',
+    musicTitle: 'Meine Songs',
+    musicSubtitle: 'Videovorschau meiner Original-Kompositionen',
     musicNowPlaying: 'Jetzt spielen',
+    musicVideoOpen: 'Video ansehen',
+    musicVideoClose: 'Video schließen',
 
     // Videos
     videosLabel: 'Live Performance',
@@ -377,9 +381,11 @@ const BookingPageTrans: Record<LangKey, {
 
     // Music
     musicLabel: 'Music',
-    musicTitle: 'Listen to my Songs',
-    musicSubtitle: 'My original compositions and handpicked covers',
+    musicTitle: 'My Songs',
+    musicSubtitle: 'Video preview of my original compositions',
     musicNowPlaying: 'Now playing',
+    musicVideoOpen: 'Watch video',
+    musicVideoClose: 'Close video',
 
     // Videos
     videosLabel: 'Live Performance',
@@ -545,9 +551,11 @@ const BookingPageTrans: Record<LangKey, {
 
     // Music
     musicLabel: 'Muzyka',
-    musicTitle: 'Posłuchaj moich utworów',
-    musicSubtitle: 'Moje autorskie kompozycje i starannie wybrane covery',
+    musicTitle: 'Moje utwory',
+    musicSubtitle: 'Podgląd wideo moich autorskich kompozycji',
     musicNowPlaying: 'Teraz gra',
+    musicVideoOpen: 'Obejrzyj wideo',
+    musicVideoClose: 'Zamknij wideo',
 
     // Videos
     videosLabel: 'Występy na żywo',

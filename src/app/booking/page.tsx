@@ -17,7 +17,7 @@ function OutreachTracker() {
 }
 
 export default function BookingPage() {
-  const [currentSong, setCurrentSong] = useState(0);
+  const [showVideo, setShowVideo] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState('hero');
   const [scrolled, setScrolled] = useState(false);
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
@@ -113,9 +113,10 @@ export default function BookingPage() {
   }, []);
 
   const songs = [
-    { name: 'Katze', file: '/booking/music/Katze_V4.mp3', duration: '3:45', image: '/musik/katze/photo_2026-01-06_14-31-47.jpg' },
-    { name: 'Niebianski Groove', file: '/booking/music/Niebianski Groove.mp3', duration: '4:12', image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png' },
-    { name: 'Maria', file: '/booking/music/Maria.mp3', duration: '3:58', image: '/musik/maria/Maria.jpg' }
+    { id: 'katze', name: 'Katze', image: '/musik/katze/photo_2026-01-06_14-31-47.jpg', video: '/musik/katze/video_2026-04-10_14-55-08.mp4', desc: { de: 'Der erste Song der Waterfall Release Kampagne', en: 'The first song of the Waterfall Release campaign', pl: 'Pierwszy utwór kampanii Waterfall Release' } },
+    { id: 'znikla', name: 'Znikła', image: '/musik/znikla/Znikła pic.jpg', video: '/musik/znikla/Znikłą Vid1.mp4', desc: { de: 'Eine intensive Reise durch Verlust und Sehnsucht', en: 'An intense journey through loss and longing', pl: 'Intensywna podróż przez stratę i tęsknotę' } },
+    { id: 'maria', name: 'Maria', image: '/musik/maria/Maria.jpg', video: '/musik/maria/Maria Vid1.mp4', desc: { de: 'Eine herzzerreißende Ballade über Einsamkeit und verlorene Liebe', en: 'A heartbreaking ballad about loneliness and lost love', pl: 'Ballada o samotności i utraconej miłości' } },
+    { id: 'niebianski-groove', name: 'Niebianski Groove', image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png', video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4', desc: { de: 'Ein weiterer Track aus der exklusiven Waterfall Release Serie', en: 'Another track from the exclusive Waterfall Release series', pl: 'Kolejny utwór z serii Waterfall Release' } },
   ];
 
   const videos = [
@@ -382,7 +383,7 @@ export default function BookingPage() {
         </div>
       </section>
 
-      {/* AUDIO PLAYER SECTION */}
+      {/* VIDEO PREVIEW SECTION */}
       <section id="music" className="scroll-mt-16 py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="absolute top-1/3 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-[100px]"></div>
@@ -394,89 +395,61 @@ export default function BookingPage() {
             <p className="text-slate-500">{t.musicSubtitle}</p>
           </div>
 
-          {/* Main Player */}
-          <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-8 mb-16 backdrop-blur-sm">
-            <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
-              {/* Current Song Image */}
-              <div className="relative w-full md:w-48 h-48 rounded-xl overflow-hidden flex-shrink-0 shadow-2xl">
-                <Image
-                  src={songs[currentSong].image}
-                  alt={songs[currentSong].name}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-              </div>
-              {/* Player Controls */}
-              <div className="flex-1 w-full">
-                <p className="text-amber-400/60 text-[10px] uppercase tracking-[0.2em] mb-1">{t.musicNowPlaying}</p>
-                <h3 className="text-3xl font-black mb-4 text-white">
-                  {songs[currentSong].name}
-                </h3>
-                <audio 
-                  key={currentSong}
-                  className="w-full [&::-webkit-media-controls-panel]:bg-slate-800 [&::-webkit-media-controls-current-time-display]:text-white [&::-webkit-media-controls-time-remaining-display]:text-white" 
-                  controls 
-                  controlsList="nodownload"
-                >
-                  <source src={songs[currentSong].file} type="audio/mpeg" />
-                </audio>
-                <p className="text-slate-500 text-sm mt-3">{songs[currentSong].duration}</p>
-              </div>
-            </div>
-
-            {/* Track Selection */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {songs.map((song, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setCurrentSong(idx)}
-                  className={`py-3 px-4 rounded-xl font-semibold transition-all flex items-center gap-3 ${
-                    currentSong === idx
-                      ? 'bg-amber-500/15 text-amber-300 ring-1 ring-amber-500/30'
-                      : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
-                  }`}
-                >
-                  <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${
-                    currentSong === idx ? 'bg-amber-500/20 text-amber-400' : 'bg-white/10 text-slate-500'
-                  }`}>
-                    {currentSong === idx ? '▶' : idx + 1}
-                  </span>
-                  {song.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Song Grid */}
-          <div className="grid md:grid-cols-3 gap-8">
-            {songs.map((song, idx) => (
-              <div 
-                key={idx} 
-                className="group cursor-pointer"
-                onClick={() => setCurrentSong(idx)}
+          {/* Songs Video Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {songs.map((song) => (
+              <div
+                key={song.id}
+                className="group relative bg-white/[0.03] border border-white/10 rounded-2xl hover:border-amber-500/30 transition-all duration-500 overflow-hidden"
               >
-                <div className="relative h-56 rounded-2xl overflow-hidden mb-4 shadow-xl">
+                {/* Song Image */}
+                <div className="relative h-64 rounded-t-2xl overflow-hidden">
                   <Image
                     src={song.image}
                     alt={song.name}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      currentSong === idx
-                        ? 'bg-amber-500 text-black scale-100'
-                        : 'bg-white/20 backdrop-blur-sm text-white scale-0 group-hover:scale-100'
-                    }`}>
-                      <span className="text-lg ml-0.5">▶</span>
-                    </div>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+
+                  {/* Play Button Overlay */}
+                  <button
+                    onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-amber-500 hover:bg-amber-400 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg shadow-amber-500/30"
+                  >
+                    <span className="text-black text-xl ml-1">▶</span>
+                  </button>
+
+                  {/* Title Overlay */}
                   <div className="absolute bottom-4 left-4 right-4">
-                    <h4 className="font-black text-lg">{song.name}</h4>
-                    <p className="text-slate-400 text-sm">{song.duration}</p>
+                    <h3 className="text-2xl font-black text-white mb-1">{song.name}</h3>
+                    <p className="text-slate-300 text-sm">{song.desc[lang]}</p>
                   </div>
+                </div>
+
+                {/* Card Controls */}
+                <div className="p-6">
+                  <button
+                    onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 rounded-xl text-black font-bold transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-amber-500/20"
+                  >
+                    <span className="text-sm">{showVideo === song.id ? t.musicVideoClose : t.musicVideoOpen}</span>
+                  </button>
+
+                  {/* Video Player */}
+                  {showVideo === song.id && (
+                    <div className="mt-4 rounded-xl overflow-hidden">
+                      <video
+                        controls
+                        className="w-full h-64 object-cover"
+                        poster={song.image}
+                        preload="metadata"
+                      >
+                        <source src={song.video} type="video/mp4" />
+                        Dein Browser unterstützt keine Videos.
+                      </video>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
