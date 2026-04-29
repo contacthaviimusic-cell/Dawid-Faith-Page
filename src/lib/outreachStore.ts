@@ -16,7 +16,7 @@ export interface OutreachEntry {
 const BLOB_PATHNAME = 'data/outreach.json';
 const LOCAL_FILE = path.join(process.cwd(), 'data', 'outreach.json');
 
-function useBlob(): boolean {
+function isBlob(): boolean {
   return !!process.env.BLOB_READ_WRITE_TOKEN;
 }
 
@@ -62,11 +62,11 @@ async function writeToFile(entries: OutreachEntry[]): Promise<void> {
 // ── Unified read / write ─────────────────────────────────────────────────────
 
 async function readAll(): Promise<OutreachEntry[]> {
-  return useBlob() ? readFromBlob() : readFromFile();
+  return isBlob() ? readFromBlob() : readFromFile();
 }
 
 async function writeAll(entries: OutreachEntry[]): Promise<void> {
-  if (useBlob()) {
+  if (isBlob()) {
     await writeToBlob(entries);
   } else {
     await writeToFile(entries);
