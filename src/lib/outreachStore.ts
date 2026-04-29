@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { put, list } from '@vercel/blob';
 
 export interface OutreachEntry {
   id: string;
@@ -12,37 +13,64 @@ export interface OutreachEntry {
   lastClickAt: string | null;
 }
 
-// On Vercel the project directory is read-only at runtime → use /tmp
-const IS_VERCEL = !!process.env.VERCEL;
-const DATA_FILE = IS_VERCEL
-  ? '/tmp/outreach.json'
-  : path.join(process.cwd(), 'data', 'outreach.json');
-const SEED_FILE = path.join(process.cwd(), 'data', 'outreach.json');
+const BLOB_PATHNAME = 'data/outreach.json';
+const LOCAL_FILE = path.join(process.cwd(), 'data', 'outreach.json');
 
-async function readAll(): Promise<OutreachEntry[]> {
+function useBlob(): boolean {
+  return !!process.env.BLOB_READ_WRITE_TOKEN;
+}
+
+// ── Vercel Blob helpers ──────────────────────────────────────────────────────
+
+async function readFromBlob(): Promise<OutreachEntry[]> {
   try {
-    const raw = await fs.readFile(DATA_FILE, 'utf8');
-    return JSON.parse(raw) as OutreachEntry[];
+    const { blobs } = await list({ prefix: 'data/outreach' });
+    const blob = blobs.find((b) => b.pathname === BLOB_PATHNAME);
+    if (!blob) return [];
+    const res = await fetch(blob.url, { cache: 'no-store' });
+    if (!res.ok) return [];
+    return (await res.json()) as OutreachEntry[];
   } catch {
-    // On Vercel first call: seed from committed file if it has data
-    if (IS_VERCEL) {
-      try {
-        const seed = await fs.readFile(SEED_FILE, 'utf8');
-        const data = JSON.parse(seed) as OutreachEntry[];
-        if (data.length > 0) await writeAll(data);
-        return data;
-      } catch {
-        return [];
-      }
-    }
     return [];
   }
 }
 
+async function writeToBlob(entries: OutreachEntry[]): Promise<void> {
+  await put(BLOB_PATHNAME, JSON.stringify(entries, null, 2), {
+    access: 'public',
+    contentType: 'application/json',
+    addRandomSuffix: false,
+  });
+}
+
+// ── Local file-system helpers ────────────────────────────────────────────────
+
+async function readFromFile(): Promise<OutreachEntry[]> {
+  try {
+    const raw = await fs.readFile(LOCAL_FILE, 'utf8');
+    return JSON.parse(raw) as OutreachEntry[];
+  } catch {
+    return [];
+  }
+}
+
+async function writeToFile(entries: OutreachEntry[]): Promise<void> {
+  await fs.mkdir(path.dirname(LOCAL_FILE), { recursive: true });
+  await fs.writeFile(LOCAL_FILE, JSON.stringify(entries, null, 2), 'utf8');
+}
+
+// ── Unified read / write ─────────────────────────────────────────────────────
+
+async function readAll(): Promise<OutreachEntry[]> {
+  return useBlob() ? readFromBlob() : readFromFile();
+}
+
 async function writeAll(entries: OutreachEntry[]): Promise<void> {
-  const dir = path.dirname(DATA_FILE);
-  await fs.mkdir(dir, { recursive: true });
-  await fs.writeFile(DATA_FILE, JSON.stringify(entries, null, 2), 'utf8');
+  if (useBlob()) {
+    await writeToBlob(entries);
+  } else {
+    await writeToFile(entries);
+  }
 }
 
 export async function getAllOutreach(): Promise<OutreachEntry[]> {
