@@ -87,9 +87,10 @@ export default function AdminOutreachPage() {
       setFormError(d.error ?? 'Fehler beim Erstellen.');
       return;
     }
+    const newEntry: OutreachEntry = await res.json();
+    setEntries((prev) => [newEntry, ...prev]);
     setForm({ label: '', sentTo: '', note: '' });
     setShowForm(false);
-    await fetchEntries();
   }
 
   async function handleDelete(id: string, label: string) {
@@ -100,7 +101,7 @@ export default function AdminOutreachPage() {
       setError(d.error ?? 'Löschen fehlgeschlagen.');
       return;
     }
-    await fetchEntries();
+    setEntries((prev) => prev.filter((e) => e.id !== id));
   }
 
   function copyLink(id: string) {

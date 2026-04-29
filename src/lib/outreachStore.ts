@@ -25,7 +25,7 @@ function isBlob(): boolean {
 async function readFromBlob(): Promise<OutreachEntry[]> {
   try {
     const blob = await head(BLOB_PATHNAME);
-    const res = await fetch(blob.downloadUrl, { cache: 'no-store' });
+    const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
     if (!res.ok) return [];
     return (await res.json()) as OutreachEntry[];
   } catch (e) {
