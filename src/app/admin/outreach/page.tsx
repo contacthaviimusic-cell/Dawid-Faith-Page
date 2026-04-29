@@ -94,7 +94,12 @@ export default function AdminOutreachPage() {
 
   async function handleDelete(id: string, label: string) {
     if (!confirm(`"${label}" wirklich löschen?`)) return;
-    await fetch(`/api/outreach/${id}`, { method: 'DELETE' });
+    const res = await fetch(`/api/outreach/${id}`, { method: 'DELETE' });
+    if (!res.ok) {
+      const d = await res.json().catch(() => ({}));
+      setError(d.error ?? 'Löschen fehlgeschlagen.');
+      return;
+    }
     await fetchEntries();
   }
 

@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { put, list } from '@vercel/blob';
+import { put, head, BlobNotFoundError } from '@vercel/blob';
 import { NewsItem, NewsCreateInput, NewsUpdateInput } from '@/types/news';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -13,13 +13,12 @@ function shouldUseBlob() {
 
 async function readFromBlob(): Promise<NewsItem[] | null> {
   try {
-    const { blobs } = await list({ prefix: 'data/news' });
-    const blob = blobs.find((b) => b.pathname === BLOB_PATHNAME);
-    if (!blob) return null;
+    const blob = await head(BLOB_PATHNAME);
     const res = await fetch(blob.downloadUrl, { cache: 'no-store' });
     if (!res.ok) return null;
     return (await res.json()) as NewsItem[];
-  } catch {
+  } catch (e) {
+    if (e instanceof BlobNotFoundError) return null;
     return null;
   }
 }

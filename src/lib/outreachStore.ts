@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { put, list } from '@vercel/blob';
+import { put, head, BlobNotFoundError } from '@vercel/blob';
 
 export interface OutreachEntry {
   id: string;
@@ -24,13 +24,12 @@ function isBlob(): boolean {
 
 async function readFromBlob(): Promise<OutreachEntry[]> {
   try {
-    const { blobs } = await list({ prefix: 'data/outreach' });
-    const blob = blobs.find((b) => b.pathname === BLOB_PATHNAME);
-    if (!blob) return [];
+    const blob = await head(BLOB_PATHNAME);
     const res = await fetch(blob.downloadUrl, { cache: 'no-store' });
     if (!res.ok) return [];
     return (await res.json()) as OutreachEntry[];
-  } catch {
+  } catch (e) {
+    if (e instanceof BlobNotFoundError) return [];
     return [];
   }
 }

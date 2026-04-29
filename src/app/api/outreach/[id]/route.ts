@@ -28,7 +28,12 @@ export async function DELETE(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { id } = await params;
-  const ok = await deleteOutreach(id);
-  if (!ok) return NextResponse.json({ error: 'Nicht gefunden' }, { status: 404 });
-  return NextResponse.json({ ok: true });
+  try {
+    const ok = await deleteOutreach(id);
+    if (!ok) return NextResponse.json({ error: 'Nicht gefunden' }, { status: 404 });
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    console.error('[outreach DELETE]', err);
+    return NextResponse.json({ error: 'Interner Fehler beim Löschen.' }, { status: 500 });
+  }
 }
