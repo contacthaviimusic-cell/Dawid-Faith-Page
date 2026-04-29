@@ -16,7 +16,7 @@ async function readFromBlob(): Promise<NewsItem[] | null> {
     const { blobs } = await list({ prefix: 'data/news' });
     const blob = blobs.find((b) => b.pathname === BLOB_PATHNAME);
     if (!blob) return null;
-    const res = await fetch(blob.url, { cache: 'no-store' });
+    const res = await fetch(blob.downloadUrl, { cache: 'no-store' });
     if (!res.ok) return null;
     return (await res.json()) as NewsItem[];
   } catch {

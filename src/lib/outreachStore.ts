@@ -27,7 +27,7 @@ async function readFromBlob(): Promise<OutreachEntry[]> {
     const { blobs } = await list({ prefix: 'data/outreach' });
     const blob = blobs.find((b) => b.pathname === BLOB_PATHNAME);
     if (!blob) return [];
-    const res = await fetch(blob.url, { cache: 'no-store' });
+    const res = await fetch(blob.downloadUrl, { cache: 'no-store' });
     if (!res.ok) return [];
     return (await res.json()) as OutreachEntry[];
   } catch {
