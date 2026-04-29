@@ -81,7 +81,7 @@ export async function createOutreach(
   label: string,
   sentTo: string,
   note: string
-): Promise<OutreachEntry> {
+): Promise<{ entry: OutreachEntry; allEntries: OutreachEntry[] }> {
   const entries = await readAll();
   const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
   const entry: OutreachEntry = {
@@ -96,7 +96,7 @@ export async function createOutreach(
   };
   entries.unshift(entry);
   await writeAll(entries);
-  return entry;
+  return { entry, allEntries: entries };
 }
 
 export async function recordClick(id: string): Promise<boolean> {
@@ -111,10 +111,10 @@ export async function recordClick(id: string): Promise<boolean> {
   return true;
 }
 
-export async function deleteOutreach(id: string): Promise<boolean> {
+export async function deleteOutreach(id: string): Promise<{ ok: boolean; allEntries: OutreachEntry[] }> {
   const entries = await readAll();
   const filtered = entries.filter((e) => e.id !== id);
-  if (filtered.length === entries.length) return false;
+  if (filtered.length === entries.length) return { ok: false, allEntries: entries };
   await writeAll(filtered);
-  return true;
+  return { ok: true, allEntries: filtered };
 }

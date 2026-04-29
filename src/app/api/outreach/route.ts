@@ -37,8 +37,8 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const entry = await createOutreach(label, sentTo, note ?? '');
-    return NextResponse.json(entry, { status: 201 });
+    const { entry, allEntries } = await createOutreach(label, sentTo, note ?? '');
+    return NextResponse.json({ entry, entries: allEntries }, { status: 201 });
   } catch (err) {
     console.error('[outreach POST]', err);
     return NextResponse.json({ error: 'Interner Fehler beim Speichern.' }, { status: 500 });

@@ -29,9 +29,9 @@ export async function DELETE(
 
   const { id } = await params;
   try {
-    const ok = await deleteOutreach(id);
+    const { ok, allEntries } = await deleteOutreach(id);
     if (!ok) return NextResponse.json({ error: 'Nicht gefunden' }, { status: 404 });
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, entries: allEntries });
   } catch (err) {
     console.error('[outreach DELETE]', err);
     return NextResponse.json({ error: 'Interner Fehler beim Löschen.' }, { status: 500 });
