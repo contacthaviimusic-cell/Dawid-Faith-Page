@@ -4,7 +4,6 @@ import NewsTranslations from '@/lib/translations/NewsSectionTrans';
 
 // Individual News Components
 import BandgesuchtNews from './BandgesuchtNews';
-import DInvestTokenNews from './DInvestTokenNews';
 import DFaithAppNews from './DFaithAppNews';
 import ZniklaReleaseNews from './ZniklaReleaseNews';
 
@@ -33,7 +32,6 @@ const NewsDetailRenderer: React.FC<NewsDetailProps> = ({ article }) => {
   const newsComponents: Record<string, React.ComponentType> = {
     // '1758217302493-gbictm': BandgesuchtNews,       // Bandmitglieder gesucht - AUSGEBLENDET
     '1758217302493-waterfall': ZniklaReleaseNews,  // Waterfall Release - FEATURED
-    '1758217302493-p9jwga': DInvestTokenNews,      // D.INVEST Token Launch
     '1758217302493-kix4d8': DFaithAppNews,         // D.FAITH App Launch
   };
 
@@ -63,7 +61,6 @@ export default NewsDetailRenderer;
 // Exporte für direkten Zugriff auf einzelne Komponenten
 export {
   BandgesuchtNews,
-  DInvestTokenNews,
   DFaithAppNews,
   ZniklaReleaseNews,
 };
