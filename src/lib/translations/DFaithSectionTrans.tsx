@@ -5,78 +5,65 @@ export type LangKey = 'de' | 'en' | 'pl';
 export const DFaithTranslations: Record<LangKey, {
   title: string;
   subtitle: string;
-  tagline: string;
-  badgeLabel: string;
-  smallValues: string[];
-  tabFans: string;
-  tabSupporter: string;
-  fansList: string[];
-  supporterList: string[];
+  points: { title: string; text: string }[];
   ctaEarn: string;
-  ctaWhitepaper: string;
 }> = {
   de: {
-    title: 'D.FAITH Ökosystem – kurz erklärt',
-    subtitle: 'Likes, Kommentare, Shares – dein Support bringt dir Tokens. Frühere Musik, exklusive Vorteile und mehr.',
-    tagline: 'Einfach. Fair. Sofort.',
-    badgeLabel: 'Für Fans & Supporter',
-    smallValues: ['💬 Interagiere & erhalte Token', '🎧 Früher Zugang zu Songs', '🎁 Exklusive Vorteile'],
-    tabFans: 'Für Fans',
-    tabSupporter: 'Für Supporter',
-    fansList: [
-      'Like, kommentiere, teile – sammle automatisch D.FAITH Token.',
-      'Nutze Token für frühen Zugang, VIP-Erlebnisse und Rabatte.',
-      'Das Ökosystem wächst mit jeder Interaktion – sei von Anfang an dabei.'
+    title: 'D.FAITH Ecosystem',
+    subtitle: 'Werde Teil des D.FAITH Ecosystems — und werde für deine Unterstützung belohnt.',
+    points: [
+      {
+        title: 'Quests erfüllen',
+        text: 'Kommentiere, like oder teile Inhalte auf YouTube, Instagram, TikTok & Co. und sammle Credits im D.FAITH Ecosystem.'
+      },
+      {
+        title: 'Exklusive Inhalte kaufen',
+        text: 'Mit deinen Credits kaufst du limitierte Songs, Videos und exklusive Inhalte direkt von Dawid Faith — als nummerierte NFTs in deinem eigenen Wallet.'
+      },
+      {
+        title: 'Collectible Cards sammeln',
+        text: 'Je aktiver du im Ecosystem bist, desto seltener die Cards die du bekommst. Seltene Cards bringen dir dauerhaft höhere Belohnungen.'
+      }
     ],
-    supporterList: [
-      'Kaufe D.INVEST zum Fixpreis (5€) und unterstütze die Musik direkt.',
-      'Erhalte wöchentlich D.FAITH Token als Dankeschön.',
-      'Mehr Support = mehr Reichweite = stärkeres Ökosystem.'
-    ],
-    ctaEarn: 'Jetzt Token verdienen',
-    ctaWhitepaper: 'Whitepaper lesen',
+    ctaEarn: 'Jetzt Ecosystem entdecken',
   },
   en: {
-    title: 'D.FAITH ecosystem — a short explanation',
-    subtitle: 'Likes, comments, shares — your support earns you tokens. Early music access, exclusive perks and more.',
-    tagline: 'Simple. Fair. Instant.',
-    badgeLabel: 'For Fans & Supporters',
-    smallValues: ['💬 Interact & earn tokens', '🎧 Early access to songs', '🎁 Exclusive perks'],
-    tabFans: 'For Fans',
-    tabSupporter: 'For Supporters',
-    fansList: [
-      'Like, comment, share — automatically collect D.FAITH tokens.',
-      'Use tokens for early access, VIP experiences and discounts.',
-      'The ecosystem grows with every interaction — be there from the start.'
+    title: 'D.FAITH Ecosystem',
+    subtitle: 'Become part of the D.FAITH Ecosystem — and get rewarded for your support.',
+    points: [
+      {
+        title: 'Complete quests',
+        text: 'Comment, like or share content on YouTube, Instagram, TikTok & more, and collect Credits in the D.FAITH Ecosystem.'
+      },
+      {
+        title: 'Buy exclusive content',
+        text: 'Use your Credits to buy limited songs, videos and exclusive content directly from Dawid Faith — as numbered NFTs in your own wallet.'
+      },
+      {
+        title: 'Collect Collectible Cards',
+        text: 'The more active you are in the Ecosystem, the rarer the cards you receive. Rare cards give you permanently higher rewards.'
+      }
     ],
-    supporterList: [
-      'Buy D.INVEST at a fixed price (5€) and support the music directly.',
-      'Receive weekly D.FAITH tokens as a thank you.',
-      'More support = more reach = a stronger ecosystem.'
-    ],
-    ctaEarn: 'Earn tokens now',
-    ctaWhitepaper: 'Read the whitepaper',
+    ctaEarn: 'Discover the Ecosystem',
   },
   pl: {
-    title: 'Ekosystem D.FAITH — krótko wyjaśniony',
-    subtitle: 'Polubienia, komentarze, udostępnienia — Twój support daje tokeny. Wczesny dostęp do muzyki, ekskluzywne korzyści i więcej.',
-    tagline: 'Prosto. Sprawiedliwie. Natychmiast.',
-    badgeLabel: 'Dla fanów i wspierających',
-    smallValues: ['💬 Angażuj się i zdobywaj tokeny', '🎧 Wczesny dostęp do utworów', '🎁 Ekskluzywne korzyści'],
-    tabFans: 'Dla fanów',
-    tabSupporter: 'Dla wspierających',
-    fansList: [
-      'Polub, skomentuj, udostępnij — automatycznie zbieraj tokeny D.FAITH.',
-      'Wykorzystaj tokeny na wczesny dostęp, doświadczenia VIP i zniżki.',
-      'Ekosystem rośnie z każdą interakcją — bądź z nami od początku.'
+    title: 'D.FAITH Ecosystem',
+    subtitle: 'Dołącz do D.FAITH Ecosystem — i zdobywaj nagrody za swoje wsparcie.',
+    points: [
+      {
+        title: 'Wykonuj questy',
+        text: 'Komentuj, polub lub udostępniaj treści na YouTube, Instagramie, TikToku i innych, i zbieraj Credity w D.FAITH Ecosystem.'
+      },
+      {
+        title: 'Kupuj ekskluzywne treści',
+        text: 'Za swoje Credity kupujesz limitowane utwory, filmy i ekskluzywne treści bezpośrednio od Dawida Faith — jako ponumerowane NFT w swoim własnym portfelu.'
+      },
+      {
+        title: 'Zbieraj Collectible Cards',
+        text: 'Im bardziej jesteś aktywny w Ecosystem, tym rzadsze karty otrzymujesz. Rzadkie karty dają trwale wyższe nagrody.'
+      }
     ],
-    supporterList: [
-      'Kup D.INVEST po stałej cenie (5€) i wspieraj muzykę bezpośrednio.',
-      'Otrzymuj cotygodniowo tokeny D.FAITH w podziękowaniu.',
-      'Więcej wsparcia = większy zasięg = silniejsze ekosystem.'
-    ],
-    ctaEarn: 'Zarabiaj tokeny teraz',
-    ctaWhitepaper: 'Przeczytaj whitepaper',
+    ctaEarn: 'Odkryj Ecosystem',
   }
 };
 

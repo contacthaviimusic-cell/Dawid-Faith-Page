@@ -2,14 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import DFaithTranslations from '@/lib/translations/DFaithSectionTrans';
-import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Coins, Users, Gift, TrendingUp, Zap, ArrowRight, Star, Crown } from 'lucide-react';
+import { Zap, ArrowRight, Target, ShoppingBag, Layers } from 'lucide-react';
+
+const pointIcons = [
+  { icon: Target, color: 'text-pink-400' },
+  { icon: ShoppingBag, color: 'text-purple-400' },
+  { icon: Layers, color: 'text-yellow-400' },
+];
 
 export default function MobileDFaithSection() {
-  const [view, setView] = useState<'fans' | 'supporter'>('fans');
-  const [showStats, setShowStats] = useState(false);
   const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
 
   useEffect(() => {
@@ -29,19 +32,6 @@ export default function MobileDFaithSection() {
     window.addEventListener('site-lang-changed', onLang as EventListener);
     return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
   }, []);
-
-  const benefits = {
-    fans: [
-      { icon: Gift, text: DFaithTranslations[lang].fansList[0], color: "text-pink-400" },
-      { icon: Crown, text: DFaithTranslations[lang].fansList[1], color: "text-purple-400" },
-      { icon: TrendingUp, text: DFaithTranslations[lang].fansList[2], color: "text-green-400" }
-    ],
-    supporter: [
-      { icon: Coins, text: DFaithTranslations[lang].supporterList[0], color: "text-yellow-400" },
-      { icon: Users, text: DFaithTranslations[lang].supporterList[1], color: "text-blue-400" },
-      { icon: Star, text: DFaithTranslations[lang].supporterList[2], color: "text-purple-400" }
-    ]
-  };
 
   return (
     <section id="dfaith" className="relative py-8 px-4 bg-gradient-to-b from-black via-purple-900/20 to-black overflow-hidden">
@@ -108,79 +98,51 @@ export default function MobileDFaithSection() {
           </div>
         </motion.div>
 
-        {/* Interactive Tab System */}
+        {/* Ecosystem Points */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
-          className="mb-8"
+          className="space-y-3 mb-8"
         >
-          {/* Modern Tab Switcher */}
-          <div className="relative bg-gradient-to-r from-slate-900/60 via-purple-900/20 to-slate-900/60 backdrop-blur-md rounded-2xl p-1 border border-purple-500/30 mb-6 shadow-lg shadow-purple-500/10">
-            <motion.div
-              className="absolute top-1 bottom-1 bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 rounded-xl shadow-lg shadow-purple-500/50"
-              initial={false}
-              animate={{
-                left: view === 'fans' ? '4px' : '50%',
-                right: view === 'fans' ? '50%' : '4px'
-              }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            />
-            {(['fans', 'supporter'] as const).map((key) => (
-              <button
-                key={key}
-                onClick={() => setView(key)}
-                className="relative z-10 flex-1 py-3 px-4 text-sm font-semibold text-white transition-all duration-300 w-1/2 text-center hover:text-purple-200"
+          {DFaithTranslations[lang].points.map((point, index) => {
+            const { icon: Icon, color } = pointIcons[index];
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                className="group bg-gradient-to-r from-slate-900/80 via-purple-900/10 to-slate-900/80 backdrop-blur-sm rounded-2xl p-4 border border-purple-500/20 shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:border-purple-400/40"
               >
-                {key === 'fans' ? `🎵 ${DFaithTranslations[lang].tabFans}` : `💎 ${DFaithTranslations[lang].tabSupporter}`}
-              </button>
-            ))}
-          </div>
-
-          {/* Dynamic Content Cards */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={view}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-3"
-            >
-              {benefits[view].map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="group bg-gradient-to-r from-slate-900/80 via-purple-900/10 to-slate-900/80 backdrop-blur-sm rounded-2xl p-4 border border-purple-500/20 shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:border-purple-400/40"
-                >
-                  <div className="flex items-center gap-3">
-                    <motion.div 
-                      className={`w-10 h-10 rounded-xl bg-gradient-to-br from-gray-800/80 to-purple-900/40 flex items-center justify-center border border-purple-500/30 shadow-inner`}
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    >
-                      <benefit.icon className={`${benefit.color} drop-shadow-sm`} size={20} />
-                    </motion.div>
-                    <p className="text-gray-200 text-sm font-medium flex-1 group-hover:text-white transition-colors">{benefit.text}</p>
+                <div className="flex items-start gap-3">
+                  <motion.div
+                    className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-gray-800/80 to-purple-900/40 flex items-center justify-center border border-purple-500/30 shadow-inner"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <Icon className={`${color} drop-shadow-sm`} size={20} />
+                  </motion.div>
+                  <div className="flex-1">
+                    <p className="text-white text-sm font-semibold mb-1 group-hover:text-purple-200 transition-colors">{point.title}</p>
+                    <p className="text-gray-300 text-sm leading-relaxed">{point.text}</p>
                   </div>
-                  {/* Subtle hover glow */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+                </div>
+                {/* Subtle hover glow */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              </motion.div>
+            );
+          })}
         </motion.div>
 
-        {/* Call-to-Actions */}
+        {/* Call-to-Action */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="space-y-4"
         >
           <motion.a
             href="https://app.dawidfaith.de"
@@ -208,21 +170,6 @@ export default function MobileDFaithSection() {
               </div>
             </div>
           </motion.a>
-
-          <motion.div 
-            whileHover={{ scale: 1.02 }} 
-            whileTap={{ scale: 0.98 }}
-          >
-            <Link
-              href="https://dfaith.dawidfaith.de"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group w-full bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-purple-500/10 hover:from-purple-500/20 hover:via-purple-500/10 hover:to-purple-500/20 rounded-2xl px-6 py-4 text-center transition-all duration-300 flex items-center justify-center gap-2 border border-purple-500/20 hover:border-purple-400/40 shadow-lg hover:shadow-purple-500/20"
-            >
-              <span className="text-purple-300 font-semibold text-base group-hover:text-purple-200 transition-colors drop-shadow-sm">{DFaithTranslations[lang].ctaWhitepaper}</span>
-              <ArrowRight className="text-purple-400 group-hover:text-purple-300 group-hover:translate-x-1 transition-all duration-300" size={18} />
-            </Link>
-          </motion.div>
         </motion.div>
       </div>
     </section>

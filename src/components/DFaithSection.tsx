@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import Image from 'next/image';
+import { Target, ShoppingBag, Layers } from 'lucide-react';
 import DFaithTranslations from '../lib/translations/DFaithSectionTrans';
 
+const pointIcons = [Target, ShoppingBag, Layers];
+
 const DFaithSection = () => {
-  const [view, setView] = useState<'fans' | 'supporter'>('fans');
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
 
   useEffect(() => {
@@ -69,50 +70,27 @@ const DFaithSection = () => {
             viewport={{ once: true }}
             className="order-2 lg:order-1"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm font-medium">{DFaithTranslations[lang].badgeLabel}</span>
-              <span className="text-gray-400 text-sm">{DFaithTranslations[lang].tagline}</span>
+            <div className="space-y-4 mb-8">
+              {DFaithTranslations[lang].points.map((point, i) => {
+                const Icon = pointIcons[i];
+                return (
+                  <div
+                    key={i}
+                    className="flex items-start gap-4 bg-gradient-to-br from-slate-900/60 to-purple-900/30 backdrop-blur-md rounded-2xl p-5 border border-purple-500/20"
+                  >
+                    <div className="shrink-0 w-11 h-11 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+                      <Icon className="text-purple-300" size={22} />
+                    </div>
+                    <div>
+                      <h3 className="text-white font-semibold mb-1">{point.title}</h3>
+                      <p className="text-gray-300 text-sm leading-relaxed">{point.text}</p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Small value row */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-              {DFaithTranslations[lang].smallValues.map((v, i) => (
-                <div key={i} className="rounded-xl border border-gray-700/40 bg-slate-900/40 px-4 py-3 text-sm text-gray-200">{v}</div>
-              ))}
-            </div>
-
-            {/* Simple tabs */}
-            <div className="inline-flex p-1 rounded-full bg-slate-800/60 border border-gray-700/40 mb-5">
-              {(['fans','supporter'] as const).map((key) => (
-                <button
-                  key={key}
-                  onClick={() => setView(key)}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
-                    view === key ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white' : 'text-gray-300 hover:text-white'
-                  }`}
-                >
-                  {key === 'fans' ? DFaithTranslations[lang].tabFans : DFaithTranslations[lang].tabSupporter}
-                </button>
-              ))}
-            </div>
-
-            <div className="bg-gradient-to-br from-slate-900/60 to-purple-900/30 backdrop-blur-md rounded-2xl p-6 border border-purple-500/20 mb-6">
-              {view === 'fans' ? (
-                <ul className="list-disc ml-5 space-y-2 text-gray-200">
-                  {DFaithTranslations[lang].fansList.map((t, i) => (
-                    <li key={i}>{t}</li>
-                  ))}
-                </ul>
-              ) : (
-                <ul className="list-disc ml-5 space-y-2 text-gray-200">
-                  {DFaithTranslations[lang].supporterList.map((t, i) => (
-                    <li key={i}>{t}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            {/* CTAs */}
+            {/* CTA */}
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <motion.a
                 href="https://app.dawidfaith.de"
@@ -124,17 +102,6 @@ const DFaithSection = () => {
               >
                 {DFaithTranslations[lang].ctaEarn}
               </motion.a>
-
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                <Link
-                  href="https://dfaith.dawidfaith.de"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-semibold text-white border-2 border-purple-500/60 hover:bg-purple-500/10"
-                >
-                  {DFaithTranslations[lang].ctaWhitepaper}
-                </Link>
-              </motion.div>
             </div>
           </motion.div>
 
