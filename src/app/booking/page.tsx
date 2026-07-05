@@ -113,10 +113,10 @@ export default function BookingPage() {
   }, []);
 
   const songs = [
-    { id: 'katze', name: 'Katze', image: '/musik/katze/photo_2026-01-06_14-31-47.jpg', video: '/musik/katze/video_2026-04-10_14-55-08.mp4', desc: { de: 'Der erste Song der Waterfall Release Kampagne', en: 'The first song of the Waterfall Release campaign', pl: 'Pierwszy utwór kampanii Waterfall Release' } },
+    { id: 'katze', name: 'Katze', image: '/musik/katze/photo_2026-01-06_14-31-47.jpg', video: '/musik/katze/video_2026-04-10_14-55-08.mp4', desc: { de: 'Der erste Song der Release Kampagne', en: 'The first song of the Release Campaign', pl: 'Pierwszy utwór Kampanii Release' } },
     { id: 'znikla', name: 'Znikła', image: '/musik/znikla/Znikła pic.jpg', video: '/musik/znikla/Znikłą Vid1.mp4', desc: { de: 'Eine intensive Reise durch Verlust und Sehnsucht', en: 'An intense journey through loss and longing', pl: 'Intensywna podróż przez stratę i tęsknotę' } },
     { id: 'maria', name: 'Maria', image: '/musik/maria/Maria.jpg', video: '/musik/maria/Maria Vid1.mp4', desc: { de: 'Eine herzzerreißende Ballade über Einsamkeit und verlorene Liebe', en: 'A heartbreaking ballad about loneliness and lost love', pl: 'Ballada o samotności i utraconej miłości' } },
-    { id: 'niebianski-groove', name: 'Niebianski Groove', image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png', video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4', desc: { de: 'Ein weiterer Track aus der exklusiven Waterfall Release Serie', en: 'Another track from the exclusive Waterfall Release series', pl: 'Kolejny utwór z serii Waterfall Release' } },
+    { id: 'niebianski-groove', name: 'Niebianski Groove', image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png', video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4', desc: { de: 'Ein weiterer Track aus der Release Kampagne', en: 'Another track from the Release Campaign', pl: 'Kolejny utwór z Kampanii Release' } },
   ];
 
   const videos = [

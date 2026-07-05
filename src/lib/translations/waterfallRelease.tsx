@@ -1,6 +1,6 @@
 const WaterfallReleaseTranslations = {
   de: {
-    title: 'Waterfall Release',
+    title: 'Release Kampagne',
     campaign: '10 Songs über 10 Monate – ab September 2026',
     intro: 'Ab September erscheint jeden Monat ein neuer Song – insgesamt 10 Tracks. Den Anfang macht "Katze" am 18. September 2026.',
     firstSongTitle: 'Erster Song: Katze',
@@ -16,7 +16,7 @@ const WaterfallReleaseTranslations = {
     presaveButton: 'Katze presaven'
   },
   en: {
-    title: 'Waterfall Release',
+    title: 'Release Campaign',
     campaign: '10 songs over 10 months – starting September 2026',
     intro: 'From September on, a new song will be released every month – 10 tracks in total. It all starts with "Katze" on September 18th, 2026.',
     firstSongTitle: 'First song: Katze',
@@ -32,7 +32,7 @@ const WaterfallReleaseTranslations = {
     presaveButton: 'Presave Katze'
   },
   pl: {
-    title: 'Waterfall Release',
+    title: 'Kampania Release',
     campaign: '10 piosenek przez 10 miesięcy – od września 2026',
     intro: 'Od września co miesiąc będzie ukazywać się nowa piosenka – łącznie 10 utworów. Wszystko zaczyna się od "Katze" 18 września 2026.',
     firstSongTitle: 'Pierwsza piosenka: Katze',

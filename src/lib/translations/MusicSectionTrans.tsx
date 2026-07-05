@@ -24,7 +24,7 @@ const MusicTranslations: Record<LangKey, {
     songs: {
       katze: {
         title: 'Katze',
-        description: 'Der erste Song der Waterfall Release Kampagne - ab 18. September 2026'
+        description: 'Der erste Song der Release Kampagne - ab 18. September 2026'
       },
       znikla: {
         title: 'Znikła',
@@ -36,7 +36,7 @@ const MusicTranslations: Record<LangKey, {
       },
       'niebianski-groove': {
         title: 'Niebianski Groove',
-        description: 'Ein weiterer Track aus der exklusiven Waterfall Release Serie'
+        description: 'Ein weiterer Track aus der Release Kampagne'
       }
     }
   },
@@ -53,7 +53,7 @@ const MusicTranslations: Record<LangKey, {
     songs: {
       katze: {
         title: 'Katze',
-        description: 'The first song of the Waterfall Release campaign - from September 18th, 2026'
+        description: 'The first song of the Release Campaign - from September 18th, 2026'
       },
       znikla: {
         title: 'Znikła',
@@ -65,7 +65,7 @@ const MusicTranslations: Record<LangKey, {
       },
       'niebianski-groove': {
         title: 'Niebianski Groove',
-        description: 'Another track from the exclusive Waterfall Release series'
+        description: 'Another track from the Release Campaign'
       }
     }
   },
@@ -82,7 +82,7 @@ const MusicTranslations: Record<LangKey, {
     songs: {
       katze: {
         title: 'Katze',
-        description: 'Pierwszy utwór kampanii Waterfall Release - od 18 września 2026'
+        description: 'Pierwszy utwór Kampanii Release - od 18 września 2026'
       },
       znikla: {
         title: 'Znikła',
@@ -94,7 +94,7 @@ const MusicTranslations: Record<LangKey, {
       },
       'niebianski-groove': {
         title: 'Niebianski Groove',
-        description: 'Kolejny utwór z exclusywnej serii Waterfall Release'
+        description: 'Kolejny utwór z Kampanii Release'
       }
     }
   }

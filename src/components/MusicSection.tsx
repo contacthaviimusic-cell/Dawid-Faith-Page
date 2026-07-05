@@ -19,7 +19,7 @@ const songs: Song[] = [
     title: 'Katze',
     image: '/musik/katze/photo_2026-01-06_14-31-47.jpg',
     video: '/musik/katze/video_2026-04-10_14-55-08.mp4',
-    description: 'Der erste Song der Waterfall Release Kampagne - ab 18. September 2026'
+    description: 'Der erste Song der Release Kampagne - ab 18. September 2026'
   },
   {
     id: 'znikla',
@@ -40,7 +40,7 @@ const songs: Song[] = [
     title: 'Niebianski Groove',
     image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png',
     video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
-    description: 'Ein weiterer Track aus der exklusiven Waterfall Release Serie'
+    description: 'Ein weiterer Track aus der Release Kampagne'
   }
 ];
 
