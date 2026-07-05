@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { put, list } from '@vercel/blob';
 
+export const dynamic = 'force-dynamic';
+
 interface NewsletterSubscriber {
   id: string;
   email: string;
@@ -23,7 +25,7 @@ async function getNewsletterSubscribers(): Promise<NewsletterSubscriber[]> {
 
     // Get the latest blob
     const latestBlob = blobs[0];
-    const response = await fetch(latestBlob.url);
+    const response = await fetch(`${latestBlob.url}?t=${Date.now()}`, { cache: 'no-store' });
     
     if (response.ok) {
       const data = await response.json();

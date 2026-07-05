@@ -20,13 +20,6 @@ function isBlob(): boolean {
   return !!process.env.BLOB_READ_WRITE_TOKEN;
 }
 
-// ── In-memory cache ──────────────────────────────────────────────────────────
-// Prevents CDN-stale reads during read-modify-write cycles.
-// On cold start the cache is empty and gets populated from storage.
-// After any write the cache is updated immediately – CDN staleness is irrelevant.
-
-let _cache: OutreachEntry[] | null = null;
-
 // ── Vercel Blob helpers ──────────────────────────────────────────────────────
 
 async function readFromBlob(): Promise<OutreachEntry[]> {
@@ -69,16 +62,10 @@ async function writeToFile(entries: OutreachEntry[]): Promise<void> {
 // ── Unified read / write ─────────────────────────────────────────────────────
 
 async function readAll(): Promise<OutreachEntry[]> {
-  if (_cache !== null) return _cache;
-  const data = isBlob() ? await readFromBlob() : await readFromFile();
-  _cache = data;
-  return data;
+  return isBlob() ? await readFromBlob() : await readFromFile();
 }
 
 async function writeAll(entries: OutreachEntry[]): Promise<void> {
-  // Update cache first – callers see the new state immediately, even if
-  // the blob CDN takes time to propagate.
-  _cache = entries;
   if (isBlob()) {
     await writeToBlob(entries);
   } else {
