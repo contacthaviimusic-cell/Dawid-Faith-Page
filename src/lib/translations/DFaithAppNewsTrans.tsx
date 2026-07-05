@@ -1,59 +1,59 @@
 const DFaithAppNewsTranslations = {
   de: {
     title: 'D.FAITH Ecosystem – so einfach machst du mit',
-    intro: 'Du brauchst kein Vorwissen über Blockchain oder Kryptowährungen, um dabei zu sein. Du unterstützt Dawid Faith einfach wie gewohnt auf Social Media – und bekommst dafür Belohnungen, die wirklich dir gehören.',
+    intro: 'Kein Vorwissen nötig: Du unterstützt Dawid Faith wie gewohnt auf Social Media – und bekommst dafür Belohnungen, die dir gehören.',
     featuresTitle: '1. Quests erfüllen',
     features: [
-      'Kommentiere, like oder teile Beiträge von Dawid Faith auf YouTube, Instagram, TikTok & Co. – ganz normal, wie du es sowieso schon tust.',
-      'Dafür bekommst du automatisch "Tokens" gutgeschrieben. Das sind digitale Belohnungspunkte, die wirklich dir gehören.',
-      'Du kannst deine Tokens jederzeit in Solana umtauschen – eine bekannte Kryptowährung, die du z.B. gegen echtes Geld eintauschen kannst.'
+      'Kommentiere, like oder teile Beiträge auf YouTube, Instagram, TikTok & Co.',
+      'Dafür bekommst du automatisch "Tokens" – digitale Belohnungspunkte.',
+      'Tausche deine Tokens jederzeit in Solana um, eine bekannte Kryptowährung.'
     ],
     rewardsTitle: '2. Exklusive Inhalte kaufen',
     rewards: [
-      'Statt deine Tokens umzutauschen, kannst du sie auch für exklusive Sachen von Dawid Faith ausgeben.',
-      'Zum Beispiel für limitierte Songs oder Videos, die es sonst nirgendwo gibt.',
-      'Du bekommst dafür ein persönliches digitales Zertifikat (NFT) in deiner eigenen digitalen Geldbörse (Wallet) – dein Nachweis, dass dieser Inhalt dir gehört.'
+      'Gib deine Tokens stattdessen für exklusive Sachen von Dawid Faith aus.',
+      'Z.B. limitierte Songs oder Videos, die es sonst nirgendwo gibt.',
+      'Du erhältst ein digitales Echtheits-Zertifikat (NFT) in deiner eigenen Wallet.'
     ],
     shopTitle: '3. Sammelkarten sammeln',
-    shopDesc: 'Zu jedem Song von Dawid Faith gibt es eigene Sammelkarten – manche häufig, manche richtig selten, ganz wie bei klassischen Sammelkarten. Je aktiver du mitmachst, desto bessere Chancen hast du auf seltene Karten. Und seltene Karten bringen dir dauerhaft mehr Belohnungen.',
+    shopDesc: 'Zu jedem Song gibt es eigene Sammelkarten – manche häufig, manche selten. Je aktiver du bist, desto seltener deine Karten – und seltene Karten bringen dauerhaft mehr Belohnungen.',
     badges: ['Einfach mitmachen', 'Belohnungen sammeln', 'Sammelkarten']
   },
   en: {
     title: 'D.FAITH Ecosystem – how to join in',
-    intro: 'You don\'t need any prior knowledge about blockchain or crypto to take part. You simply support Dawid Faith on social media like you always would – and get rewards that truly belong to you in return.',
+    intro: 'No prior knowledge needed: support Dawid Faith on social media like you always would – and get rewards that belong to you.',
     featuresTitle: '1. Complete quests',
     features: [
-      'Comment, like or share Dawid Faith\'s posts on YouTube, Instagram, TikTok & more – just like you already do.',
-      'In return, you automatically earn "Tokens" – digital reward points that truly belong to you.',
-      'You can convert your Tokens into Solana at any time – a well-known cryptocurrency you can, for example, exchange for real money.'
+      'Comment, like or share posts on YouTube, Instagram, TikTok & more.',
+      'You automatically earn "Tokens" – digital reward points.',
+      'Convert your Tokens into Solana at any time, a well-known cryptocurrency.'
     ],
     rewardsTitle: '2. Buy exclusive content',
     rewards: [
-      'Instead of converting your Tokens, you can also spend them on exclusive things from Dawid Faith.',
-      'For example, limited songs or videos that aren\'t available anywhere else.',
-      'You receive a personal digital certificate (NFT) for it in your own digital wallet – your proof that this content belongs to you.'
+      'Spend your Tokens on exclusive things from Dawid Faith instead.',
+      'E.g. limited songs or videos not available anywhere else.',
+      'You get a digital certificate of authenticity (NFT) in your own wallet.'
     ],
     shopTitle: '3. Collect Collectible Cards',
-    shopDesc: 'Every Dawid Faith song has its own collectible cards – some common, some really rare, just like classic trading cards. The more active you are, the better your chances of getting rare cards. And rare cards give you permanently higher rewards.',
+    shopDesc: 'Every song has its own collectible cards – some common, some rare. The more active you are, the rarer your cards get – and rare cards give you permanently higher rewards.',
     badges: ['Easy to join', 'Collect rewards', 'Collectible cards']
   },
   pl: {
     title: 'D.FAITH Ecosystem – jak dołączyć',
-    intro: 'Nie potrzebujesz żadnej wiedzy o blockchainie ani kryptowalutach, aby wziąć udział. Po prostu wspierasz Dawida Faith w mediach społecznościowych tak jak zawsze – a w zamian otrzymujesz nagrody, które naprawdę należą do ciebie.',
+    intro: 'Nie potrzebujesz żadnej wiedzy: wspieraj Dawida Faith w mediach społecznościowych jak zawsze – i zdobywaj nagrody, które należą do ciebie.',
     featuresTitle: '1. Wykonuj questy',
     features: [
-      'Komentuj, polub lub udostępniaj posty Dawida Faith na YouTube, Instagramie, TikToku i innych – tak jak już to robisz.',
-      'W zamian automatycznie otrzymujesz "Tokeny" – cyfrowe punkty nagród, które naprawdę należą do ciebie.',
-      'Swoje Tokeny możesz w każdej chwili wymienić na Solana – znaną kryptowalutę, którą możesz np. wymienić na prawdziwe pieniądze.'
+      'Komentuj, polub lub udostępniaj posty na YouTube, Instagramie, TikToku i innych.',
+      'W zamian automatycznie otrzymujesz "Tokeny" – cyfrowe punkty nagród.',
+      'Wymieniaj swoje Tokeny w każdej chwili na Solana, znaną kryptowalutę.'
     ],
     rewardsTitle: '2. Kupuj ekskluzywne treści',
     rewards: [
-      'Zamiast wymieniać swoje Tokeny, możesz je również wydać na ekskluzywne rzeczy od Dawida Faith.',
-      'Na przykład na limitowane utwory lub filmy, których nie znajdziesz nigdzie indziej.',
-      'Otrzymujesz za to osobisty cyfrowy certyfikat (NFT) w swoim własnym cyfrowym portfelu – dowód, że ta treść należy do ciebie.'
+      'Wydaj swoje Tokeny na ekskluzywne rzeczy od Dawida Faith.',
+      'Np. limitowane utwory lub filmy, których nie znajdziesz nigdzie indziej.',
+      'Otrzymujesz cyfrowy certyfikat autentyczności (NFT) w swoim portfelu.'
     ],
     shopTitle: '3. Zbieraj karty kolekcjonerskie',
-    shopDesc: 'Do każdego utworu Dawida Faith istnieją własne karty kolekcjonerskie – niektóre częste, niektóre naprawdę rzadkie, podobnie jak klasyczne karty do kolekcjonowania. Im aktywniej bierzesz udział, tym większe masz szanse na rzadkie karty. A rzadkie karty dają ci trwale wyższe nagrody.',
+    shopDesc: 'Do każdego utworu istnieją własne karty kolekcjonerskie – niektóre częste, niektóre rzadkie. Im aktywniej bierzesz udział, tym rzadsze karty otrzymujesz – a rzadkie karty dają trwale wyższe nagrody.',
     badges: ['Łatwy start', 'Zbieraj nagrody', 'Karty kolekcjonerskie']
   }
 };
