@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const translations = {
   de: {
@@ -51,6 +52,23 @@ export default function MobileKonzerteEventsSection() {
   return (
     <section id="konzerte" className="scroll-mt-14 py-12 px-4 bg-gradient-to-b from-stone-900/20 to-amber-900/10">
       <div className="max-w-lg mx-auto">
+        {/* Image */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="relative h-56 rounded-2xl overflow-hidden mb-8"
+        >
+          <Image
+            src="/booking/pressefotos/Dawid und Gruppe.jpg"
+            alt="Dawid Faith live"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        </motion.div>
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}

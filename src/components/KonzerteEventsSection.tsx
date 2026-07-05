@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const translations = {
   de: {
@@ -59,39 +60,48 @@ export default function KonzerteEventsSection() {
       <div className="absolute bottom-0 left-1/2 w-[600px] h-[600px] -translate-x-1/2 bg-amber-500/5 rounded-full blur-[120px]" />
 
       <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-14"
-        >
-          <h2 className="text-3xl md:text-4xl font-black leading-tight mb-3">
-            {t.title}
-          </h2>
-          <p className="text-stone-400 leading-relaxed max-w-2xl mx-auto">
-            {t.subtitle}
-          </p>
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <Link
-            href="/booking"
-            className="inline-flex items-center gap-3 bg-amber-500 hover:bg-amber-400 text-black px-10 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all hover:shadow-lg hover:shadow-amber-500/30"
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          {/* Image */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative h-[24rem] md:h-[28rem] rounded-2xl overflow-hidden group"
           >
-            {t.cta}
-            <ArrowRight size={18} />
-          </Link>
-          <p className="text-stone-500 text-sm mt-6">{t.tagline}</p>
-        </motion.div>
+            <Image
+              src="/booking/pressefotos/Dawid und Gruppe.jpg"
+              alt="Dawid Faith live"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          </motion.div>
+
+          {/* Text + CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-black leading-tight mb-4">
+              {t.title}
+            </h2>
+            <p className="text-stone-400 leading-relaxed mb-8">
+              {t.subtitle}
+            </p>
+
+            <Link
+              href="/booking"
+              className="inline-flex items-center gap-3 bg-amber-500 hover:bg-amber-400 text-black px-10 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all hover:shadow-lg hover:shadow-amber-500/30"
+            >
+              {t.cta}
+              <ArrowRight size={18} />
+            </Link>
+            <p className="text-stone-500 text-sm mt-6">{t.tagline}</p>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
