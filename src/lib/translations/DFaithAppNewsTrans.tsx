@@ -1,66 +1,63 @@
 const DFaithAppNewsTranslations = {
   de: {
-    title: 'D.FAITH App Features',
-    intro: 'Die D.FAITH App revolutioniert das Fan-Engagement durch Blockchain-Technologie. Fans können jetzt durch ihre natürlichen Social Media Aktivitäten D.FAITH Token verdienen und diese gegen exklusive Rewards eintauschen.',
-    featuresTitle: 'App-Features',
+    title: 'D.FAITH Ecosystem – Quests, Tokens & Collectibles',
+    intro: 'Das D.FAITH Ecosystem belohnt dich für deine Unterstützung: Erfülle Quests auf Social Media, sammle Tokens im Ecosystem und tausche sie jederzeit in Solana um oder investiere sie in exklusive Inhalte direkt von Dawid Faith.',
+    featuresTitle: 'Quests erfüllen',
     features: [
-      'Instagram/TikTok/Facebook Integration',
-      'Automatische EXP-Sammlung',
-      'Live Leaderboard-System',
-      'Cross-Platform Tracking'
+      'Kommentiere, like oder teile Inhalte auf YouTube, Instagram, TikTok & Co.',
+      'Sammle automatisch Tokens im D.FAITH Ecosystem',
+      'Tokens jederzeit umwandelbar in Solana',
+      'Cross-Platform Tracking über alle Kanäle'
     ],
-    rewardsTitle: 'Token-Rewards',
+    rewardsTitle: 'Exklusive Inhalte kaufen',
     rewards: [
-      'Like: 10 EXP → D.FAITH',
-      'Kommentar: 10 EXP → D.FAITH',
-      'Share: 10 EXP → D.FAITH',
-      'Live-Konzert: 150 EXP → D.FAITH'
+      'Limitierte Songs & Videos direkt von Dawid Faith',
+      'Als nummerierte NFTs in deinem eigenen Wallet',
+      'Exklusive Inhalte, die es nur hier gibt'
     ],
-    shopTitle: 'D.FAITH Exklusiv Shop',
-    shopDesc: 'Nutze deine verdienten D.FAITH Token im exklusiven Shop - der einzigen Stelle, wo du neue Songs, limitierte Merchandise, signierte Editionen und exklusive Konzert-Inhalte erhalten kannst. Nur hier erhältlich!',
-    badges: ['Live auf Base Chain', 'Fan-Rewards', 'Exklusiv Shop']
+    shopTitle: 'Collectible Cards sammeln',
+    shopDesc: 'Zu jedem Song gibt es eigene Collectible Cards mit Seltenheitscharakter. Je aktiver du im Ecosystem bist, desto seltener die Karten, die du bekommst – seltene Karten bringen dir dauerhaft höhere Belohnungen.',
+    badges: ['Quests', 'Tokens & Solana', 'Collectible Cards']
   },
   en: {
-    title: 'D.FAITH App Features',
-    intro: 'The D.FAITH app revolutionizes fan engagement using blockchain technology. Fans can now earn D.FAITH tokens through their organic social media activity and exchange them for exclusive rewards.',
-    featuresTitle: 'App Features',
+    title: 'D.FAITH Ecosystem – Quests, Tokens & Collectibles',
+    intro: 'The D.FAITH Ecosystem rewards you for your support: complete quests on social media, collect Tokens in the Ecosystem, and convert them into Solana at any time or invest them in exclusive content directly from Dawid Faith.',
+    featuresTitle: 'Complete quests',
     features: [
-      'Instagram/TikTok/Facebook integration',
-      'Automatic EXP collection',
-      'Live leaderboard system',
-      'Cross-platform tracking'
+      'Comment, like or share content on YouTube, Instagram, TikTok & more',
+      'Automatically collect Tokens in the D.FAITH Ecosystem',
+      'Tokens convertible into Solana at any time',
+      'Cross-platform tracking across all channels'
     ],
-    rewardsTitle: 'Token Rewards',
+    rewardsTitle: 'Buy exclusive content',
     rewards: [
-      'Like: 10 EXP → D.FAITH',
-      'Comment: 10 EXP → D.FAITH',
-      'Share: 10 EXP → D.FAITH',
-      'Live concert: 150 EXP → D.FAITH'
+      'Limited songs & videos directly from Dawid Faith',
+      'As numbered NFTs in your own wallet',
+      'Exclusive content available only here'
     ],
-    shopTitle: 'D.FAITH Exclusive Shop',
-    shopDesc: 'Use your earned D.FAITH tokens in the exclusive shop — the only place where you can get new songs, limited merch, signed editions, and exclusive concert content. Available only here!',
-    badges: ['Live on Base Chain', 'Fan Rewards', 'Exclusive Shop']
+    shopTitle: 'Collect Collectible Cards',
+    shopDesc: 'Every song has its own Collectible Cards with a rarity factor. The more active you are in the Ecosystem, the rarer the cards you receive – rare cards give you permanently higher rewards.',
+    badges: ['Quests', 'Tokens & Solana', 'Collectible Cards']
   },
   pl: {
-    title: 'Funkcje aplikacji D.FAITH',
-    intro: 'Aplikacja D.FAITH rewolucjonizuje zaangażowanie fanów dzięki technologii blockchain. Fani mogą teraz zdobywać tokeny D.FAITH poprzez swoje aktywności w mediach społecznościowych i wymieniać je na ekskluzywne nagrody.',
-    featuresTitle: 'Funkcje aplikacji',
+    title: 'D.FAITH Ecosystem – Questy, Tokeny i Collectibles',
+    intro: 'D.FAITH Ecosystem nagradza cię za wsparcie: wykonuj questy w mediach społecznościowych, zbieraj Tokeny w Ecosystem i wymieniaj je w każdej chwili na Solana lub inwestuj w ekskluzywne treści bezpośrednio od Dawida Faith.',
+    featuresTitle: 'Wykonuj questy',
     features: [
-      'Integracja z Instagram/TikTok/Facebook',
-      'Automatyczne zbieranie EXP',
-      'System rankingu na żywo',
-      'Śledzenie międzyplatformowe'
+      'Komentuj, polub lub udostępniaj treści na YouTube, Instagramie, TikToku i innych',
+      'Automatycznie zbieraj Tokeny w D.FAITH Ecosystem',
+      'Tokeny wymienialne w każdej chwili na Solana',
+      'Śledzenie międzyplatformowe na wszystkich kanałach'
     ],
-    rewardsTitle: 'Nagrody tokenowe',
+    rewardsTitle: 'Kupuj ekskluzywne treści',
     rewards: [
-      'Polubienie: 10 EXP → D.FAITH',
-      'Komentarz: 10 EXP → D.FAITH',
-      'Udostępnienie: 10 EXP → D.FAITH',
-      'Koncert na żywo: 150 EXP → D.FAITH'
+      'Limitowane utwory i filmy bezpośrednio od Dawida Faith',
+      'Jako ponumerowane NFT w swoim własnym portfelu',
+      'Ekskluzywne treści dostępne tylko tutaj'
     ],
-    shopTitle: 'Ekskluzywny sklep D.FAITH',
-    shopDesc: 'Wykorzystaj zdobyte tokeny D.FAITH w ekskluzywnym sklepie — jedynym miejscu, gdzie możesz uzyskać nowe utwory, limitowane gadżety, podpisane edycje i ekskluzywne treści koncertowe. Dostępne tylko tutaj!',
-    badges: ['Live on Base Chain', 'Nagrody dla fanów', 'Ekskluzywny sklep']
+    shopTitle: 'Zbieraj Collectible Cards',
+    shopDesc: 'Do każdego utworu istnieją własne Collectible Cards o zróżnicowanej rzadkości. Im bardziej jesteś aktywny w Ecosystem, tym rzadsze karty otrzymujesz – rzadkie karty dają trwale wyższe nagrody.',
+    badges: ['Questy', 'Tokeny i Solana', 'Collectible Cards']
   }
 };
 
