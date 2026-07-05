@@ -14,15 +14,15 @@ export const DFaithTranslations: Record<LangKey, {
     points: [
       {
         title: 'Quests erfüllen',
-        text: 'Kommentiere, like oder teile Inhalte auf YouTube, Instagram, TikTok & Co. und sammle Tokens im D.FAITH Ecosystem — jederzeit umwandelbar in Solana.'
+        text: 'Like, kommentiere oder teile Inhalte auf Social Media und sammle Tokens — jederzeit umwandelbar in Solana.'
       },
       {
         title: 'Exklusive Inhalte kaufen',
-        text: 'Mit deinen Tokens kaufst du limitierte Songs, Videos und exklusive Inhalte direkt von Dawid Faith — als nummerierte NFTs in deinem eigenen Wallet.'
+        text: 'Kaufe mit deinen Tokens limitierte Songs und Videos — als nummerierte NFTs in deinem Wallet.'
       },
       {
         title: 'Collectible Cards sammeln',
-        text: 'Zu jedem Song gibt es eigene Collectible Cards mit Seltenheitscharakter. Je aktiver du im Ecosystem bist, desto seltener die Karten, die du bekommst — seltene Karten bringen dir dauerhaft höhere Belohnungen.'
+        text: 'Zu jedem Song gibt es Sammelkarten. Je aktiver du bist, desto seltener die Karten — und desto höher deine Belohnungen.'
       }
     ],
     ctaEarn: 'Jetzt Ecosystem entdecken',
@@ -33,15 +33,15 @@ export const DFaithTranslations: Record<LangKey, {
     points: [
       {
         title: 'Complete quests',
-        text: 'Comment, like or share content on YouTube, Instagram, TikTok & more, and collect Tokens in the D.FAITH Ecosystem — convertible into Solana at any time.'
+        text: 'Like, comment or share content on social media and collect Tokens — convertible into Solana at any time.'
       },
       {
         title: 'Buy exclusive content',
-        text: 'Use your Tokens to buy limited songs, videos and exclusive content directly from Dawid Faith — as numbered NFTs in your own wallet.'
+        text: 'Use your Tokens to buy limited songs and videos — as numbered NFTs in your wallet.'
       },
       {
         title: 'Collect Collectible Cards',
-        text: 'Every song has its own Collectible Cards with a rarity factor. The more active you are in the Ecosystem, the rarer the cards you receive — rare cards give you permanently higher rewards.'
+        text: 'Every song has its own collectible cards. The more active you are, the rarer the cards — and the higher your rewards.'
       }
     ],
     ctaEarn: 'Discover the Ecosystem',
@@ -52,15 +52,15 @@ export const DFaithTranslations: Record<LangKey, {
     points: [
       {
         title: 'Wykonuj questy',
-        text: 'Komentuj, polub lub udostępniaj treści na YouTube, Instagramie, TikToku i innych, i zbieraj Tokeny w D.FAITH Ecosystem — wymienialne w każdej chwili na Solana.'
+        text: 'Polub, komentuj lub udostępniaj treści w social mediach i zbieraj Tokeny — wymienialne w każdej chwili na Solana.'
       },
       {
         title: 'Kupuj ekskluzywne treści',
-        text: 'Za swoje Tokeny kupujesz limitowane utwory, filmy i ekskluzywne treści bezpośrednio od Dawida Faith — jako ponumerowane NFT w swoim własnym portfelu.'
+        text: 'Za Tokeny kupujesz limitowane utwory i filmy — jako ponumerowane NFT w swoim portfelu.'
       },
       {
         title: 'Zbieraj Collectible Cards',
-        text: 'Do każdego utworu istnieją własne Collectible Cards o zróżnicowanej rzadkości. Im bardziej jesteś aktywny w Ecosystem, tym rzadsze karty otrzymujesz — rzadkie karty dają trwale wyższe nagrody.'
+        text: 'Do każdego utworu istnieją karty kolekcjonerskie. Im aktywniej działasz, tym rzadsze karty — i tym wyższe nagrody.'
       }
     ],
     ctaEarn: 'Odkryj Ecosystem',

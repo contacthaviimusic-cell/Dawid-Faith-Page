@@ -204,12 +204,12 @@ const NewsSection = () => {
           viewport={{ once: true }}
           className="mb-14"
         >
-          <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4 block">
+          <h2 className="text-3xl md:text-4xl font-black leading-tight mb-3">
             {NewsTranslations[lang].sectionTitle}
-          </span>
-          <h2 className="text-4xl md:text-5xl font-black leading-tight max-w-2xl">
-            {NewsTranslations[lang].sectionDesc}
           </h2>
+          <p className="text-stone-400 leading-relaxed max-w-2xl">
+            {NewsTranslations[lang].sectionDesc}
+          </p>
         </motion.div>
 
         {/* Featured Article – cover story */}

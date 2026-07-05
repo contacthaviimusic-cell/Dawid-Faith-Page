@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Music, Calendar, Music2 } from 'lucide-react';
+import { Music, Calendar } from 'lucide-react';
 import Translations from '@/lib/translations/waterfallRelease';
 
 const WaterfallReleaseNews = () => {
@@ -31,61 +30,49 @@ const WaterfallReleaseNews = () => {
 
   return (
     <div className="space-y-6">
-      <div className="border-l-4 border-amber-500 pl-4">
-        <h3 className="text-2xl font-bold text-white mb-2">{t.title}</h3>
-        <p className="text-amber-300 font-semibold flex items-center gap-2">
-          <Music2 size={18} />
-          {t.campaign}
-        </p>
+      <div>
+        <h3 className="text-2xl font-bold text-white mb-1">{t.title}</h3>
+        <p className="text-stone-400 text-sm">{t.campaign}</p>
       </div>
-      
-      <p className="text-stone-300 leading-relaxed text-lg">{t.intro}</p>
 
-      <div className="space-y-4">
-        <div className="bg-amber-900/30 p-4 rounded-lg border border-amber-400/30">
-          <p className="text-amber-300 font-semibold flex items-center gap-2 mb-2">
-            <Calendar size={18} />
-            {t.firstSongTitle}
-          </p>
-          <p className="text-stone-300">{t.firstSongDate}</p>
+      <p className="text-stone-300 leading-relaxed">{t.intro}</p>
+
+      {/* Termine */}
+      <div className="divide-y divide-white/10 border-y border-white/10">
+        <div className="flex items-center gap-3 py-3">
+          <Calendar size={16} className="text-amber-400 shrink-0" />
+          <span className="text-white font-medium">{t.firstSongTitle}</span>
+          <span className="text-stone-400 ml-auto text-sm">{t.firstSongDate}</span>
         </div>
-
-        <div className="bg-amber-900/30 p-4 rounded-lg border border-amber-400/30">
-          <p className="text-amber-300 font-semibold flex items-center gap-2 mb-2">
-            <Music size={18} />
-            {t.musicVideoTitle}
-          </p>
-          <p className="text-stone-300">{t.musicVideoDate}</p>
+        <div className="flex items-center gap-3 py-3">
+          <Music size={16} className="text-amber-400 shrink-0" />
+          <span className="text-white font-medium">{t.musicVideoTitle}</span>
+          <span className="text-stone-400 ml-auto text-sm">{t.musicVideoDate}</span>
         </div>
       </div>
 
-      <motion.div 
-        className="bg-gradient-to-r from-amber-900/50 to-cyan-900/50 p-6 rounded-2xl border border-amber-400/50"
-        animate={{ borderColor: ['rgba(96, 165, 250, 0.5)', 'rgba(34, 211, 238, 0.5)', 'rgba(96, 165, 250, 0.5)'] }}
-        transition={{ duration: 3, repeat: Infinity }}
-      >
-        <h4 className="text-lg font-semibold text-amber-300 mb-3">{t.campaignDetails}</h4>
-        <ul className="text-stone-300 space-y-2 mb-4">
+      {/* Details */}
+      <div>
+        <h4 className="text-white font-semibold mb-3">{t.campaignDetails}</h4>
+        <ul className="text-stone-400 space-y-2 text-sm">
           {t.details.map((detail, idx) => (
             <li key={idx} className="flex items-start gap-2">
-              <span className="text-amber-400 mt-1">•</span>
+              <span className="text-amber-400 mt-0.5">•</span>
               <span>{detail}</span>
             </li>
           ))}
         </ul>
-        
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => {
-            alert(lang === 'de' ? 'Presave-Link wird bald verfügbar!' : lang === 'en' ? 'Presave link coming soon!' : 'Link do presave wkrótce!');
-          }}
-          className="w-full bg-gradient-to-r from-amber-600 to-cyan-600 hover:from-amber-700 hover:to-cyan-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-lg"
-        >
-          <Music size={18} />
-          {t.presaveButton}
-        </motion.button>
-      </motion.div>
+      </div>
+
+      <button
+        onClick={() => {
+          alert(lang === 'de' ? 'Presave-Link wird bald verfügbar!' : lang === 'en' ? 'Presave link coming soon!' : 'Link do presave wkrótce!');
+        }}
+        className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-colors"
+      >
+        <Music size={15} />
+        {t.presaveButton}
+      </button>
     </div>
   );
 };

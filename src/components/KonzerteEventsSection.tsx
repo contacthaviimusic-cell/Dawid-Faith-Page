@@ -91,12 +91,12 @@ export default function KonzerteEventsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4 block">
+          <h2 className="text-3xl md:text-4xl font-black leading-tight mb-3">
             {t.title}
-          </span>
-          <h2 className="text-4xl md:text-5xl font-black leading-tight max-w-3xl mx-auto">
-            {t.subtitle}
           </h2>
+          <p className="text-stone-400 leading-relaxed max-w-2xl mx-auto">
+            {t.subtitle}
+          </p>
         </motion.div>
 
         {/* Cards Grid */}

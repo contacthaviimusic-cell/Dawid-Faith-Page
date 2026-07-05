@@ -85,12 +85,12 @@ const MusicSection = () => {
           viewport={{ once: true }}
           className="mb-14"
         >
-          <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4 block">
+          <h2 className="text-3xl md:text-4xl font-black leading-tight mb-3">
             {MusicTranslations[lang].title}
-          </span>
-          <h2 className="text-4xl md:text-5xl font-black leading-tight max-w-2xl mb-4">
-            {MusicTranslations[lang].subtitle}
           </h2>
+          <p className="text-stone-400 leading-relaxed max-w-2xl mb-4">
+            {MusicTranslations[lang].subtitle}
+          </p>
           <div className="flex items-center gap-2">
             <Smartphone className="w-4 h-4 text-amber-400" />
             <span className="text-stone-400 text-sm">{MusicTranslations[lang].appNote}</span>

@@ -63,12 +63,12 @@ const DFaithSection = () => {
             </motion.div>
           </div>
 
-          <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4 block">
+          <h2 className="text-3xl md:text-4xl font-black leading-tight mb-3">
             {DFaithTranslations[lang].title}
-          </span>
-          <h2 className="text-4xl md:text-5xl font-black leading-tight max-w-3xl mx-auto">
-            {DFaithTranslations[lang].subtitle}
           </h2>
+          <p className="text-stone-400 leading-relaxed max-w-2xl mx-auto">
+            {DFaithTranslations[lang].subtitle}
+          </p>
         </motion.div>
 
         {/* Numbered steps */}
