@@ -71,7 +71,7 @@ export default function MobileDFaithSection() {
               </div>
               
               <motion.h2 
-                className="text-3xl font-bold mb-3 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent [font-family:var(--font-display),serif]"
+                className="text-3xl font-black mb-3 bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent"
                 animate={{ 
                   backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                 }}
@@ -148,26 +148,13 @@ export default function MobileDFaithSection() {
             href="https://app.dawidfaith.de"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(217, 119, 6, 0.3)" }}
             whileTap={{ scale: 0.98 }}
-            className="group relative w-full bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 p-0 rounded-2xl overflow-hidden shadow-xl shadow-amber-500/25"
+            className="group relative block w-full bg-amber-500 active:bg-amber-400 rounded-full px-6 py-4 text-center shadow-lg shadow-amber-500/20 transition-colors"
           >
-            <div className="bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 rounded-2xl px-6 py-4 text-center relative overflow-hidden">
-              {/* Enhanced shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transtone-x-[-100%] group-hover:transtone-x-[200%] transition-transform duration-1000" />
-              {/* Magical sparkles */}
-              <div className="absolute top-2 right-2 w-1 h-1 bg-yellow-300 rounded-full opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-300" />
-              <div className="absolute bottom-2 left-2 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-500" />
-                <div className="flex items-center justify-center gap-2 relative z-10">
-                <motion.div
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                >
-                  <Zap className="text-yellow-300 drop-shadow-lg" size={20} />
-                </motion.div>
-                <span className="text-white font-bold text-base drop-shadow-sm">{DFaithTranslations[lang].ctaEarn}</span>
-                <ArrowRight className="text-white/80 group-hover:transtone-x-1 transition-transform drop-shadow-sm" size={18} />
-              </div>
+            <div className="flex items-center justify-center gap-2">
+              <Zap className="text-black" size={17} />
+              <span className="text-black font-bold text-sm uppercase tracking-wider">{DFaithTranslations[lang].ctaEarn}</span>
+              <ArrowRight className="text-black/70 group-hover:translate-x-1 transition-transform" size={16} />
             </div>
           </motion.a>
         </motion.div>

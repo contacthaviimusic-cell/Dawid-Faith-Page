@@ -93,63 +93,68 @@ export default function Newsletter() {
   }, []);
 
   return (
-    <section id="newsletter" className="scroll-mt-16 py-20 px-4 relative bg-gradient-to-b from-stone-900/20 to-amber-900/10">
-      <div className="max-w-6xl mx-auto">
+    <section id="newsletter" className="scroll-mt-16 relative py-24 md:py-32 px-6 bg-black overflow-hidden">
+      {/* Hairline divider */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
+
+      <div className="relative z-10 max-w-3xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center"
         >
-          <div className="bg-gradient-to-r from-amber-900/20 to-amber-900/20 backdrop-blur-md rounded-2xl p-8 border border-amber-500/20">
-            <Mail className="mx-auto mb-4 text-amber-400" size={48} />
-            <h3 className="text-2xl font-bold mb-4 text-amber-300">
+          <div className="relative rounded-2xl border border-amber-500/20 bg-gradient-to-r from-amber-500/[0.07] via-transparent to-amber-500/[0.07] p-8 md:p-12 overflow-hidden">
+            <div className="w-12 h-12 mx-auto rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-6">
+              <Mail className="text-amber-400" size={22} />
+            </div>
+            <h3 className="text-2xl md:text-3xl font-black mb-4 text-white">
               {NewsletterTranslations[lang].newsletterTitle}
             </h3>
-            <p className="text-stone-300 mb-6 max-w-2xl mx-auto">
+            <p className="text-stone-400 mb-8 max-w-xl mx-auto leading-relaxed">
               {NewsletterTranslations[lang].newsletterDesc}
             </p>
-            
+
             {subscriptionStatus === 'success' ? (
-              <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-4 mb-6">
+              <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-6">
                 <p className="text-green-300 font-semibold">{NewsletterTranslations[lang].subscribeSuccess}</p>
               </div>
             ) : subscriptionStatus === 'error' ? (
-              <div className={`${responseStatus === 409 ? 'bg-amber-500/20 border-amber-500/30' : 'bg-red-500/20 border-red-500/30'} border rounded-lg p-4 mb-6`}>
+              <div className={`${responseStatus === 409 ? 'bg-amber-500/10 border-amber-500/30' : 'bg-red-500/10 border-red-500/30'} border rounded-xl p-4 mb-6`}>
                 <p className={`${responseStatus === 409 ? 'text-amber-300' : 'text-red-300'} font-semibold`}>
-                  {responseStatus === 409 
-                    ? NewsletterTranslations[lang].alreadySubscribed 
+                  {responseStatus === 409
+                    ? NewsletterTranslations[lang].alreadySubscribed
                     : NewsletterTranslations[lang].subscribeError}
                 </p>
               </div>
             ) : (
               <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto mb-6">
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={NewsletterTranslations[lang].emailPlaceholder}
-                    className="flex-1 px-4 py-3 rounded-lg bg-black/40 border border-amber-500/30 text-white placeholder-stone-400 focus:outline-none focus:border-amber-400 transition-colors"
+                    className="flex-1 px-5 py-3.5 rounded-full bg-white/5 border border-white/10 text-white placeholder-stone-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
                     required
                     disabled={isSubscribing}
                   />
                   <motion.button
                     type="submit"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                     disabled={isSubscribing}
-                    className="bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    className="bg-amber-500 hover:bg-amber-400 text-black px-7 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSubscribing ? (
                       <>
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
                         {NewsletterTranslations[lang].subscribingLabel}
                       </>
                     ) : (
                       <>
-                        <Mail size={16} />
+                        <Mail size={15} />
                         {NewsletterTranslations[lang].subscribeLabel}
                       </>
                     )}
@@ -157,18 +162,16 @@ export default function Newsletter() {
                 </div>
               </form>
             )}
-            
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-amber-600/20 to-amber-600/20 border border-amber-500/30 text-amber-300 px-6 py-2 rounded-full font-semibold transition-all duration-300 text-sm"
+
+            <button
+              className="text-amber-400 hover:text-amber-300 text-xs font-semibold uppercase tracking-wider transition-colors"
               onClick={() => {
                 const el = document.querySelector('#dfaith');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
             >
               {NewsletterTranslations[lang].ticketButtonScroll}
-            </motion.button>
+            </button>
           </div>
         </motion.div>
       </div>

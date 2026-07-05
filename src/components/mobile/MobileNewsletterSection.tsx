@@ -124,7 +124,7 @@ export default function MobileNewsletterSection() {
                 disabled={isSubscribing}
                 className="w-full px-4 py-4 bg-black/30 border border-stone-600 rounded-xl text-white placeholder-stone-400 focus:outline-none focus:border-amber-500 transition-colors disabled:opacity-50"
               />
-              <div className="absolute right-4 top-1/2 transform -transtone-y-1/2">
+              <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
                 <Mail className="text-stone-400" size={18} />
               </div>
             </div>
@@ -134,7 +134,7 @@ export default function MobileNewsletterSection() {
               disabled={isSubscribing}
               whileHover={{ scale: isSubscribing ? 1 : 1.02 }}
               whileTap={{ scale: isSubscribing ? 1 : 0.98 }}
-              className="relative z-30 w-full bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-6 py-4 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ring-1 ring-white/5"
+              className="relative z-30 w-full bg-amber-500 active:bg-amber-400 text-black px-6 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ring-1 ring-white/5"
             >
                   {isSubscribing ? (
                 <>

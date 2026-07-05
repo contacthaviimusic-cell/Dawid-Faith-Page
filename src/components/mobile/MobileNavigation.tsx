@@ -81,8 +81,8 @@ export default function MobileNavigation() {
                 priority
               />
             </div>
-            <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-400 [font-family:var(--font-display),serif]">
-              DAWID FAITH
+            <span className="text-lg font-black tracking-tight text-white">
+              DAWID <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">FAITH</span>
             </span>
             
             {/* Language Dropdown direkt nach DAWID FAITH */}
@@ -129,9 +129,9 @@ export default function MobileNavigation() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-r from-amber-600 to-yellow-600 shadow-lg"
+              className="w-11 h-11 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
             </motion.button>
           </div>
         </div>
@@ -166,7 +166,7 @@ export default function MobileNavigation() {
                       className="object-cover"
                     />
                   </div>
-                  <h2 className="text-xl font-bold text-white mb-1 [font-family:var(--font-display),serif]">Dawid Faith</h2>
+                  <h2 className="text-xl font-bold text-white mb-1">Dawid Faith</h2>
                   <p className="text-stone-400 text-sm">Künstler • Visionär</p>
                 </div>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Play, ChevronDown } from 'lucide-react';
+import { Play } from 'lucide-react';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useMobileDetection } from '../hooks/useMobileDetection';
@@ -16,10 +16,8 @@ import SocialMediaWidget from '../components/SocialMediaWidget';
 import MobilePage from './mobile/page';
 
 export default function Home() {
-  const [isPlaying, setIsPlaying] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [showWidget, setShowWidget] = useState(false);
-  const [showEcoDetails, setShowEcoDetails] = useState(false);
   const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
   const { isMobile, isLoading } = useMobileDetection();
 
@@ -50,7 +48,7 @@ export default function Home() {
     return (
       <div className="min-h-screen bg-[#0a0908] text-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500 mb-4 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-2 border-white/10 border-t-amber-400 mb-4 mx-auto"></div>
           <p className="text-stone-400">{PageTranslations[lang].loaderText}</p>
         </div>
       </div>
@@ -65,48 +63,42 @@ export default function Home() {
   return (
     <>
       <Navigation />
-  <div className="min-h-screen bg-[#0a0908] text-white overflow-hidden relative">
-      {/* Floating Social Widget Button & Overlay */}
-      <div className="hidden lg:block">
-        {/* Pulsierender Button */}
-        {!showWidget && (
-          <button
-            onClick={() => setShowWidget(true)}
-            className="fixed bottom-8 right-8 z-50 rounded-full shadow-lg border-4 border-amber-400 hover:scale-110 transition-transform bg-gradient-to-r from-amber-500 to-yellow-500 p-0 animate-pulse"
-            aria-label="Social Media öffnen"
-          >
-            <span className="block w-16 h-16 rounded-full overflow-hidden relative">
-              <Image
-                src="/dawid-faith.jpg"
-                alt="Dawid Faith Social Widget"
-                fill
-                className="object-cover rounded-full"
-                priority
-              />
-              <span className="absolute inset-0 rounded-full border-4 border-amber-400 animate-pulse pointer-events-none" />
-            </span>
-          </button>
-        )}
-        {/* Overlay Widget */}
-        {showWidget && (
-          <div className="fixed bottom-8 right-8 z-50">
-            <div className="relative">
-              <button
-                onClick={() => setShowWidget(false)}
-                className="absolute -top-3 -right-3 bg-black/80 text-white rounded-full w-8 h-8 flex items-center justify-center border border-white hover:bg-yellow-600 transition-colors z-10"
-                aria-label="Schließen"
-              >
-                ×
-              </button>
-              <SocialMediaWidget compact />
+      <div className="min-h-screen bg-[#0a0908] text-white overflow-hidden relative">
+        {/* Floating Social Widget Button & Overlay */}
+        <div className="hidden lg:block">
+          {/* Button */}
+          {!showWidget && (
+            <button
+              onClick={() => setShowWidget(true)}
+              className="fixed bottom-8 right-8 z-50 rounded-full shadow-lg shadow-amber-500/20 border-2 border-amber-400/60 hover:scale-110 transition-transform p-0"
+              aria-label="Social Media öffnen"
+            >
+              <span className="block w-16 h-16 rounded-full overflow-hidden relative">
+                <Image
+                  src="/dawid-faith.jpg"
+                  alt="Dawid Faith Social Widget"
+                  fill
+                  className="object-cover rounded-full"
+                  priority
+                />
+              </span>
+            </button>
+          )}
+          {/* Overlay Widget */}
+          {showWidget && (
+            <div className="fixed bottom-8 right-8 z-50">
+              <div className="relative">
+                <button
+                  onClick={() => setShowWidget(false)}
+                  className="absolute -top-3 -right-3 bg-black/80 text-white rounded-full w-8 h-8 flex items-center justify-center border border-white/20 hover:border-amber-400 hover:text-amber-400 transition-colors z-10"
+                  aria-label="Schließen"
+                >
+                  ×
+                </button>
+                <SocialMediaWidget compact />
+              </div>
             </div>
-          </div>
-        )}
-      </div>
-        {/* Ambient Background Glows */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-20 w-64 h-64 bg-amber-500/8 rounded-full blur-[100px]" />
-          <div className="absolute top-40 right-32 w-48 h-48 bg-yellow-500/6 rounded-full blur-[80px]" />
+          )}
         </div>
 
         {/* Hero Landing Section */}
@@ -121,78 +113,78 @@ export default function Home() {
               priority
               quality={90}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/30" />
           </div>
 
-          {/* Neon accent line at top */}
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500 z-10" />
+          {/* Ambient glow accents */}
+          <div className="absolute top-1/3 -left-32 w-96 h-96 bg-amber-500/8 rounded-full blur-[128px] z-0" />
+          <div className="absolute bottom-1/3 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-[96px] z-0" />
 
-          {/* Hero Content – centered */}
-          <div className="relative z-10 container mx-auto px-4 pb-28 md:pb-32">
-            <div className="max-w-3xl mx-auto text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.3 }}
-              >
-                <h1 
-                  className="text-5xl sm:text-6xl lg:text-8xl xl:text-9xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 tracking-wider [font-family:var(--font-display),serif]"
+          {/* Hero Content – editorial, bottom-left */}
+          <div className="relative z-10 max-w-6xl mx-auto px-6 w-full pb-28 md:pb-32">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="max-w-2xl"
+            >
+              <div className="mb-4">
+                <span className="inline-block text-amber-400/90 text-xs uppercase tracking-[0.35em] font-semibold px-4 py-1.5 border border-amber-500/20 rounded-full bg-amber-500/5 backdrop-blur-sm">
+                  {PageTranslations[lang].heroSubtitle}
+                </span>
+              </div>
+
+              <h1 className="text-7xl md:text-8xl xl:text-9xl font-black mb-5 leading-[0.85] tracking-tight">
+                Dawid<br/>
+                <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 bg-clip-text text-transparent">Faith</span>
+              </h1>
+
+              <p className="text-lg md:text-xl text-stone-200/90 mb-8 leading-relaxed max-w-lg font-light">
+                {PageTranslations[lang].footerTagline}
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-wrap gap-4">
+                <button
+                  className="bg-amber-500 hover:bg-amber-400 text-black font-bold px-9 py-4 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/30 text-sm uppercase tracking-wider flex items-center gap-2"
+                  onClick={() => {
+                    const el = document.querySelector('#news');
+                    if (el) {
+                      const top = el.getBoundingClientRect().top + window.scrollY - 64;
+                      window.scrollTo({ top, behavior: 'smooth' });
+                    }
+                    setTimeout(() => {
+                      const event = new CustomEvent('openReleaseNews');
+                      window.dispatchEvent(event);
+                    }, 800);
+                  }}
                 >
-                  DAWID FAITH
-                </h1>
-                <div className="flex items-center justify-center gap-4 text-lg sm:text-xl lg:text-2xl mb-8">
-                  <span className="w-8 h-px bg-gradient-to-r from-amber-400 to-yellow-400" />
-                  <span className="text-stone-200 font-semibold">{PageTranslations[lang].heroSubtitle}</span>
-                  <span className="w-8 h-px bg-gradient-to-r from-yellow-400 to-amber-400" />
-                </div>
-                
-                {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(217, 119, 6, 0.5)" }}
-                    whileTap={{ scale: 0.95 }}
-                    className="bg-gradient-to-r from-amber-600 to-yellow-600 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2"
-                    onClick={() => {
-                      const el = document.querySelector('#news');
-                      if (el) {
-                        const top = el.getBoundingClientRect().top + window.scrollY - 64;
-                        window.scrollTo({ top, behavior: 'smooth' });
-                      }
-                      setTimeout(() => {
-                        const event = new CustomEvent('openReleaseNews');
-                        window.dispatchEvent(event);
-                      }, 800);
-                    }}
-                  >
-                    <Play size={20} />
-                    {PageTranslations[lang].ctaInvite}
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="border border-amber-500/50 hover:bg-amber-500/10 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
-                    onClick={() => {
-                      const el = document.querySelector('#dfaith');
-                      if (el) {
-                        const top = el.getBoundingClientRect().top + window.scrollY - 64;
-                        window.scrollTo({ top, behavior: 'smooth' });
-                      }
-                    }}
-                  >
-                    <div className="relative w-5 h-5">
-                      <Image
-                        src="/dfaith-token.png"
-                        alt="D.FAITH Token"
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                    {PageTranslations[lang].ctaExperience}
-                  </motion.button>
-                </div>
-              </motion.div>
-            </div>
+                  <Play size={16} />
+                  {PageTranslations[lang].ctaInvite}
+                </button>
+                <button
+                  className="border border-white/25 hover:border-amber-400/50 text-white font-semibold px-9 py-4 rounded-full transition-all hover:bg-white/5 backdrop-blur-sm text-sm uppercase tracking-wider flex items-center gap-2"
+                  onClick={() => {
+                    const el = document.querySelector('#dfaith');
+                    if (el) {
+                      const top = el.getBoundingClientRect().top + window.scrollY - 64;
+                      window.scrollTo({ top, behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  <span className="relative w-4 h-4">
+                    <Image
+                      src="/dfaith-token.png"
+                      alt="D.FAITH Token"
+                      fill
+                      className="object-contain"
+                    />
+                  </span>
+                  {PageTranslations[lang].ctaExperience}
+                </button>
+              </div>
+            </motion.div>
           </div>
 
           {/* Scroll Indicator */}
@@ -203,50 +195,50 @@ export default function Home() {
             className="relative z-10 flex flex-col items-center gap-2 pb-6 animate-bounce"
           >
             <span className="text-stone-500 text-[10px] uppercase tracking-widest">Scroll</span>
-            <div className="w-px h-8 bg-gradient-to-b from-amber-400/50 to-transparent" />
+            <div className="w-px h-8 bg-gradient-to-b from-stone-500 to-transparent" />
           </motion.div>
         </section>
 
-  {/* News Section */}
-  <NewsSection />
+        {/* News Section */}
+        <NewsSection />
 
-  {/* Music Section (moved) */}
-  <MusicSection />
+        {/* Music Section */}
+        <MusicSection />
 
-  {/* D.FAITH Ecosystem Section (moved) */}
-  <DFaithSection />
+        {/* D.FAITH Ecosystem Section */}
+        <DFaithSection />
 
-  {/* Konzerte Section */}
-  <KonzerteEventsSection />
+        {/* Konzerte Section */}
+        <KonzerteEventsSection />
 
-  {/* Newsletter Section */}
-  <NewsletterSection />
+        {/* Newsletter Section */}
+        <NewsletterSection />
 
         {/* Footer */}
-        <footer className="py-12 px-4 border-t border-stone-800">
-          <div className="container mx-auto text-center">
+        <footer className="relative py-16 px-6 bg-black overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
+          <div className="max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="mb-8"
+              className="flex flex-col md:flex-row items-center justify-between gap-8"
             >
-              <h3 
-                className="text-3xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-400"
-                style={{ fontFamily: 'var(--font-display), serif' }}
-              >
-                Dawid Faith
-              </h3>
-              <p className="text-stone-400">
-                {PageTranslations[lang].footerTagline}
-              </p>
+              <div className="text-center md:text-left">
+                <h3 className="text-2xl font-black tracking-tight mb-2">
+                  DAWID <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">FAITH</span>
+                </h3>
+                <p className="text-stone-400 text-sm">
+                  {PageTranslations[lang].footerTagline}
+                </p>
+              </div>
+
+              <div className="text-center md:text-right text-stone-500 text-sm">
+                <p>{PageTranslations[lang].copyright}</p>
+                <p className="mt-1 text-stone-600">{PageTranslations[lang].poweredBy}</p>
+              </div>
             </motion.div>
-            
-            <div className="text-stone-500 text-sm">
-              <p>{PageTranslations[lang].copyright}</p>
-              <p className="mt-2">{PageTranslations[lang].poweredBy}</p>
-            </div>
           </div>
         </footer>
       </div>

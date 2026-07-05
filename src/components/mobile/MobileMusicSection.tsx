@@ -211,7 +211,7 @@ export default function MobileMusicSection() {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <Music className="text-yellow-400" size={28} />
-            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 [font-family:var(--font-display),serif]">
+            <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">
               {MusicTranslations[lang].title}
             </h2>
           </div>
@@ -265,7 +265,7 @@ export default function MobileMusicSection() {
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => setShowVideo(track.id)}
-                      className="absolute top-1/2 left-1/2 transform -transtone-x-1/2 -transtone-y-1/2 w-16 h-16 bg-yellow-500/80 hover:bg-yellow-500 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 shadow-xl border-2 border-white/20"
+                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-yellow-500/80 hover:bg-yellow-500 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 shadow-xl border-2 border-white/20"
                     >
                       <Video className="text-white" size={24} />
                     </motion.button>
@@ -375,7 +375,7 @@ export default function MobileMusicSection() {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 px-6 py-3 rounded-xl text-white font-bold transition-all duration-300 flex items-center justify-center gap-2 w-full"
+            className="bg-amber-500 active:bg-amber-400 px-6 py-3 rounded-full text-black font-bold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 w-full"
           >
             <ExternalLink size={18} />
             {MusicTranslations[lang].webappButton || 'D.FAITH Webapp besuchen'}

@@ -36,19 +36,10 @@ export default function MobileNewsSection() {
       }
     };
 
-    const handleOpenDInvestNews = () => {
-      const dInvestNews = news.find(item => item.featured);
-      if (dInvestNews) {
-        setSelectedNews(dInvestNews);
-      }
-    };
-
     window.addEventListener('openReleaseNews', handleOpenReleaseNews);
-    window.addEventListener('openDInvestNews', handleOpenDInvestNews);
-    
+
     return () => {
       window.removeEventListener('openReleaseNews', handleOpenReleaseNews);
-      window.removeEventListener('openDInvestNews', handleOpenDInvestNews);
     };
   }, [news]);
 
@@ -114,7 +105,7 @@ export default function MobileNewsSection() {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <Newspaper className="text-amber-400" size={28} />
-            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 [font-family:var(--font-display),serif]">
+            <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">
               {NewsTranslations[lang].sectionTitle}
             </h2>
           </div>
@@ -213,7 +204,7 @@ export default function MobileNewsSection() {
               href="#all-news"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-white px-6 py-2 rounded-full font-semibold flex items-center gap-2 transition-all duration-300 shadow-lg text-sm"
+              className="bg-amber-500 active:bg-amber-400 text-black px-6 py-2 rounded-full font-bold text-sm uppercase tracking-wider flex items-center gap-2 transition-all duration-300 shadow-lg text-sm"
             >
               {lang === 'de' ? 'Alle News' : lang === 'en' ? 'All News' : 'Wszystkie wiadomości'}
               <ArrowRight size={14} />

@@ -70,32 +70,37 @@ export default function KonzerteEventsSection() {
   }, []);
 
   const cards = [
-    { icon: Mic, title: t.card1Title, desc: t.card1Desc, gradient: 'from-amber-500/20 to-amber-500/20', border: 'border-amber-500/20', iconColor: 'text-amber-400' },
-    { icon: PartyPopper, title: t.card2Title, desc: t.card2Desc, gradient: 'from-amber-500/20 to-yellow-500/20', border: 'border-amber-500/20', iconColor: 'text-amber-400' },
-    { icon: Music, title: t.card3Title, desc: t.card3Desc, gradient: 'from-yellow-500/20 to-amber-500/20', border: 'border-yellow-500/20', iconColor: 'text-yellow-400' },
+    { icon: Mic, title: t.card1Title, desc: t.card1Desc },
+    { icon: PartyPopper, title: t.card2Title, desc: t.card2Desc },
+    { icon: Music, title: t.card3Title, desc: t.card3Desc },
   ];
 
   return (
-    <section id="konzerte" className="scroll-mt-16 py-20 px-4 relative bg-gradient-to-b from-stone-900/20 to-amber-900/10">
-      <div className="max-w-6xl mx-auto">
+    <section id="konzerte" className="scroll-mt-16 relative py-24 md:py-32 px-6 bg-black overflow-hidden">
+      {/* Hairline divider */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
+      {/* Ambient glow */}
+      <div className="absolute bottom-0 left-1/2 w-[600px] h-[600px] -translate-x-1/2 bg-amber-500/5 rounded-full blur-[120px]" />
+
+      <div className="relative z-10 max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent [font-family:var(--font-display),serif]">
+          <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4 block">
             {t.title}
-          </h2>
-          <p className="text-xl text-stone-300 max-w-3xl mx-auto">
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black leading-tight max-w-3xl mx-auto">
             {t.subtitle}
-          </p>
+          </h2>
         </motion.div>
 
         {/* Cards Grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
+        <div className="grid md:grid-cols-3 gap-6 mb-14">
           {cards.map((card, index) => (
             <motion.div
               key={index}
@@ -103,11 +108,13 @@ export default function KonzerteEventsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
               viewport={{ once: true }}
-              className={`bg-gradient-to-br ${card.gradient} border ${card.border} rounded-2xl p-8 backdrop-blur-md hover:scale-[1.02] transition-transform duration-300`}
+              className="group bg-white/[0.03] border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.05] rounded-2xl p-8 transition-all duration-500"
             >
-              <card.icon size={32} className={`${card.iconColor} mb-4`} />
+              <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-6 group-hover:bg-amber-500/20 transition-colors">
+                <card.icon size={22} className="text-amber-400" />
+              </div>
               <h3 className="text-xl font-bold text-white mb-3">{card.title}</h3>
-              <p className="text-stone-300 leading-relaxed">{card.desc}</p>
+              <p className="text-stone-400 leading-relaxed text-sm">{card.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -122,10 +129,10 @@ export default function KonzerteEventsSection() {
         >
           <Link
             href="/booking"
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-amber-500/25 hover:scale-105"
+            className="inline-flex items-center gap-3 bg-amber-500 hover:bg-amber-400 text-black px-10 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all hover:shadow-lg hover:shadow-amber-500/30"
           >
             {t.cta}
-            <ArrowRight size={20} />
+            <ArrowRight size={18} />
           </Link>
           <p className="text-stone-500 text-sm mt-6">{t.tagline}</p>
         </motion.div>

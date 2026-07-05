@@ -3,10 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Target, ShoppingBag, Layers } from 'lucide-react';
 import DFaithTranslations from '../lib/translations/DFaithSectionTrans';
-
-const pointIcons = [Target, ShoppingBag, Layers];
 
 const DFaithSection = () => {
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
@@ -39,92 +36,78 @@ const DFaithSection = () => {
   }, []);
 
   return (
-    <section id="dfaith" className="scroll-mt-16 relative py-20 px-4 bg-gradient-to-b from-stone-900/30 to-amber-900/10 overflow-hidden">
-      {/* Background similar to News */}
-      <div className="absolute inset-0 bg-gradient-to-r from-amber-900/5 to-yellow-900/5" />
+    <section id="dfaith" className="scroll-mt-16 relative py-24 md:py-32 px-6 bg-black overflow-hidden">
+      {/* Hairline divider */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
+      {/* Ambient glows */}
+      <div className="absolute inset-0 bg-gradient-to-r from-amber-500/[0.04] via-transparent to-amber-500/[0.04]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/[0.05] rounded-full blur-[128px]" />
 
       <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Section Header to match News */}
+        {/* Header with floating token */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent [font-family:var(--font-display),serif]">
+          <div className="relative mx-auto w-24 h-24 mb-8">
+            <div className="absolute inset-0 rounded-full bg-amber-500/20 blur-2xl animate-pulse" />
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              className="relative w-full h-full rounded-full overflow-hidden border-2 border-amber-500/40 shadow-2xl shadow-amber-500/20"
+            >
+              <Image src="/dfaith-token.png" alt="D.FAITH Token" fill className="object-cover" />
+            </motion.div>
+          </div>
+
+          <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4 block">
             {DFaithTranslations[lang].title}
-          </h2>
-          <p className="text-xl md:text-2xl text-stone-300 max-w-3xl mx-auto leading-relaxed">
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black leading-tight max-w-3xl mx-auto">
             {DFaithTranslations[lang].subtitle}
-          </p>
+          </h2>
         </motion.div>
 
-        {/* Content Grid: Text left, Token right */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          {/* Left: Copy + Tabs + CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="order-2 lg:order-1"
-          >
-            <div className="space-y-4 mb-8">
-              {DFaithTranslations[lang].points.map((point, i) => {
-                const Icon = pointIcons[i];
-                return (
-                  <div
-                    key={i}
-                    className="flex items-start gap-4 bg-gradient-to-br from-stone-900/60 to-amber-900/30 backdrop-blur-md rounded-2xl p-5 border border-amber-500/20"
-                  >
-                    <div className="shrink-0 w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center">
-                      <Icon className="text-amber-300" size={22} />
-                    </div>
-                    <div>
-                      <h3 className="text-white font-semibold mb-1">{point.title}</h3>
-                      <p className="text-stone-300 text-sm leading-relaxed">{point.text}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* CTA */}
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <motion.a
-                href="https://app.dawidfaith.de"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-amber-600 to-yellow-600 shadow-lg"
-              >
-                {DFaithTranslations[lang].ctaEarn}
-              </motion.a>
-            </div>
-          </motion.div>
-
-          {/* Right: Token image with glow */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="relative order-1 lg:order-2"
-          >
-            <div className="relative mx-auto w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-amber-500/30 via-yellow-500/20 to-amber-500/30 blur-3xl animate-pulse" />
-              <motion.div
-                animate={{ y: [0, -10, 0], rotate: [0, 2, -2, 0] }}
-                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative w-full h-full rounded-full overflow-hidden border-4 border-amber-500/40 shadow-2xl shadow-amber-500/20"
-              >
-                <Image src="/dfaith-token.png" alt="D.FAITH Token" fill className="object-cover" />
-              </motion.div>
-            </div>
-          </motion.div>
+        {/* Numbered steps */}
+        <div className="grid md:grid-cols-3 gap-6 mb-14">
+          {DFaithTranslations[lang].points.map((point, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: i * 0.15 }}
+              viewport={{ once: true }}
+              className="group bg-white/[0.03] rounded-2xl border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.05] p-8 transition-all duration-500 flex flex-col"
+            >
+              <div className="text-4xl font-black mb-6 text-stone-700 group-hover:text-amber-500/60 transition-colors">
+                {String(i + 1).padStart(2, '0')}
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">{point.title}</h3>
+              <p className="text-stone-400 leading-relaxed text-sm">{point.text}</p>
+            </motion.div>
+          ))}
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <a
+            href="https://app.dawidfaith.de"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-9 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all hover:shadow-lg hover:shadow-amber-500/30"
+          >
+            {DFaithTranslations[lang].ctaEarn}
+          </a>
+        </motion.div>
       </div>
     </section>
   );

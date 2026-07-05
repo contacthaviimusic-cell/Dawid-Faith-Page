@@ -18,7 +18,7 @@ export default function WhitepaperPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-5xl md:text-6xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 mb-6"
-            style={{ fontFamily: 'var(--font-display), serif' }}
+            style={{ fontWeight: 900 }}
           >
             D.FAITH Whitepaper
           </motion.h1>

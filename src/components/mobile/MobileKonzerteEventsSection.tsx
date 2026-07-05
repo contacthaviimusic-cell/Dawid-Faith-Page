@@ -123,7 +123,7 @@ export default function MobileKonzerteEventsSection() {
         >
           <Link
             href="/booking"
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-8 py-3.5 rounded-full font-bold text-base transition-all duration-300 shadow-lg"
+            className="inline-flex items-center gap-3 bg-amber-500 active:bg-amber-400 text-black px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-500/20"
           >
             {t.cta}
             <ArrowRight size={18} />

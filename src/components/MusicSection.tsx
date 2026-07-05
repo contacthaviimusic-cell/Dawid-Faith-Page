@@ -70,143 +70,151 @@ const MusicSection = () => {
   }, []);
 
   return (
-    <section id="music" className="scroll-mt-16 relative py-20 px-4 bg-gradient-to-b from-amber-900/10 to-stone-900/30 overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-r from-yellow-900/5 to-amber-900/5" />
-      
+    <section id="music" className="scroll-mt-16 relative py-24 md:py-32 px-6 bg-black overflow-hidden">
+      {/* Hairline divider */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
+      {/* Ambient glow */}
+      <div className="absolute bottom-0 -left-32 w-96 h-96 bg-amber-500/[0.04] rounded-full blur-[128px]" />
+
       <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Section Header */}
+        {/* Section Header – editorial, left aligned */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="mb-14"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent [font-family:var(--font-display),serif]">
+          <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4 block">
             {MusicTranslations[lang].title}
-          </h2>
-          <p className="text-xl md:text-2xl text-stone-300 max-w-3xl mx-auto leading-relaxed">
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black leading-tight max-w-2xl mb-4">
             {MusicTranslations[lang].subtitle}
-          </p>
-          <div className="flex items-center justify-center gap-2 mt-4">
-            <Smartphone className="w-5 h-5 text-amber-400" />
-            <span className="text-amber-300 text-sm">{MusicTranslations[lang].appNote}</span>
+          </h2>
+          <div className="flex items-center gap-2">
+            <Smartphone className="w-4 h-4 text-amber-400" />
+            <span className="text-stone-400 text-sm">{MusicTranslations[lang].appNote}</span>
           </div>
         </motion.div>
 
-        {/* Songs Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Tracklist */}
+        <div className="space-y-4">
           {songs.map((song, index) => (
             <motion.div
               key={song.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group relative bg-gradient-to-br from-stone-800/40 to-amber-900/20 rounded-2xl border border-stone-700/40 backdrop-blur-sm hover:border-amber-500/30 transition-all duration-500"
+              className="group bg-white/[0.03] rounded-2xl border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.05] transition-all duration-500 overflow-hidden"
             >
-              {/* Song Image */}
-              <div className="relative h-64 rounded-t-2xl overflow-hidden">
-                <Image
-                  src={song.image}
-                  alt={song.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                
-                {/* Video Play Button Overlay */}
-                <button
-                  onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
-                  className="absolute top-1/2 left-1/2 transform -transtone-x-1/2 -transtone-y-1/2 w-16 h-16 bg-amber-500 hover:bg-amber-400 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                >
-                  <Video className="w-8 h-8 text-white" />
-                </button>
-
-                {/* Title Overlay */}
-                <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="text-2xl font-bold text-white mb-1">{(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.title) || song.title}</h3>
-                  <p className="text-stone-300 text-sm">{(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.description) || song.description}</p>
+              <div className="flex flex-col sm:flex-row items-stretch">
+                {/* Track number */}
+                <div className="hidden sm:flex items-center justify-center w-20 shrink-0 border-r border-white/5">
+                  <span className="text-3xl font-black text-stone-700 group-hover:text-amber-500/60 transition-colors">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
                 </div>
-              </div>
 
-              {/* Song Controls */}
-              <div className="p-6">
-                {/* Action Buttons */}
-                <div className="flex gap-3">
-                  {/* Video Trailer Button */}
+                {/* Cover */}
+                <div className="relative w-full sm:w-44 h-44 shrink-0 overflow-hidden">
+                  <Image
+                    src={song.image}
+                    alt={song.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
                   <button
                     onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-yellow-600 to-amber-600 hover:from-yellow-500 hover:to-amber-500 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]"
+                    aria-label={showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}
+                    className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   >
-                    <Video className="w-4 h-4" />
-                    {showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}
+                    <span className="w-12 h-12 bg-amber-500 hover:bg-amber-400 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/30 transition-colors">
+                      <Video className="w-5 h-5 text-black" />
+                    </span>
                   </button>
-
-                  {/* D.FAITH Webapp Button */}
-                  <a
-                    href="https://app.dawidfaith.de"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 bg-stone-700 hover:bg-stone-600 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    {MusicTranslations[lang].webappButton}
-                  </a>
                 </div>
 
-                {/* Video Player */}
-                {showVideo === song.id && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="mt-4 rounded-xl overflow-hidden"
-                  >
-                    <video
-                      controls
-                      className="w-full h-64 object-cover"
-                      poster={song.image}
-                      preload="metadata"
+                {/* Info + actions */}
+                <div className="flex-1 p-6 flex flex-col justify-center gap-4">
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-amber-300 transition-colors mb-1.5">
+                      {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.title) || song.title}
+                    </h3>
+                    <p className="text-stone-400 text-sm leading-relaxed">
+                      {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.description) || song.description}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-3">
+                    <button
+                      onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
+                      className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-colors"
                     >
-                      <source src={song.video} type="video/mp4" />
-                      Dein Browser unterstützt keine Videos.
-                    </video>
-                  </motion.div>
-                )}
+                      <Video className="w-3.5 h-3.5" />
+                      {showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}
+                    </button>
+                    <a
+                      href="https://app.dawidfaith.de"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider transition-all"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      {MusicTranslations[lang].webappButton}
+                    </a>
+                  </div>
+                </div>
               </div>
+
+              {/* Video Player */}
+              {showVideo === song.id && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="border-t border-white/10"
+                >
+                  <video
+                    controls
+                    className="w-full max-h-[28rem] bg-black"
+                    poster={song.image}
+                    preload="metadata"
+                  >
+                    <source src={song.video} type="video/mp4" />
+                    Dein Browser unterstützt keine Videos.
+                  </video>
+                </motion.div>
+              )}
             </motion.div>
           ))}
         </div>
 
-        {/* Webapp Download CTA */}
+        {/* Webapp CTA banner */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          className="mt-14"
         >
-          <div className="bg-gradient-to-r from-amber-900/20 to-yellow-900/20 rounded-2xl border border-amber-500/20 backdrop-blur-sm p-8">
+          <div className="relative rounded-2xl border border-amber-500/20 bg-gradient-to-r from-amber-500/[0.07] via-transparent to-amber-500/[0.07] p-8 md:p-10 text-center overflow-hidden">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <Music className="w-8 h-8 text-amber-400" />
-              <h3 className="text-2xl font-bold text-white">{MusicTranslations[lang].exclusiveTitle}</h3>
+              <Music className="w-6 h-6 text-amber-400" />
+              <h3 className="text-2xl md:text-3xl font-black text-white">{MusicTranslations[lang].exclusiveTitle}</h3>
             </div>
-            <p className="text-stone-300 mb-6 max-w-2xl mx-auto">
+            <p className="text-stone-400 mb-7 max-w-2xl mx-auto leading-relaxed">
               {MusicTranslations[lang].exclusiveDesc}
             </p>
             <a
               href="https://app.dawidfaith.de"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 px-8 py-4 rounded-xl text-white font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg inline-block"
+              className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-9 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all hover:shadow-lg hover:shadow-amber-500/30"
             >
-              <div className="flex items-center gap-3">
-                <ExternalLink className="w-6 h-6" />
-                {MusicTranslations[lang].webappButton}
-              </div>
+              <ExternalLink className="w-4 h-4" />
+              {MusicTranslations[lang].webappButton}
             </a>
           </div>
         </motion.div>
