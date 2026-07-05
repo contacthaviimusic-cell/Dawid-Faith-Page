@@ -167,7 +167,7 @@ export default function MobileNavigation() {
                     />
                   </div>
                   <h2 className="text-xl font-bold text-white mb-1">Dawid Faith</h2>
-                  <p className="text-stone-400 text-sm">Künstler • Visionär</p>
+                  <p className="text-stone-400 text-sm">Künstler</p>
                 </div>
 
                 {/* Navigation Items */}
