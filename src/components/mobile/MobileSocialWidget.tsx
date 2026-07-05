@@ -116,10 +116,10 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 300);
       },
-      color: 'from-purple-600 via-pink-500 to-blue-500',
-      bgColor: 'bg-gradient-to-br from-purple-600/20 to-pink-500/20',
-      borderColor: 'border-purple-500/40',
-      hoverColor: 'hover:border-purple-400',
+      color: 'from-amber-600 via-yellow-500 to-amber-500',
+      bgColor: 'bg-gradient-to-br from-amber-600/20 to-yellow-500/20',
+      borderColor: 'border-amber-500/40',
+      hoverColor: 'hover:border-amber-400',
       description: 'tokenDesc'
     }
   ];
@@ -180,13 +180,13 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
           animate={{ translateY: '0%' }}
           exit={{ translateY: '100%' }}
           transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-          className="absolute bottom-0 left-0 right-0 bg-gradient-to-br from-slate-900/95 via-purple-900/90 to-pink-900/95 backdrop-blur-xl rounded-t-3xl border-t border-purple-400/30 p-6 max-h-[85vh] overflow-y-auto shadow-[0_-10px_40px_-15px_rgba(168,85,247,0.3)]"
+          className="absolute bottom-0 left-0 right-0 bg-gradient-to-br from-stone-900/95 via-amber-900/90 to-yellow-900/95 backdrop-blur-xl rounded-t-3xl border-t border-amber-400/30 p-6 max-h-[85vh] overflow-y-auto shadow-[0_-10px_40px_-15px_rgba(217,119,6,0.3)]"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Animated Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
             <motion.div
-              className="absolute -top-10 -right-10 w-20 h-20 bg-purple-500/10 rounded-full blur-xl"
+              className="absolute -top-10 -right-10 w-20 h-20 bg-amber-500/10 rounded-full blur-xl"
               animate={{ 
                 scale: [1, 1.5, 1],
                 rotate: [0, 180, 360]
@@ -194,7 +194,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
               transition={{ duration: 8, repeat: Infinity }}
             />
             <motion.div
-              className="absolute -bottom-5 -left-5 w-16 h-16 bg-pink-500/10 rounded-full blur-xl"
+              className="absolute -bottom-5 -left-5 w-16 h-16 bg-yellow-500/10 rounded-full blur-xl"
               animate={{ 
                 scale: [1.2, 1, 1.2],
                 rotate: [360, 180, 0]
@@ -206,7 +206,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
           {/* Header */}
           <div className="relative z-10 flex items-center gap-4 mb-6">
             <motion.div 
-              className="relative w-14 h-14 rounded-2xl overflow-hidden ring-2 ring-purple-400/50"
+              className="relative w-14 h-14 rounded-2xl overflow-hidden ring-2 ring-amber-400/50"
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
               <Image
@@ -215,13 +215,13 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 to-transparent" />
             </motion.div>
             <div className="flex-1">
-              <h3 className="text-white font-bold text-lg bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+              <h3 className="text-white font-bold text-lg bg-gradient-to-r from-white to-amber-200 bg-clip-text text-transparent">
                 Dawid Faith
               </h3>
-              <p className="text-purple-300 text-sm font-medium">{SocialWidgetTrans[lang].followMe}</p>
+              <p className="text-amber-300 text-sm font-medium">{SocialWidgetTrans[lang].followMe}</p>
             </div>
             <button
               onClick={onClose}
@@ -284,7 +284,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-gradient-to-br from-slate-900/95 via-purple-900/90 to-pink-900/95 backdrop-blur-xl rounded-2xl p-6 border border-purple-400/30 shadow-2xl max-w-sm w-full relative overflow-hidden"
+                className="bg-gradient-to-br from-stone-900/95 via-amber-900/90 to-yellow-900/95 backdrop-blur-xl rounded-2xl p-6 border border-amber-400/30 shadow-2xl max-w-sm w-full relative overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Background Animation */}

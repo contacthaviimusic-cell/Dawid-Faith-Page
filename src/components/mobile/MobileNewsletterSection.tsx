@@ -88,7 +88,7 @@ export default function MobileNewsletterSection() {
   }, []);
 
   return (
-    <section id="newsletter" className="py-4 px-4 bg-gradient-to-b from-black via-purple-900/10 to-black">
+    <section id="newsletter" className="py-4 px-4 bg-gradient-to-b from-black via-amber-900/10 to-black">
       <div className="container mx-auto">
         {/* Newsletter Signup */}
         <motion.div
@@ -96,19 +96,19 @@ export default function MobileNewsletterSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="relative backdrop-blur-md rounded-2xl border border-purple-500/30 p-6 overflow-hidden"
+          className="relative backdrop-blur-md rounded-2xl border border-amber-500/30 p-6 overflow-hidden"
           style={{ backgroundImage: 'url(/dawid-faith-bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
         >
           {/* dark overlay for readability */}
           <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
           <div className="relative z-10 text-center mb-6">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <Mail className="text-purple-300" size={24} />
+              <Mail className="text-amber-300" size={24} />
               <h3 className="text-xl font-bold text-white">
                 {NewsletterTranslations[lang].newsletterTitle}
               </h3>
             </div>
-            <p className="text-gray-300 text-sm">
+            <p className="text-stone-300 text-sm">
               {NewsletterTranslations[lang].newsletterDesc}
             </p>
           </div>
@@ -122,10 +122,10 @@ export default function MobileNewsletterSection() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={NewsletterTranslations[lang].emailPlaceholder}
                 disabled={isSubscribing}
-                className="w-full px-4 py-4 bg-black/30 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors disabled:opacity-50"
+                className="w-full px-4 py-4 bg-black/30 border border-stone-600 rounded-xl text-white placeholder-stone-400 focus:outline-none focus:border-amber-500 transition-colors disabled:opacity-50"
               />
-              <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                <Mail className="text-gray-400" size={18} />
+              <div className="absolute right-4 top-1/2 transform -transtone-y-1/2">
+                <Mail className="text-stone-400" size={18} />
               </div>
             </div>
 
@@ -134,7 +134,7 @@ export default function MobileNewsletterSection() {
               disabled={isSubscribing}
               whileHover={{ scale: isSubscribing ? 1 : 1.02 }}
               whileTap={{ scale: isSubscribing ? 1 : 0.98 }}
-              className="relative z-30 w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ring-1 ring-white/5"
+              className="relative z-30 w-full bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-6 py-4 rounded-xl font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ring-1 ring-white/5"
             >
                   {isSubscribing ? (
                 <>
@@ -170,7 +170,7 @@ export default function MobileNewsletterSection() {
                 animate={{ opacity: 1, y: 0 }}
                 className={`mt-4 p-4 rounded-xl border ${
                   responseStatus === 409 
-                    ? 'bg-blue-500/20 border-blue-500/30 text-blue-400'
+                    ? 'bg-amber-500/20 border-amber-500/30 text-amber-400'
                     : 'bg-red-500/20 border-red-500/30 text-red-400'
                 } flex items-center gap-3`}
               >

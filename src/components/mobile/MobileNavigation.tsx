@@ -68,11 +68,11 @@ export default function MobileNavigation() {
   return (
     <>
       {/* Fixed Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-gray-800">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-stone-800">
         <div className="flex items-center justify-between px-4 py-3">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-purple-500">
+            <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-amber-500">
               <Image
                 src="/dawid-faith.jpg"
                 alt="Dawid Faith"
@@ -81,7 +81,7 @@ export default function MobileNavigation() {
                 priority
               />
             </div>
-            <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 [font-family:var(--font-pirata),cursive]">
+            <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-400 [font-family:var(--font-display),serif]">
               DAWID FAITH
             </span>
             
@@ -97,22 +97,22 @@ export default function MobileNavigation() {
                 <ChevronDown size={14} className={`transition-transform duration-200 ${langOpen ? 'rotate-180' : 'rotate-0'}`} />
               </button>
               {langOpen && (
-                <div className="absolute left-0 mt-2 w-40 bg-black/90 border border-purple-500/20 rounded-md shadow-lg z-50">
+                <div className="absolute left-0 mt-2 w-40 bg-black/90 border border-amber-500/20 rounded-md shadow-lg z-50">
                   <ul className="py-1">
                     <li>
-                      <button className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10" onClick={() => { setLang('de'); setLangOpen(false); }}>
+                      <button className="w-full flex items-center gap-2 px-3 py-2 hover:bg-amber-500/10" onClick={() => { setLang('de'); setLangOpen(false); }}>
                         <FlagDE />
                         <span className="text-sm text-white">Deutsch</span>
                       </button>
                     </li>
                     <li>
-                      <button className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10" onClick={() => { setLang('en'); setLangOpen(false); }}>
+                      <button className="w-full flex items-center gap-2 px-3 py-2 hover:bg-amber-500/10" onClick={() => { setLang('en'); setLangOpen(false); }}>
                         <FlagGB />
                         <span className="text-sm text-white">English</span>
                       </button>
                     </li>
                     <li>
-                      <button className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10" onClick={() => { setLang('pl'); setLangOpen(false); }}>
+                      <button className="w-full flex items-center gap-2 px-3 py-2 hover:bg-amber-500/10" onClick={() => { setLang('pl'); setLangOpen(false); }}>
                         <FlagPL />
                         <span className="text-sm text-white">Polski</span>
                       </button>
@@ -129,7 +129,7 @@ export default function MobileNavigation() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg"
+              className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-r from-amber-600 to-yellow-600 shadow-lg"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </motion.button>
@@ -152,13 +152,13 @@ export default function MobileNavigation() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-              className="absolute right-0 top-0 h-full w-80 bg-gradient-to-b from-gray-900 via-purple-900/20 to-pink-900/20 border-l border-purple-500/30 shadow-2xl"
+              className="absolute right-0 top-0 h-full w-80 bg-gradient-to-b from-stone-900 via-amber-900/20 to-yellow-900/20 border-l border-amber-500/30 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="pt-20 px-6">
                 {/* Profile Section */}
-                <div className="text-center mb-8 pb-6 border-b border-gray-700">
-                  <div className="relative w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-3 border-purple-500">
+                <div className="text-center mb-8 pb-6 border-b border-stone-700">
+                  <div className="relative w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-3 border-amber-500">
                     <Image
                       src="/dawid-faith.jpg"
                       alt="Dawid Faith"
@@ -166,8 +166,8 @@ export default function MobileNavigation() {
                       className="object-cover"
                     />
                   </div>
-                  <h2 className="text-xl font-bold text-white mb-1 [font-family:var(--font-pirata),cursive]">Dawid Faith</h2>
-                  <p className="text-gray-400 text-sm">Künstler • Visionär</p>
+                  <h2 className="text-xl font-bold text-white mb-1 [font-family:var(--font-display),serif]">Dawid Faith</h2>
+                  <p className="text-stone-400 text-sm">Künstler • Visionär</p>
                 </div>
 
                 {/* Navigation Items */}
@@ -181,9 +181,9 @@ export default function MobileNavigation() {
                       whileHover={{ scale: 1.02, x: 5 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleNavClick(item.href)}
-                      className="w-full flex items-center gap-4 px-4 py-4 text-left text-white hover:bg-purple-500/20 rounded-xl transition-all duration-300"
+                      className="w-full flex items-center gap-4 px-4 py-4 text-left text-white hover:bg-amber-500/20 rounded-xl transition-all duration-300"
                     >
-                      <item.icon className="text-purple-400" size={24} />
+                      <item.icon className="text-amber-400" size={24} />
                       <span className="font-medium">{item.label}</span>
                     </motion.button>
                   ))}

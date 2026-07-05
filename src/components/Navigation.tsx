@@ -67,14 +67,14 @@ export default function Navigation() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-lg border-b border-purple-500/20"
+      className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-lg border-b border-amber-500/20"
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
-            style={{ fontFamily: 'Pirata One, cursive' }}
+            className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-400 bg-clip-text text-transparent"
+            style={{ fontFamily: 'var(--font-display), serif' }}
           >
             <div className="flex items-center gap-3">
               <span className="ml-1">Dawid Faith</span>
@@ -96,12 +96,12 @@ export default function Navigation() {
                 </button>
 
                 {langOpen && (
-                  <div className="absolute left-0 mt-2 w-36 bg-black/90 border border-purple-500/20 rounded-md shadow-lg z-50">
+                  <div className="absolute left-0 mt-2 w-36 bg-black/90 border border-amber-500/20 rounded-md shadow-lg z-50">
                     <ul role="listbox" aria-label="Sprachen" className="py-1">
                       <li>
                         <button
                           onClick={() => { setLang('de'); setLangOpen(false); }}
-                          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
+                          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-amber-500/10"
                         >
                           <FlagDE />
                           <span className="text-sm text-white">Deutsch</span>
@@ -110,7 +110,7 @@ export default function Navigation() {
                       <li>
                         <button
                           onClick={() => { setLang('en'); setLangOpen(false); }}
-                          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
+                          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-amber-500/10"
                         >
                           <FlagGB />
                           <span className="text-sm text-white">English</span>
@@ -119,7 +119,7 @@ export default function Navigation() {
                       <li>
                         <button
                           onClick={() => { setLang('pl'); setLangOpen(false); }}
-                          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-purple-500/10"
+                          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-amber-500/10"
                         >
                           <FlagPL />
                           <span className="text-sm text-white">Polski</span>
@@ -144,7 +144,7 @@ export default function Navigation() {
                   }
                 }}
                 whileHover={{ y: -2 }}
-                className="flex items-center gap-2 text-gray-300 hover:text-purple-400 transition-colors duration-300 cursor-pointer"
+                className="flex items-center gap-2 text-stone-300 hover:text-amber-400 transition-colors duration-300 cursor-pointer"
               >
                 <item.icon size={18} />
                 {item.name}
@@ -155,7 +155,7 @@ export default function Navigation() {
           <div className="md:hidden flex items-center gap-2">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-purple-400 transition-colors"
+              className="text-stone-300 hover:text-amber-400 transition-colors"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -183,7 +183,7 @@ export default function Navigation() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-3 py-3 px-4 text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 rounded-lg transition-all duration-300 w-full text-left"
+                className="flex items-center gap-3 py-3 px-4 text-stone-300 hover:text-amber-400 hover:bg-amber-500/10 rounded-lg transition-all duration-300 w-full text-left"
               >
                 <item.icon size={18} />
                 {item.name}

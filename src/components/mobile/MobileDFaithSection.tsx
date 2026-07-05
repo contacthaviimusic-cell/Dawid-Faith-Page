@@ -7,8 +7,8 @@ import Image from 'next/image';
 import { Zap, ArrowRight, Target, ShoppingBag, Layers } from 'lucide-react';
 
 const pointIcons = [
-  { icon: Target, color: 'text-pink-400' },
-  { icon: ShoppingBag, color: 'text-purple-400' },
+  { icon: Target, color: 'text-yellow-400' },
+  { icon: ShoppingBag, color: 'text-amber-400' },
   { icon: Layers, color: 'text-yellow-400' },
 ];
 
@@ -34,21 +34,21 @@ export default function MobileDFaithSection() {
   }, []);
 
   return (
-    <section id="dfaith" className="relative py-8 px-4 bg-gradient-to-b from-black via-purple-900/20 to-black overflow-hidden">
+    <section id="dfaith" className="relative py-8 px-4 bg-gradient-to-b from-black via-amber-900/20 to-black overflow-hidden">
       {/* Magical floating particles */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-purple-400/60 rounded-full animate-pulse" 
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-amber-400/60 rounded-full animate-pulse" 
              style={{ animationDelay: '0s', animationDuration: '3s' }} />
-        <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-pink-400/50 rounded-full animate-pulse"
+        <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-yellow-400/50 rounded-full animate-pulse"
              style={{ animationDelay: '1s', animationDuration: '2.5s' }} />
-        <div className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-blue-400/40 rounded-full animate-pulse"
+        <div className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-amber-400/40 rounded-full animate-pulse"
              style={{ animationDelay: '2s', animationDuration: '4s' }} />
         <div className="absolute top-2/3 right-1/3 w-1 h-1 bg-yellow-400/60 rounded-full animate-pulse"
              style={{ animationDelay: '0.5s', animationDuration: '3.5s' }} />
       </div>
       
       {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-radial from-purple-500/5 via-transparent to-transparent opacity-50" />
+      <div className="absolute inset-0 bg-gradient-radial from-amber-500/5 via-transparent to-transparent opacity-50" />
 
       <div className="relative z-10 container mx-auto">
         {/* Hero Section mit Token */}
@@ -62,8 +62,8 @@ export default function MobileDFaithSection() {
             <div className="relative mb-8 flex flex-col items-center">
               {/* Glowing ring around token */}
               <div className="relative">
-                <div className="absolute inset-0 w-24 h-24 rounded-full bg-gradient-to-r from-purple-500/30 via-pink-500/30 to-purple-500/30 blur-lg animate-pulse" />
-                <div className="relative w-20 h-20 mb-4 rounded-full overflow-hidden border-2 border-purple-500/60 shadow-2xl shadow-purple-500/30">
+                <div className="absolute inset-0 w-24 h-24 rounded-full bg-gradient-to-r from-amber-500/30 via-yellow-500/30 to-amber-500/30 blur-lg animate-pulse" />
+                <div className="relative w-20 h-20 mb-4 rounded-full overflow-hidden border-2 border-amber-500/60 shadow-2xl shadow-amber-500/30">
                   <Image src="/dfaith-token.png" alt="D.FAITH Token" width={80} height={80} className="object-cover" />
                   {/* Subtle shine effect */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent animate-pulse" />
@@ -71,7 +71,7 @@ export default function MobileDFaithSection() {
               </div>
               
               <motion.h2 
-                className="text-3xl font-bold mb-3 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent"
+                className="text-3xl font-bold mb-3 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent [font-family:var(--font-display),serif]"
                 animate={{ 
                   backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                 }}
@@ -88,7 +88,7 @@ export default function MobileDFaithSection() {
               </motion.h2>
               
               <motion.p 
-              className="text-gray-300 text-sm leading-relaxed max-w-sm mx-auto"
+              className="text-stone-300 text-sm leading-relaxed max-w-sm mx-auto"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -115,23 +115,23 @@ export default function MobileDFaithSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="group bg-gradient-to-r from-slate-900/80 via-purple-900/10 to-slate-900/80 backdrop-blur-sm rounded-2xl p-4 border border-purple-500/20 shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:border-purple-400/40"
+                className="group bg-gradient-to-r from-stone-900/80 via-amber-900/10 to-stone-900/80 backdrop-blur-sm rounded-2xl p-4 border border-amber-500/20 shadow-lg hover:shadow-amber-500/20 transition-all duration-300 hover:border-amber-400/40"
               >
                 <div className="flex items-start gap-3">
                   <motion.div
-                    className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-gray-800/80 to-purple-900/40 flex items-center justify-center border border-purple-500/30 shadow-inner"
+                    className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-stone-800/80 to-amber-900/40 flex items-center justify-center border border-amber-500/30 shadow-inner"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     <Icon className={`${color} drop-shadow-sm`} size={20} />
                   </motion.div>
                   <div className="flex-1">
-                    <p className="text-white text-sm font-semibold mb-1 group-hover:text-purple-200 transition-colors">{point.title}</p>
-                    <p className="text-gray-300 text-sm leading-relaxed">{point.text}</p>
+                    <p className="text-white text-sm font-semibold mb-1 group-hover:text-amber-200 transition-colors">{point.title}</p>
+                    <p className="text-stone-300 text-sm leading-relaxed">{point.text}</p>
                   </div>
                 </div>
                 {/* Subtle hover glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-500/0 via-amber-500/5 to-amber-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </motion.div>
             );
           })}
@@ -148,13 +148,13 @@ export default function MobileDFaithSection() {
             href="https://app.dawidfaith.de"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(147, 51, 234, 0.3)" }}
+            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(217, 119, 6, 0.3)" }}
             whileTap={{ scale: 0.98 }}
-            className="group relative w-full bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 p-0 rounded-2xl overflow-hidden shadow-xl shadow-purple-500/25"
+            className="group relative w-full bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 p-0 rounded-2xl overflow-hidden shadow-xl shadow-amber-500/25"
           >
-            <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 rounded-2xl px-6 py-4 text-center relative overflow-hidden">
+            <div className="bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 rounded-2xl px-6 py-4 text-center relative overflow-hidden">
               {/* Enhanced shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transtone-x-[-100%] group-hover:transtone-x-[200%] transition-transform duration-1000" />
               {/* Magical sparkles */}
               <div className="absolute top-2 right-2 w-1 h-1 bg-yellow-300 rounded-full opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-300" />
               <div className="absolute bottom-2 left-2 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-500" />
@@ -166,7 +166,7 @@ export default function MobileDFaithSection() {
                   <Zap className="text-yellow-300 drop-shadow-lg" size={20} />
                 </motion.div>
                 <span className="text-white font-bold text-base drop-shadow-sm">{DFaithTranslations[lang].ctaEarn}</span>
-                <ArrowRight className="text-white/80 group-hover:translate-x-1 transition-transform drop-shadow-sm" size={18} />
+                <ArrowRight className="text-white/80 group-hover:transtone-x-1 transition-transform drop-shadow-sm" size={18} />
               </div>
             </div>
           </motion.a>

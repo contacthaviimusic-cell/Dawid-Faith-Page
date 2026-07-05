@@ -78,7 +78,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
             transition={{ type: "spring", duration: 0.5 }}
-            className="bg-gradient-to-br from-slate-900/95 via-purple-900/90 to-pink-900/95 backdrop-blur-xl rounded-3xl p-8 border border-purple-400/30 shadow-2xl max-w-md w-full relative"
+            className="bg-gradient-to-br from-stone-900/95 via-stone-900/90 to-amber-950/95 backdrop-blur-xl rounded-3xl p-8 border border-amber-400/30 shadow-2xl max-w-md w-full relative"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -224,10 +224,10 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
       name: 'D.FAITH',
       icon: Star,
       url: '#',
-      color: 'from-purple-600 via-pink-500 to-blue-500',
-      bgColor: 'bg-gradient-to-br from-purple-600/20 to-pink-500/20',
-      borderColor: 'border-purple-500/40',
-      hoverColor: 'hover:border-purple-400',
+      color: 'from-amber-600 via-yellow-500 to-amber-500',
+      bgColor: 'bg-gradient-to-br from-amber-600/20 to-yellow-500/20',
+      borderColor: 'border-amber-500/40',
+      hoverColor: 'hover:border-amber-400',
       description: 'Exklusiver Zugang'
     }
   ];
@@ -240,12 +240,12 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0, opacity: 0 }}
           transition={{ type: "spring", duration: 0.8, bounce: 0.4 }}
-          className="bg-gradient-to-br from-slate-900/95 via-purple-900/90 to-pink-900/95 backdrop-blur-xl rounded-3xl p-6 border border-purple-400/30 shadow-2xl max-w-sm relative overflow-hidden"
+          className="bg-gradient-to-br from-stone-900/95 via-stone-900/90 to-amber-950/95 backdrop-blur-xl rounded-3xl p-6 border border-amber-400/30 shadow-2xl max-w-sm relative overflow-hidden"
         >
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
-            className="absolute -top-10 -right-10 w-20 h-20 bg-purple-500/10 rounded-full blur-xl"
+            className="absolute -top-10 -right-10 w-20 h-20 bg-amber-500/10 rounded-full blur-xl"
             animate={{ 
               scale: [1, 1.5, 1],
               rotate: [0, 180, 360]
@@ -253,7 +253,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
             transition={{ duration: 8, repeat: Infinity }}
           />
           <motion.div
-            className="absolute -bottom-5 -left-5 w-16 h-16 bg-pink-500/10 rounded-full blur-xl"
+            className="absolute -bottom-5 -left-5 w-16 h-16 bg-yellow-500/10 rounded-full blur-xl"
             animate={{ 
               scale: [1.2, 1, 1.2],
               rotate: [360, 180, 0]
@@ -265,7 +265,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
         {/* Header */}
         <div className="relative z-10 flex items-center gap-4 mb-6">
           <motion.div 
-            className="relative w-14 h-14 rounded-2xl overflow-hidden ring-2 ring-purple-400/50"
+            className="relative w-14 h-14 rounded-2xl overflow-hidden ring-2 ring-amber-400/50"
             whileHover={{ scale: 1.1, rotate: 5 }}
           >
             <Image
@@ -274,13 +274,13 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 to-transparent" />
           </motion.div>
           <div>
-            <h3 className="text-white font-bold text-lg bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+            <h3 className="text-white font-bold text-lg bg-gradient-to-r from-white to-amber-200 bg-clip-text text-transparent">
               Dawid Faith
             </h3>
-            <p className="text-purple-300 text-sm font-medium">Connect & Follow</p>
+            <p className="text-amber-300 text-sm font-medium">Connect & Follow</p>
           </div>
         </div>
 
@@ -346,19 +346,19 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0, opacity: 0 }}
         transition={{ type: "spring", duration: 0.8, bounce: 0.3 }}
-        className="bg-gradient-to-br from-slate-900/98 via-purple-900/95 to-pink-900/98 backdrop-blur-3xl rounded-3xl p-8 border border-purple-400/40 shadow-2xl max-w-md relative overflow-hidden"
+        className="bg-gradient-to-br from-stone-900/98 via-amber-900/95 to-yellow-900/98 backdrop-blur-3xl rounded-3xl p-8 border border-amber-400/40 shadow-2xl max-w-md relative overflow-hidden"
       >
       {/* Advanced Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500"
+          className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500"
           animate={{ 
             backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
           }}
           transition={{ duration: 4, repeat: Infinity }}
         />
         <motion.div
-          className="absolute -top-20 -right-20 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl"
+          className="absolute -top-20 -right-20 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"
           animate={{ 
             scale: [1, 1.3, 1],
             rotate: [0, 90, 180, 270, 360]
@@ -366,7 +366,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
           transition={{ duration: 12, repeat: Infinity }}
         />
         <motion.div
-          className="absolute -bottom-10 -left-10 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl"
+          className="absolute -bottom-10 -left-10 w-32 h-32 bg-yellow-500/10 rounded-full blur-2xl"
           animate={{ 
             scale: [1.2, 1, 1.2],
             rotate: [360, 270, 180, 90, 0]
@@ -378,7 +378,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
       {/* Header */}
       <div className="relative z-10 text-center mb-8">
         <motion.div 
-          className="relative w-24 h-24 mx-auto mb-4 rounded-3xl overflow-hidden ring-4 ring-purple-400/60 shadow-xl"
+          className="relative w-24 h-24 mx-auto mb-4 rounded-3xl overflow-hidden ring-4 ring-amber-400/60 shadow-xl"
           whileHover={{ scale: 1.1, rotate: 5 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
@@ -388,23 +388,23 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/30 to-transparent" />
           <motion.div
-            className="absolute inset-0 rounded-3xl border-2 border-purple-400/50"
+            className="absolute inset-0 rounded-3xl border-2 border-amber-400/50"
             animate={{
               boxShadow: [
-                '0 0 20px rgba(147, 51, 234, 0.3)',
-                '0 0 40px rgba(147, 51, 234, 0.6)',
-                '0 0 20px rgba(147, 51, 234, 0.3)'
+                '0 0 20px rgba(217, 119, 6, 0.3)',
+                '0 0 40px rgba(217, 119, 6, 0.6)',
+                '0 0 20px rgba(217, 119, 6, 0.3)'
               ]
             }}
             transition={{ duration: 2, repeat: Infinity }}
           />
         </motion.div>
-        <h3 className="text-white font-bold text-2xl mb-2 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">
+        <h3 className="text-white font-bold text-2xl mb-2 bg-gradient-to-r from-white via-amber-200 to-yellow-200 bg-clip-text text-transparent">
           Dawid Faith
         </h3>
-        <p className="text-purple-300 font-medium">Singer-Songwriter</p>
+        <p className="text-amber-300 font-medium">Singer-Songwriter</p>
       </div>
 
       {/* Social Links Grid */}
@@ -454,7 +454,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
               </motion.div>
               <div className="text-center">
                 <div className="text-white font-bold text-sm mb-1">{link.name}</div>
-                <div className="text-xs text-purple-200 mt-1 opacity-80">
+                <div className="text-xs text-amber-200 mt-1 opacity-80">
                   {link.description}
                 </div>
               </div>
@@ -470,12 +470,12 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
           <input
             type="email"
             placeholder="Deine E-Mail"
-            className="flex-1 px-4 py-3 bg-black/60 border-2 border-gray-600/50 rounded-xl text-white text-sm placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-all duration-300 backdrop-blur-sm"
+            className="flex-1 px-4 py-3 bg-black/60 border-2 border-stone-600/50 rounded-xl text-white text-sm placeholder-stone-400 focus:outline-none focus:border-amber-500 transition-all duration-300 backdrop-blur-sm"
           />
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition-all duration-300 hover:shadow-purple-500/25"
+            className="bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition-all duration-300 hover:shadow-amber-500/25"
           >
             <Play size={16} />
           </motion.button>
@@ -483,9 +483,9 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
       </div>
 
       {/* Footer */}
-      <div className="relative z-10 mt-6 pt-4 border-t border-gray-600/50 text-center">
+      <div className="relative z-10 mt-6 pt-4 border-t border-stone-600/50 text-center">
         <motion.p 
-          className="text-xs text-gray-400"
+          className="text-xs text-stone-400"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}

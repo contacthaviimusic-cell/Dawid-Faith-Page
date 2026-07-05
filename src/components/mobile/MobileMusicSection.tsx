@@ -199,7 +199,7 @@ export default function MobileMusicSection() {
   };
 
   return (
-    <section id="music" className="py-8 px-4 bg-gradient-to-b from-black via-pink-900/10 to-black">
+    <section id="music" className="py-8 px-4 bg-gradient-to-b from-black via-yellow-900/10 to-black">
       <div className="container mx-auto">
         {/* Header */}
         <motion.div
@@ -210,17 +210,17 @@ export default function MobileMusicSection() {
           className="text-center mb-8"
         >
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Music className="text-pink-400" size={28} />
-            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
+            <Music className="text-yellow-400" size={28} />
+            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 [font-family:var(--font-display),serif]">
               {MusicTranslations[lang].title}
             </h2>
           </div>
-          <p className="text-gray-400 text-sm mb-4">
+          <p className="text-stone-400 text-sm mb-4">
             {MusicTranslations[lang].subtitle}
           </p>
           <div className="flex items-center justify-center gap-2">
-            <Video className="w-4 h-4 text-purple-400" />
-            <span className="text-purple-300 text-xs">{MusicTranslations[lang].appNote}</span>
+            <Video className="w-4 h-4 text-amber-400" />
+            <span className="text-amber-300 text-xs">{MusicTranslations[lang].appNote}</span>
           </div>
         </motion.div>
 
@@ -233,7 +233,7 @@ export default function MobileMusicSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-gray-900/60 to-pink-900/20 backdrop-blur-md rounded-2xl border border-pink-500/20 overflow-hidden"
+              className="bg-gradient-to-br from-stone-900/60 to-yellow-900/20 backdrop-blur-md rounded-2xl border border-yellow-500/20 overflow-hidden"
             >
               {/* Cover Image with Video Overlay */}
               <div className="relative h-48 overflow-hidden">
@@ -265,7 +265,7 @@ export default function MobileMusicSection() {
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => setShowVideo(track.id)}
-                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-pink-500/80 hover:bg-pink-500 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 shadow-xl border-2 border-white/20"
+                      className="absolute top-1/2 left-1/2 transform -transtone-x-1/2 -transtone-y-1/2 w-16 h-16 bg-yellow-500/80 hover:bg-yellow-500 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 shadow-xl border-2 border-white/20"
                     >
                       <Video className="text-white" size={24} />
                     </motion.button>
@@ -278,7 +278,7 @@ export default function MobileMusicSection() {
                     <h3 className="font-bold text-white text-lg mb-1 truncate">
                       {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![track.id]?.title) || track.title}
                     </h3>
-                    <p className="text-gray-300 text-sm">
+                    <p className="text-stone-300 text-sm">
                       {track.artist}
                     </p>
                   </div>
@@ -300,7 +300,7 @@ export default function MobileMusicSection() {
               {/* Track Info & Controls */}
               <div className="p-4">
                 {((MusicTranslations[lang].songs && MusicTranslations[lang].songs![track.id]?.description) || track.description) && (
-                  <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  <p className="text-stone-400 text-sm mb-4 leading-relaxed">
                     {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![track.id]?.description) || track.description}
                   </p>
                 )}
@@ -312,7 +312,7 @@ export default function MobileMusicSection() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => playTrack(track)}
-                    className="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center"
+                    className="flex-1 bg-gradient-to-r from-yellow-600 to-amber-600 hover:from-yellow-500 hover:to-amber-500 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center"
                   >
                     {currentTrack?.id === track.id && isPlaying ? (
                       <Pause size={18} />
@@ -326,7 +326,7 @@ export default function MobileMusicSection() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => window.open('https://app.dawidfaith.de', '_blank')}
-                    className="bg-gray-700/60 hover:bg-gray-600/60 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2"
+                    className="bg-stone-700/60 hover:bg-stone-600/60 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2"
                     aria-label="Webapp öffnen"
                   >
                     <ExternalLink size={18} />
@@ -337,11 +337,11 @@ export default function MobileMusicSection() {
                 {/* Progress Bar for Current Track */}
                 {currentTrack?.id === track.id && (
                   <div className="mt-4">
-                    <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
+                    <div className="flex items-center gap-2 text-xs text-stone-400 mb-2">
                       <span>{formatTime(currentTime)}</span>
-                      <div className="flex-1 bg-gray-700 rounded-full h-1.5">
+                      <div className="flex-1 bg-stone-700 rounded-full h-1.5">
                         <div 
-                          className="bg-gradient-to-r from-pink-500 to-purple-500 h-1.5 rounded-full transition-all duration-300"
+                          className="bg-gradient-to-r from-yellow-500 to-amber-500 h-1.5 rounded-full transition-all duration-300"
                           style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
                         />
                       </div>
@@ -360,13 +360,13 @@ export default function MobileMusicSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-2xl border border-purple-500/30 backdrop-blur-sm p-6 text-center"
+          className="bg-gradient-to-r from-amber-900/30 to-yellow-900/30 rounded-2xl border border-amber-500/30 backdrop-blur-sm p-6 text-center"
         >
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Music className="text-purple-400" size={24} />
+            <Music className="text-amber-400" size={24} />
             <h3 className="text-xl font-bold text-white">{MusicTranslations[lang].exclusiveTitle || 'Komplette Songs'}</h3>
           </div>
-          <p className="text-gray-300 text-sm mb-4">
+          <p className="text-stone-300 text-sm mb-4">
             {MusicTranslations[lang].exclusiveDesc || 'Höre die vollständigen Songs in der D.FAITH Webapp und verdiene Token'}
           </p>
           <motion.a
@@ -375,7 +375,7 @@ export default function MobileMusicSection() {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-6 py-3 rounded-xl text-white font-bold transition-all duration-300 flex items-center justify-center gap-2 w-full"
+            className="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 px-6 py-3 rounded-xl text-white font-bold transition-all duration-300 flex items-center justify-center gap-2 w-full"
           >
             <ExternalLink size={18} />
             {MusicTranslations[lang].webappButton || 'D.FAITH Webapp besuchen'}
@@ -389,7 +389,7 @@ export default function MobileMusicSection() {
               initial={{ y: 100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 100, opacity: 0 }}
-              className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-t from-gray-900 via-purple-900/50 to-transparent backdrop-blur-md border-t border-purple-500/30 p-4"
+              className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-t from-stone-900 via-amber-900/50 to-transparent backdrop-blur-md border-t border-amber-500/30 p-4"
             >
               <div className="flex items-center gap-4">
                 {/* Current Track Info */}
@@ -406,7 +406,7 @@ export default function MobileMusicSection() {
                     <h3 className="font-bold text-white text-sm truncate">
                       {getTrackInfo(currentTrack.id, 'title')}
                     </h3>
-                    <p className="text-gray-400 text-xs">
+                    <p className="text-stone-400 text-xs">
                       {currentTrack.artist}
                     </p>
                   </div>
@@ -418,7 +418,7 @@ export default function MobileMusicSection() {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => skipTrack('prev')}
-                    className="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center text-purple-400"
+                    className="w-10 h-10 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-400"
                   >
                     <SkipBack size={18} />
                   </motion.button>
@@ -427,7 +427,7 @@ export default function MobileMusicSection() {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={togglePlayPause}
-                    className="w-12 h-12 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center text-white shadow-lg"
+                    className="w-12 h-12 bg-gradient-to-r from-yellow-600 to-amber-600 rounded-full flex items-center justify-center text-white shadow-lg"
                   >
                     {isPlaying ? <Pause size={20} /> : <Play size={20} />}
                   </motion.button>
@@ -436,7 +436,7 @@ export default function MobileMusicSection() {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => skipTrack('next')}
-                    className="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center text-purple-400"
+                    className="w-10 h-10 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-400"
                   >
                     <SkipForward size={18} />
                   </motion.button>
@@ -445,7 +445,7 @@ export default function MobileMusicSection() {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={toggleMute}
-                    className="w-10 h-10 bg-gray-500/20 rounded-full flex items-center justify-center text-gray-400"
+                    className="w-10 h-10 bg-stone-500/20 rounded-full flex items-center justify-center text-stone-400"
                   >
                     {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
                   </motion.button>
@@ -460,7 +460,7 @@ export default function MobileMusicSection() {
                   max="100"
                   value={duration ? (currentTime / duration) * 100 : 0}
                   onChange={handleProgressChange}
-                  className="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
+                  className="w-full h-1 bg-stone-700 rounded-lg appearance-none cursor-pointer slider"
                 />
               </div>
             </motion.div>

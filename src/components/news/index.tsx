@@ -47,7 +47,7 @@ const NewsDetailRenderer: React.FC<NewsDetailProps> = ({ article }) => {
         // Fallback für unbekannte News-IDs
         <div className="space-y-6">
           <h3 className="text-2xl font-bold text-white mb-4">{NewsTranslations[lang].defaultNewsTitle}</h3>
-          <p className="text-gray-300 leading-relaxed">
+          <p className="text-stone-300 leading-relaxed">
             {NewsTranslations[lang].defaultNewsFallback}
           </p>
         </div>

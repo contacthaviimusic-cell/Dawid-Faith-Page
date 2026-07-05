@@ -44,7 +44,7 @@ export default function MobilePage() {
   return (
     <>
       <MobileNavigation />
-      <div className="min-h-screen bg-black text-white overflow-hidden relative">
+      <div className="min-h-screen bg-[#0a0908] text-white overflow-hidden relative">
         
         {/* Mobile Hero Section */}
         <section id="home" className="min-h-screen flex flex-col justify-end relative overflow-hidden">
@@ -68,14 +68,14 @@ export default function MobilePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h1 className="text-5xl sm:text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 tracking-wider [font-family:var(--font-pirata),cursive]">
+              <h1 className="text-5xl sm:text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 tracking-wider [font-family:var(--font-display),serif]">
                 DAWID FAITH
               </h1>
               
               <div className="flex items-center justify-center gap-3 text-lg mb-8">
-                <span className="w-6 h-px bg-gradient-to-r from-purple-400 to-pink-400" />
-                <span className="text-gray-200 font-medium">{PageTranslations[lang].heroSubtitle}</span>
-                <span className="w-6 h-px bg-gradient-to-r from-pink-400 to-purple-400" />
+                <span className="w-6 h-px bg-gradient-to-r from-amber-400 to-yellow-400" />
+                <span className="text-stone-200 font-medium">{PageTranslations[lang].heroSubtitle}</span>
+                <span className="w-6 h-px bg-gradient-to-r from-yellow-400 to-amber-400" />
               </div>
             </motion.div>
 
@@ -88,7 +88,7 @@ export default function MobilePage() {
             >
               <motion.button
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-3.5 rounded-full font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
+                className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 px-5 py-3.5 rounded-full font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
                 onClick={() => {
                   const el = document.querySelector('#news');
                   if (el) {
@@ -107,7 +107,7 @@ export default function MobilePage() {
 
               <motion.button
                 whileTap={{ scale: 0.98 }}
-                className="w-full border border-purple-500/50 hover:bg-purple-500/10 px-5 py-3.5 rounded-full font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
+                className="w-full border border-amber-500/50 hover:bg-amber-500/10 px-5 py-3.5 rounded-full font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
                 onClick={() => {
                   const el = document.querySelector('#dfaith');
                   if (el) {
@@ -130,8 +130,8 @@ export default function MobilePage() {
 
             {/* Scroll Indicator */}
             <div className="mt-8 flex flex-col items-center gap-1.5 animate-bounce">
-              <span className="text-gray-500 text-[9px] uppercase tracking-widest">Scroll</span>
-              <div className="w-px h-6 bg-gradient-to-b from-purple-400/50 to-transparent" />
+              <span className="text-stone-500 text-[9px] uppercase tracking-widest">Scroll</span>
+              <div className="w-px h-6 bg-gradient-to-b from-amber-400/50 to-transparent" />
             </div>
           </div>
         </section>
@@ -157,7 +157,7 @@ export default function MobilePage() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setShowSocialWidget(true)}
-            className="fixed bottom-6 right-6 z-40 w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-2xl border-4 border-purple-400/30 flex items-center justify-center animate-pulse"
+            className="fixed bottom-6 right-6 z-40 w-16 h-16 bg-gradient-to-r from-amber-600 to-yellow-600 rounded-full shadow-2xl border-4 border-amber-400/30 flex items-center justify-center animate-pulse"
           >
             <div className="relative w-12 h-12 rounded-full overflow-hidden">
               <Image
@@ -171,7 +171,7 @@ export default function MobilePage() {
         )}
 
         {/* Mobile Footer */}
-        <footer className="py-8 px-4 border-t border-gray-800">
+        <footer className="py-8 px-4 border-t border-stone-800">
           <div className="container mx-auto text-center">
             <motion.div
               initial={{ opacity: 0 }}
@@ -180,15 +180,15 @@ export default function MobilePage() {
               viewport={{ once: true }}
               className="mb-6"
             >
-              <h3 className="text-2xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 [font-family:var(--font-pirata),cursive]">
+              <h3 className="text-2xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-400 [font-family:var(--font-display),serif]">
                 Dawid Faith
               </h3>
-              <p className="text-gray-400 text-sm">
+              <p className="text-stone-400 text-sm">
                 Wo Musik auf Blockchain trifft
               </p>
             </motion.div>
             
-            <div className="text-gray-500 text-xs">
+            <div className="text-stone-500 text-xs">
               <p>&copy; 2026 Dawid Faith. Alle Rechte vorbehalten.</p>
               <p className="mt-1">Powered by D.FAITH Ecosystem</p>
             </div>

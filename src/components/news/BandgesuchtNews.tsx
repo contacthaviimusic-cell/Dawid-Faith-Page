@@ -40,9 +40,9 @@ const BandgesuchtNews = () => {
     <div className="space-y-6">
       <h3 className="text-2xl font-bold text-white mb-4">{t.title}</h3>
 
-      <div className="bg-blue-900/30 p-6 rounded-2xl border border-blue-500/20">
-        <h4 className="text-lg font-semibold text-blue-300 mb-4">{t.infoTitle}</h4>
-        <div className="grid md:grid-cols-2 gap-4 text-gray-300">
+      <div className="bg-amber-900/30 p-6 rounded-2xl border border-amber-500/20">
+        <h4 className="text-lg font-semibold text-amber-300 mb-4">{t.infoTitle}</h4>
+        <div className="grid md:grid-cols-2 gap-4 text-stone-300">
           <div>
             <p className="font-medium">{t.dateLabel}</p>
             <p className="text-sm">{t.dateText}{t.timeText ? `, ${formatTime(t.timeText)}` : ''}</p>
@@ -63,11 +63,11 @@ const BandgesuchtNews = () => {
         {/* Paragraph removed - excerpt is shown above by NewsDetailRenderer */}
       </div>
 
-      <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
-        <h4 className="text-lg font-semibold text-purple-300 mb-3">{t.premiereTitle}</h4>
+      <div className="bg-amber-900/30 p-6 rounded-2xl border border-amber-500/20">
+        <h4 className="text-lg font-semibold text-amber-300 mb-3">{t.premiereTitle}</h4>
         <div className="flex flex-wrap gap-3">
           {t.badges.map((b: string, i: number) => (
-            <span key={i} className="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium">{b}</span>
+            <span key={i} className="bg-amber-600 text-white px-4 py-2 rounded-full text-sm font-medium">{b}</span>
           ))}
         </div>
       </div>

@@ -189,9 +189,9 @@ const NewsSection = () => {
   }), []);
 
   return (
-    <section id="news" className="scroll-mt-16 relative py-20 px-4 bg-gradient-to-b from-slate-900/30 to-purple-900/10">
+    <section id="news" className="scroll-mt-16 relative py-20 px-4 bg-gradient-to-b from-stone-900/30 to-amber-900/10">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-900/5 to-pink-900/5"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-amber-900/5 to-yellow-900/5"></div>
 
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Section Header */}
@@ -202,10 +202,10 @@ const NewsSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent [font-family:var(--font-display),serif]">
             {NewsTranslations[lang].sectionTitle}
           </h2>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-stone-300 max-w-3xl mx-auto leading-relaxed">
             {NewsTranslations[lang].sectionDesc}
           </p>
         </motion.div>
@@ -225,7 +225,7 @@ const NewsSection = () => {
             return (
             <div
               key={item.id}
-              className="relative bg-gradient-to-br from-purple-900/40 to-pink-900/40 backdrop-blur-md rounded-3xl overflow-hidden border border-purple-500/20 shadow-2xl group hover:scale-[1.02] transition-all duration-500"
+              className="relative bg-gradient-to-br from-amber-900/40 to-yellow-900/40 backdrop-blur-md rounded-3xl overflow-hidden border border-amber-500/20 shadow-2xl group hover:scale-[1.02] transition-all duration-500"
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                 <div className="relative h-64 lg:h-auto">
@@ -235,9 +235,9 @@ const NewsSection = () => {
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-900/50 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-900/50 to-transparent"></div>
                   <div className="absolute top-4 left-4">
-                    <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                    <span className="bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-4 py-2 rounded-full text-sm font-semibold">
                         {NewsTranslations[lang].featuredTag}
                       </span>
                   </div>
@@ -245,25 +245,25 @@ const NewsSection = () => {
                 
                 <div className="p-8 lg:p-12 flex flex-col justify-center">
                   <div className="flex items-center gap-4 mb-4">
-                    <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
+                    <span className="bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
                       <Icon size={16} />
                       {item.category}
                     </span>
-                    <div className="flex items-center gap-2 text-gray-400 text-sm">
+                    <div className="flex items-center gap-2 text-stone-400 text-sm">
                       <Calendar size={16} />
                         {formatDate(item.date)}
                     </div>
-                    <div className="flex items-center gap-2 text-gray-400 text-sm">
+                    <div className="flex items-center gap-2 text-stone-400 text-sm">
                       <Clock size={16} />
                       {isClockTime(item.readTime) ? formatTime(item.date, item.readTime) : item.readTime}
                     </div>
                   </div>
                   
-                  <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-white group-hover:text-purple-300 transition-colors">
+                  <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-white group-hover:text-amber-300 transition-colors">
                     {displayTitle}
                   </h3>
                   
-                  <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                  <p className="text-stone-300 text-lg leading-relaxed mb-6">
                     {displayExcerpt}
                   </p>
                   
@@ -271,7 +271,7 @@ const NewsSection = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setSelectedArticle(item)}
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-full font-semibold text-lg shadow-lg transition-all duration-300 flex items-center gap-2 w-fit"
+                    className="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-white px-6 py-3 rounded-full font-semibold text-lg shadow-lg transition-all duration-300 flex items-center gap-2 w-fit"
                   >
                     {NewsTranslations[lang].readMore}
                     <ArrowRight size={18} />
@@ -301,7 +301,7 @@ const NewsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-slate-900/60 to-purple-900/30 backdrop-blur-md rounded-2xl overflow-hidden border border-gray-700/30 shadow-xl hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 group hover:scale-105"
+              className="bg-gradient-to-br from-stone-900/60 to-amber-900/30 backdrop-blur-md rounded-2xl overflow-hidden border border-stone-700/30 shadow-xl hover:shadow-2xl hover:shadow-amber-500/20 transition-all duration-500 group hover:scale-105"
             >
               <div className="relative h-48">
                 <Image
@@ -320,7 +320,7 @@ const NewsSection = () => {
               </div>
 
               <div className="p-6">
-                <div className="flex items-center gap-4 mb-3 text-gray-400 text-sm">
+                <div className="flex items-center gap-4 mb-3 text-stone-400 text-sm">
                     <div className="flex items-center gap-2">
                       <Calendar size={16} />
                       {formatDate(item.date)}
@@ -331,11 +331,11 @@ const NewsSection = () => {
                     </div>
                 </div>
 
-                <h3 className="text-xl font-bold mb-3 text-white group-hover:text-purple-300 transition-colors">
+                <h3 className="text-xl font-bold mb-3 text-white group-hover:text-amber-300 transition-colors">
                   {displayTitle}
                 </h3>
 
-                <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                <p className="text-stone-300 text-sm leading-relaxed mb-4">
                   {displayExcerpt}
                 </p>
 
@@ -343,7 +343,7 @@ const NewsSection = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setSelectedArticle(item)}
-                  className="text-purple-400 hover:text-purple-300 font-semibold text-sm flex items-center gap-2 transition-colors"
+                  className="text-amber-400 hover:text-amber-300 font-semibold text-sm flex items-center gap-2 transition-colors"
                 >
                   Weiterlesen
                   <ArrowRight size={14} />
@@ -366,7 +366,7 @@ const NewsSection = () => {
               href="#all-news"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-full font-semibold flex items-center gap-2 transition-all duration-300 shadow-lg"
+              className="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-white px-8 py-3 rounded-full font-semibold flex items-center gap-2 transition-all duration-300 shadow-lg"
             >
               {lang === 'de' ? 'Alle News anzeigen' : lang === 'en' ? 'View All News' : 'Pokaż wszystkie wiadomości'}
               <ArrowRight size={18} />
@@ -382,7 +382,7 @@ const NewsSection = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className="bg-gradient-to-br from-slate-900 to-purple-900/50 backdrop-blur-md rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-purple-500/20 shadow-2xl"
+            className="bg-gradient-to-br from-stone-900 to-amber-900/50 backdrop-blur-md rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-amber-500/20 shadow-2xl"
           >
             {/* Header */}
             <div className="relative h-64 md:h-80">
@@ -405,13 +405,13 @@ const NewsSection = () => {
               {/* Article Meta */}
               <div className="absolute bottom-4 left-6 right-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
+                  <span className="bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
                     {iconFor[selectedArticle.category as keyof typeof iconFor] && 
                       React.createElement(iconFor[selectedArticle.category as keyof typeof iconFor] || Star, { size: 14 })}
                     {selectedArticle.category}
                   </span>
                   {selectedArticle.featured && (
-                    <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <span className="bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
                       {NewsTranslations[lang].featuredTag}
                     </span>
                   )}
@@ -419,7 +419,7 @@ const NewsSection = () => {
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
                   {getLocalizedField(selectedArticle, 'title', lang)}
                 </h2>
-                <div className="flex items-center gap-4 text-gray-300 text-sm">
+                <div className="flex items-center gap-4 text-stone-300 text-sm">
                   <div className="flex items-center gap-2">
                     <Calendar size={16} />
                     {formatDate(selectedArticle.date)}
@@ -436,13 +436,13 @@ const NewsSection = () => {
                   <div className="p-6 md:p-8">
                     {/* Modulares News-Detail-System */}
                     {/* Show localized excerpt above the specific renderer */}
-                    <p className="text-xl text-gray-300 leading-relaxed mb-6">
+                    <p className="text-xl text-stone-300 leading-relaxed mb-6">
                       {getLocalizedField(selectedArticle, 'excerpt', lang)}
                     </p>
                     <NewsDetailRenderer article={selectedArticle} />
 
               {/* Action Buttons */}
-              <div className="flex gap-4 mt-8 pt-6 border-t border-gray-700">
+              <div className="flex gap-4 mt-8 pt-6 border-t border-stone-700">
                 {/* Button-Logik je nach News-Typ */}
                 {selectedArticle?.category === 'Blockchain' ? (
                   <motion.a
@@ -451,7 +451,7 @@ const NewsSection = () => {
                     href="https://app.dawidfaith.de"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
+                    className="bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
                   >
                     <span>{NewsTranslations[lang].toWebapp}</span>
                     <ArrowRight size={16} />
@@ -461,7 +461,7 @@ const NewsSection = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     href="mailto:dawid.faith@gmail.com?subject=Interesse an Bandmitgliedschaft&body=Hallo Dawid,%0A%0AIch habe Interesse an einer Bandmitgliedschaft und spiele..."
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
+                    className="bg-gradient-to-r from-amber-600 to-amber-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
                   >
                     <span>{NewsTranslations[lang].contactEmail || 'E-Mail senden'}</span>
                     <ArrowRight size={16} />
@@ -471,7 +471,7 @@ const NewsSection = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => shareNews(selectedArticle)}
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
+                    className="bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-2"
                   >
                     {NewsTranslations[lang].share}
                     <Share2 size={16} />
@@ -481,7 +481,7 @@ const NewsSection = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setSelectedArticle(null)}
-                  className="border border-gray-600 text-gray-300 hover:text-white px-6 py-3 rounded-full font-semibold"
+                  className="border border-stone-600 text-stone-300 hover:text-white px-6 py-3 rounded-full font-semibold"
                 >
                   {NewsTranslations[lang].close}
                 </motion.button>

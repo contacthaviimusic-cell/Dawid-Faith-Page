@@ -70,9 +70,9 @@ const MusicSection = () => {
   }, []);
 
   return (
-    <section id="music" className="scroll-mt-16 relative py-20 px-4 bg-gradient-to-b from-purple-900/10 to-slate-900/30 overflow-hidden">
+    <section id="music" className="scroll-mt-16 relative py-20 px-4 bg-gradient-to-b from-amber-900/10 to-stone-900/30 overflow-hidden">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-r from-pink-900/5 to-purple-900/5" />
+      <div className="absolute inset-0 bg-gradient-to-r from-yellow-900/5 to-amber-900/5" />
       
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Section Header */}
@@ -83,15 +83,15 @@ const MusicSection = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-pink-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent [font-family:var(--font-display),serif]">
             {MusicTranslations[lang].title}
           </h2>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-stone-300 max-w-3xl mx-auto leading-relaxed">
             {MusicTranslations[lang].subtitle}
           </p>
           <div className="flex items-center justify-center gap-2 mt-4">
-            <Smartphone className="w-5 h-5 text-purple-400" />
-            <span className="text-purple-300 text-sm">{MusicTranslations[lang].appNote}</span>
+            <Smartphone className="w-5 h-5 text-amber-400" />
+            <span className="text-amber-300 text-sm">{MusicTranslations[lang].appNote}</span>
           </div>
         </motion.div>
 
@@ -104,7 +104,7 @@ const MusicSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="group relative bg-gradient-to-br from-slate-800/40 to-purple-900/20 rounded-2xl border border-gray-700/40 backdrop-blur-sm hover:border-purple-500/30 transition-all duration-500"
+              className="group relative bg-gradient-to-br from-stone-800/40 to-amber-900/20 rounded-2xl border border-stone-700/40 backdrop-blur-sm hover:border-amber-500/30 transition-all duration-500"
             >
               {/* Song Image */}
               <div className="relative h-64 rounded-t-2xl overflow-hidden">
@@ -119,7 +119,7 @@ const MusicSection = () => {
                 {/* Video Play Button Overlay */}
                 <button
                   onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-purple-500 hover:bg-purple-400 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
+                  className="absolute top-1/2 left-1/2 transform -transtone-x-1/2 -transtone-y-1/2 w-16 h-16 bg-amber-500 hover:bg-amber-400 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
                 >
                   <Video className="w-8 h-8 text-white" />
                 </button>
@@ -127,7 +127,7 @@ const MusicSection = () => {
                 {/* Title Overlay */}
                 <div className="absolute bottom-4 left-4 right-4">
                   <h3 className="text-2xl font-bold text-white mb-1">{(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.title) || song.title}</h3>
-                  <p className="text-gray-300 text-sm">{(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.description) || song.description}</p>
+                  <p className="text-stone-300 text-sm">{(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.description) || song.description}</p>
                 </div>
               </div>
 
@@ -138,7 +138,7 @@ const MusicSection = () => {
                   {/* Video Trailer Button */}
                   <button
                     onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-yellow-600 to-amber-600 hover:from-yellow-500 hover:to-amber-500 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]"
                   >
                     <Video className="w-4 h-4" />
                     {showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}
@@ -149,7 +149,7 @@ const MusicSection = () => {
                     href="https://app.dawidfaith.de"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]"
+                    className="flex items-center justify-center gap-2 px-4 py-3 bg-stone-700 hover:bg-stone-600 rounded-xl text-white font-medium transition-all duration-300 hover:scale-[1.02]"
                   >
                     <ExternalLink className="w-4 h-4" />
                     {MusicTranslations[lang].webappButton}
@@ -189,19 +189,19 @@ const MusicSection = () => {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 rounded-2xl border border-purple-500/20 backdrop-blur-sm p-8">
+          <div className="bg-gradient-to-r from-amber-900/20 to-yellow-900/20 rounded-2xl border border-amber-500/20 backdrop-blur-sm p-8">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <Music className="w-8 h-8 text-purple-400" />
+              <Music className="w-8 h-8 text-amber-400" />
               <h3 className="text-2xl font-bold text-white">{MusicTranslations[lang].exclusiveTitle}</h3>
             </div>
-            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+            <p className="text-stone-300 mb-6 max-w-2xl mx-auto">
               {MusicTranslations[lang].exclusiveDesc}
             </p>
             <a
               href="https://app.dawidfaith.de"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-8 py-4 rounded-xl text-white font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg inline-block"
+              className="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 px-8 py-4 rounded-xl text-white font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg inline-block"
             >
               <div className="flex items-center gap-3">
                 <ExternalLink className="w-6 h-6" />

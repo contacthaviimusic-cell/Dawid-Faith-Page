@@ -48,10 +48,10 @@ export default function Home() {
 
   if (!mounted || isLoading) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+      <div className="min-h-screen bg-[#0a0908] text-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mb-4 mx-auto"></div>
-          <p className="text-gray-400">{PageTranslations[lang].loaderText}</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500 mb-4 mx-auto"></div>
+          <p className="text-stone-400">{PageTranslations[lang].loaderText}</p>
         </div>
       </div>
     );
@@ -65,14 +65,14 @@ export default function Home() {
   return (
     <>
       <Navigation />
-  <div className="min-h-screen bg-black text-white overflow-hidden relative">
+  <div className="min-h-screen bg-[#0a0908] text-white overflow-hidden relative">
       {/* Floating Social Widget Button & Overlay */}
       <div className="hidden lg:block">
         {/* Pulsierender Button */}
         {!showWidget && (
           <button
             onClick={() => setShowWidget(true)}
-            className="fixed bottom-8 right-8 z-50 rounded-full shadow-lg border-4 border-purple-400 hover:scale-110 transition-transform bg-gradient-to-r from-purple-500 to-pink-500 p-0 animate-pulse"
+            className="fixed bottom-8 right-8 z-50 rounded-full shadow-lg border-4 border-amber-400 hover:scale-110 transition-transform bg-gradient-to-r from-amber-500 to-yellow-500 p-0 animate-pulse"
             aria-label="Social Media öffnen"
           >
             <span className="block w-16 h-16 rounded-full overflow-hidden relative">
@@ -83,7 +83,7 @@ export default function Home() {
                 className="object-cover rounded-full"
                 priority
               />
-              <span className="absolute inset-0 rounded-full border-4 border-purple-400 animate-pulse pointer-events-none" />
+              <span className="absolute inset-0 rounded-full border-4 border-amber-400 animate-pulse pointer-events-none" />
             </span>
           </button>
         )}
@@ -93,7 +93,7 @@ export default function Home() {
             <div className="relative">
               <button
                 onClick={() => setShowWidget(false)}
-                className="absolute -top-3 -right-3 bg-black/80 text-white rounded-full w-8 h-8 flex items-center justify-center border border-white hover:bg-pink-600 transition-colors z-10"
+                className="absolute -top-3 -right-3 bg-black/80 text-white rounded-full w-8 h-8 flex items-center justify-center border border-white hover:bg-yellow-600 transition-colors z-10"
                 aria-label="Schließen"
               >
                 ×
@@ -105,8 +105,8 @@ export default function Home() {
       </div>
         {/* Ambient Background Glows */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-20 w-64 h-64 bg-purple-500/8 rounded-full blur-[100px]" />
-          <div className="absolute top-40 right-32 w-48 h-48 bg-pink-500/6 rounded-full blur-[80px]" />
+          <div className="absolute top-20 left-20 w-64 h-64 bg-amber-500/8 rounded-full blur-[100px]" />
+          <div className="absolute top-40 right-32 w-48 h-48 bg-yellow-500/6 rounded-full blur-[80px]" />
         </div>
 
         {/* Hero Landing Section */}
@@ -126,7 +126,7 @@ export default function Home() {
           </div>
 
           {/* Neon accent line at top */}
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 z-10" />
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500 z-10" />
 
           {/* Hero Content – centered */}
           <div className="relative z-10 container mx-auto px-4 pb-28 md:pb-32">
@@ -137,22 +137,22 @@ export default function Home() {
                 transition={{ duration: 1, delay: 0.3 }}
               >
                 <h1 
-                  className="text-5xl sm:text-6xl lg:text-8xl xl:text-9xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 tracking-wider [font-family:var(--font-pirata),cursive]"
+                  className="text-5xl sm:text-6xl lg:text-8xl xl:text-9xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 tracking-wider [font-family:var(--font-display),serif]"
                 >
                   DAWID FAITH
                 </h1>
                 <div className="flex items-center justify-center gap-4 text-lg sm:text-xl lg:text-2xl mb-8">
-                  <span className="w-8 h-px bg-gradient-to-r from-purple-400 to-pink-400" />
-                  <span className="text-gray-200 font-semibold">{PageTranslations[lang].heroSubtitle}</span>
-                  <span className="w-8 h-px bg-gradient-to-r from-pink-400 to-purple-400" />
+                  <span className="w-8 h-px bg-gradient-to-r from-amber-400 to-yellow-400" />
+                  <span className="text-stone-200 font-semibold">{PageTranslations[lang].heroSubtitle}</span>
+                  <span className="w-8 h-px bg-gradient-to-r from-yellow-400 to-amber-400" />
                 </div>
                 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(147, 51, 234, 0.5)" }}
+                    whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(217, 119, 6, 0.5)" }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2"
+                    className="bg-gradient-to-r from-amber-600 to-yellow-600 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2"
                     onClick={() => {
                       const el = document.querySelector('#news');
                       if (el) {
@@ -171,7 +171,7 @@ export default function Home() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="border border-purple-500/50 hover:bg-purple-500/10 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
+                    className="border border-amber-500/50 hover:bg-amber-500/10 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
                     onClick={() => {
                       const el = document.querySelector('#dfaith');
                       if (el) {
@@ -202,8 +202,8 @@ export default function Home() {
             transition={{ delay: 1.5, duration: 1 }}
             className="relative z-10 flex flex-col items-center gap-2 pb-6 animate-bounce"
           >
-            <span className="text-gray-500 text-[10px] uppercase tracking-widest">Scroll</span>
-            <div className="w-px h-8 bg-gradient-to-b from-purple-400/50 to-transparent" />
+            <span className="text-stone-500 text-[10px] uppercase tracking-widest">Scroll</span>
+            <div className="w-px h-8 bg-gradient-to-b from-amber-400/50 to-transparent" />
           </motion.div>
         </section>
 
@@ -223,7 +223,7 @@ export default function Home() {
   <NewsletterSection />
 
         {/* Footer */}
-        <footer className="py-12 px-4 border-t border-gray-800">
+        <footer className="py-12 px-4 border-t border-stone-800">
           <div className="container mx-auto text-center">
             <motion.div
               initial={{ opacity: 0 }}
@@ -233,17 +233,17 @@ export default function Home() {
               className="mb-8"
             >
               <h3 
-                className="text-3xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400"
-                style={{ fontFamily: 'Pirata One, cursive' }}
+                className="text-3xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-400"
+                style={{ fontFamily: 'var(--font-display), serif' }}
               >
                 Dawid Faith
               </h3>
-              <p className="text-gray-400">
+              <p className="text-stone-400">
                 {PageTranslations[lang].footerTagline}
               </p>
             </motion.div>
             
-            <div className="text-gray-500 text-sm">
+            <div className="text-stone-500 text-sm">
               <p>{PageTranslations[lang].copyright}</p>
               <p className="mt-2">{PageTranslations[lang].poweredBy}</p>
             </div>

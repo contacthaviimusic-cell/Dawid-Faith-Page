@@ -70,13 +70,13 @@ export default function KonzerteEventsSection() {
   }, []);
 
   const cards = [
-    { icon: Mic, title: t.card1Title, desc: t.card1Desc, gradient: 'from-blue-500/20 to-purple-500/20', border: 'border-blue-500/20', iconColor: 'text-blue-400' },
-    { icon: PartyPopper, title: t.card2Title, desc: t.card2Desc, gradient: 'from-purple-500/20 to-pink-500/20', border: 'border-purple-500/20', iconColor: 'text-purple-400' },
-    { icon: Music, title: t.card3Title, desc: t.card3Desc, gradient: 'from-pink-500/20 to-amber-500/20', border: 'border-pink-500/20', iconColor: 'text-pink-400' },
+    { icon: Mic, title: t.card1Title, desc: t.card1Desc, gradient: 'from-amber-500/20 to-amber-500/20', border: 'border-amber-500/20', iconColor: 'text-amber-400' },
+    { icon: PartyPopper, title: t.card2Title, desc: t.card2Desc, gradient: 'from-amber-500/20 to-yellow-500/20', border: 'border-amber-500/20', iconColor: 'text-amber-400' },
+    { icon: Music, title: t.card3Title, desc: t.card3Desc, gradient: 'from-yellow-500/20 to-amber-500/20', border: 'border-yellow-500/20', iconColor: 'text-yellow-400' },
   ];
 
   return (
-    <section id="konzerte" className="scroll-mt-16 py-20 px-4 relative bg-gradient-to-b from-slate-900/20 to-purple-900/10">
+    <section id="konzerte" className="scroll-mt-16 py-20 px-4 relative bg-gradient-to-b from-stone-900/20 to-amber-900/10">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div
@@ -86,10 +86,10 @@ export default function KonzerteEventsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent [font-family:var(--font-display),serif]">
             {t.title}
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-stone-300 max-w-3xl mx-auto">
             {t.subtitle}
           </p>
         </motion.div>
@@ -107,7 +107,7 @@ export default function KonzerteEventsSection() {
             >
               <card.icon size={32} className={`${card.iconColor} mb-4`} />
               <h3 className="text-xl font-bold text-white mb-3">{card.title}</h3>
-              <p className="text-gray-300 leading-relaxed">{card.desc}</p>
+              <p className="text-stone-300 leading-relaxed">{card.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -122,12 +122,12 @@ export default function KonzerteEventsSection() {
         >
           <Link
             href="/booking"
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-purple-500/25 hover:scale-105"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-amber-500/25 hover:scale-105"
           >
             {t.cta}
             <ArrowRight size={20} />
           </Link>
-          <p className="text-gray-500 text-sm mt-6">{t.tagline}</p>
+          <p className="text-stone-500 text-sm mt-6">{t.tagline}</p>
         </motion.div>
       </div>
     </section>

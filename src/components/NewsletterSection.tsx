@@ -93,7 +93,7 @@ export default function Newsletter() {
   }, []);
 
   return (
-    <section id="newsletter" className="scroll-mt-16 py-20 px-4 relative bg-gradient-to-b from-slate-900/20 to-purple-900/10">
+    <section id="newsletter" className="scroll-mt-16 py-20 px-4 relative bg-gradient-to-b from-stone-900/20 to-amber-900/10">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -102,12 +102,12 @@ export default function Newsletter() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 backdrop-blur-md rounded-2xl p-8 border border-purple-500/20">
-            <Mail className="mx-auto mb-4 text-purple-400" size={48} />
-            <h3 className="text-2xl font-bold mb-4 text-purple-300">
+          <div className="bg-gradient-to-r from-amber-900/20 to-amber-900/20 backdrop-blur-md rounded-2xl p-8 border border-amber-500/20">
+            <Mail className="mx-auto mb-4 text-amber-400" size={48} />
+            <h3 className="text-2xl font-bold mb-4 text-amber-300">
               {NewsletterTranslations[lang].newsletterTitle}
             </h3>
-            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+            <p className="text-stone-300 mb-6 max-w-2xl mx-auto">
               {NewsletterTranslations[lang].newsletterDesc}
             </p>
             
@@ -116,8 +116,8 @@ export default function Newsletter() {
                 <p className="text-green-300 font-semibold">{NewsletterTranslations[lang].subscribeSuccess}</p>
               </div>
             ) : subscriptionStatus === 'error' ? (
-              <div className={`${responseStatus === 409 ? 'bg-blue-500/20 border-blue-500/30' : 'bg-red-500/20 border-red-500/30'} border rounded-lg p-4 mb-6`}>
-                <p className={`${responseStatus === 409 ? 'text-blue-300' : 'text-red-300'} font-semibold`}>
+              <div className={`${responseStatus === 409 ? 'bg-amber-500/20 border-amber-500/30' : 'bg-red-500/20 border-red-500/30'} border rounded-lg p-4 mb-6`}>
+                <p className={`${responseStatus === 409 ? 'text-amber-300' : 'text-red-300'} font-semibold`}>
                   {responseStatus === 409 
                     ? NewsletterTranslations[lang].alreadySubscribed 
                     : NewsletterTranslations[lang].subscribeError}
@@ -131,7 +131,7 @@ export default function Newsletter() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={NewsletterTranslations[lang].emailPlaceholder}
-                    className="flex-1 px-4 py-3 rounded-lg bg-black/40 border border-purple-500/30 text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 transition-colors"
+                    className="flex-1 px-4 py-3 rounded-lg bg-black/40 border border-amber-500/30 text-white placeholder-stone-400 focus:outline-none focus:border-amber-400 transition-colors"
                     required
                     disabled={isSubscribing}
                   />
@@ -140,7 +140,7 @@ export default function Newsletter() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     disabled={isSubscribing}
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    className="bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                   >
                     {isSubscribing ? (
                       <>
@@ -161,7 +161,7 @@ export default function Newsletter() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-500/30 text-purple-300 px-6 py-2 rounded-full font-semibold transition-all duration-300 text-sm"
+              className="bg-gradient-to-r from-amber-600/20 to-amber-600/20 border border-amber-500/30 text-amber-300 px-6 py-2 rounded-full font-semibold transition-all duration-300 text-sm"
               onClick={() => {
                 const el = document.querySelector('#dfaith');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });

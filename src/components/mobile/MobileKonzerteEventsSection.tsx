@@ -67,13 +67,13 @@ export default function MobileKonzerteEventsSection() {
   }, []);
 
   const cards = [
-    { icon: Mic, title: t.card1Title, desc: t.card1Desc, gradient: 'from-blue-500/20 to-purple-500/20', border: 'border-blue-500/20', iconColor: 'text-blue-400' },
-    { icon: PartyPopper, title: t.card2Title, desc: t.card2Desc, gradient: 'from-purple-500/20 to-pink-500/20', border: 'border-purple-500/20', iconColor: 'text-purple-400' },
-    { icon: Music, title: t.card3Title, desc: t.card3Desc, gradient: 'from-pink-500/20 to-amber-500/20', border: 'border-pink-500/20', iconColor: 'text-pink-400' },
+    { icon: Mic, title: t.card1Title, desc: t.card1Desc, gradient: 'from-amber-500/20 to-amber-500/20', border: 'border-amber-500/20', iconColor: 'text-amber-400' },
+    { icon: PartyPopper, title: t.card2Title, desc: t.card2Desc, gradient: 'from-amber-500/20 to-yellow-500/20', border: 'border-amber-500/20', iconColor: 'text-amber-400' },
+    { icon: Music, title: t.card3Title, desc: t.card3Desc, gradient: 'from-yellow-500/20 to-amber-500/20', border: 'border-yellow-500/20', iconColor: 'text-yellow-400' },
   ];
 
   return (
-    <section id="konzerte" className="scroll-mt-14 py-12 px-4 bg-gradient-to-b from-slate-900/20 to-purple-900/10">
+    <section id="konzerte" className="scroll-mt-14 py-12 px-4 bg-gradient-to-b from-stone-900/20 to-amber-900/10">
       <div className="max-w-lg mx-auto">
         {/* Header */}
         <motion.div
@@ -83,10 +83,10 @@ export default function MobileKonzerteEventsSection() {
           viewport={{ once: true }}
           className="text-center mb-10"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-amber-400 to-amber-400 bg-clip-text text-transparent">
             {t.title}
           </h2>
-          <p className="text-base text-gray-300">
+          <p className="text-base text-stone-300">
             {t.subtitle}
           </p>
         </motion.div>
@@ -106,7 +106,7 @@ export default function MobileKonzerteEventsSection() {
                 <card.icon size={24} className={`${card.iconColor} mt-0.5 flex-shrink-0`} />
                 <div>
                   <h3 className="text-lg font-bold text-white mb-1">{card.title}</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">{card.desc}</p>
+                  <p className="text-stone-300 text-sm leading-relaxed">{card.desc}</p>
                 </div>
               </div>
             </motion.div>
@@ -123,12 +123,12 @@ export default function MobileKonzerteEventsSection() {
         >
           <Link
             href="/booking"
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3.5 rounded-full font-bold text-base transition-all duration-300 shadow-lg"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-8 py-3.5 rounded-full font-bold text-base transition-all duration-300 shadow-lg"
           >
             {t.cta}
             <ArrowRight size={18} />
           </Link>
-          <p className="text-gray-500 text-xs mt-4">{t.tagline}</p>
+          <p className="text-stone-500 text-xs mt-4">{t.tagline}</p>
         </motion.div>
       </div>
     </section>

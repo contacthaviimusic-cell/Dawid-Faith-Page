@@ -30,31 +30,31 @@ const DFaithAppNews = () => {
   return (
     <div className="space-y-6">
       <h3 className="text-2xl font-bold text-white mb-4">{t.title}</h3>
-      <p className="text-gray-300 leading-relaxed">{t.intro}</p>
+      <p className="text-stone-300 leading-relaxed">{t.intro}</p>
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="bg-slate-800/50 p-4 rounded-xl">
-          <h4 className="text-purple-300 font-semibold mb-2">{t.featuresTitle}</h4>
-          <ul className="text-gray-300 text-sm space-y-1">
+        <div className="bg-stone-800/50 p-4 rounded-xl">
+          <h4 className="text-amber-300 font-semibold mb-2">{t.featuresTitle}</h4>
+          <ul className="text-stone-300 text-sm space-y-1">
             {t.features.map((f, i) => (
               <li key={i}>• {f}</li>
             ))}
           </ul>
         </div>
-        <div className="bg-slate-800/50 p-4 rounded-xl">
-          <h4 className="text-purple-300 font-semibold mb-2">{t.rewardsTitle}</h4>
-          <ul className="text-gray-300 text-sm space-y-1">
+        <div className="bg-stone-800/50 p-4 rounded-xl">
+          <h4 className="text-amber-300 font-semibold mb-2">{t.rewardsTitle}</h4>
+          <ul className="text-stone-300 text-sm space-y-1">
             {t.rewards.map((r, i) => (
               <li key={i}>• {r}</li>
             ))}
           </ul>
         </div>
       </div>
-      <div className="bg-purple-900/30 p-6 rounded-2xl border border-purple-500/20">
-        <h4 className="text-lg font-semibold text-purple-300 mb-3">{t.shopTitle}</h4>
-        <p className="text-gray-300 text-sm mb-3">{t.shopDesc}</p>
+      <div className="bg-amber-900/30 p-6 rounded-2xl border border-amber-500/20">
+        <h4 className="text-lg font-semibold text-amber-300 mb-3">{t.shopTitle}</h4>
+        <p className="text-stone-300 text-sm mb-3">{t.shopDesc}</p>
         <div className="flex flex-wrap gap-3">
           {t.badges.map((b, i) => (
-            <span key={i} className="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium">{b}</span>
+            <span key={i} className="bg-amber-600 text-white px-4 py-2 rounded-full text-sm font-medium">{b}</span>
           ))}
         </div>
       </div>
