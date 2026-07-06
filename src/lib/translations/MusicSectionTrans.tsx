@@ -15,8 +15,8 @@ const MusicTranslations: Record<LangKey, {
     title: 'Musik Vorschau',
     subtitle: 'Schaue dir die Video-Vorschauen an und besuche die D.FAITH Webapp für exklusive Songs vor dem Release.',
     appNote: 'Songs verfügbar in der D.FAITH Webapp',
-    exclusiveTitle: 'Exklusive Songs vor Release',
-    exclusiveDesc: 'Besuche die D.FAITH Webapp und höre die kompletten Songs bereits vor dem offiziellen Release. Verdiene Tokens durch deine Interaktionen und unterstütze Dawid Faith direkt.',
+    exclusiveTitle: 'Exklusive Songs als NFT',
+    exclusiveDesc: 'In der D.FAITH Webapp gibt es jeden Song als limitierte NFT-Edition von nur 100 Stück. Sichere dir deine nummerierte Edition mit Tokens aus dem D.FAITH Ecosystem und unterstütze Dawid Faith direkt.',
     webappButton: 'D.FAITH Webapp besuchen',
     videoOpen: 'Video ansehen',
     videoClose: 'Video schließen'
@@ -44,8 +44,8 @@ const MusicTranslations: Record<LangKey, {
     title: 'Music Preview',
     subtitle: 'Watch the video previews and visit the D.FAITH webapp for exclusive songs before release.',
     appNote: 'Songs available in the D.FAITH webapp',
-    exclusiveTitle: 'Exclusive songs before release',
-    exclusiveDesc: 'Visit the D.FAITH webapp and listen to full songs before the official release. Earn tokens through your interactions and support Dawid Faith directly.',
+    exclusiveTitle: 'Exclusive songs as NFTs',
+    exclusiveDesc: 'In the D.FAITH webapp, every song is available as a limited NFT edition of just 100 copies. Secure your numbered edition with Tokens from the D.FAITH Ecosystem and support Dawid Faith directly.',
     webappButton: 'Visit D.FAITH Webapp',
     videoOpen: 'Watch video',
     videoClose: 'Close video'
@@ -73,8 +73,8 @@ const MusicTranslations: Record<LangKey, {
     title: 'Podgląd muzyki',
     subtitle: 'Obejrzyj podglądy wideo i odwiedź aplikację D.FAITH, aby odsłuchać ekskluzywne utwory przed premierą.',
     appNote: 'Utwory dostępne w aplikacji D.FAITH',
-    exclusiveTitle: 'Ekskluzywne utwory przed premierą',
-    exclusiveDesc: 'Odwiedź aplikację D.FAITH i posłuchaj pełnych utworów przed oficjalną premierą. Zdobywaj tokeny poprzez swoje interakcje i wspieraj Dawida Faith bezpośrednio.',
+    exclusiveTitle: 'Ekskluzywne utwory jako NFT',
+    exclusiveDesc: 'W aplikacji D.FAITH każdy utwór dostępny jest jako limitowana edycja NFT liczącą tylko 100 sztuk. Zdobądź swoją numerowaną edycję za Tokeny z D.FAITH Ecosystem i wspieraj Dawida Faith bezpośrednio.',
     webappButton: 'Odwiedź aplikację D.FAITH',
     videoOpen: 'Obejrzyj wideo',
     videoClose: 'Zamknij wideo'
