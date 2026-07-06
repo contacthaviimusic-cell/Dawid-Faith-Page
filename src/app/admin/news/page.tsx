@@ -120,6 +120,12 @@ export default function AdminNewsPage() {
           >
             🎤 Booking Outreach
           </button>
+          <button
+            onClick={() => router.push('/admin/singles')}
+            className="px-4 py-2 rounded bg-gradient-to-r from-yellow-500 to-amber-600"
+          >
+            🎵 Singles / Pre-Order
+          </button>
         </div>
 
         {loading ? (
