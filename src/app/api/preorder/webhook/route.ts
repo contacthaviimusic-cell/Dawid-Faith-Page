@@ -1,74 +1,106 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'node:crypto';
 import { getSingle } from '@/lib/singlesStore';
-import { createOrder, findOrderByLemonId, markDelivered } from '@/lib/ordersStore';
+import { createOrder, findOrderByProviderId, markDelivered } from '@/lib/ordersStore';
 import { sendPreorderEmail } from '@/lib/mailer';
 
 export const dynamic = 'force-dynamic';
 
-// Lemon-Squeezy-Webhook: Signatur = HMAC-SHA256 über den rohen Body,
-// Header 'X-Signature', Secret aus dem LS-Dashboard.
-function verifySignature(rawBody: string, signature: string, secret: string): boolean {
-  const digest = crypto.createHmac('sha256', secret).update(rawBody).digest('hex');
-  const digestBuf = Buffer.from(digest, 'utf8');
-  const signatureBuf = Buffer.from(signature, 'utf8');
-  if (digestBuf.length !== signatureBuf.length) return false;
-  return crypto.timingSafeEqual(digestBuf, signatureBuf);
+const SIGNATURE_TOLERANCE_SECONDS = 300;
+
+// Stripe-Webhook: Header 'Stripe-Signature' = "t=<timestamp>,v1=<hex-hmac>[,v1=…]",
+// Signatur = HMAC-SHA256 über "<timestamp>.<roher Body>" mit STRIPE_WEBHOOK_SECRET.
+function verifyStripeSignature(rawBody: string, header: string, secret: string): boolean {
+  let timestamp = '';
+  const signatures: string[] = [];
+  for (const part of header.split(',')) {
+    const [key, value] = part.split('=', 2);
+    if (key === 't') timestamp = value ?? '';
+    if (key === 'v1' && value) signatures.push(value);
+  }
+  if (!timestamp || signatures.length === 0) return false;
+
+  // Replay-Schutz: zu alte Signaturen ablehnen.
+  const age = Math.abs(Date.now() / 1000 - Number(timestamp));
+  if (!Number.isFinite(age) || age > SIGNATURE_TOLERANCE_SECONDS) return false;
+
+  const expected = crypto
+    .createHmac('sha256', secret)
+    .update(`${timestamp}.${rawBody}`)
+    .digest('hex');
+  const expectedBuf = Buffer.from(expected, 'utf8');
+
+  return signatures.some((sig) => {
+    const sigBuf = Buffer.from(sig, 'utf8');
+    return sigBuf.length === expectedBuf.length && crypto.timingSafeEqual(expectedBuf, sigBuf);
+  });
 }
 
 export async function POST(request: NextRequest) {
-  const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET;
+  const secret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!secret) {
     return NextResponse.json({ error: 'Webhook nicht konfiguriert.' }, { status: 503 });
   }
 
   // Roher Body wird für die Signaturprüfung benötigt – erst danach parsen.
   const rawBody = await request.text();
-  const signature = request.headers.get('x-signature') ?? '';
-  if (!signature || !verifySignature(rawBody, signature, secret)) {
+  const signatureHeader = request.headers.get('stripe-signature') ?? '';
+  if (!signatureHeader || !verifyStripeSignature(rawBody, signatureHeader, secret)) {
     return NextResponse.json({ error: 'Ungültige Signatur.' }, { status: 401 });
   }
 
-  let payload: {
-    meta?: { event_name?: string; custom_data?: { songId?: string } };
-    data?: { id?: string | number; attributes?: { user_email?: string } };
+  let event: {
+    type?: string;
+    data?: {
+      object?: {
+        id?: string;
+        client_reference_id?: string | null;
+        payment_status?: string;
+        customer_details?: { email?: string | null } | null;
+      };
+    };
   };
   try {
-    payload = JSON.parse(rawBody);
+    event = JSON.parse(rawBody);
   } catch {
     return NextResponse.json({ error: 'Ungültiger Payload.' }, { status: 400 });
   }
 
-  const eventName = payload.meta?.event_name;
-  if (eventName !== 'order_created') {
-    // Andere Events bestätigen, damit Lemon Squeezy nicht erneut zustellt.
-    return NextResponse.json({ ok: true, skipped: eventName ?? 'unknown' });
+  const session = event.data?.object;
+  const isPaidNow =
+    (event.type === 'checkout.session.completed' && session?.payment_status === 'paid') ||
+    event.type === 'checkout.session.async_payment_succeeded';
+
+  if (!isPaidNow) {
+    // Andere Events bestätigen, damit Stripe nicht erneut zustellt.
+    return NextResponse.json({ ok: true, skipped: event.type ?? 'unknown' });
   }
 
-  const songId = payload.meta?.custom_data?.songId;
-  const email = payload.data?.attributes?.user_email;
-  const lemonOrderId = String(payload.data?.id ?? '');
+  // songId kommt über den Payment-Link-Query-Parameter client_reference_id.
+  const songId = session?.client_reference_id ?? '';
+  const email = session?.customer_details?.email ?? '';
+  const sessionId = String(session?.id ?? '');
 
-  if (!songId || !email || !lemonOrderId) {
-    console.error('[preorder webhook] Fehlende Daten:', { songId, email, lemonOrderId });
+  if (!songId || !email || !sessionId) {
+    console.error('[preorder webhook] Fehlende Daten:', { songId, email, sessionId });
     return NextResponse.json({ error: 'Fehlende Bestelldaten.' }, { status: 400 });
   }
 
   try {
-    // Idempotenz: Lemon Squeezy kann Webhooks mehrfach zustellen.
-    const existing = await findOrderByLemonId(lemonOrderId);
+    // Idempotenz: Stripe kann Webhooks mehrfach zustellen.
+    const existing = await findOrderByProviderId(sessionId);
     if (existing) {
       return NextResponse.json({ ok: true, duplicate: true });
     }
 
     const song = await getSingle(songId);
     if (!song) {
-      // Konfigurationsfehler – loggen, aber 200 zurückgeben, damit LS nicht endlos retried.
-      console.error(`[preorder webhook] Unbekannte Song-ID: ${songId} (Order ${lemonOrderId})`);
+      // Konfigurationsfehler – loggen, aber 200 zurückgeben, damit Stripe nicht endlos retried.
+      console.error(`[preorder webhook] Unbekannte Song-ID: ${songId} (Session ${sessionId})`);
       return NextResponse.json({ ok: false, error: 'Unbekannte Song-ID.' });
     }
 
-    const order = await createOrder(songId, email, lemonOrderId);
+    const order = await createOrder(songId, email, sessionId);
 
     const origin = new URL(request.url).origin;
     const mp3Url = `${origin}/api/preorder/download/${order.downloadToken}?file=mp3`;
@@ -80,7 +112,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error('[preorder webhook]', err);
-    // 500 → Lemon Squeezy versucht die Zustellung erneut.
+    // 500 → Stripe versucht die Zustellung erneut.
     return NextResponse.json({ error: 'Interner Fehler.' }, { status: 500 });
   }
 }

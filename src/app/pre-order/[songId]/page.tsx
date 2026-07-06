@@ -139,9 +139,11 @@ export default function PreOrderPage() {
     }
     setEmailError(false);
     try {
+      // Stripe-Payment-Link: client_reference_id taucht in der Checkout-Session
+      // wieder auf (Song-Zuordnung im Webhook), prefilled_email füllt das Feld vor.
       const url = new URL(single.checkoutUrl);
-      url.searchParams.set('checkout[custom][songId]', single.id);
-      if (email) url.searchParams.set('checkout[email]', email);
+      url.searchParams.set('client_reference_id', single.id);
+      if (email) url.searchParams.set('prefilled_email', email);
       window.open(url.toString(), '_blank');
     } catch {
       window.open(single.checkoutUrl, '_blank');

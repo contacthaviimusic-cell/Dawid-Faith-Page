@@ -12,7 +12,7 @@ export interface SingleConfig {
   presaveUrl: string;
   discountCode: string;
   preorderPrice: string; // z.B. '4.99'
-  checkoutUrl: string; // Lemon-Squeezy-Checkout-Link (leer, bis konfiguriert)
+  checkoutUrl: string; // Stripe-Payment-Link (leer, bis konfiguriert)
   privateMp3Path: string; // nicht öffentlich – nur über Download-Token erreichbar
   privateVideoPath: string; // nicht öffentlich – nur über Download-Token erreichbar
   active: boolean;

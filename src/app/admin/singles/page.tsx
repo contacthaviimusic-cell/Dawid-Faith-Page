@@ -299,15 +299,15 @@ export default function AdminSinglesPage() {
               })}
               {field('Rabattcode', editing.discountCode, (v) => setEditing({ ...editing, discountCode: v }), {
                 placeholder: 'z.B. PRESAVE20',
-                hint: 'Wird nach „Ich habe presaved" angezeigt. Muss im Lemon-Squeezy-Dashboard als Discount existieren.',
+                hint: 'Wird nach „Ich habe presaved" angezeigt. Muss in Stripe als Promotion Code existieren („Allow promotion codes" am Payment Link aktivieren).',
               })}
 
               {field('Pre-Order-Preis (€)', editing.preorderPrice, (v) => setEditing({ ...editing, preorderPrice: v }), {
                 placeholder: 'z.B. 4.99',
               })}
-              {field('Lemon-Squeezy-Checkout-URL', editing.checkoutUrl, (v) => setEditing({ ...editing, checkoutUrl: v }), {
-                placeholder: 'https://….lemonsqueezy.com/buy/…',
-                hint: 'Leer lassen = Pre-Order-Karte zeigt „Bald verfügbar".',
+              {field('Stripe-Payment-Link', editing.checkoutUrl, (v) => setEditing({ ...editing, checkoutUrl: v }), {
+                placeholder: 'https://buy.stripe.com/…',
+                hint: 'Payment Link aus dem Stripe-Dashboard. Leer lassen = Pre-Order-Karte zeigt „Bald verfügbar".',
               })}
 
               {field('Private MP3-URL', editing.privateMp3Path, (v) => setEditing({ ...editing, privateMp3Path: v }), {

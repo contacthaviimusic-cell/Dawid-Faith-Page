@@ -8,7 +8,7 @@ export interface PreorderOrder {
   songId: string;
   email: string;
   downloadToken: string;
-  lemonOrderId: string;
+  providerOrderId: string;
   createdAt: string;
   deliveredAt: string | null;
 }
@@ -84,15 +84,15 @@ export async function findOrderByToken(token: string): Promise<PreorderOrder | n
   return entries.find((o) => o.downloadToken === token) ?? null;
 }
 
-export async function findOrderByLemonId(lemonOrderId: string): Promise<PreorderOrder | null> {
+export async function findOrderByProviderId(providerOrderId: string): Promise<PreorderOrder | null> {
   const entries = await readAll();
-  return entries.find((o) => o.lemonOrderId === lemonOrderId) ?? null;
+  return entries.find((o) => o.providerOrderId === providerOrderId) ?? null;
 }
 
 export async function createOrder(
   songId: string,
   email: string,
-  lemonOrderId: string
+  providerOrderId: string
 ): Promise<PreorderOrder> {
   const entries = await readAll();
   const order: PreorderOrder = {
@@ -100,7 +100,7 @@ export async function createOrder(
     songId,
     email,
     downloadToken: crypto.randomBytes(24).toString('hex'),
-    lemonOrderId,
+    providerOrderId,
     createdAt: new Date().toISOString(),
     deliveredAt: null,
   };
