@@ -12,9 +12,7 @@ interface SingleConfig {
   presaveUrl: string;
   discountCode: string;
   preorderPrice: string;
-  checkoutUrl: string;
-  privateMp3Path: string;
-  privateVideoPath: string;
+  bandcampUrl: string;
   active: boolean;
   createdAt: string;
   updatedAt: string;
@@ -83,9 +81,7 @@ export default function AdminSinglesPage() {
       presaveUrl: '',
       discountCode: '',
       preorderPrice: '',
-      checkoutUrl: '',
-      privateMp3Path: '',
-      privateVideoPath: '',
+      bandcampUrl: '',
       active: true,
     }),
     []
@@ -108,9 +104,7 @@ export default function AdminSinglesPage() {
         presaveUrl: form.presaveUrl,
         discountCode: form.discountCode,
         preorderPrice: form.preorderPrice,
-        checkoutUrl: form.checkoutUrl,
-        privateMp3Path: form.privateMp3Path,
-        privateVideoPath: form.privateVideoPath,
+        bandcampUrl: form.bandcampUrl,
         active: form.active,
       }),
     });
@@ -223,7 +217,7 @@ export default function AdminSinglesPage() {
                       Audio: {s.audioReleaseDate ? new Date(s.audioReleaseDate).toLocaleString('de-DE') : '–'} ·
                       Video: {s.videoReleaseDate ? new Date(s.videoReleaseDate).toLocaleString('de-DE') : '–'} ·
                       Preis: {s.preorderPrice ? `${s.preorderPrice} €` : '–'} ·
-                      Checkout: {s.checkoutUrl ? '✓' : '✗'}
+                      Bandcamp: {s.bandcampUrl ? '✓' : '✗'}
                     </div>
                   </div>
                   <a
@@ -299,22 +293,16 @@ export default function AdminSinglesPage() {
               })}
               {field('Rabattcode', editing.discountCode, (v) => setEditing({ ...editing, discountCode: v }), {
                 placeholder: 'z.B. PRESAVE20',
-                hint: 'Wird nach „Ich habe presaved" angezeigt. Muss in Stripe als Promotion Code existieren („Allow promotion codes" am Payment Link aktivieren).',
+                hint: 'Wird nach „Ich habe presaved" angezeigt. Muss auf Bandcamp als Discount-Code angelegt sein.',
               })}
 
               {field('Pre-Order-Preis (€)', editing.preorderPrice, (v) => setEditing({ ...editing, preorderPrice: v }), {
                 placeholder: 'z.B. 4.99',
+                hint: 'Rein informativ – der tatsächliche Preis wird auf Bandcamp gepflegt.',
               })}
-              {field('Stripe-Payment-Link', editing.checkoutUrl, (v) => setEditing({ ...editing, checkoutUrl: v }), {
-                placeholder: 'https://buy.stripe.com/…',
-                hint: 'Payment Link aus dem Stripe-Dashboard. Leer lassen = Pre-Order-Karte zeigt „Bald verfügbar".',
-              })}
-
-              {field('Private MP3-URL', editing.privateMp3Path, (v) => setEditing({ ...editing, privateMp3Path: v }), {
-                hint: 'Wird nur per Download-Token ausgeliefert, nie öffentlich angezeigt.',
-              })}
-              {field('Private Video-URL', editing.privateVideoPath, (v) => setEditing({ ...editing, privateVideoPath: v }), {
-                hint: 'Wird nur per Download-Token ausgeliefert, nie öffentlich angezeigt.',
+              {field('Bandcamp-Link', editing.bandcampUrl, (v) => setEditing({ ...editing, bandcampUrl: v }), {
+                placeholder: 'https://dawidfaith.bandcamp.com/track/…',
+                hint: 'Link zum Track/Album auf Bandcamp (MP3 + Musikvideo als Bonus-Item). Leer lassen = Pre-Order-Karte zeigt „Bald verfügbar".',
               })}
             </div>
 

@@ -27,9 +27,7 @@ export async function PUT(
     'presaveUrl',
     'discountCode',
     'preorderPrice',
-    'checkoutUrl',
-    'privateMp3Path',
-    'privateVideoPath',
+    'bandcampUrl',
   ] as const;
   for (const field of stringFields) {
     if (typeof body[field] === 'string') patch[field] = body[field];

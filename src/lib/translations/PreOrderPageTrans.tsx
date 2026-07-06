@@ -22,8 +22,6 @@ const PreOrderTranslations: Record<LangKey, {
   preorder: {
     title: string;
     desc: string;
-    emailPlaceholder: string;
-    emailInvalid: string;
     button: string;
     comingSoon: string;
     availableUntil: string;
@@ -60,10 +58,8 @@ const PreOrderTranslations: Record<LangKey, {
     },
     preorder: {
       title: 'Pre-Order',
-      desc: 'Sichere dir den Song als MP3 plus das noch unveröffentlichte Musikvideo – direkt per E-Mail, ohne Registrierung.',
-      emailPlaceholder: 'Deine E-Mail-Adresse',
-      emailInvalid: 'Bitte gib eine gültige E-Mail-Adresse ein.',
-      button: 'Jetzt kaufen',
+      desc: 'Sichere dir den Song als MP3 plus das noch unveröffentlichte Musikvideo – über Bandcamp, ohne Registrierung.',
+      button: 'Jetzt auf Bandcamp kaufen',
       comingSoon: 'Bald verfügbar',
       availableUntil: 'Verfügbar bis zum Musikvideo-Release',
     },
@@ -99,10 +95,8 @@ const PreOrderTranslations: Record<LangKey, {
     },
     preorder: {
       title: 'Pre-Order',
-      desc: 'Get the song as MP3 plus the unreleased music video – delivered by email, no registration needed.',
-      emailPlaceholder: 'Your email address',
-      emailInvalid: 'Please enter a valid email address.',
-      button: 'Buy now',
+      desc: 'Get the song as MP3 plus the unreleased music video – via Bandcamp, no registration needed.',
+      button: 'Buy now on Bandcamp',
       comingSoon: 'Coming soon',
       availableUntil: 'Available until the music video release',
     },
@@ -138,10 +132,8 @@ const PreOrderTranslations: Record<LangKey, {
     },
     preorder: {
       title: 'Pre-Order',
-      desc: 'Zdobądź utwór jako MP3 plus niepublikowany teledysk – dostawa e-mailem, bez rejestracji.',
-      emailPlaceholder: 'Twój adres e-mail',
-      emailInvalid: 'Podaj prawidłowy adres e-mail.',
-      button: 'Kup teraz',
+      desc: 'Zdobądź utwór jako MP3 plus niepublikowany teledysk – przez Bandcamp, bez rejestracji.',
+      button: 'Kup teraz na Bandcamp',
       comingSoon: 'Wkrótce dostępne',
       availableUntil: 'Dostępne do premiery teledysku',
     },

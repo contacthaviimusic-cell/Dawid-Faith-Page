@@ -17,7 +17,7 @@ interface PublicSingle {
   presaveUrl: string;
   discountCode: string;
   preorderPrice: string;
-  checkoutUrl: string;
+  bandcampUrl: string;
   active: boolean;
 }
 
@@ -82,8 +82,6 @@ export default function PreOrderPage() {
   const [single, setSingle] = useState<PublicSingle | null>(null);
   const [loading, setLoading] = useState(true);
   const [presaved, setPresaved] = useState(false);
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(false);
 
   const t = PreOrderTranslations[lang];
 
@@ -129,26 +127,6 @@ export default function PreOrderPage() {
     if (phase === 'preorder') return parseDate(single.videoReleaseDate);
     return null;
   }, [single, phase]);
-
-  function handleBuy() {
-    if (!single?.checkoutUrl) return;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email && !emailRegex.test(email)) {
-      setEmailError(true);
-      return;
-    }
-    setEmailError(false);
-    try {
-      // Stripe-Payment-Link: client_reference_id taucht in der Checkout-Session
-      // wieder auf (Song-Zuordnung im Webhook), prefilled_email füllt das Feld vor.
-      const url = new URL(single.checkoutUrl);
-      url.searchParams.set('client_reference_id', single.id);
-      if (email) url.searchParams.set('prefilled_email', email);
-      window.open(url.toString(), '_blank');
-    } catch {
-      window.open(single.checkoutUrl, '_blank');
-    }
-  }
 
   if (loading) {
     return (
@@ -329,31 +307,16 @@ export default function PreOrderPage() {
                   <p className="text-3xl font-black text-amber-400 mb-4">{single.preorderPrice} €</p>
                 )}
 
-                {single.checkoutUrl ? (
-                  <>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                        setEmailError(false);
-                      }}
-                      placeholder={t.preorder.emailPlaceholder}
-                      className={`w-full mb-3 px-4 py-3 rounded-full bg-black/50 border text-sm text-white placeholder-stone-500 focus:outline-none focus:border-amber-500 ${
-                        emailError ? 'border-red-500' : 'border-stone-700'
-                      }`}
-                    />
-                    {emailError && (
-                      <p className="text-red-400 text-xs mb-3">{t.preorder.emailInvalid}</p>
-                    )}
-                    <button
-                      onClick={handleBuy}
-                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
-                    >
-                      {t.preorder.button}
-                      <ArrowRight size={16} />
-                    </button>
-                  </>
+                {single.bandcampUrl ? (
+                  <a
+                    href={single.bandcampUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
+                  >
+                    {t.preorder.button}
+                    <ArrowRight size={16} />
+                  </a>
                 ) : (
                   <div className="inline-flex items-center justify-center gap-2 bg-stone-800 text-stone-400 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider cursor-not-allowed">
                     {t.preorder.comingSoon}

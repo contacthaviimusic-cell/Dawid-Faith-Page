@@ -11,20 +11,11 @@ export interface SingleConfig {
   videoReleaseDate: string; // ISO-Datum: bis dahin ist Pre-Order möglich
   presaveUrl: string;
   discountCode: string;
-  preorderPrice: string; // z.B. '4.99'
-  checkoutUrl: string; // Stripe-Payment-Link (leer, bis konfiguriert)
-  privateMp3Path: string; // nicht öffentlich – nur über Download-Token erreichbar
-  privateVideoPath: string; // nicht öffentlich – nur über Download-Token erreichbar
+  preorderPrice: string; // z.B. '4.99' (rein informativ, Preis wird auf Bandcamp gepflegt)
+  bandcampUrl: string; // Link zum Bandcamp-Track/Album (leer, bis konfiguriert)
   active: boolean;
   createdAt: string;
   updatedAt: string;
-}
-
-export type PublicSingle = Omit<SingleConfig, 'privateMp3Path' | 'privateVideoPath'>;
-
-export function toPublicSingle(s: SingleConfig): PublicSingle {
-  const { privateMp3Path: _mp3, privateVideoPath: _video, ...pub } = s;
-  return pub;
 }
 
 const BLOB_PATHNAME = 'data/singles.json';

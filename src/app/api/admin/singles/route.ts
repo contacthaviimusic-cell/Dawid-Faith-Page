@@ -46,9 +46,7 @@ export async function POST(request: NextRequest) {
     presaveUrl: body.presaveUrl ?? '',
     discountCode: body.discountCode ?? '',
     preorderPrice: body.preorderPrice ?? '',
-    checkoutUrl: body.checkoutUrl ?? '',
-    privateMp3Path: body.privateMp3Path ?? '',
-    privateVideoPath: body.privateVideoPath ?? '',
+    bandcampUrl: body.bandcampUrl ?? '',
     active: !!body.active,
   };
 

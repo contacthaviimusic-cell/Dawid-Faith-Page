@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSingle, toPublicSingle } from '@/lib/singlesStore';
+import { getSingle } from '@/lib/singlesStore';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,7 +17,7 @@ export async function GET(
     if (!single || !single.active) {
       return NextResponse.json({ error: 'Single nicht gefunden.' }, { status: 404 });
     }
-    return NextResponse.json(toPublicSingle(single));
+    return NextResponse.json(single);
   } catch (err) {
     console.error('[singles GET]', err);
     return NextResponse.json({ error: 'Interner Fehler.' }, { status: 500 });
