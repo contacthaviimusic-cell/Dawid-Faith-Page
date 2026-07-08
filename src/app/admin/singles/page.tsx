@@ -40,6 +40,7 @@ export default function AdminSinglesPage() {
   const [editing, setEditing] = useState<FormState | null>(null);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadingVideo, setUploadingVideo] = useState(false);
   const router = useRouter();
 
   async function fetchSingles() {
@@ -145,6 +146,21 @@ export default function AdminSinglesPage() {
     }
     const data = await res.json();
     setEditing((prev) => (prev ? { ...prev, coverImage: data.url } : prev));
+  }
+
+  async function uploadTeaserVideo(file: File) {
+    setUploadingVideo(true);
+    const fd = new FormData();
+    fd.append('file', file);
+    const res = await fetch('/api/upload', { method: 'POST', body: fd });
+    setUploadingVideo(false);
+    if (!res.ok) {
+      const data = await res.json().catch(() => null);
+      alert(data?.error ?? 'Upload fehlgeschlagen');
+      return;
+    }
+    const data = await res.json();
+    setEditing((prev) => (prev ? { ...prev, teaserVideo: data.url } : prev));
   }
 
   async function logout() {
@@ -274,9 +290,23 @@ export default function AdminSinglesPage() {
                   />
                 </label>
               </div>
-              {field('Teaser-Video (URL)', editing.teaserVideo, (v) => setEditing({ ...editing, teaserVideo: v }), {
-                hint: 'MP4-URL für den Vollbild-Hintergrund (optional, sonst Cover-Bild).',
-              })}
+              <div>
+                {field('Teaser-Video (URL)', editing.teaserVideo, (v) => setEditing({ ...editing, teaserVideo: v }), {
+                  hint: 'MP4-URL für den Vollbild-Hintergrund (optional, sonst Cover-Bild). Max. 25MB.',
+                })}
+                <label className="inline-block mt-2 px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm cursor-pointer">
+                  {uploadingVideo ? 'Lädt hoch…' : '📤 Video hochladen'}
+                  <input
+                    type="file"
+                    accept="video/mp4,video/webm"
+                    className="hidden"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) uploadTeaserVideo(f);
+                    }}
+                  />
+                </label>
+              </div>
 
               {field('Audio-Release', isoToLocal(editing.audioReleaseDate), (v) => setEditing({ ...editing, audioReleaseDate: localToIso(v) }), {
                 type: 'datetime-local',

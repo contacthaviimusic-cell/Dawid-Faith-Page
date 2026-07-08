@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# lokale Rohdateien (Musikvideos etc.) - nie ins Repo
+/local-media
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

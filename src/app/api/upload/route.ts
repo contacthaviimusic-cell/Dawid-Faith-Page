@@ -25,18 +25,22 @@ export async function POST(request: NextRequest) {
     }
 
     // Validierung der Dateierweiterung
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
-    if (!allowedTypes.includes(file.type)) {
-      return NextResponse.json({ 
-        error: 'Invalid file type. Only JPEG, PNG, WebP, and GIF are allowed.' 
+    const allowedImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+    const allowedVideoTypes = ['video/mp4', 'video/webm'];
+    const isVideo = allowedVideoTypes.includes(file.type);
+    const isImage = allowedImageTypes.includes(file.type);
+
+    if (!isImage && !isVideo) {
+      return NextResponse.json({
+        error: 'Invalid file type. Only JPEG, PNG, WebP, GIF, MP4, and WebM are allowed.'
       }, { status: 400 });
     }
 
-    // Dateigröße validieren (max 5MB)
-    const maxSize = 5 * 1024 * 1024; // 5MB
+    // Dateigröße validieren (Bilder max 5MB, Videos max 25MB)
+    const maxSize = isVideo ? 25 * 1024 * 1024 : 5 * 1024 * 1024;
     if (file.size > maxSize) {
-      return NextResponse.json({ 
-        error: 'File too large. Maximum size is 5MB.' 
+      return NextResponse.json({
+        error: `File too large. Maximum size is ${isVideo ? '25MB' : '5MB'}.`
       }, { status: 400 });
     }
 
@@ -46,7 +50,7 @@ export async function POST(request: NextRequest) {
     if (shouldUseBlob()) {
       // Vercel Blob Storage für Produktion
       try {
-        const filename = `news-images/${Date.now()}-${file.name}`;
+        const filename = `${isVideo ? 'teaser-videos' : 'news-images'}/${Date.now()}-${file.name}`;
         const blob = await put(filename, buffer, {
           access: 'public',
           contentType: file.type,
