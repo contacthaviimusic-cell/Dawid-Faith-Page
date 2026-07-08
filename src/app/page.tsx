@@ -96,7 +96,7 @@ export default function Home() {
                 >
                   ×
                 </button>
-                <SocialMediaWidget compact />
+                <SocialMediaWidget />
               </div>
             </div>
           )}

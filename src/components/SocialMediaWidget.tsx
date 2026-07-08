@@ -2,14 +2,10 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Instagram, Youtube, Play, Star, Mail, Copy, X, CheckCircle } from 'lucide-react';
+import { Instagram, Youtube, Star, Mail, Copy, X, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 
-interface SocialMediaWidgetProps {
-  compact?: boolean;
-}
-
-const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true }) => {
+const SocialMediaWidget: React.FC = () => {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
   const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
@@ -215,8 +211,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
     }
   ];
 
-  if (compact) {
-    return (
+  return (
       <>
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
@@ -286,167 +281,8 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
         </div>
       </motion.div>
       <EmailModal />
-    </>);
-  }
-
-  // Full Widget (non-compact)
-  return (
-    <>
-      <motion.div
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0, opacity: 0 }}
-        transition={{ type: "spring", duration: 0.8, bounce: 0.3 }}
-        className="bg-gradient-to-br from-stone-900/98 via-amber-900/95 to-yellow-900/98 backdrop-blur-3xl rounded-3xl p-8 border border-amber-400/40 shadow-2xl max-w-md relative overflow-hidden"
-      >
-      {/* Advanced Background Effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500"
-          animate={{ 
-            backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-          }}
-          transition={{ duration: 4, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute -top-20 -right-20 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"
-          animate={{ 
-            scale: [1, 1.3, 1],
-            rotate: [0, 90, 180, 270, 360]
-          }}
-          transition={{ duration: 12, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute -bottom-10 -left-10 w-32 h-32 bg-yellow-500/10 rounded-full blur-2xl"
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            rotate: [360, 270, 180, 90, 0]
-          }}
-          transition={{ duration: 10, repeat: Infinity, delay: 3 }}
-        />
-      </div>
-
-      {/* Header */}
-      <div className="relative z-10 text-center mb-8">
-        <motion.div 
-          className="relative w-24 h-24 mx-auto mb-4 rounded-3xl overflow-hidden ring-4 ring-amber-400/60 shadow-xl"
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <Image
-            src="/dawid-faith.jpg"
-            alt="Dawid Faith"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/30 to-transparent" />
-          <motion.div
-            className="absolute inset-0 rounded-3xl border-2 border-amber-400/50"
-            animate={{
-              boxShadow: [
-                '0 0 20px rgba(217, 119, 6, 0.3)',
-                '0 0 40px rgba(217, 119, 6, 0.6)',
-                '0 0 20px rgba(217, 119, 6, 0.3)'
-              ]
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-        </motion.div>
-        <h3 className="text-white font-bold text-2xl mb-2 bg-gradient-to-r from-white via-amber-200 to-yellow-200 bg-clip-text text-transparent">
-          Dawid Faith
-        </h3>
-        <p className="text-amber-300 font-medium">Singer-Songwriter</p>
-      </div>
-
-      {/* Social Links Grid */}
-      <div className="relative z-10 grid grid-cols-3 gap-3 mb-6">
-        {socialLinks.slice(0, 6).map((link, index) => (
-          <motion.a
-            key={link.name}
-            href={link.name === 'E-Mail' ? undefined : link.url}
-            target={link.name === 'E-Mail' ? undefined : "_blank"}
-            rel={link.name === 'E-Mail' ? undefined : "noopener noreferrer"}
-            onClick={link.name === 'E-Mail' ? handleEmailClick : undefined}
-            initial={{ opacity: 0, y: 30, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ 
-              delay: index * 0.15,
-              type: "spring",
-              stiffness: 200,
-              damping: 15
-            }}
-            whileHover={{ 
-              scale: 1.08, 
-              y: -8,
-              rotateY: 10,
-              boxShadow: "0 15px 35px rgba(0,0,0,0.4)"
-            }}
-            whileTap={{ scale: 0.95 }}
-            className={`${link.bgColor} ${link.borderColor} ${link.hoverColor} border-2 p-5 rounded-2xl transition-all duration-300 group backdrop-blur-sm relative overflow-hidden transform-gpu ${link.name === 'E-Mail' ? 'cursor-pointer' : ''}`}
-          >
-            {/* Dynamic Hover Background */}
-            <motion.div
-              className={`absolute inset-0 bg-gradient-to-br ${link.color} opacity-0 group-hover:opacity-15 transition-opacity duration-500`}
-              animate={{
-                backgroundPosition: ['0% 0%', '100% 100%', '0% 0%']
-              }}
-              transition={{ duration: 4, repeat: Infinity }}
-            />
-            
-            <div className="relative z-10 flex flex-col items-center gap-3">
-              <motion.div
-                whileHover={{ rotate: [0, -10, 10, 0], scale: 1.2 }}
-                transition={{ duration: 0.5 }}
-              >
-                <link.icon 
-                  size={26} 
-                  className="text-white drop-shadow-lg" 
-                />
-              </motion.div>
-              <div className="text-center">
-                <div className="text-white font-bold text-sm mb-1">{link.name}</div>
-                <div className="text-xs text-amber-200 mt-1 opacity-80">
-                  {link.description}
-                </div>
-              </div>
-            </div>
-          </motion.a>
-        ))}
-      </div>
-
-      {/* Newsletter Signup */}
-      <div className="relative z-10 space-y-4">
-        <h4 className="text-white font-bold text-center text-lg">Stay Connected</h4>
-        <div className="flex gap-3">
-          <input
-            type="email"
-            placeholder="Deine E-Mail"
-            className="flex-1 px-4 py-3 bg-black/60 border-2 border-stone-600/50 rounded-xl text-white text-sm placeholder-stone-400 focus:outline-none focus:border-amber-500 transition-all duration-300 backdrop-blur-sm"
-          />
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-amber-600 to-yellow-600 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg transition-all duration-300 hover:shadow-amber-500/25"
-          >
-            <Play size={16} />
-          </motion.button>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="relative z-10 mt-6 pt-4 border-t border-stone-600/50 text-center">
-        <motion.p 
-          className="text-xs text-stone-400"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-        >
-          {lang === 'de' ? '🎵 Musik • Blockchain • Community • Exklusive Inhalte' : lang === 'pl' ? '🎵 Muzyka • Blockchain • Społeczność • Ekskluzywne treści' : '🎵 Music • Blockchain • Community • Exclusive content'}
-        </motion.p>
-      </div>
-    </motion.div>
-    <EmailModal />
-  </>);
+    </>
+  );
 };
 
 export default SocialMediaWidget;
