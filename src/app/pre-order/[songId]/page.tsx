@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ArrowRight, Music, ShoppingBag, Sparkles } from 'lucide-react';
+import { ArrowRight, Music, ShoppingBag, Sparkles, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import PreOrderTranslations, { type LangKey } from '@/lib/translations/PreOrderPageTrans';
+import FlagForLang, { FlagDE, FlagGB, FlagPL } from '@/components/FlagIcon';
 
 interface PublicSingle {
   id: string;
@@ -83,8 +84,24 @@ export default function PreOrderPage() {
   const [single, setSingle] = useState<PublicSingle | null>(null);
   const [loading, setLoading] = useState(true);
   const [presaved, setPresaved] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement | null>(null);
 
   const t = PreOrderTranslations[lang];
+
+  function changeLang(next: LangKey) {
+    setLang(next);
+    setLangOpen(false);
+    try {
+      localStorage.setItem('site-lang', next);
+    } catch {}
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = next;
+      try {
+        window.dispatchEvent(new CustomEvent('site-lang-changed', { detail: { lang: next } }));
+      } catch {}
+    }
+  }
 
   useEffect(() => {
     try {
@@ -102,6 +119,16 @@ export default function PreOrderPage() {
     }
     window.addEventListener('site-lang-changed', onLang as EventListener);
     return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
+
+  useEffect(() => {
+    function onDocClick(e: MouseEvent) {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
+    }
+    document.addEventListener('click', onDocClick);
+    return () => document.removeEventListener('click', onDocClick);
   }, []);
 
   useEffect(() => {
@@ -129,9 +156,48 @@ export default function PreOrderPage() {
     return null;
   }, [single, phase]);
 
+  const langSwitcher = (
+    <div className="fixed top-4 right-4 z-50" ref={langRef}>
+      <button
+        onClick={() => setLangOpen((s) => !s)}
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-black/60 border border-white/10 backdrop-blur-sm text-white"
+        aria-haspopup
+        aria-expanded={langOpen}
+      >
+        <FlagForLang lang={lang} />
+        <ChevronDown size={14} className={`transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
+      </button>
+      {langOpen && (
+        <div className="absolute right-0 mt-2 w-36 bg-black/90 border border-amber-500/20 rounded-md shadow-lg backdrop-blur-sm">
+          <ul className="py-1">
+            <li>
+              <button className="w-full flex items-center gap-2 px-3 py-2 hover:bg-amber-500/10" onClick={() => changeLang('de')}>
+                <FlagDE />
+                <span className="text-sm text-white">Deutsch</span>
+              </button>
+            </li>
+            <li>
+              <button className="w-full flex items-center gap-2 px-3 py-2 hover:bg-amber-500/10" onClick={() => changeLang('en')}>
+                <FlagGB />
+                <span className="text-sm text-white">English</span>
+              </button>
+            </li>
+            <li>
+              <button className="w-full flex items-center gap-2 px-3 py-2 hover:bg-amber-500/10" onClick={() => changeLang('pl')}>
+                <FlagPL />
+                <span className="text-sm text-white">Polski</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
+        {langSwitcher}
         <p className="text-stone-400">{t.loading}</p>
       </div>
     );
@@ -140,6 +206,7 @@ export default function PreOrderPage() {
   if (!single) {
     return (
       <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-6 px-6 text-center">
+        {langSwitcher}
         <p className="text-stone-300 text-lg">{t.notFound}</p>
         <Link
           href="/"
@@ -156,6 +223,7 @@ export default function PreOrderPage() {
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
+      {langSwitcher}
       {/* Fullscreen background: teaser video or cover */}
       <div className="fixed inset-0 z-0">
         {single.teaserVideo ? (
