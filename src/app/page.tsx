@@ -104,15 +104,15 @@ export default function Home() {
 
         {/* Hero Landing Section */}
         <section id="home" className="relative min-h-screen flex flex-col justify-end overflow-hidden">
-          {/* Full-screen Background: Katze teaser video with cinematic overlays (deploy-check) */}
-          <div className="absolute inset-0 z-0">
+          {/* Full-screen Background: Katze teaser video with cinematic overlays */}
+          <div className="absolute inset-0 z-0 bg-black">
             <video
               src="/musik/katze/katze-teaser-web.mp4"
-              poster="/dawid-faith-bg.jpg"
               autoPlay
               muted
               loop
               playsInline
+              preload="auto"
               className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />

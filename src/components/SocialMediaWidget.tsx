@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Instagram, Youtube, Music, ExternalLink, Play, Star, Heart, Mail, Copy, X, CheckCircle } from 'lucide-react';
+import { Instagram, Youtube, Play, Star, Mail, Copy, X, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 
 interface SocialMediaWidgetProps {
@@ -74,40 +74,41 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
           onClick={() => setShowEmailModal(false)}
         >
           <motion.div
-            initial={{ scale: 0.8, opacity: 0, y: 20 }}
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.8, opacity: 0, y: 20 }}
-            transition={{ type: "spring", duration: 0.5 }}
-            className="bg-gradient-to-br from-stone-900/95 via-stone-900/90 to-amber-950/95 backdrop-blur-xl rounded-3xl p-8 border border-amber-400/30 shadow-2xl max-w-md w-full relative"
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            transition={{ type: "spring", duration: 0.4 }}
+            className="bg-black/95 backdrop-blur-xl rounded-2xl p-8 border border-amber-500/20 shadow-2xl max-w-md w-full relative"
             onClick={(e) => e.stopPropagation()}
           >
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
             {/* Close Button */}
             <button
               onClick={() => setShowEmailModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
+              className="absolute top-4 right-4 text-stone-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
             >
               <X size={20} />
             </button>
 
             {/* Header */}
             <div className="text-center mb-6">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center">
-                <Mail size={32} className="text-white" />
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
+                <Mail size={26} className="text-amber-400" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">Kontakt aufnehmen</h3>
-              <p className="text-gray-300">Schreib mir eine E-Mail!</p>
+              <h3 className="text-2xl font-black text-white mb-2">Kontakt aufnehmen</h3>
+              <p className="text-stone-400">Schreib mir eine E-Mail!</p>
             </div>
 
             {/* Email Display */}
-            <div className="bg-black/40 rounded-2xl p-4 mb-6 border border-green-500/30">
+            <div className="bg-white/[0.03] rounded-xl p-4 mb-6 border border-white/10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Mail size={20} className="text-green-400" />
+                  <Mail size={18} className="text-amber-400" />
                   <span className="text-white font-mono text-sm">dawid.faith@gmail.com</span>
                 </div>
                 <button
                   onClick={copyEmailToClipboard}
-                  className="flex items-center gap-2 bg-green-600/20 hover:bg-green-600/30 text-green-300 px-3 py-2 rounded-lg transition-colors"
+                  className="flex items-center gap-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 px-3 py-2 rounded-lg transition-colors"
                 >
                   {emailCopied ? (
                     <>
@@ -130,24 +131,24 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
                 onClick={openEmailClient}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-4 rounded-2xl font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 flex items-center justify-center gap-3"
+                className="w-full bg-amber-500 hover:bg-amber-400 text-black py-3.5 rounded-full font-bold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2"
               >
-                <Mail size={20} />
+                <Mail size={18} />
                 E-Mail-Client öffnen
               </motion.button>
-              
+
               <motion.button
                 onClick={() => setShowEmailModal(false)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-gray-600/20 hover:bg-gray-600/30 text-gray-300 py-3 rounded-2xl font-medium transition-all duration-300 border border-gray-500/30"
+                className="w-full border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white py-3 rounded-full font-semibold text-sm uppercase tracking-wider transition-all"
               >
                 Schließen
               </motion.button>
             </div>
 
             {/* Footer Note */}
-            <p className="text-xs text-gray-400 text-center mt-4">
+            <p className="text-xs text-stone-500 text-center mt-4">
               Falls sich kein E-Mail-Client öffnet, nutze die kopierte Adresse in deinem bevorzugten E-Mail-Programm.
             </p>
           </motion.div>
@@ -161,10 +162,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
       name: 'Instagram',
       icon: Instagram,
       url: 'https://www.instagram.com/dawidfaith/',
-      color: 'from-pink-500 via-purple-500 to-pink-600',
-      bgColor: 'bg-gradient-to-br from-pink-500/20 to-purple-500/20',
-      borderColor: 'border-pink-500/40',
-      hoverColor: 'hover:border-pink-400',
+      iconColor: '#E1306C',
       description: 'Stories & Updates'
     },
     {
@@ -175,10 +173,7 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
         </svg>
       ),
       url: 'https://www.facebook.com/profile.php?id=61572473614500',
-      color: 'from-blue-600 via-blue-500 to-blue-700',
-      bgColor: 'bg-gradient-to-br from-blue-600/20 to-blue-500/20',
-      borderColor: 'border-blue-500/40',
-      hoverColor: 'hover:border-blue-400',
+      iconColor: '#1877F2',
       description: 'Community & News'
     },
     {
@@ -189,20 +184,14 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
         </svg>
       ),
       url: 'https://www.tiktok.com/@dawidfaith',
-      color: 'from-gray-900 via-pink-500 to-cyan-400',
-      bgColor: 'bg-gradient-to-br from-gray-900/20 to-pink-500/20',
-      borderColor: 'border-pink-500/40',
-      hoverColor: 'hover:border-cyan-400',
+      iconColor: '#ffffff',
       description: 'Short Videos'
     },
     {
       name: 'YouTube',
       icon: Youtube,
       url: 'https://www.youtube.com/@dawidfaith',
-      color: 'from-red-600 via-red-500 to-red-700',
-      bgColor: 'bg-gradient-to-br from-red-600/20 to-red-500/20',
-      borderColor: 'border-red-500/40',
-      hoverColor: 'hover:border-red-400',
+      iconColor: '#FF0000',
       description: 'Music Videos'
     },
     {
@@ -214,20 +203,14 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
         </svg>
       ),
       url: 'mailto:dawid.faith@gmail.com',
-      color: 'from-green-600 via-green-500 to-green-700',
-      bgColor: 'bg-gradient-to-br from-green-600/20 to-green-500/20',
-      borderColor: 'border-green-500/40',
-      hoverColor: 'hover:border-green-400',
+      iconColor: '#f59e0b',
       description: 'dawid.faith@gmail.com'
     },
     {
       name: 'D.FAITH',
       icon: Star,
       url: '#',
-      color: 'from-amber-600 via-yellow-500 to-amber-500',
-      bgColor: 'bg-gradient-to-br from-amber-600/20 to-yellow-500/20',
-      borderColor: 'border-amber-500/40',
-      hoverColor: 'hover:border-amber-400',
+      iconColor: '#f59e0b',
       description: 'Exklusiver Zugang'
     }
   ];
@@ -239,48 +222,29 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0, opacity: 0 }}
-          transition={{ type: "spring", duration: 0.8, bounce: 0.4 }}
-          className="bg-gradient-to-br from-stone-900/95 via-stone-900/90 to-amber-950/95 backdrop-blur-xl rounded-3xl p-6 border border-amber-400/30 shadow-2xl max-w-sm relative overflow-hidden"
+          transition={{ type: "spring", duration: 0.6, bounce: 0.3 }}
+          className="bg-black/95 backdrop-blur-xl rounded-2xl p-6 border border-amber-500/20 shadow-2xl max-w-sm relative overflow-hidden"
         >
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div
-            className="absolute -top-10 -right-10 w-20 h-20 bg-amber-500/10 rounded-full blur-xl"
-            animate={{ 
-              scale: [1, 1.5, 1],
-              rotate: [0, 180, 360]
-            }}
-            transition={{ duration: 8, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute -bottom-5 -left-5 w-16 h-16 bg-yellow-500/10 rounded-full blur-xl"
-            animate={{ 
-              scale: [1.2, 1, 1.2],
-              rotate: [360, 180, 0]
-            }}
-            transition={{ duration: 6, repeat: Infinity, delay: 2 }}
-          />
-        </div>
+        {/* Hairline top border, matching site sections */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
+        {/* Ambient glow */}
+        <div className="absolute -top-16 -right-16 w-40 h-40 bg-amber-500/[0.06] rounded-full blur-[80px]" />
 
         {/* Header */}
         <div className="relative z-10 flex items-center gap-4 mb-6">
-          <motion.div 
-            className="relative w-14 h-14 rounded-2xl overflow-hidden ring-2 ring-amber-400/50"
-            whileHover={{ scale: 1.1, rotate: 5 }}
-          >
+          <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-amber-500/40">
             <Image
               src="/dawid-faith.jpg"
               alt="Dawid Faith"
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 to-transparent" />
-          </motion.div>
+          </div>
           <div>
-            <h3 className="text-white font-bold text-lg bg-gradient-to-r from-white to-amber-200 bg-clip-text text-transparent">
+            <h3 className="text-white font-black text-lg">
               Dawid Faith
             </h3>
-            <p className="text-amber-300 text-sm font-medium">Connect & Follow</p>
+            <p className="text-amber-400 text-sm">Folge mir</p>
           </div>
         </div>
 
@@ -293,29 +257,21 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
               target={link.name === 'E-Mail' ? undefined : "_blank"}
               rel={link.name === 'E-Mail' ? undefined : "noopener noreferrer"}
               onClick={link.name === 'E-Mail' ? handleEmailClick : undefined}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 + 0.3 }}
-              whileHover={{ 
-                scale: 1.05, 
-                y: -2,
-                boxShadow: "0 10px 25px rgba(0,0,0,0.3)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              className={`${link.bgColor} ${link.borderColor} ${link.hoverColor} border-2 p-4 rounded-2xl transition-all duration-300 group backdrop-blur-sm relative overflow-hidden ${link.name === 'E-Mail' ? 'cursor-pointer' : ''}`}
+              transition={{ delay: index * 0.06 + 0.2 }}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              className={`bg-white/[0.03] border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.06] p-4 rounded-xl transition-all duration-300 group ${link.name === 'E-Mail' ? 'cursor-pointer' : ''}`}
             >
-              {/* Hover Effect Background */}
-              <motion.div
-                className={`absolute inset-0 bg-gradient-to-r ${link.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
-              />
-              
-              <div className="relative z-10 flex flex-col items-center gap-2">
-                <link.icon 
-                  size={22} 
-                  className="text-white group-hover:scale-110 transition-transform duration-300" 
+              <div className="flex flex-col items-center gap-2">
+                <link.icon
+                  size={20}
+                  className="group-hover:scale-110 transition-transform duration-300"
+                  style={{ color: link.iconColor }}
                 />
                 <div className="text-center">
-                  <div className="text-white font-semibold text-xs">{link.name}</div>
+                  <div className="text-stone-300 group-hover:text-white font-medium text-xs transition-colors">{link.name}</div>
                 </div>
               </div>
             </motion.a>
@@ -323,15 +279,10 @@ const SocialMediaWidget: React.FC<SocialMediaWidgetProps> = ({ compact = true })
         </div>
 
         {/* Footer */}
-        <div className="relative z-10 mt-5 pt-4 border-t border-gray-600/50">
-          <motion.p 
-            className="text-center text-xs text-gray-400"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            {lang === 'de' ? '🎵 Folge der Musik Revolution' : lang === 'pl' ? '🎵 Dołącz do muzycznej rewolucji' : '🎵 Join the music revolution'}
-          </motion.p>
+        <div className="relative z-10 mt-5 pt-4 border-t border-white/10">
+          <p className="text-center text-xs text-stone-500">
+            {lang === 'de' ? 'Musik · Blockchain · Community' : lang === 'pl' ? 'Muzyka · Blockchain · Społeczność' : 'Music · Blockchain · Community'}
+          </p>
         </div>
       </motion.div>
       <EmailModal />

@@ -50,14 +50,14 @@ export default function MobilePage() {
         {/* Mobile Hero Section */}
         <section id="home" className="min-h-screen flex flex-col justify-end relative overflow-hidden">
           {/* Background: Katze teaser video */}
-          <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 z-0 bg-black">
             <video
               src="/musik/katze/katze-teaser-web.mp4"
-              poster="/dawid-faith-bg.jpg"
               autoPlay
               muted
               loop
               playsInline
+              preload="auto"
               className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20" />
