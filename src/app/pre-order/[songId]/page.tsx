@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowRight, Music, ShoppingBag, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import PreOrderTranslations, { type LangKey } from '@/lib/translations/PreOrderPageTrans';
 
 interface PublicSingle {
@@ -336,6 +337,30 @@ export default function PreOrderPage() {
                   <span className="text-amber-500/60 font-black text-sm">{showPresaveCard ? '03' : '02'}</span>
                   <Sparkles className="text-amber-400" size={22} />
                 </div>
+
+                {single.coverImage && (
+                  <div className="flex items-center gap-3 mb-5 p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                    <div className="relative w-14 h-14 rounded-lg overflow-hidden border border-amber-500/30 flex-shrink-0">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={single.coverImage} alt={single.title} className="w-full h-full object-cover" />
+                      <div className="absolute top-1 left-1 bg-black/70 border border-amber-500/40 text-amber-400 text-[8px] font-bold px-1.5 py-0.5 rounded-full backdrop-blur-sm">
+                        NFT
+                      </div>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <div className="relative w-4 h-4 rounded-full overflow-hidden border border-amber-500/40 flex-shrink-0">
+                          <Image src="/dfaith-token.png" alt="D.FAITH Token" fill className="object-cover" />
+                        </div>
+                        <span className="text-[11px] font-bold text-amber-400 uppercase tracking-wide truncate">
+                          {t.engagement.nftLabel}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-stone-500">{t.engagement.nftSupply}</p>
+                    </div>
+                  </div>
+                )}
+
                 <h3 className="text-xl font-black mb-3">{t.engagement.title}</h3>
                 <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.engagement.desc}</p>
                 <a

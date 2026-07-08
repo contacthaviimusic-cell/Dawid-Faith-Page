@@ -30,6 +30,8 @@ const PreOrderTranslations: Record<LangKey, {
     title: string;
     desc: string;
     button: string;
+    nftLabel: string;
+    nftSupply: string;
   };
   released: {
     title: string;
@@ -67,6 +69,8 @@ const PreOrderTranslations: Record<LangKey, {
       title: 'Zahle mit Engagement',
       desc: 'Kein Geld nötig: Verdiene Tokens durch Quests in der D.FAITH Webapp und sichere dir damit die limitierte NFT-Edition des Songs (nur 100 Stück).',
       button: 'Zur D.FAITH Webapp',
+      nftLabel: 'D.FAITH Token',
+      nftSupply: 'Limitierte NFT-Edition · 100 Stück',
     },
     released: {
       title: 'Jetzt überall verfügbar',
@@ -104,6 +108,8 @@ const PreOrderTranslations: Record<LangKey, {
       title: 'Pay with engagement',
       desc: 'No money needed: earn tokens through quests in the D.FAITH webapp and get the limited NFT edition of the song (only 100 copies).',
       button: 'Go to D.FAITH Webapp',
+      nftLabel: 'D.FAITH Token',
+      nftSupply: 'Limited NFT edition · 100 copies',
     },
     released: {
       title: 'Now available everywhere',
@@ -141,6 +147,8 @@ const PreOrderTranslations: Record<LangKey, {
       title: 'Zapłać zaangażowaniem',
       desc: 'Bez pieniędzy: zdobywaj tokeny poprzez questy w aplikacji D.FAITH i odbierz limitowaną edycję NFT utworu (tylko 100 sztuk).',
       button: 'Do aplikacji D.FAITH',
+      nftLabel: 'Token D.FAITH',
+      nftSupply: 'Limitowana edycja NFT · 100 sztuk',
     },
     released: {
       title: 'Teraz dostępne wszędzie',
