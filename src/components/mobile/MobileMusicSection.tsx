@@ -2,8 +2,9 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, Music, Heart, Download, Share, Video, ExternalLink } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, Music, Heart, Download, Share, Video, ExternalLink, ShoppingBag } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Track {
   id: string;
@@ -303,6 +304,19 @@ export default function MobileMusicSection() {
                   <p className="text-stone-400 text-sm mb-4 leading-relaxed">
                     {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![track.id]?.description) || track.description}
                   </p>
+                )}
+
+                {/* Pre-Order Button */}
+                {track.id === 'katze' && (
+                  <Link href="/pre-order/katze" className="block mb-3">
+                    <motion.div
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 rounded-xl px-4 py-3 text-black font-bold flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
+                    >
+                      <ShoppingBag size={18} />
+                      {MusicTranslations[lang].preorderButton}
+                    </motion.div>
+                  </Link>
                 )}
 
                 {/* Action Buttons */}

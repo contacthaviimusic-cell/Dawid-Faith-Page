@@ -9,6 +9,7 @@ const MusicTranslations: Record<LangKey, {
   webappButton: string;
   videoOpen: string;
   videoClose: string;
+  preorderButton: string;
   songs?: Record<string, { title?: string; description?: string }>;
 }> = {
   de: {
@@ -19,7 +20,8 @@ const MusicTranslations: Record<LangKey, {
     exclusiveDesc: 'In der D.FAITH Webapp gibt es jeden Song als limitierte NFT-Edition von nur 100 Stück. Sichere dir deine nummerierte Edition mit Tokens aus dem D.FAITH Ecosystem und unterstütze Dawid Faith direkt.',
     webappButton: 'D.FAITH Webapp besuchen',
     videoOpen: 'Video ansehen',
-    videoClose: 'Video schließen'
+    videoClose: 'Video schließen',
+    preorderButton: 'Jetzt vorbestellen'
     ,
     songs: {
       katze: {
@@ -48,7 +50,8 @@ const MusicTranslations: Record<LangKey, {
     exclusiveDesc: 'In the D.FAITH webapp, every song is available as a limited NFT edition of just 100 copies. Secure your numbered edition with Tokens from the D.FAITH Ecosystem and support Dawid Faith directly.',
     webappButton: 'Visit D.FAITH Webapp',
     videoOpen: 'Watch video',
-    videoClose: 'Close video'
+    videoClose: 'Close video',
+    preorderButton: 'Pre-order now'
     ,
     songs: {
       katze: {
@@ -77,7 +80,8 @@ const MusicTranslations: Record<LangKey, {
     exclusiveDesc: 'W aplikacji D.FAITH każdy utwór dostępny jest jako limitowana edycja NFT liczącą tylko 100 sztuk. Zdobądź swoją numerowaną edycję za Tokeny z D.FAITH Ecosystem i wspieraj Dawida Faith bezpośrednio.',
     webappButton: 'Odwiedź aplikację D.FAITH',
     videoOpen: 'Obejrzyj wideo',
-    videoClose: 'Zamknij wideo'
+    videoClose: 'Zamknij wideo',
+    preorderButton: 'Zamów już teraz'
     ,
     songs: {
       katze: {

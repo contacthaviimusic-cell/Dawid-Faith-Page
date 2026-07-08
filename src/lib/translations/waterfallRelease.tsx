@@ -13,7 +13,7 @@ const WaterfallReleaseTranslations = {
       'Ein neuer Song pro Monat',
       'Releases durchgehend bis Juni 2027',
     ],
-    presaveButton: 'Katze presaven'
+    presaveButton: 'Katze jetzt vorbestellen'
   },
   en: {
     title: 'Release Campaign',
@@ -29,7 +29,7 @@ const WaterfallReleaseTranslations = {
       'One new song every month',
       'Releases continuing through June 2027',
     ],
-    presaveButton: 'Presave Katze'
+    presaveButton: 'Pre-order Katze now'
   },
   pl: {
     title: 'Kampania Release',
@@ -45,7 +45,7 @@ const WaterfallReleaseTranslations = {
       'Jedna nowa piosenka co miesiąc',
       'Wydania nieprzerwanie do czerwca 2027',
     ],
-    presaveButton: 'Presave Katze'
+    presaveButton: 'Zamów Katze już teraz'
   }
 };
 

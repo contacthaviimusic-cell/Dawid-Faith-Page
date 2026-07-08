@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import MobileNavigation from '../../components/mobile/MobileNavigation';
 import MobileNewsSection from '../../components/mobile/MobileNewsSection';
@@ -48,15 +49,16 @@ export default function MobilePage() {
         
         {/* Mobile Hero Section */}
         <section id="home" className="min-h-screen flex flex-col justify-end relative overflow-hidden">
-          {/* Background */}
+          {/* Background: Katze teaser video */}
           <div className="absolute inset-0 z-0">
-            <Image
-              src="/dawid-faith-bg.jpg"
-              alt="Dawid Faith"
-              fill
-              className="object-cover object-center"
-              priority
-              quality={85}
+            <video
+              src="/musik/katze/katze-teaser-web.mp4"
+              poster="/dawid-faith-bg.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20" />
           </div>
@@ -70,7 +72,7 @@ export default function MobilePage() {
             >
               <div className="mb-5">
                 <span className="inline-block text-amber-400/90 text-[10px] uppercase tracking-[0.35em] font-semibold px-4 py-1.5 border border-amber-500/20 rounded-full bg-amber-500/5 backdrop-blur-sm">
-                  {PageTranslations[lang].heroSubtitle}
+                  {PageTranslations[lang].newSingleBadge}
                 </span>
               </div>
 
@@ -87,24 +89,15 @@ export default function MobilePage() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="space-y-3"
             >
-              <motion.button
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-amber-500 active:bg-amber-400 text-black px-5 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
-                onClick={() => {
-                  const el = document.querySelector('#news');
-                  if (el) {
-                    const top = el.getBoundingClientRect().top + window.scrollY - 56;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                  }
-                  setTimeout(() => {
-                    const event = new CustomEvent('openReleaseNews');
-                    window.dispatchEvent(event);
-                  }, 800);
-                }}
-              >
-                <Play size={18} />
-                <span>{PageTranslations[lang].ctaInvite}</span>
-              </motion.button>
+              <Link href="/pre-order/katze" className="block">
+                <motion.div
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full bg-amber-500 active:bg-amber-400 text-black px-5 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
+                >
+                  <Play size={18} />
+                  <span>{PageTranslations[lang].ctaInvite}</span>
+                </motion.div>
+              </Link>
 
               <motion.button
                 whileTap={{ scale: 0.98 }}

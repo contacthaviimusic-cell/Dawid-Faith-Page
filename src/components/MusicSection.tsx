@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Music, Video, Smartphone, ExternalLink } from 'lucide-react';
+import Link from 'next/link';
+import { Music, Video, Smartphone, ExternalLink, ShoppingBag } from 'lucide-react';
 
 interface Song {
   id: string;
@@ -147,9 +148,18 @@ const MusicSection = () => {
                   </div>
 
                   <div className="flex flex-wrap gap-3">
+                    {song.id === 'katze' && (
+                      <Link
+                        href="/pre-order/katze"
+                        className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-colors shadow-lg shadow-amber-500/20"
+                      >
+                        <ShoppingBag className="w-3.5 h-3.5" />
+                        {MusicTranslations[lang].preorderButton}
+                      </Link>
+                    )}
                     <button
                       onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
-                      className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-colors"
+                      className="inline-flex items-center gap-2 border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider transition-all"
                     >
                       <Video className="w-3.5 h-3.5" />
                       {showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}

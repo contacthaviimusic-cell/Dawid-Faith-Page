@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Music, Calendar } from 'lucide-react';
 import Translations from '@/lib/translations/waterfallRelease';
 
@@ -64,15 +65,13 @@ const WaterfallReleaseNews = () => {
         </ul>
       </div>
 
-      <button
-        onClick={() => {
-          alert(lang === 'de' ? 'Presave-Link wird bald verfügbar!' : lang === 'en' ? 'Presave link coming soon!' : 'Link do presave wkrótce!');
-        }}
+      <Link
+        href="/pre-order/katze"
         className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-colors"
       >
         <Music size={15} />
         {t.presaveButton}
-      </button>
+      </Link>
     </div>
   );
 };

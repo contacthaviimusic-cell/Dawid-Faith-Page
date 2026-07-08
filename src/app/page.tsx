@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useMobileDetection } from '../hooks/useMobileDetection';
 import PageTranslations from '@/lib/translations/page';
@@ -103,15 +104,16 @@ export default function Home() {
 
         {/* Hero Landing Section */}
         <section id="home" className="relative min-h-screen flex flex-col justify-end overflow-hidden">
-          {/* Full-screen Background Image with cinematic overlays */}
+          {/* Full-screen Background: Katze teaser video with cinematic overlays */}
           <div className="absolute inset-0 z-0">
-            <Image
-              src="/dawid-faith-bg.jpg"
-              alt="Dawid Faith"
-              fill
-              className="object-cover object-center"
-              priority
-              quality={90}
+            <video
+              src="/musik/katze/katze-teaser-web.mp4"
+              poster="/dawid-faith-bg.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/30" />
@@ -131,7 +133,7 @@ export default function Home() {
             >
               <div className="mb-4">
                 <span className="inline-block text-amber-400/90 text-xs uppercase tracking-[0.35em] font-semibold px-4 py-1.5 border border-amber-500/20 rounded-full bg-amber-500/5 backdrop-blur-sm">
-                  {PageTranslations[lang].heroSubtitle}
+                  {PageTranslations[lang].newSingleBadge}
                 </span>
               </div>
 
@@ -146,23 +148,13 @@ export default function Home() {
 
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-4">
-                <button
+                <Link
+                  href="/pre-order/katze"
                   className="bg-amber-500 hover:bg-amber-400 text-black font-bold px-9 py-4 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/30 text-sm uppercase tracking-wider flex items-center gap-2"
-                  onClick={() => {
-                    const el = document.querySelector('#news');
-                    if (el) {
-                      const top = el.getBoundingClientRect().top + window.scrollY - 64;
-                      window.scrollTo({ top, behavior: 'smooth' });
-                    }
-                    setTimeout(() => {
-                      const event = new CustomEvent('openReleaseNews');
-                      window.dispatchEvent(event);
-                    }, 800);
-                  }}
                 >
                   <Play size={16} />
                   {PageTranslations[lang].ctaInvite}
-                </button>
+                </Link>
                 <button
                   className="border border-white/25 hover:border-amber-400/50 text-white font-semibold px-9 py-4 rounded-full transition-all hover:bg-white/5 backdrop-blur-sm text-sm uppercase tracking-wider flex items-center gap-2"
                   onClick={() => {
