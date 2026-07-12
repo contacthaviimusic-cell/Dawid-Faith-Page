@@ -1,7 +1,6 @@
 const NewsSectionTranslations = {
   de: {
     sectionTitle: 'Aktuelle News',
-    sectionDesc: 'Bleibe immer auf dem neuesten Stand - Exklusive Updates, neue Releases und spannende Entwicklungen aus dem D.FAITH Universum.',
     featuredTag: 'Featured',
     readMore: 'Mehr lesen',
     share: 'Teilen',
@@ -22,7 +21,6 @@ const NewsSectionTranslations = {
   },
   en: {
     sectionTitle: 'Latest News',
-    sectionDesc: 'Stay up to date — exclusive updates, new releases and exciting developments from the D.FAITH universe.',
     featuredTag: 'Featured',
     readMore: 'Read more',
     share: 'Share',
@@ -43,7 +41,6 @@ const NewsSectionTranslations = {
   },
   pl: {
     sectionTitle: 'Aktualności',
-    sectionDesc: 'Bądź na bieżąco — ekskluzywne aktualizacje, nowe premiery i ekscytujące wydarzenia ze świata D.FAITH.',
     featuredTag: 'Wyróżnione',
     readMore: 'Czytaj dalej',
     share: 'Udostępnij',

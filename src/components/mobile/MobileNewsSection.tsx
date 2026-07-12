@@ -103,15 +103,12 @@ export default function MobileNewsSection() {
           viewport={{ once: true }}
           className="text-center mb-8"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
+          <div className="flex items-center justify-center gap-3">
             <Newspaper className="text-amber-400" size={28} />
             <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">
               {NewsTranslations[lang].sectionTitle}
             </h2>
           </div>
-          <p className="text-stone-400">
-            {NewsTranslations[lang].sectionDesc}
-          </p>
         </motion.div>
 
         {/* News Cards */}
