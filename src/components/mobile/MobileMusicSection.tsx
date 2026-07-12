@@ -216,9 +216,6 @@ export default function MobileMusicSection() {
               {MusicTranslations[lang].title}
             </h2>
           </div>
-          <p className="text-stone-400 text-sm mb-4">
-            {MusicTranslations[lang].subtitle}
-          </p>
           <div className="flex items-center justify-center gap-2">
             <Video className="w-4 h-4 text-amber-400" />
             <span className="text-amber-300 text-xs">{MusicTranslations[lang].appNote}</span>

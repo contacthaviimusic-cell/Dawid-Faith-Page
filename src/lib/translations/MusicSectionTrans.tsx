@@ -2,7 +2,6 @@ export type LangKey = 'de' | 'en' | 'pl';
 
 const MusicTranslations: Record<LangKey, {
   title: string;
-  subtitle: string;
   appNote: string;
   exclusiveTitle: string;
   exclusiveDesc: string;
@@ -14,8 +13,7 @@ const MusicTranslations: Record<LangKey, {
 }> = {
   de: {
     title: 'Musik Vorschau',
-    subtitle: 'Schaue dir die Video-Vorschauen an und besuche die D.FAITH Webapp für exklusive Songs vor dem Release.',
-    appNote: 'Songs verfügbar in der D.FAITH Webapp',
+    appNote: 'Songs verfügbar in der D.FAITH Webapp als limitierte NFT-Edition',
     exclusiveTitle: 'Exklusive Songs als NFT',
     exclusiveDesc: 'In der D.FAITH Webapp gibt es jeden Song als limitierte NFT-Edition von nur 100 Stück. Sichere dir deine nummerierte Edition mit Tokens aus dem D.FAITH Ecosystem und unterstütze Dawid Faith direkt.',
     webappButton: 'D.FAITH Webapp besuchen',
@@ -44,8 +42,7 @@ const MusicTranslations: Record<LangKey, {
   },
   en: {
     title: 'Music Preview',
-    subtitle: 'Watch the video previews and visit the D.FAITH webapp for exclusive songs before release.',
-    appNote: 'Songs available in the D.FAITH webapp',
+    appNote: 'Songs available in the D.FAITH webapp as a limited NFT edition',
     exclusiveTitle: 'Exclusive songs as NFTs',
     exclusiveDesc: 'In the D.FAITH webapp, every song is available as a limited NFT edition of just 100 copies. Secure your numbered edition with Tokens from the D.FAITH Ecosystem and support Dawid Faith directly.',
     webappButton: 'Visit D.FAITH Webapp',
@@ -74,8 +71,7 @@ const MusicTranslations: Record<LangKey, {
   },
   pl: {
     title: 'Podgląd muzyki',
-    subtitle: 'Obejrzyj podglądy wideo i odwiedź aplikację D.FAITH, aby odsłuchać ekskluzywne utwory przed premierą.',
-    appNote: 'Utwory dostępne w aplikacji D.FAITH',
+    appNote: 'Utwory dostępne w aplikacji D.FAITH jako limitowana edycja NFT',
     exclusiveTitle: 'Ekskluzywne utwory jako NFT',
     exclusiveDesc: 'W aplikacji D.FAITH każdy utwór dostępny jest jako limitowana edycja NFT liczącą tylko 100 sztuk. Zdobądź swoją numerowaną edycję za Tokeny z D.FAITH Ecosystem i wspieraj Dawida Faith bezpośrednio.',
     webappButton: 'Odwiedź aplikację D.FAITH',
