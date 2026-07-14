@@ -340,7 +340,7 @@ export default function PreOrderPage() {
               {t.chooseYourWay}
             </motion.p>
 
-            <div className={`grid gap-6 w-full ${showPresaveCard ? 'md:grid-cols-3' : 'md:grid-cols-2 max-w-3xl'}`}>
+            <div className={`grid gap-6 w-full items-start ${showPresaveCard ? 'md:grid-cols-3' : 'md:grid-cols-2 max-w-3xl'}`}>
               {/* 01 – Presave */}
               {showPresaveCard && (
                 <motion.div
