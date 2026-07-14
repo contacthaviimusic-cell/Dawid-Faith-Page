@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Trophy, Sparkles } from 'lucide-react';
 
 interface GiveawayEntry {
   id: string;
@@ -12,6 +12,13 @@ interface GiveawayEntry {
   token: string;
   clickedAt: string | null;
   createdAt: string;
+}
+
+interface GiveawayWinner {
+  songId: string;
+  entryId: string;
+  email: string;
+  drawnAt: string;
 }
 
 function formatDate(iso: string | null) {
@@ -30,6 +37,9 @@ export default function AdminGiveawayPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filterSongId, setFilterSongId] = useState('');
+  const [winner, setWinner] = useState<GiveawayWinner | null>(null);
+  const [drawing, setDrawing] = useState(false);
+  const [drawError, setDrawError] = useState('');
   const router = useRouter();
 
   async function fetchEntries() {
@@ -48,6 +58,18 @@ export default function AdminGiveawayPage() {
     setLoading(false);
   }
 
+  async function fetchWinner(songId: string) {
+    if (!songId) {
+      setWinner(null);
+      return;
+    }
+    const res = await fetch(`/api/admin/giveaway/draw?songId=${encodeURIComponent(songId)}`, { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      setWinner(data.winner ?? null);
+    }
+  }
+
   useEffect(() => {
     (async () => {
       const me = await fetch('/api/admin/me', { cache: 'no-store' });
@@ -56,6 +78,31 @@ export default function AdminGiveawayPage() {
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setDrawError('');
+    fetchWinner(filterSongId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterSongId]);
+
+  async function handleDraw(redraw = false) {
+    if (!filterSongId) return;
+    if (redraw && !confirm('Wirklich neu auslosen? Der bisherige Gewinner wird ersetzt.')) return;
+    setDrawing(true);
+    setDrawError('');
+    const res = await fetch('/api/admin/giveaway/draw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ songId: filterSongId, redraw }),
+    });
+    const data = await res.json().catch(() => ({}));
+    setDrawing(false);
+    if (!res.ok) {
+      setDrawError(data.error ?? 'Konnte nicht auslosen.');
+      return;
+    }
+    setWinner(data);
+  }
 
   const songIds = Array.from(new Set(entries.map((e) => e.songId)));
   const visibleEntries = filterSongId ? entries.filter((e) => e.songId === filterSongId) : entries;
@@ -97,6 +144,50 @@ export default function AdminGiveawayPage() {
           </div>
         )}
 
+        {/* Verlosung */}
+        {filterSongId && (
+          <div className="mb-6 p-5 rounded-2xl border border-amber-500/30 bg-amber-900/10">
+            {winner ? (
+              <div className="flex flex-col md:flex-row md:items-center gap-4">
+                <div className="flex items-center gap-3 flex-1">
+                  <div className="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center flex-shrink-0">
+                    <Trophy size={20} className="text-amber-400" />
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-amber-400 font-bold">Gewinner</p>
+                    <p className="font-semibold text-white">{winner.email}</p>
+                    <p className="text-xs text-gray-500">Ausgelost: {formatDate(winner.drawnAt)}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => handleDraw(true)}
+                  disabled={drawing}
+                  className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm font-semibold transition-all disabled:opacity-50 flex-shrink-0"
+                >
+                  {drawing ? 'Lost aus…' : 'Neu auslosen'}
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-col md:flex-row md:items-center gap-4">
+                <p className="text-sm text-gray-300 flex-1">
+                  {clickedCount === 0
+                    ? 'Noch keine bestätigten Teilnahmen für diesen Song.'
+                    : `${clickedCount} bestätigte Teilnahme${clickedCount === 1 ? '' : 'n'} – bereit für die Verlosung.`}
+                </p>
+                <button
+                  onClick={() => handleDraw(false)}
+                  disabled={drawing || clickedCount === 0}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 font-semibold text-black transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+                >
+                  <Sparkles size={16} />
+                  {drawing ? 'Lost aus…' : 'Verlosung starten'}
+                </button>
+              </div>
+            )}
+            {drawError && <p className="text-red-400 text-sm mt-3">{drawError}</p>}
+          </div>
+        )}
+
         {loading ? (
           <div className="flex items-center justify-center py-20">
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-amber-500" />
@@ -111,15 +202,25 @@ export default function AdminGiveawayPage() {
           <div className="space-y-3">
             {visibleEntries.map((entry) => {
               const clicked = !!entry.clickedAt;
+              const isWinner = winner?.entryId === entry.id;
               return (
                 <div
                   key={entry.id}
                   className={`p-4 rounded-xl border ${
-                    clicked ? 'border-green-500/40 bg-green-900/10' : 'border-slate-700 bg-slate-900/40'
+                    isWinner
+                      ? 'border-amber-500/60 bg-amber-900/10'
+                      : clicked
+                      ? 'border-green-500/40 bg-green-900/10'
+                      : 'border-slate-700 bg-slate-900/40'
                   }`}
                 >
                   <div className="flex flex-col md:flex-row md:items-center gap-3">
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 flex items-center gap-2">
+                      {isWinner && (
+                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-semibold">
+                          <Trophy size={12} /> Gewinner
+                        </span>
+                      )}
                       {clicked ? (
                         <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-semibold">
                           ✅ Geklickt
