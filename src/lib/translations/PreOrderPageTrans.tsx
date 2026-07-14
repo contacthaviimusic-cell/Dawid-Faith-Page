@@ -14,6 +14,7 @@ const PreOrderTranslations: Record<LangKey, {
   presave: {
     title: string;
     desc: string;
+    prizeLabel: string;
     button: string;
     checkbox: string;
     codeLabel: string;
@@ -61,7 +62,8 @@ const PreOrderTranslations: Record<LangKey, {
     chooseYourWay: 'Wähle deinen Weg',
     presave: {
       title: 'Presave',
-      desc: 'Speichere den Song schon jetzt in deiner Musik-Bibliothek vor – als Dankeschön bekommst du einen Rabattcode für die Pre-Order.',
+      desc: 'Speichere den Song jetzt in deiner Musik-Bibliothek vor und sichere dir automatisch die Chance auf ein exklusives Mythic-NFT aus den D.FAITH Collectibles – eine der seltensten Song-Karten überhaupt.',
+      prizeLabel: 'Zu gewinnen: Mythic-NFT',
       button: 'Jetzt presaven',
       checkbox: 'Ich habe presaved',
       codeLabel: 'Dein Rabattcode',
@@ -109,7 +111,8 @@ const PreOrderTranslations: Record<LangKey, {
     chooseYourWay: 'Choose your way',
     presave: {
       title: 'Presave',
-      desc: 'Pre-save the song to your music library now – as a thank-you, you get a discount code for the pre-order.',
+      desc: 'Presave the song to your music library now and automatically get a chance to win an exclusive Mythic NFT from the D.FAITH Collectibles – one of the rarest song cards there is.',
+      prizeLabel: 'To win: Mythic NFT',
       button: 'Presave now',
       checkbox: 'I have presaved',
       codeLabel: 'Your discount code',
@@ -157,7 +160,8 @@ const PreOrderTranslations: Record<LangKey, {
     chooseYourWay: 'Wybierz swoją drogę',
     presave: {
       title: 'Presave',
-      desc: 'Zapisz utwór już teraz w swojej bibliotece muzycznej – w podziękowaniu otrzymasz kod rabatowy na pre-order.',
+      desc: 'Zrób presave utworu już teraz i automatycznie zyskaj szansę na wygranie ekskluzywnego Mythic NFT z kolekcji D.FAITH Collectibles – jednej z najrzadszych kart utworów.',
+      prizeLabel: 'Do wygrania: Mythic NFT',
       button: 'Presave teraz',
       checkbox: 'Zrobiłem/am presave',
       codeLabel: 'Twój kod rabatowy',

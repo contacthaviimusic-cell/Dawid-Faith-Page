@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef, type FormEvent } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ArrowRight, Music, ShoppingBag, Sparkles, ChevronDown } from 'lucide-react';
+import { ArrowRight, Music, ShoppingBag, Sparkles, ChevronDown, Trophy } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import PreOrderTranslations, { type LangKey } from '@/lib/translations/PreOrderPageTrans';
@@ -349,10 +349,16 @@ export default function PreOrderPage() {
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
                 >
-                  <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center justify-between mb-4">
                     <span className="text-amber-500/60 font-black text-sm">01</span>
                     <Music className="text-amber-400" size={22} />
                   </div>
+
+                  <div className="self-start inline-flex items-center gap-1.5 mb-4 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/40">
+                    <Trophy size={14} className="text-amber-400" />
+                    <span className="text-amber-400 text-[11px] font-black uppercase tracking-wide">{t.presave.prizeLabel}</span>
+                  </div>
+
                   <h3 className="text-xl font-black mb-3">{t.presave.title}</h3>
                   <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.presave.desc}</p>
                   <a
