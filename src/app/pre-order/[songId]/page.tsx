@@ -381,15 +381,26 @@ export default function PreOrderPage() {
                           placeholder={t.presave.giveawayEmailPlaceholder}
                           className="w-full px-4 py-2.5 rounded-full bg-black/50 border border-stone-700 text-sm text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
                         />
-                        <label className="flex items-start gap-2 cursor-pointer select-none text-xs text-stone-400">
+                        <div className="flex items-start gap-2 text-xs text-stone-400">
                           <input
+                            id="giveaway-consent"
                             type="checkbox"
                             checked={giveawayConsent}
                             onChange={(e) => setGiveawayConsent(e.target.checked)}
-                            className="w-4 h-4 mt-0.5 accent-amber-500 flex-shrink-0"
+                            className="w-4 h-4 mt-0.5 accent-amber-500 flex-shrink-0 cursor-pointer"
                           />
-                          {t.presave.giveawayConsent}
-                        </label>
+                          <label htmlFor="giveaway-consent" className="cursor-pointer select-none">
+                            {t.presave.giveawayConsent}{' '}
+                            <Link
+                              href="/teilnahmebedingungen"
+                              target="_blank"
+                              className="text-amber-400 hover:underline relative z-10"
+                            >
+                              {t.presave.giveawayTermsLink}
+                            </Link>
+                            .
+                          </label>
+                        </div>
                         {giveawayStatus === 'error' && (
                           <p className="text-xs text-red-400">{giveawayError}</p>
                         )}

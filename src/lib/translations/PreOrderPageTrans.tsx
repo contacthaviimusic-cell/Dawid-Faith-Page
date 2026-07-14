@@ -22,6 +22,7 @@ const PreOrderTranslations: Record<LangKey, {
     giveawayEmailPlaceholder: string;
     giveawayEmailInvalid: string;
     giveawayConsent: string;
+    giveawayTermsLink: string;
     giveawayButton: string;
     giveawaySending: string;
     giveawaySuccess: string;
@@ -68,7 +69,8 @@ const PreOrderTranslations: Record<LangKey, {
       giveawayDesc: 'Trag deine E-Mail ein und presave direkt darüber, um automatisch am Gewinnspiel teilzunehmen.',
       giveawayEmailPlaceholder: 'Deine E-Mail-Adresse',
       giveawayEmailInvalid: 'Bitte gib eine gültige E-Mail-Adresse ein.',
-      giveawayConsent: 'Ich bin einverstanden, dass meine E-Mail für die Gewinnspiel-Teilnahme genutzt und mir der Presave-Link zugeschickt wird.',
+      giveawayConsent: 'Ich bin einverstanden, dass meine E-Mail für die Gewinnspiel-Teilnahme genutzt und mir der Presave-Link zugeschickt wird, und akzeptiere die',
+      giveawayTermsLink: 'Teilnahmebedingungen',
       giveawayButton: 'Mail senden & teilnehmen',
       giveawaySending: 'Wird gesendet…',
       giveawaySuccess: '✔ Check deine Mails! Wir haben dir deinen persönlichen Presave-Link geschickt.',
@@ -115,7 +117,8 @@ const PreOrderTranslations: Record<LangKey, {
       giveawayDesc: 'Enter your email and presave through it to automatically enter the giveaway.',
       giveawayEmailPlaceholder: 'Your email address',
       giveawayEmailInvalid: 'Please enter a valid email address.',
-      giveawayConsent: 'I agree that my email will be used for the giveaway entry and to send me the presave link.',
+      giveawayConsent: 'I agree that my email will be used for the giveaway entry and to send me the presave link, and I accept the',
+      giveawayTermsLink: 'terms & conditions',
       giveawayButton: 'Send email & enter',
       giveawaySending: 'Sending…',
       giveawaySuccess: '✔ Check your inbox! We sent you your personal presave link.',
@@ -162,7 +165,8 @@ const PreOrderTranslations: Record<LangKey, {
       giveawayDesc: 'Podaj swój e-mail i zrób presave przez ten link, aby automatycznie wziąć udział w konkursie.',
       giveawayEmailPlaceholder: 'Twój adres e-mail',
       giveawayEmailInvalid: 'Podaj prawidłowy adres e-mail.',
-      giveawayConsent: 'Zgadzam się na wykorzystanie mojego e-maila do udziału w konkursie i przesłanie mi linku presave.',
+      giveawayConsent: 'Zgadzam się na wykorzystanie mojego e-maila do udziału w konkursie i przesłanie mi linku presave oraz akceptuję',
+      giveawayTermsLink: 'regulamin konkursu',
       giveawayButton: 'Wyślij e-mail i weź udział',
       giveawaySending: 'Wysyłanie…',
       giveawaySuccess: '✔ Sprawdź skrzynkę! Wysłaliśmy Ci Twój osobisty link presave.',
