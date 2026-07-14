@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, type FormEvent } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowRight, Music, ShoppingBag, Sparkles, ChevronDown } from 'lucide-react';
@@ -86,6 +86,11 @@ export default function PreOrderPage() {
   const [presaved, setPresaved] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef<HTMLDivElement | null>(null);
+  const [giveawayEmail, setGiveawayEmail] = useState('');
+  const [giveawayConsent, setGiveawayConsent] = useState(false);
+  const [giveawaySubmitting, setGiveawaySubmitting] = useState(false);
+  const [giveawayStatus, setGiveawayStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [giveawayError, setGiveawayError] = useState('');
 
   const t = PreOrderTranslations[lang];
 
@@ -100,6 +105,38 @@ export default function PreOrderPage() {
       try {
         window.dispatchEvent(new CustomEvent('site-lang-changed', { detail: { lang: next } }));
       } catch {}
+    }
+  }
+
+  async function submitGiveaway(e: FormEvent) {
+    e.preventDefault();
+    if (!single || !giveawayConsent) return;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(giveawayEmail)) {
+      setGiveawayStatus('error');
+      setGiveawayError(t.presave.giveawayEmailInvalid);
+      return;
+    }
+    setGiveawaySubmitting(true);
+    setGiveawayStatus('idle');
+    try {
+      const res = await fetch('/api/giveaway/enter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ songId: single.id, email: giveawayEmail }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setGiveawayStatus('error');
+        setGiveawayError(data.error ?? t.presave.giveawayError);
+        return;
+      }
+      setGiveawayStatus('success');
+    } catch {
+      setGiveawayStatus('error');
+      setGiveawayError(t.presave.giveawayError);
+    } finally {
+      setGiveawaySubmitting(false);
     }
   }
 
@@ -322,11 +359,51 @@ export default function PreOrderPage() {
                     href={single.presaveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all mb-4"
+                    className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all mb-5"
                   >
                     {t.presave.button}
                     <ArrowRight size={16} />
                   </a>
+
+                  <div className="mb-5 pt-5 border-t border-white/10">
+                    {giveawayStatus === 'success' ? (
+                      <p className="text-sm text-amber-400 text-center">{t.presave.giveawaySuccess}</p>
+                    ) : (
+                      <form onSubmit={submitGiveaway} className="space-y-2.5">
+                        <p className="text-xs text-stone-400 leading-relaxed">{t.presave.giveawayDesc}</p>
+                        <input
+                          type="email"
+                          value={giveawayEmail}
+                          onChange={(e) => {
+                            setGiveawayEmail(e.target.value);
+                            setGiveawayStatus('idle');
+                          }}
+                          placeholder={t.presave.giveawayEmailPlaceholder}
+                          className="w-full px-4 py-2.5 rounded-full bg-black/50 border border-stone-700 text-sm text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
+                        />
+                        <label className="flex items-start gap-2 cursor-pointer select-none text-xs text-stone-400">
+                          <input
+                            type="checkbox"
+                            checked={giveawayConsent}
+                            onChange={(e) => setGiveawayConsent(e.target.checked)}
+                            className="w-4 h-4 mt-0.5 accent-amber-500 flex-shrink-0"
+                          />
+                          {t.presave.giveawayConsent}
+                        </label>
+                        {giveawayStatus === 'error' && (
+                          <p className="text-xs text-red-400">{giveawayError}</p>
+                        )}
+                        <button
+                          type="submit"
+                          disabled={giveawaySubmitting || !giveawayConsent || !giveawayEmail}
+                          className="w-full inline-flex items-center justify-center gap-2 border border-amber-500/50 hover:bg-amber-500/10 disabled:opacity-40 disabled:cursor-not-allowed text-amber-400 px-4 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-all"
+                        >
+                          {giveawaySubmitting ? t.presave.giveawaySending : t.presave.giveawayButton}
+                        </button>
+                      </form>
+                    )}
+                  </div>
+
                   {single.discountCode && (
                     <div>
                       <label className="flex items-center gap-3 cursor-pointer select-none text-sm text-stone-300">

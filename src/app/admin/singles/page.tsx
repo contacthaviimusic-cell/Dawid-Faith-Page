@@ -210,6 +210,12 @@ export default function AdminSinglesPage() {
           >
             📰 News Admin
           </button>
+          <button
+            onClick={() => router.push('/admin/giveaway')}
+            className="px-4 py-2 rounded bg-slate-800 hover:bg-slate-700"
+          >
+            🎁 Gewinnspiel-Teilnehmer
+          </button>
         </div>
 
         {loading ? (
