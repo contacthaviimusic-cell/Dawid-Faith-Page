@@ -19,9 +19,9 @@ export default function TeilnahmebedingungenPage() {
             <h2 className="text-xl font-black text-white mb-3">1. Veranstalter</h2>
             <p>
               Veranstalter des Gewinnspiels ist:<br />
-              <strong className="text-white">[BITTE AUSFÜLLEN: Vollständiger Name / Firmierung]</strong><br />
-              [BITTE AUSFÜLLEN: Straße, Hausnummer]<br />
-              [BITTE AUSFÜLLEN: PLZ, Ort]<br />
+              <strong className="text-white">Dawid Chojna</strong><br />
+              Saline 9<br />
+              18334 Bad Sülze<br />
               E-Mail: dawid.faith@gmail.com
             </p>
           </section>
@@ -64,7 +64,6 @@ export default function TeilnahmebedingungenPage() {
             <p>Zu gewinnen gibt es pro Gewinnspiel:</p>
             <ul className="list-disc list-inside mt-2 space-y-1.5">
               <li>1× Mythic-NFT aus den D.FAITH Collectibles (limitierte, seltenheitsgestufte Song-Karte)</li>
-              <li>[BITTE AUSFÜLLEN: Anzahl] D.FAITH Token</li>
             </ul>
             <p className="mt-3">
               Der Gewinn wird dem Gewinner/der Gewinnerin in dessen/deren D.FAITH-Webapp-Wallet gutgeschrieben. Eine

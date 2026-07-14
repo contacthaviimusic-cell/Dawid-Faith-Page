@@ -74,7 +74,7 @@ export default function AdminGiveawayPage() {
               Gewinnspiel-Teilnehmer
             </h1>
             <p className="text-gray-400 mt-1">
-              Nur Einträge mit „geklickt" haben ihren persönlichen Presave-Link wirklich benutzt.
+              Nur Einträge mit &bdquo;geklickt&ldquo; haben ihren persönlichen Presave-Link wirklich benutzt.
             </p>
           </div>
         </div>
