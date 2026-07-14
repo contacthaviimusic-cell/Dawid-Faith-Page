@@ -186,7 +186,9 @@ export default function MobilePage() {
             <div className="text-stone-500 text-xs">
               <p>{PageTranslations[lang].copyright}</p>
               <p className="mt-1 text-stone-600">{PageTranslations[lang].poweredBy}</p>
-              <p className="mt-3 flex items-center justify-center gap-3">
+              <p className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+                <Link href="/impressum" className="hover:text-amber-400 transition-colors">Impressum</Link>
+                <span className="text-stone-700">·</span>
                 <Link href="/datenschutz" className="hover:text-amber-400 transition-colors">Datenschutz</Link>
                 <span className="text-stone-700">·</span>
                 <Link href="/teilnahmebedingungen" className="hover:text-amber-400 transition-colors">Teilnahmebedingungen</Link>

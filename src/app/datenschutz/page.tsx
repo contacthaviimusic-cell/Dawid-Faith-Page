@@ -140,7 +140,7 @@ export default function DatenschutzPage() {
             <h2 className="text-xl font-black text-white mb-3">11. SSL-Verschlüsselung</h2>
             <p>
               Diese Website nutzt aus Sicherheitsgründen eine SSL-Verschlüsselung. Eine verschlüsselte
-              Verbindung erkennst du am Kürzel „https://" in der Adresszeile deines Browsers.
+              Verbindung erkennst du am Kürzel &bdquo;https://&ldquo; in der Adresszeile deines Browsers.
             </p>
           </section>
 
