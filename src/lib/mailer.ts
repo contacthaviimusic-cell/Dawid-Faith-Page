@@ -102,6 +102,16 @@ function renderBodyHtml(bodyText: string): string {
     .join('\n');
 }
 
+// Reine Text-Alternative zum HTML – fehlt die, stufen viele Spamfilter
+// (inkl. Gmail selbst) eine HTML-only-Mail als verdächtiger ein.
+function renderBodyText(bodyText: string): string {
+  return bodyText
+    .replace(/👉\s*\[([^\]]+)\]\(([^)]+)\)/g, '$1: $2')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1 ($2)')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .trim();
+}
+
 export async function sendCampaignEmail(
   email: string,
   subject: string,
@@ -124,10 +134,16 @@ export async function sendCampaignEmail(
     </div>
   `;
 
+  const text = `${renderBodyText(bodyText)}\n\n---\nMöchtest du keine E-Mails mehr von mir erhalten? Antworte einfach mit "Abmelden".`;
+
   await transporter.sendMail({
     from: `"Dawid Faith" <${process.env.GMAIL_USER}>`,
     to: email,
     subject,
     html,
+    text,
+    headers: {
+      'List-Unsubscribe': `<mailto:${process.env.GMAIL_USER}?subject=Abmelden>`,
+    },
   });
 }
