@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { put, list } from '@vercel/blob';
+import { isAdminAuthenticated } from '@/lib/adminSession';
 
 export const dynamic = 'force-dynamic';
 
@@ -58,6 +59,9 @@ async function saveNewsletterSubscribers(subscribers: NewsletterSubscriber[]): P
 }
 
 export async function GET() {
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const subscribers = await getNewsletterSubscribers();
     return NextResponse.json(subscribers);
@@ -150,6 +154,9 @@ export async function POST(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const { searchParams } = new URL(request.url);
     const email = searchParams.get('email');
