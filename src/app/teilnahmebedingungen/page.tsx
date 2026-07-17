@@ -49,8 +49,8 @@ export default function TeilnahmebedingungenPage() {
             <h2 className="text-xl font-black text-white mb-3">4. Teilnahmevoraussetzungen</h2>
             <p>Um teilzunehmen, muss der Fan:</p>
             <ul className="list-disc list-inside mt-2 space-y-1.5">
-              <li>auf der jeweiligen Pre-Order-Seite eine gültige E-Mail-Adresse im Presave-Formular hinterlegen,</li>
-              <li>der Nutzung dieser E-Mail-Adresse für die Gewinnspielteilnahme zustimmen (Checkbox),</li>
+              <li>auf der jeweiligen Pre-Order-Seite eine gültige E-Mail-Adresse sowie seinen Wohnort im Presave-Formular hinterlegen,</li>
+              <li>der Nutzung dieser Daten gemäß Punkt 8 zustimmen (Checkbox),</li>
               <li>den daraufhin per E-Mail zugesendeten persönlichen Presave-Link öffnen und darüber den Song presaven.</li>
             </ul>
             <p className="mt-3">
@@ -93,14 +93,25 @@ export default function TeilnahmebedingungenPage() {
           <section>
             <h2 className="text-xl font-black text-white mb-3">8. Datenschutz</h2>
             <p>
-              Im Rahmen der Teilnahme wird die angegebene E-Mail-Adresse verarbeitet, um (a) den persönlichen
-              Presave-Link zuzusenden, (b) die Teilnahme am Gewinnspiel zu ermöglichen und (c) den Gewinner/die
-              Gewinnerin zu benachrichtigen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung/-erfüllung
-              im Rahmen der Gewinnspielteilnahme). Die Daten werden nach Abschluss des jeweiligen Gewinnspiels und
-              Versand des Gewinns gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Eine
-              Weitergabe an Dritte erfolgt nicht, mit Ausnahme des E-Mail-Versanddienstleisters, der zur technischen
-              Zustellung der E-Mails eingesetzt wird. Es besteht jederzeit das Recht auf Auskunft, Berichtigung und
-              Löschung der gespeicherten Daten durch formlose Nachricht an dawid.faith@gmail.com.
+              Im Rahmen der Teilnahme werden die angegebene E-Mail-Adresse und der Wohnort verarbeitet, um
+              (a) den persönlichen Presave-Link zuzusenden, (b) die Teilnahme am Gewinnspiel zu ermöglichen,
+              (c) den Gewinner/die Gewinnerin zu benachrichtigen und (d), sofern in der Checkbox zugestimmt,
+              künftig Updates zu neuen Musik-Releases und Events per E-Mail zu versenden. Der Wohnort dient
+              ausschließlich der Planung künftiger Konzerte in deiner Nähe.
+            </p>
+            <p className="mt-3">
+              Rechtsgrundlage für (a) bis (c) ist Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung/-erfüllung im Rahmen
+              der Gewinnspielteilnahme). Rechtsgrundlage für (d) sowie für die Verarbeitung des Wohnorts ist deine
+              Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO. Die gewinnspielbezogenen Daten (a bis c) werden nach
+              Abschluss des jeweiligen Gewinnspiels und Versand des Gewinns gelöscht, sofern keine gesetzlichen
+              Aufbewahrungspflichten entgegenstehen. Deine Einwilligung für (d) und die Verarbeitung des Wohnorts
+              kannst du jederzeit mit Wirkung für die Zukunft widerrufen, z. B. durch formlose Nachricht oder
+              Antwort mit &bdquo;Abmelden&ldquo; an dawid.faith@gmail.com.
+            </p>
+            <p className="mt-3">
+              Eine Weitergabe an Dritte erfolgt nicht, mit Ausnahme des E-Mail-Versanddienstleisters, der zur
+              technischen Zustellung der E-Mails eingesetzt wird. Es besteht jederzeit das Recht auf Auskunft,
+              Berichtigung und Löschung der gespeicherten Daten durch formlose Nachricht an dawid.faith@gmail.com.
             </p>
           </section>
 
