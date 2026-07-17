@@ -13,9 +13,11 @@ export function createMailTransporter() {
 export async function sendGiveawayEmail(
   email: string,
   songTitle: string,
-  giveawayLink: string
+  giveawayLink: string,
+  origin: string
 ): Promise<void> {
   const transporter = createMailTransporter();
+  const unsubscribeLink = `${origin}/abmelden`;
 
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
@@ -43,16 +45,26 @@ export async function sendGiveawayEmail(
         </p>
       </div>
       <div style="border-top: 1px solid #eee; padding: 20px 0; text-align: center; color: #aaa; font-size: 12px;">
-        <p style="margin: 0;">© ${new Date().getFullYear()} Dawid Faith</p>
+        <p style="margin: 0 0 6px;">© ${new Date().getFullYear()} Dawid Faith</p>
+        <p style="margin: 0;">
+          Keine weiteren Update-Mails erhalten?
+          <a href="${unsubscribeLink}" style="color: #aaa; text-decoration: underline;">Hier abmelden</a>
+        </p>
       </div>
     </div>
   `;
+
+  const text = `Dein persönlicher Presave-Link für „${songTitle}": ${giveawayLink}\n\nDieser Link ist persönlich für dich – bitte nicht weitergeben.\n\nHerzliche Grüße,\nDawid Faith\n\n---\nKeine weiteren Update-Mails erhalten? Abmelden: ${unsubscribeLink}`;
 
   await transporter.sendMail({
     from: `"Dawid Faith" <${process.env.GMAIL_USER}>`,
     to: email,
     subject: `Dein Presave-Link für „${songTitle}" – Gewinnspiel-Teilnahme`,
     html,
+    text,
+    headers: {
+      'List-Unsubscribe': `<${unsubscribeLink}>, <mailto:${process.env.GMAIL_USER}?subject=Abmelden>`,
+    },
   });
 }
 

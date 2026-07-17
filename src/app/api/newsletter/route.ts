@@ -1,63 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { put, list } from '@vercel/blob';
 import { isAdminAuthenticated } from '@/lib/adminSession';
+import { getNewsletterSubscribers, createSubscriber, deleteSubscriberByEmail } from '@/lib/newsletterStore';
 
 export const dynamic = 'force-dynamic';
-
-interface NewsletterSubscriber {
-  id: string;
-  email: string;
-  location?: string;
-  subscribedAt: string;
-  ipAddress?: string;
-  userAgent?: string;
-}
-
-const BLOB_FILENAME = 'newsletter-subscribers.json';
-
-async function getNewsletterSubscribers(): Promise<NewsletterSubscriber[]> {
-  try {
-    // List all blobs to find our newsletter file
-    const { blobs } = await list({ prefix: BLOB_FILENAME });
-    
-    if (blobs.length === 0) {
-      console.log('No newsletter subscribers found, returning empty array');
-      return [];
-    }
-
-    // Get the latest blob
-    const latestBlob = blobs[0];
-    const response = await fetch(`${latestBlob.url}?t=${Date.now()}`, { cache: 'no-store' });
-    
-    if (response.ok) {
-      const data = await response.json();
-      return Array.isArray(data) ? data : [];
-    }
-    
-    console.log('Failed to fetch blob data, returning empty array');
-    return [];
-  } catch (error) {
-    console.log('Error in getNewsletterSubscribers, starting fresh:', error);
-    return [];
-  }
-}
-
-async function saveNewsletterSubscribers(subscribers: NewsletterSubscriber[]): Promise<void> {
-  try {
-    console.log('Attempting to save newsletter subscribers:', subscribers.length);
-    const blob = await put(BLOB_FILENAME, JSON.stringify(subscribers, null, 2), {
-      access: 'public',
-      contentType: 'application/json',
-      // Allow overwriting the same blob filename so updates replace previous data
-      allowOverwrite: true,
-    });
-    console.log('Newsletter data saved to Vercel Blob successfully:', blob.url);
-  } catch (error) {
-    console.error('Error saving to Vercel Blob:', error);
-    // surface the original error message for debugging
-    throw new Error(`Failed to save newsletter data: ${error}`);
-  }
-}
 
 export async function GET() {
   if (!(await isAdminAuthenticated())) {
@@ -77,25 +22,18 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    console.log('Newsletter POST request received');
-    
     const body = await request.json();
-    console.log('Request body:', body);
-    
     const { email, location } = body;
 
     if (!email) {
-      console.log('Missing email in request');
       return NextResponse.json(
         { error: 'E-Mail-Adresse ist erforderlich' },
         { status: 400 }
       );
     }
 
-    // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      console.log('Invalid email format:', email);
       return NextResponse.json(
         { error: 'Ungültige E-Mail-Adresse' },
         { status: 400 }
@@ -103,57 +41,31 @@ export async function POST(request: NextRequest) {
     }
 
     if (!location || typeof location !== 'string' || !location.trim()) {
-      console.log('Missing location in request');
       return NextResponse.json(
         { error: 'Wohnort ist erforderlich' },
         { status: 400 }
       );
     }
 
-    console.log('Getting existing subscribers...');
-    const subscribers = await getNewsletterSubscribers();
-    console.log('Current subscribers count:', subscribers.length);
+    const ipAddress = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+    const userAgent = request.headers.get('user-agent') || 'unknown';
 
-    // Check if email already exists
-    const existingSubscriber = subscribers.find((sub: NewsletterSubscriber) => sub.email.toLowerCase() === email.toLowerCase());
-    if (existingSubscriber) {
-      console.log('Email already exists:', email);
-      return NextResponse.json(
-        { error: 'Diese E-Mail-Adresse ist bereits angemeldet' },
-        { status: 409 }
-      );
+    const { subscriber, error } = await createSubscriber(email, location, ipAddress, userAgent);
+    if (!subscriber) {
+      return NextResponse.json({ error: error ?? 'Fehler bei der Anmeldung' }, { status: 409 });
     }
 
-    // Create new subscriber
-    const newSubscriber: NewsletterSubscriber = {
-      id: `sub_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      email: email.toLowerCase().trim(),
-      location: location.trim(),
-      subscribedAt: new Date().toISOString(),
-      ipAddress: request.headers.get('x-forwarded-for') || 
-                 request.headers.get('x-real-ip') || 
-                 'unknown',
-      userAgent: request.headers.get('user-agent') || 'unknown'
-    };
-
-    subscribers.push(newSubscriber);
-    console.log('Saving updated subscribers list...');
-    await saveNewsletterSubscribers(subscribers);
-
-    console.log('New newsletter subscriber added successfully:', newSubscriber.email);
-
     return NextResponse.json(
-      { 
+      {
         message: 'Erfolgreich für den Newsletter angemeldet!',
         subscriber: {
-          id: newSubscriber.id,
-          email: newSubscriber.email,
-          subscribedAt: newSubscriber.subscribedAt
-        }
+          id: subscriber.id,
+          email: subscriber.email,
+          subscribedAt: subscriber.subscribedAt,
+        },
       },
       { status: 201 }
     );
-
   } catch (error) {
     console.error('Error in POST /api/newsletter:', error);
     return NextResponse.json(
@@ -178,22 +90,17 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    const subscribers = await getNewsletterSubscribers();
-    const updatedSubscribers = subscribers.filter((sub: NewsletterSubscriber) => sub.email.toLowerCase() !== email.toLowerCase());
-
-    if (subscribers.length === updatedSubscribers.length) {
+    const ok = await deleteSubscriberByEmail(email);
+    if (!ok) {
       return NextResponse.json(
         { error: 'E-Mail-Adresse nicht gefunden' },
         { status: 404 }
       );
     }
 
-    await saveNewsletterSubscribers(updatedSubscribers);
-
     return NextResponse.json(
       { message: 'Newsletter-Abonnement erfolgreich entfernt' }
     );
-
   } catch (error) {
     console.error('Error removing newsletter subscriber:', error);
     return NextResponse.json(

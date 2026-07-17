@@ -12,6 +12,7 @@ interface GiveawayEntry {
   location: string;
   token: string;
   clickedAt: string | null;
+  unsubscribed: boolean;
   createdAt: string;
 }
 
@@ -233,7 +234,14 @@ export default function AdminGiveawayPage() {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-white truncate">{entry.email}</p>
+                      <p className="font-semibold text-white truncate flex items-center gap-2">
+                        {entry.email}
+                        {entry.unsubscribed && (
+                          <span className="text-[10px] font-normal px-1.5 py-0.5 rounded bg-red-500/20 text-red-400">
+                            abgemeldet
+                          </span>
+                        )}
+                      </p>
                       <p className="text-xs text-gray-600 mt-0.5">
                         {entry.location && <>📍 {entry.location} · </>}
                         Song: {entry.songId} · Eingetragen: {formatDate(entry.createdAt)}

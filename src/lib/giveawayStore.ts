@@ -10,6 +10,7 @@ export interface GiveawayEntry {
   location: string;
   token: string;
   clickedAt: string | null;
+  unsubscribed: boolean;
   createdAt: string;
 }
 
@@ -193,11 +194,29 @@ export async function createEntry(
     location: location.trim(),
     token: crypto.randomBytes(24).toString('hex'),
     clickedAt: null,
+    unsubscribed: false,
     createdAt: new Date().toISOString(),
   };
   entries.unshift(entry);
   await writeAll(entries);
   return { entry };
+}
+
+// Markiert alle Einträge dieser E-Mail-Adresse (über alle Songs hinweg) als
+// abgemeldet – die Gewinnspiel-Teilnahme selbst bleibt für die Auslosung
+// erhalten, nur künftige Update-Mails werden dann nicht mehr verschickt.
+export async function unsubscribeByEmail(email: string): Promise<number> {
+  const entries = await readAll();
+  const normalizedEmail = email.trim().toLowerCase();
+  let count = 0;
+  for (const entry of entries) {
+    if (entry.email.toLowerCase() === normalizedEmail && !entry.unsubscribed) {
+      entry.unsubscribed = true;
+      count++;
+    }
+  }
+  if (count > 0) await writeAll(entries);
+  return count;
 }
 
 export async function markClicked(id: string): Promise<void> {

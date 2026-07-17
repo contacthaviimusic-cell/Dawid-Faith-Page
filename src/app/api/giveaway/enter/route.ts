@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
 
     const origin = new URL(request.url).origin;
     const giveawayLink = `${origin}/api/giveaway/click/${entry.token}`;
-    await sendGiveawayEmail(entry.email, single.title, giveawayLink);
+    await sendGiveawayEmail(entry.email, single.title, giveawayLink, origin);
 
     return NextResponse.json({ success: true });
   } catch (err) {
