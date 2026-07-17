@@ -7,6 +7,7 @@ export const dynamic = 'force-dynamic';
 interface NewsletterSubscriber {
   id: string;
   email: string;
+  location?: string;
   subscribedAt: string;
   ipAddress?: string;
   userAgent?: string;
@@ -81,7 +82,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     console.log('Request body:', body);
     
-    const { email } = body;
+    const { email, location } = body;
 
     if (!email) {
       console.log('Missing email in request');
@@ -97,6 +98,14 @@ export async function POST(request: NextRequest) {
       console.log('Invalid email format:', email);
       return NextResponse.json(
         { error: 'Ungültige E-Mail-Adresse' },
+        { status: 400 }
+      );
+    }
+
+    if (!location || typeof location !== 'string' || !location.trim()) {
+      console.log('Missing location in request');
+      return NextResponse.json(
+        { error: 'Wohnort ist erforderlich' },
         { status: 400 }
       );
     }
@@ -119,6 +128,7 @@ export async function POST(request: NextRequest) {
     const newSubscriber: NewsletterSubscriber = {
       id: `sub_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       email: email.toLowerCase().trim(),
+      location: location.trim(),
       subscribedAt: new Date().toISOString(),
       ipAddress: request.headers.get('x-forwarded-for') || 
                  request.headers.get('x-real-ip') || 

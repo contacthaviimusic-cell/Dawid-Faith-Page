@@ -7,6 +7,7 @@ export interface GiveawayEntry {
   id: string;
   songId: string;
   email: string;
+  location: string;
   token: string;
   clickedAt: string | null;
   createdAt: string;
@@ -149,7 +150,8 @@ export async function findEntryByToken(token: string): Promise<GiveawayEntry | n
 
 export async function createEntry(
   songId: string,
-  email: string
+  email: string,
+  location = ''
 ): Promise<{ entry: GiveawayEntry | null; error?: string }> {
   const entries = await readAll();
   const normalizedEmail = email.trim().toLowerCase();
@@ -162,6 +164,7 @@ export async function createEntry(
     id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     songId,
     email: normalizedEmail,
+    location: location.trim(),
     token: crypto.randomBytes(24).toString('hex'),
     clickedAt: null,
     createdAt: new Date().toISOString(),

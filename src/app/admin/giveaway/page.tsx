@@ -9,6 +9,7 @@ interface GiveawayEntry {
   id: string;
   songId: string;
   email: string;
+  location: string;
   token: string;
   clickedAt: string | null;
   createdAt: string;
@@ -234,6 +235,7 @@ export default function AdminGiveawayPage() {
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-white truncate">{entry.email}</p>
                       <p className="text-xs text-gray-600 mt-0.5">
+                        {entry.location && <>📍 {entry.location} · </>}
                         Song: {entry.songId} · Eingetragen: {formatDate(entry.createdAt)}
                         {clicked && <>&nbsp;·&nbsp;Geklickt: {formatDate(entry.clickedAt)}</>}
                       </p>

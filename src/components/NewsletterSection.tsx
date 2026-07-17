@@ -7,6 +7,7 @@ import NewsletterTranslations from '../lib/translations/NewsletterTranslations';
 
 export default function Newsletter() {
   const [email, setEmail] = useState('');
+  const [location, setLocation] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [responseStatus, setResponseStatus] = useState<number | null>(null);
@@ -14,10 +15,10 @@ export default function Newsletter() {
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    if (!email.trim() || !location.trim()) return;
 
     setIsSubscribing(true);
-    
+
     try {
       let lastResponse: Response | null = null;
       const response = await fetch('/api/newsletter', {
@@ -25,7 +26,7 @@ export default function Newsletter() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify({ email: email.trim(), location: location.trim() }),
       });
       lastResponse = response;
 
@@ -37,6 +38,7 @@ export default function Newsletter() {
       if (response.ok) {
         setSubscriptionStatus('success');
         setEmail('');
+        setLocation('');
 
         setTimeout(() => {
           setSubscriptionStatus('idle');
@@ -130,7 +132,7 @@ export default function Newsletter() {
               </div>
             ) : (
               <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto mb-6">
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-3 mb-3">
                   <input
                     type="email"
                     value={email}
@@ -140,6 +142,17 @@ export default function Newsletter() {
                     required
                     disabled={isSubscribing}
                   />
+                  <input
+                    type="text"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    placeholder={NewsletterTranslations[lang].locationPlaceholder}
+                    className="flex-1 px-5 py-3.5 rounded-full bg-white/5 border border-white/10 text-white placeholder-stone-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
+                    required
+                    disabled={isSubscribing}
+                  />
+                </div>
+                <div className="flex justify-center">
                   <motion.button
                     type="submit"
                     whileHover={{ scale: 1.03 }}

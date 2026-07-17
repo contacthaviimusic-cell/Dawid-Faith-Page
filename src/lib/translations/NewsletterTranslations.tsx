@@ -7,6 +7,7 @@ export const NewsletterTranslations: Record<LangKey, {
   subscribeError: string;
   alreadySubscribed: string;
   emailPlaceholder: string;
+  locationPlaceholder: string;
   subscribeLabel: string;
   subscribingLabel: string;
   ticketButtonScroll: string;
@@ -18,6 +19,7 @@ export const NewsletterTranslations: Record<LangKey, {
     subscribeError: '❌ Fehler bei der Anmeldung. Bitte versuche es erneut.',
     alreadySubscribed: 'ℹ️ Diese E-Mail-Adresse ist bereits angemeldet.',
     emailPlaceholder: 'deine@email.de',
+    locationPlaceholder: 'Dein Wohnort',
     subscribeLabel: 'Anmelden',
     subscribingLabel: 'Anmelden...',
     ticketButtonScroll: 'D.FAITH Token erhalten',
@@ -29,6 +31,7 @@ export const NewsletterTranslations: Record<LangKey, {
     subscribeError: '❌ Error during subscription. Please try again.',
     alreadySubscribed: 'ℹ️ This email address is already subscribed.',
     emailPlaceholder: 'your@email.com',
+    locationPlaceholder: 'Your city',
     subscribeLabel: 'Subscribe',
     subscribingLabel: 'Subscribing...',
     ticketButtonScroll: 'Get D.FAITH tokens',
@@ -40,6 +43,7 @@ export const NewsletterTranslations: Record<LangKey, {
     subscribeError: '❌ Błąd podczas zapisu. Proszę spróbuj ponownie.',
     alreadySubscribed: 'ℹ️ Ten adres email jest już zapisany.',
     emailPlaceholder: 'twój@email.pl',
+    locationPlaceholder: 'Twoja miejscowość',
     subscribeLabel: 'Zapisz się',
     subscribingLabel: 'Zapisywanie...',
     ticketButtonScroll: 'Otrzymaj tokeny D.FAITH',

@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { songId, email } = body;
+  const { songId, email, location } = body;
 
   if (!songId || typeof songId !== 'string' || !/^[\w-]+$/.test(songId)) {
     return NextResponse.json({ error: 'Ungültige Song-ID.' }, { status: 400 });
@@ -17,6 +17,9 @@ export async function POST(request: NextRequest) {
   if (!email || typeof email !== 'string' || !emailRegex.test(email)) {
     return NextResponse.json({ error: 'Bitte gib eine gültige E-Mail-Adresse ein.' }, { status: 400 });
   }
+  if (!location || typeof location !== 'string' || !location.trim()) {
+    return NextResponse.json({ error: 'Bitte gib deinen Wohnort an.' }, { status: 400 });
+  }
 
   try {
     const single = await getSingle(songId);
@@ -24,7 +27,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Für diese Single läuft kein Gewinnspiel.' }, { status: 404 });
     }
 
-    const { entry, error } = await createEntry(songId, email);
+    const { entry, error } = await createEntry(songId, email, location);
     if (!entry) {
       return NextResponse.json({ error: error ?? 'Konnte nicht eintragen.' }, { status: 409 });
     }

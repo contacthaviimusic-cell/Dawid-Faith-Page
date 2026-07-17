@@ -7,6 +7,7 @@ import { Mail, CheckCircle, AlertCircle } from 'lucide-react';
 
 export default function MobileNewsletterSection() {
   const [email, setEmail] = useState('');
+  const [location, setLocation] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [responseStatus, setResponseStatus] = useState<number | null>(null);
@@ -14,17 +15,17 @@ export default function MobileNewsletterSection() {
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    if (!email.trim() || !location.trim()) return;
 
     setIsSubscribing(true);
-    
+
     try {
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify({ email: email.trim(), location: location.trim() }),
       });
 
       const data = await response.json().catch(() => ({}));
@@ -35,6 +36,7 @@ export default function MobileNewsletterSection() {
       if (response.ok) {
         setSubscriptionStatus('success');
         setEmail('');
+        setLocation('');
 
         setTimeout(() => {
           setSubscriptionStatus('idle');
@@ -128,6 +130,15 @@ export default function MobileNewsletterSection() {
                 <Mail className="text-stone-400" size={18} />
               </div>
             </div>
+
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder={NewsletterTranslations[lang].locationPlaceholder}
+              disabled={isSubscribing}
+              className="w-full px-4 py-4 bg-black/30 border border-stone-600 rounded-xl text-white placeholder-stone-400 focus:outline-none focus:border-amber-500 transition-colors disabled:opacity-50"
+            />
 
             <motion.button
               type="submit"

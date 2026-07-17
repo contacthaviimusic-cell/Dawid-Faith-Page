@@ -87,6 +87,7 @@ export default function PreOrderPage() {
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef<HTMLDivElement | null>(null);
   const [giveawayEmail, setGiveawayEmail] = useState('');
+  const [giveawayLocation, setGiveawayLocation] = useState('');
   const [giveawayConsent, setGiveawayConsent] = useState(false);
   const [giveawaySubmitting, setGiveawaySubmitting] = useState(false);
   const [giveawayStatus, setGiveawayStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -117,13 +118,18 @@ export default function PreOrderPage() {
       setGiveawayError(t.presave.giveawayEmailInvalid);
       return;
     }
+    if (!giveawayLocation.trim()) {
+      setGiveawayStatus('error');
+      setGiveawayError(t.presave.giveawayLocationInvalid);
+      return;
+    }
     setGiveawaySubmitting(true);
     setGiveawayStatus('idle');
     try {
       const res = await fetch('/api/giveaway/enter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ songId: single.id, email: giveawayEmail }),
+        body: JSON.stringify({ songId: single.id, email: giveawayEmail, location: giveawayLocation }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -385,6 +391,16 @@ export default function PreOrderPage() {
                             setGiveawayStatus('idle');
                           }}
                           placeholder={t.presave.giveawayEmailPlaceholder}
+                          className="w-full px-4 py-2.5 rounded-full bg-black/50 border border-stone-700 text-sm text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
+                        />
+                        <input
+                          type="text"
+                          value={giveawayLocation}
+                          onChange={(e) => {
+                            setGiveawayLocation(e.target.value);
+                            setGiveawayStatus('idle');
+                          }}
+                          placeholder={t.presave.giveawayLocationPlaceholder}
                           className="w-full px-4 py-2.5 rounded-full bg-black/50 border border-stone-700 text-sm text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
                         />
                         <div className="flex items-start gap-2 text-xs text-stone-400">

@@ -8,6 +8,7 @@ import Link from 'next/link';
 interface NewsletterSubscriber {
   id: string;
   email: string;
+  location?: string;
   subscribedAt: string;
   ipAddress?: string;
   userAgent?: string;
@@ -61,9 +62,10 @@ export default function AdminNewsletterPage() {
 
   const exportToCSV = () => {
     const csvContent = [
-      ['E-Mail', 'Anmeldedatum', 'IP-Adresse', 'User Agent'].join(','),
+      ['E-Mail', 'Wohnort', 'Anmeldedatum', 'IP-Adresse', 'User Agent'].join(','),
       ...filteredAndSortedSubscribers.map(sub => [
         sub.email,
+        sub.location || '',
         new Date(sub.subscribedAt).toLocaleString('de-DE'),
         sub.ipAddress || 'unknown',
         (sub.userAgent || 'unknown').replace(/,/g, ';') // Replace commas to avoid CSV issues
@@ -238,8 +240,9 @@ export default function AdminNewsletterPage() {
             className="bg-gray-900/30 backdrop-blur-md rounded-2xl border border-gray-600/20 overflow-hidden"
           >
             {/* Table Header */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-6 border-b border-gray-600/20 bg-gray-800/30">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 p-6 border-b border-gray-600/20 bg-gray-800/30">
               <div className="font-semibold text-gray-300">E-Mail</div>
+              <div className="font-semibold text-gray-300 hidden md:block">Wohnort</div>
               <div className="font-semibold text-gray-300 hidden md:block">Anmeldedatum</div>
               <div className="font-semibold text-gray-300 hidden md:block">IP-Adresse</div>
               <div className="font-semibold text-gray-300">Aktionen</div>
@@ -253,7 +256,7 @@ export default function AdminNewsletterPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="grid grid-cols-1 md:grid-cols-4 gap-4 p-6 hover:bg-gray-800/20 transition-colors"
+                  className="grid grid-cols-1 md:grid-cols-5 gap-4 p-6 hover:bg-gray-800/20 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center">
@@ -261,7 +264,11 @@ export default function AdminNewsletterPage() {
                     </div>
                     <span className="text-white font-medium">{subscriber.email}</span>
                   </div>
-                  
+
+                  <div className="text-gray-400 hidden md:block">
+                    {subscriber.location || '—'}
+                  </div>
+
                   <div className="text-gray-400 hidden md:block">
                     {new Date(subscriber.subscribedAt).toLocaleDateString('de-DE', {
                       day: '2-digit',
