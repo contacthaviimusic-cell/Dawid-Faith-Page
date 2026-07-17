@@ -403,6 +403,7 @@ export default function PreOrderPage() {
                           placeholder={t.presave.giveawayLocationPlaceholder}
                           className="w-full px-4 py-2.5 rounded-full bg-black/50 border border-stone-700 text-sm text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
                         />
+                        <p className="text-stone-500 text-[11px] -mt-1.5">{t.presave.giveawayLocationHint}</p>
                         <div className="flex items-start gap-2 text-xs text-stone-400">
                           <input
                             id="giveaway-consent"

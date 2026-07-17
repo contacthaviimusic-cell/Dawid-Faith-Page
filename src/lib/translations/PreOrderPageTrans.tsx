@@ -24,6 +24,7 @@ const PreOrderTranslations: Record<LangKey, {
     giveawayEmailInvalid: string;
     giveawayLocationPlaceholder: string;
     giveawayLocationInvalid: string;
+    giveawayLocationHint: string;
     giveawayConsent: string;
     giveawayTermsLink: string;
     giveawayButton: string;
@@ -73,8 +74,9 @@ const PreOrderTranslations: Record<LangKey, {
       giveawayDesc: 'Trag deine E-Mail ein und presave direkt darüber, um automatisch am Gewinnspiel teilzunehmen.',
       giveawayEmailPlaceholder: 'Deine E-Mail-Adresse',
       giveawayEmailInvalid: 'Bitte gib eine gültige E-Mail-Adresse ein.',
-      giveawayLocationPlaceholder: 'Dein Wohnort (z.B. für Konzerte in deiner Nähe)',
+      giveawayLocationPlaceholder: 'Dein Wohnort',
       giveawayLocationInvalid: 'Bitte gib deinen Wohnort an.',
+      giveawayLocationHint: 'Damit ich weiß, in welchen Städten ich als Nächstes Konzerte spielen sollte.',
       giveawayConsent: 'Ich bin einverstanden, dass meine E-Mail für die Gewinnspiel-Teilnahme genutzt und mir der Presave-Link zugeschickt wird, und akzeptiere die',
       giveawayTermsLink: 'Teilnahmebedingungen',
       giveawayButton: 'Mail senden & teilnehmen',
@@ -124,8 +126,9 @@ const PreOrderTranslations: Record<LangKey, {
       giveawayDesc: 'Enter your email and presave through it to automatically enter the giveaway.',
       giveawayEmailPlaceholder: 'Your email address',
       giveawayEmailInvalid: 'Please enter a valid email address.',
-      giveawayLocationPlaceholder: 'Your city (e.g. for concerts near you)',
+      giveawayLocationPlaceholder: 'Your city',
       giveawayLocationInvalid: 'Please enter your city.',
+      giveawayLocationHint: 'So I know which cities to play concerts in next.',
       giveawayConsent: 'I agree that my email will be used for the giveaway entry and to send me the presave link, and I accept the',
       giveawayTermsLink: 'terms & conditions',
       giveawayButton: 'Send email & enter',
@@ -175,8 +178,9 @@ const PreOrderTranslations: Record<LangKey, {
       giveawayDesc: 'Podaj swój e-mail i zrób presave przez ten link, aby automatycznie wziąć udział w konkursie.',
       giveawayEmailPlaceholder: 'Twój adres e-mail',
       giveawayEmailInvalid: 'Podaj prawidłowy adres e-mail.',
-      giveawayLocationPlaceholder: 'Twoja miejscowość (np. na koncerty w pobliżu)',
+      giveawayLocationPlaceholder: 'Twoja miejscowość',
       giveawayLocationInvalid: 'Podaj swoją miejscowość.',
+      giveawayLocationHint: 'Dzięki temu wiem, w jakich miastach zagrać kolejne koncerty.',
       giveawayConsent: 'Zgadzam się na wykorzystanie mojego e-maila do udziału w konkursie i przesłanie mi linku presave oraz akceptuję',
       giveawayTermsLink: 'regulamin konkursu',
       giveawayButton: 'Wyślij e-mail i weź udział',

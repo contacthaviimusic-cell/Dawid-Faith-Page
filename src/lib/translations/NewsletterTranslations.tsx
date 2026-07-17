@@ -8,6 +8,7 @@ export const NewsletterTranslations: Record<LangKey, {
   alreadySubscribed: string;
   emailPlaceholder: string;
   locationPlaceholder: string;
+  locationHint: string;
   subscribeLabel: string;
   subscribingLabel: string;
   ticketButtonScroll: string;
@@ -20,6 +21,7 @@ export const NewsletterTranslations: Record<LangKey, {
     alreadySubscribed: 'ℹ️ Diese E-Mail-Adresse ist bereits angemeldet.',
     emailPlaceholder: 'deine@email.de',
     locationPlaceholder: 'Dein Wohnort',
+    locationHint: 'Damit ich weiß, in welchen Städten ich als Nächstes Konzerte spielen sollte.',
     subscribeLabel: 'Anmelden',
     subscribingLabel: 'Anmelden...',
     ticketButtonScroll: 'D.FAITH Token erhalten',
@@ -32,6 +34,7 @@ export const NewsletterTranslations: Record<LangKey, {
     alreadySubscribed: 'ℹ️ This email address is already subscribed.',
     emailPlaceholder: 'your@email.com',
     locationPlaceholder: 'Your city',
+    locationHint: "So I know which cities to play concerts in next.",
     subscribeLabel: 'Subscribe',
     subscribingLabel: 'Subscribing...',
     ticketButtonScroll: 'Get D.FAITH tokens',
@@ -44,6 +47,7 @@ export const NewsletterTranslations: Record<LangKey, {
     alreadySubscribed: 'ℹ️ Ten adres email jest już zapisany.',
     emailPlaceholder: 'twój@email.pl',
     locationPlaceholder: 'Twoja miejscowość',
+    locationHint: 'Dzięki temu wiem, w jakich miastach zagrać kolejne koncerty.',
     subscribeLabel: 'Zapisz się',
     subscribingLabel: 'Zapisywanie...',
     ticketButtonScroll: 'Otrzymaj tokeny D.FAITH',

@@ -152,6 +152,9 @@ export default function Newsletter() {
                     disabled={isSubscribing}
                   />
                 </div>
+                <p className="text-stone-500 text-xs mb-4 -mt-1">
+                  {NewsletterTranslations[lang].locationHint}
+                </p>
                 <div className="flex justify-center">
                   <motion.button
                     type="submit"

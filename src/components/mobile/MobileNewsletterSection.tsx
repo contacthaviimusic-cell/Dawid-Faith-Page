@@ -139,6 +139,9 @@ export default function MobileNewsletterSection() {
               disabled={isSubscribing}
               className="w-full px-4 py-4 bg-black/30 border border-stone-600 rounded-xl text-white placeholder-stone-400 focus:outline-none focus:border-amber-500 transition-colors disabled:opacity-50"
             />
+            <p className="text-stone-400 text-xs -mt-2">
+              {NewsletterTranslations[lang].locationHint}
+            </p>
 
             <motion.button
               type="submit"
