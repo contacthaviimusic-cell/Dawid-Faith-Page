@@ -11,16 +11,24 @@ function shouldUseBlob() {
   return !!process.env.BLOB_READ_WRITE_TOKEN;
 }
 
+// Nur "Blob existiert noch nicht" darf null zurückgeben (erlaubt das Seeden mit
+// Startdaten). Jeder andere Fehler wird durchgereicht, damit ein vorübergehender
+// Lesefehler nicht fälschlich als "leer" gilt und die echten News-Daten mit
+// Demo-Platzhaltern überschrieben werden.
 async function readFromBlob(): Promise<NewsItem[] | null> {
+  let blob;
   try {
-    const blob = await head(BLOB_PATHNAME);
-    const res = await fetch(blob.downloadUrl, { cache: 'no-store' });
-    if (!res.ok) return null;
-    return (await res.json()) as NewsItem[];
+    blob = await head(BLOB_PATHNAME);
   } catch (e) {
     if (e instanceof BlobNotFoundError) return null;
-    return null;
+    console.error('[newsStore] head() fehlgeschlagen:', e);
+    throw e;
   }
+  const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error(`[newsStore] Blob-Fetch fehlgeschlagen: HTTP ${res.status}`);
+  }
+  return (await res.json()) as NewsItem[];
 }
 
 async function writeToBlob(items: NewsItem[]): Promise<void> {

@@ -21,6 +21,7 @@ export interface GiveawayWinner {
 }
 
 const BLOB_PATHNAME = 'data/giveaway.json';
+const BACKUP_BLOB_PATHNAME = 'data/giveaway.backup.json';
 const LOCAL_FILE = path.join(process.cwd(), 'data', 'giveaway.json');
 
 const WINNERS_BLOB_PATHNAME = 'data/giveaway-winners.json';
@@ -32,19 +33,40 @@ function isBlob(): boolean {
 
 // ── Vercel Blob helpers ──────────────────────────────────────────────────────
 
+// Nur ein "Datei existiert nicht" darf als leere Liste gewertet werden – jeder
+// andere Fehler muss durchgereicht werden, sonst würde ein vorübergehender
+// Lesefehler bei einem nachfolgenden Schreibvorgang die echten Daten löschen.
 async function readFromBlob(): Promise<GiveawayEntry[]> {
+  let blob;
   try {
-    const blob = await head(BLOB_PATHNAME);
-    const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
-    if (!res.ok) return [];
-    return (await res.json()) as GiveawayEntry[];
+    blob = await head(BLOB_PATHNAME);
   } catch (e) {
     if (e instanceof BlobNotFoundError) return [];
-    return [];
+    console.error('[giveawayStore] head() fehlgeschlagen:', e);
+    throw e;
   }
+  const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error(`[giveawayStore] Blob-Fetch fehlgeschlagen: HTTP ${res.status}`);
+  }
+  return (await res.json()) as GiveawayEntry[];
 }
 
 async function writeToBlob(entries: GiveawayEntry[]): Promise<void> {
+  try {
+    const previous = await readFromBlob();
+    if (previous.length > 0) {
+      await put(BACKUP_BLOB_PATHNAME, JSON.stringify(previous, null, 2), {
+        access: 'public',
+        contentType: 'application/json',
+        addRandomSuffix: false,
+        allowOverwrite: true,
+      });
+    }
+  } catch (e) {
+    console.error('[giveawayStore] Backup vor dem Schreiben fehlgeschlagen:', e);
+  }
+
   await put(BLOB_PATHNAME, JSON.stringify(entries, null, 2), {
     access: 'public',
     contentType: 'application/json',
@@ -86,15 +108,19 @@ async function writeAll(entries: GiveawayEntry[]): Promise<void> {
 // ── Winners: Blob helpers ────────────────────────────────────────────────────
 
 async function readWinnersFromBlob(): Promise<GiveawayWinner[]> {
+  let blob;
   try {
-    const blob = await head(WINNERS_BLOB_PATHNAME);
-    const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
-    if (!res.ok) return [];
-    return (await res.json()) as GiveawayWinner[];
+    blob = await head(WINNERS_BLOB_PATHNAME);
   } catch (e) {
     if (e instanceof BlobNotFoundError) return [];
-    return [];
+    console.error('[giveawayStore] Winner head() fehlgeschlagen:', e);
+    throw e;
   }
+  const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error(`[giveawayStore] Winner-Blob-Fetch fehlgeschlagen: HTTP ${res.status}`);
+  }
+  return (await res.json()) as GiveawayWinner[];
 }
 
 async function writeWinnersToBlob(winners: GiveawayWinner[]): Promise<void> {

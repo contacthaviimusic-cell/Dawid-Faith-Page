@@ -19,6 +19,7 @@ export interface SingleConfig {
 }
 
 const BLOB_PATHNAME = 'data/singles.json';
+const BACKUP_BLOB_PATHNAME = 'data/singles.backup.json';
 const LOCAL_FILE = path.join(process.cwd(), 'data', 'singles.json');
 
 function isBlob(): boolean {
@@ -27,19 +28,44 @@ function isBlob(): boolean {
 
 // ── Vercel Blob helpers ──────────────────────────────────────────────────────
 
+// Wichtig: Nur ein "Datei existiert nicht" darf als leere Liste gewertet werden.
+// Jeder andere Fehler (Netzwerk, Parsing, …) muss durchgereicht werden – sonst
+// interpretiert ein Aufrufer einen vorübergehenden Lesefehler fälschlich als
+// "keine Singles vorhanden" und ein nachfolgender Schreibvorgang würde die
+// echten Daten dauerhaft mit einer leeren Liste überschreiben.
 async function readFromBlob(): Promise<SingleConfig[]> {
+  let blob;
   try {
-    const blob = await head(BLOB_PATHNAME);
-    const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
-    if (!res.ok) return [];
-    return (await res.json()) as SingleConfig[];
+    blob = await head(BLOB_PATHNAME);
   } catch (e) {
     if (e instanceof BlobNotFoundError) return [];
-    return [];
+    console.error('[singlesStore] head() fehlgeschlagen:', e);
+    throw e;
   }
+  const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error(`[singlesStore] Blob-Fetch fehlgeschlagen: HTTP ${res.status}`);
+  }
+  return (await res.json()) as SingleConfig[];
 }
 
 async function writeToBlob(entries: SingleConfig[]): Promise<void> {
+  // Vor jedem Schreiben den bisherigen Stand als Backup sichern, damit sich
+  // Datenverlust im Notfall manuell rückgängig machen lässt.
+  try {
+    const previous = await readFromBlob();
+    if (previous.length > 0) {
+      await put(BACKUP_BLOB_PATHNAME, JSON.stringify(previous, null, 2), {
+        access: 'public',
+        contentType: 'application/json',
+        addRandomSuffix: false,
+        allowOverwrite: true,
+      });
+    }
+  } catch (e) {
+    console.error('[singlesStore] Backup vor dem Schreiben fehlgeschlagen:', e);
+  }
+
   await put(BLOB_PATHNAME, JSON.stringify(entries, null, 2), {
     access: 'public',
     contentType: 'application/json',

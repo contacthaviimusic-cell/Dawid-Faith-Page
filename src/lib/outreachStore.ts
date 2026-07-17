@@ -23,15 +23,19 @@ function isBlob(): boolean {
 // ── Vercel Blob helpers ──────────────────────────────────────────────────────
 
 async function readFromBlob(): Promise<OutreachEntry[]> {
+  let blob;
   try {
-    const blob = await head(BLOB_PATHNAME);
-    const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
-    if (!res.ok) return [];
-    return (await res.json()) as OutreachEntry[];
+    blob = await head(BLOB_PATHNAME);
   } catch (e) {
     if (e instanceof BlobNotFoundError) return [];
-    return [];
+    console.error('[outreachStore] head() fehlgeschlagen:', e);
+    throw e;
   }
+  const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error(`[outreachStore] Blob-Fetch fehlgeschlagen: HTTP ${res.status}`);
+  }
+  return (await res.json()) as OutreachEntry[];
 }
 
 async function writeToBlob(entries: OutreachEntry[]): Promise<void> {
