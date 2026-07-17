@@ -216,6 +216,12 @@ export default function AdminSinglesPage() {
           >
             🎁 Gewinnspiel-Teilnehmer
           </button>
+          <button
+            onClick={() => router.push('/admin/abmeldungen')}
+            className="px-4 py-2 rounded bg-slate-800 hover:bg-slate-700"
+          >
+            📭 Abmeldungen
+          </button>
         </div>
 
         {loading ? (
