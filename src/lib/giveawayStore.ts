@@ -3,11 +3,14 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { put, head, BlobNotFoundError } from '@vercel/blob';
 
+export type EntryLang = 'de' | 'en' | 'pl';
+
 export interface GiveawayEntry {
   id: string;
   songId: string;
   email: string;
   location: string;
+  language: EntryLang;
   token: string;
   clickedAt: string | null;
   unsubscribed: boolean;
@@ -178,7 +181,8 @@ export async function findEntryByToken(token: string): Promise<GiveawayEntry | n
 export async function createEntry(
   songId: string,
   email: string,
-  location = ''
+  location = '',
+  language: EntryLang = 'de'
 ): Promise<{ entry: GiveawayEntry | null; error?: string }> {
   const entries = await readAll();
   const normalizedEmail = email.trim().toLowerCase();
@@ -192,6 +196,7 @@ export async function createEntry(
     songId,
     email: normalizedEmail,
     location: location.trim(),
+    language,
     token: crypto.randomBytes(24).toString('hex'),
     clickedAt: null,
     unsubscribed: false,

@@ -23,7 +23,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, location } = body;
+    const { email, location, lang } = body;
 
     if (!email) {
       return NextResponse.json(
@@ -49,8 +49,9 @@ export async function POST(request: NextRequest) {
 
     const ipAddress = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
     const userAgent = request.headers.get('user-agent') || 'unknown';
+    const subscriberLang = lang === 'en' || lang === 'pl' ? lang : 'de';
 
-    const { subscriber, error } = await createSubscriber(email, location, ipAddress, userAgent);
+    const { subscriber, error } = await createSubscriber(email, location, ipAddress, userAgent, subscriberLang);
     if (!subscriber) {
       return NextResponse.json({ error: error ?? 'Fehler bei der Anmeldung' }, { status: 409 });
     }

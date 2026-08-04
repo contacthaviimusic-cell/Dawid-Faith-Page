@@ -26,7 +26,7 @@ export default function Newsletter() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email.trim(), location: location.trim() }),
+        body: JSON.stringify({ email: email.trim(), location: location.trim(), lang }),
       });
       lastResponse = response;
 

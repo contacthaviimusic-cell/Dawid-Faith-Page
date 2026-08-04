@@ -129,7 +129,7 @@ export default function PreOrderPage() {
       const res = await fetch('/api/giveaway/enter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ songId: single.id, email: giveawayEmail, location: giveawayLocation }),
+        body: JSON.stringify({ songId: single.id, email: giveawayEmail, location: giveawayLocation, lang }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {

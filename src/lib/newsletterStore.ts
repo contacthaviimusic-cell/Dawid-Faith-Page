@@ -1,9 +1,12 @@
 import { put, list } from '@vercel/blob';
 
+export type SubscriberLang = 'de' | 'en' | 'pl';
+
 export interface NewsletterSubscriber {
   id: string;
   email: string;
   location?: string;
+  language?: SubscriberLang;
   subscribedAt: string;
   ipAddress?: string;
   userAgent?: string;
@@ -42,7 +45,8 @@ export async function createSubscriber(
   email: string,
   location: string,
   ipAddress: string,
-  userAgent: string
+  userAgent: string,
+  language: SubscriberLang = 'de'
 ): Promise<{ subscriber: NewsletterSubscriber | null; error?: string }> {
   const subscribers = await getNewsletterSubscribers();
   const normalizedEmail = email.toLowerCase().trim();
@@ -55,6 +59,7 @@ export async function createSubscriber(
     id: `sub_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     email: normalizedEmail,
     location: location.trim(),
+    language,
     subscribedAt: new Date().toISOString(),
     ipAddress,
     userAgent,

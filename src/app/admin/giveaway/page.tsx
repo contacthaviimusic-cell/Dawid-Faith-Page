@@ -10,11 +10,14 @@ interface GiveawayEntry {
   songId: string;
   email: string;
   location: string;
+  language?: 'de' | 'en' | 'pl';
   token: string;
   clickedAt: string | null;
   unsubscribed: boolean;
   createdAt: string;
 }
+
+const LANG_LABELS: Record<string, string> = { de: '🇩🇪 DE', en: '🇬🇧 EN', pl: '🇵🇱 PL' };
 
 interface GiveawayWinner {
   songId: string;
@@ -244,7 +247,7 @@ export default function AdminGiveawayPage() {
                       </p>
                       <p className="text-xs text-gray-600 mt-0.5">
                         {entry.location && <>📍 {entry.location} · </>}
-                        Song: {entry.songId} · Eingetragen: {formatDate(entry.createdAt)}
+                        {LANG_LABELS[entry.language ?? 'de']} · Song: {entry.songId} · Eingetragen: {formatDate(entry.createdAt)}
                         {clicked && <>&nbsp;·&nbsp;Geklickt: {formatDate(entry.clickedAt)}</>}
                       </p>
                     </div>
