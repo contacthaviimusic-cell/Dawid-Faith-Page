@@ -1,15 +1,13 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 export type MailLang = 'de' | 'en' | 'pl';
 
-export function createMailTransporter() {
-  return nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD,
-    },
-  });
+const FROM_ADDRESS = 'Dawid Faith <noreply@mail.dawidfaith.de>';
+// Postfach, in dem Antworten & interne Benachrichtigungen landen sollen.
+const NOTIFY_TO = process.env.GMAIL_USER || 'dawid.faith@gmail.com';
+
+function getResendClient(): Resend {
+  return new Resend(process.env.RESEND_API_KEY);
 }
 
 function normalizeMailLang(lang: string | undefined | null): MailLang {
@@ -75,7 +73,6 @@ export async function sendGiveawayEmail(
   lang?: string
 ): Promise<void> {
   const t = giveawayTranslations[normalizeMailLang(lang)];
-  const transporter = createMailTransporter();
   const unsubscribeLink = `${origin}/abmelden`;
 
   const html = `
@@ -114,19 +111,19 @@ export async function sendGiveawayEmail(
 
   const text = `${t.body(songTitle)}\n\n${giveawayLink}\n\n${t.personalNote}\n\n${t.closing}\nDawid Faith\n\n---\n${t.unsubscribeQuestion} ${t.unsubscribeLink}: ${unsubscribeLink}`;
 
-  await transporter.sendMail({
-    from: `"Dawid Faith" <${process.env.GMAIL_USER}>`,
+  await getResendClient().emails.send({
+    from: FROM_ADDRESS,
     to: email,
     subject: t.subject(songTitle),
     html,
     text,
     headers: {
-      'List-Unsubscribe': `<${unsubscribeLink}>, <mailto:${process.env.GMAIL_USER}?subject=Abmelden>`,
+      'List-Unsubscribe': `<${unsubscribeLink}>, <mailto:${NOTIFY_TO}?subject=Abmelden>`,
     },
   });
 }
 
-// ── Booking-Bestätigungsmail ─────────────────────────────────────────────────
+// ── Booking-Mails ────────────────────────────────────────────────────────────
 
 const bookingTranslations: Record<MailLang, {
   tagline: string;
@@ -195,7 +192,6 @@ export async function sendBookingConfirmationEmail(
   lang?: string
 ): Promise<void> {
   const t = bookingTranslations[normalizeMailLang(lang)];
-  const transporter = createMailTransporter();
 
   const confirmationHtml = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
@@ -240,10 +236,67 @@ export async function sendBookingConfirmationEmail(
     </div>
   `;
 
-  await transporter.sendMail({
-    from: `"Dawid Faith" <${process.env.GMAIL_USER}>`,
+  await getResendClient().emails.send({
+    from: FROM_ADDRESS,
     to: email,
+    replyTo: NOTIFY_TO,
     subject: t.subject,
     html: confirmationHtml,
+  });
+}
+
+export async function sendBookingNotificationEmail(
+  name: string,
+  email: string,
+  eventType: string,
+  date: string,
+  location: string,
+  message: string
+): Promise<void> {
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h2 style="color: #f59e0b; border-bottom: 2px solid #f59e0b; padding-bottom: 10px;">
+        Neue Booking Anfrage
+      </h2>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666; width: 160px;">Name:</td>
+          <td style="padding: 8px 0;">${name}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">E-Mail:</td>
+          <td style="padding: 8px 0;"><a href="mailto:${email}">${email}</a></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Veranstaltung:</td>
+          <td style="padding: 8px 0;">${eventType}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Datum:</td>
+          <td style="padding: 8px 0;">${date || 'Nicht angegeben'}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold; color: #666;">Ort / Venue:</td>
+          <td style="padding: 8px 0;">${location || 'Nicht angegeben'}</td>
+        </tr>
+      </table>
+      ${message ? `
+        <div style="margin-top: 20px; padding: 15px; background: #f5f5f5; border-left: 3px solid #f59e0b;">
+          <p style="font-weight: bold; color: #666; margin: 0 0 8px 0;">Nachricht:</p>
+          <p style="margin: 0; white-space: pre-wrap;">${message}</p>
+        </div>
+      ` : ''}
+      <p style="margin-top: 20px; color: #999; font-size: 12px;">
+        Gesendet über die Dawid Faith Booking-Seite
+      </p>
+    </div>
+  `;
+
+  await getResendClient().emails.send({
+    from: FROM_ADDRESS,
+    to: NOTIFY_TO,
+    replyTo: email,
+    subject: `Booking Anfrage: ${eventType} – ${name}`,
+    html,
   });
 }
