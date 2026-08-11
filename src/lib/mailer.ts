@@ -2,7 +2,7 @@ import { Resend } from 'resend';
 
 export type MailLang = 'de' | 'en' | 'pl';
 
-const FROM_ADDRESS = 'Dawid Faith <noreply@mail.dawidfaith.de>';
+const FROM_ADDRESS = 'Dawid Faith <noreply@dawidfaith.de>';
 // Postfach, in dem Antworten & interne Benachrichtigungen landen sollen.
 const NOTIFY_TO = process.env.GMAIL_USER || 'dawid.faith@gmail.com';
 
