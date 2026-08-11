@@ -42,6 +42,13 @@ const songs: Song[] = [
     image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png',
     video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
     description: 'Ein weiterer Track aus der Release Kampagne'
+  },
+  {
+    id: 'jupiter',
+    title: 'Jupiter',
+    image: '/musik/jupiter/Jupiter.png',
+    video: '/musik/jupiter/Jupiter.mp4',
+    description: 'Der fünfte Song der Release Kampagne'
   }
 ];
 

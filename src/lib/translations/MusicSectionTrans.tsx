@@ -37,6 +37,10 @@ const MusicTranslations: Record<LangKey, {
       'niebianski-groove': {
         title: 'Niebianski Groove',
         description: 'Ein weiterer Track aus der Release Kampagne'
+      },
+      jupiter: {
+        title: 'Jupiter',
+        description: 'Der fünfte Song der Release Kampagne'
       }
     }
   },
@@ -66,6 +70,10 @@ const MusicTranslations: Record<LangKey, {
       'niebianski-groove': {
         title: 'Niebianski Groove',
         description: 'Another track from the Release Campaign'
+      },
+      jupiter: {
+        title: 'Jupiter',
+        description: 'The fifth song of the Release Campaign'
       }
     }
   },
@@ -95,6 +103,10 @@ const MusicTranslations: Record<LangKey, {
       'niebianski-groove': {
         title: 'Niebianski Groove',
         description: 'Kolejny utwór z Kampanii Release'
+      },
+      jupiter: {
+        title: 'Jupiter',
+        description: 'Piąty utwór Kampanii Release'
       }
     }
   }
