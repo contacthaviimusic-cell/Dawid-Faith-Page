@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import PreOrderTranslations, { type LangKey } from '@/lib/translations/PreOrderPageTrans';
 import FlagForLang, { FlagDE, FlagGB, FlagPL } from '@/components/FlagIcon';
+import { getDeviceFingerprint } from '@/lib/fingerprint';
 
 interface PublicSingle {
   id: string;
@@ -129,7 +130,13 @@ export default function PreOrderPage() {
       const res = await fetch('/api/giveaway/enter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ songId: single.id, email: giveawayEmail, location: giveawayLocation, lang }),
+        body: JSON.stringify({
+          songId: single.id,
+          email: giveawayEmail,
+          location: giveawayLocation,
+          lang,
+          fingerprint: getDeviceFingerprint(),
+        }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {

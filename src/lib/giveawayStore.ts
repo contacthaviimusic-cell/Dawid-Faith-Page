@@ -11,6 +11,7 @@ export interface GiveawayEntry {
   email: string;
   location: string;
   language: EntryLang;
+  deviceFingerprint: string;
   token: string;
   clickedAt: string | null;
   unsubscribed: boolean;
@@ -182,7 +183,8 @@ export async function createEntry(
   songId: string,
   email: string,
   location = '',
-  language: EntryLang = 'de'
+  language: EntryLang = 'de',
+  deviceFingerprint = ''
 ): Promise<{ entry: GiveawayEntry | null; error?: string }> {
   const entries = await readAll();
   const normalizedEmail = email.trim().toLowerCase();
@@ -197,6 +199,7 @@ export async function createEntry(
     email: normalizedEmail,
     location: location.trim(),
     language,
+    deviceFingerprint: deviceFingerprint.slice(0, 64),
     token: crypto.randomBytes(24).toString('hex'),
     clickedAt: null,
     unsubscribed: false,

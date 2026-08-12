@@ -99,6 +99,15 @@ export default function DatenschutzPage() {
                 Teilnahmebedingungen
               </Link>.
             </p>
+            <p className="mt-3">
+              Um Mehrfachteilnahmen und Missbrauch zu erkennen, wird beim Absenden des Teilnahmeformulars
+              zusätzlich ein technischer Geräte-Fingerprint (ein aus Browser- und Geräteeigenschaften
+              gebildeter, nicht direkt personenbezogener Kennwert) erzeugt und gemeinsam mit deiner Teilnahme
+              gespeichert. Er dient ausschließlich intern der Erkennung von Mehrfachanmeldungen desselben
+              Geräts unter verschiedenen E-Mail-Adressen und wird nicht an Dritte weitergegeben.
+              Rechtsgrundlage ist unser berechtigtes Interesse an einer fairen, missbrauchsfreien Verlosung
+              (Art. 6 Abs. 1 lit. f DSGVO).
+            </p>
           </section>
 
           <section>
@@ -145,7 +154,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <p className="text-sm text-stone-500">Stand: Juli 2026</p>
+            <p className="text-sm text-stone-500">Stand: August 2026</p>
           </section>
         </div>
 

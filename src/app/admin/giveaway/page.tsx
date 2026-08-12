@@ -11,6 +11,7 @@ interface GiveawayEntry {
   email: string;
   location: string;
   language?: 'de' | 'en' | 'pl';
+  deviceFingerprint?: string;
   token: string;
   clickedAt: string | null;
   unsubscribed: boolean;
@@ -113,6 +114,22 @@ export default function AdminGiveawayPage() {
   const visibleEntries = filterSongId ? entries.filter((e) => e.songId === filterSongId) : entries;
   const clickedCount = visibleEntries.filter((e) => e.clickedAt).length;
 
+  // Gruppiert alle Einträge (über alle Songs hinweg) nach Geräte-Fingerprint,
+  // damit wir erkennen, wenn dasselbe Gerät mehrere E-Mail-Adressen benutzt hat.
+  const emailsByFingerprint = entries.reduce<Record<string, Set<string>>>((acc, e) => {
+    if (!e.deviceFingerprint) return acc;
+    if (!acc[e.deviceFingerprint]) acc[e.deviceFingerprint] = new Set();
+    acc[e.deviceFingerprint].add(e.email);
+    return acc;
+  }, {});
+
+  function otherEmailsSameDevice(entry: GiveawayEntry): string[] {
+    if (!entry.deviceFingerprint) return [];
+    const emails = emailsByFingerprint[entry.deviceFingerprint];
+    if (!emails || emails.size < 2) return [];
+    return Array.from(emails).filter((e) => e !== entry.email);
+  }
+
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="container mx-auto px-4 py-8 max-w-5xl">
@@ -208,12 +225,15 @@ export default function AdminGiveawayPage() {
             {visibleEntries.map((entry) => {
               const clicked = !!entry.clickedAt;
               const isWinner = winner?.entryId === entry.id;
+              const sameDeviceEmails = otherEmailsSameDevice(entry);
               return (
                 <div
                   key={entry.id}
                   className={`p-4 rounded-xl border ${
                     isWinner
                       ? 'border-amber-500/60 bg-amber-900/10'
+                      : sameDeviceEmails.length > 0
+                      ? 'border-red-500/40 bg-red-900/10'
                       : clicked
                       ? 'border-green-500/40 bg-green-900/10'
                       : 'border-slate-700 bg-slate-900/40'
@@ -242,6 +262,14 @@ export default function AdminGiveawayPage() {
                         {entry.unsubscribed && (
                           <span className="text-[10px] font-normal px-1.5 py-0.5 rounded bg-red-500/20 text-red-400">
                             abgemeldet
+                          </span>
+                        )}
+                        {sameDeviceEmails.length > 0 && (
+                          <span
+                            className="text-[10px] font-normal px-1.5 py-0.5 rounded bg-red-500/20 text-red-400"
+                            title={`Gleiches Gerät wie: ${sameDeviceEmails.join(', ')}`}
+                          >
+                            ⚠ gleiches Gerät wie {sameDeviceEmails.length} weitere E-Mail{sameDeviceEmails.length === 1 ? '' : 's'}
                           </span>
                         )}
                       </p>
