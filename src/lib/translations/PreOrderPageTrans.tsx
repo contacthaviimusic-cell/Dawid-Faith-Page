@@ -65,7 +65,7 @@ const PreOrderTranslations: Record<LangKey, {
     chooseYourWay: 'Wähle deinen Weg',
     presave: {
       title: 'Presave',
-      desc: 'Speichere den Song jetzt in deiner Musik-Bibliothek vor und sichere dir automatisch die Chance auf ein exklusives Mythic-NFT aus den D.FAITH Collectibles – eine der seltensten Song-Karten überhaupt.',
+      desc: 'Speichere den Song jetzt in deiner Musik-Bibliothek vor und sichere dir automatisch die Chance auf ein exklusives Mythic-NFT aus den D.FAITH Collectibles – eine der seltensten Song-Karten überhaupt. Das Song-NFT ist eine limitierte Edition von nur 100 Stück.',
       prizeLabel: 'Zu gewinnen: Mythic-NFT + limitiertes Song NFT',
       button: 'Jetzt presaven',
       checkbox: 'Ich habe presaved',
@@ -117,7 +117,7 @@ const PreOrderTranslations: Record<LangKey, {
     chooseYourWay: 'Choose your way',
     presave: {
       title: 'Presave',
-      desc: 'Presave the song to your music library now and automatically get a chance to win an exclusive Mythic NFT from the D.FAITH Collectibles – one of the rarest song cards there is.',
+      desc: 'Presave the song to your music library now and automatically get a chance to win an exclusive Mythic NFT from the D.FAITH Collectibles – one of the rarest song cards there is. The Song NFT is a limited edition of only 100 copies.',
       prizeLabel: 'To win: Mythic NFT + limited Song NFT',
       button: 'Presave now',
       checkbox: 'I have presaved',
@@ -169,7 +169,7 @@ const PreOrderTranslations: Record<LangKey, {
     chooseYourWay: 'Wybierz swoją drogę',
     presave: {
       title: 'Presave',
-      desc: 'Zrób presave utworu już teraz i automatycznie zyskaj szansę na wygranie ekskluzywnego Mythic NFT z kolekcji D.FAITH Collectibles – jednej z najrzadszych kart utworów.',
+      desc: 'Zrób presave utworu już teraz i automatycznie zyskaj szansę na wygranie ekskluzywnego Mythic NFT z kolekcji D.FAITH Collectibles – jednej z najrzadszych kart utworów. Song NFT to limitowana edycja liczącą tylko 100 sztuk.',
       prizeLabel: 'Do wygrania: Mythic NFT + limitowane Song NFT',
       button: 'Presave teraz',
       checkbox: 'Zrobiłem/am presave',
