@@ -14,7 +14,7 @@ const PreOrderTranslations: Record<LangKey, {
   presave: {
     title: string;
     desc: string;
-    prizeLabel: string;
+    prizeLabel: (songTitle: string) => string;
     button: string;
     checkbox: string;
     codeLabel: string;
@@ -66,7 +66,7 @@ const PreOrderTranslations: Record<LangKey, {
     presave: {
       title: 'Presave',
       desc: 'Speichere den Song jetzt in deiner Musik-Bibliothek vor und sichere dir automatisch die Chance auf ein exklusives Mythic-NFT aus den D.FAITH Collectibles – eine der seltensten Song-Karten überhaupt.',
-      prizeLabel: 'Zu gewinnen: Mythic-NFT',
+      prizeLabel: (songTitle) => `Zu gewinnen: Mythic-NFT + limitiertes ${songTitle}-NFT`,
       button: 'Jetzt presaven',
       checkbox: 'Ich habe presaved',
       codeLabel: 'Dein Rabattcode',
@@ -118,7 +118,7 @@ const PreOrderTranslations: Record<LangKey, {
     presave: {
       title: 'Presave',
       desc: 'Presave the song to your music library now and automatically get a chance to win an exclusive Mythic NFT from the D.FAITH Collectibles – one of the rarest song cards there is.',
-      prizeLabel: 'To win: Mythic NFT',
+      prizeLabel: (songTitle) => `To win: Mythic NFT + limited ${songTitle} NFT`,
       button: 'Presave now',
       checkbox: 'I have presaved',
       codeLabel: 'Your discount code',
@@ -170,7 +170,7 @@ const PreOrderTranslations: Record<LangKey, {
     presave: {
       title: 'Presave',
       desc: 'Zrób presave utworu już teraz i automatycznie zyskaj szansę na wygranie ekskluzywnego Mythic NFT z kolekcji D.FAITH Collectibles – jednej z najrzadszych kart utworów.',
-      prizeLabel: 'Do wygrania: Mythic NFT',
+      prizeLabel: (songTitle) => `Do wygrania: Mythic NFT + limitowane NFT ${songTitle}`,
       button: 'Presave teraz',
       checkbox: 'Zrobiłem/am presave',
       codeLabel: 'Twój kod rabatowy',

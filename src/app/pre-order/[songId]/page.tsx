@@ -367,9 +367,9 @@ export default function PreOrderPage() {
                     <Music className="text-amber-400" size={22} />
                   </div>
 
-                  <div className="self-start inline-flex items-center gap-1.5 mb-4 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/40">
-                    <Trophy size={14} className="text-amber-400" />
-                    <span className="text-amber-400 text-[11px] font-black uppercase tracking-wide">{t.presave.prizeLabel}</span>
+                  <div className="self-start inline-flex items-center gap-1.5 mb-4 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/40 max-w-full">
+                    <Trophy size={14} className="text-amber-400 flex-shrink-0" />
+                    <span className="text-amber-400 text-[11px] font-black uppercase tracking-wide">{t.presave.prizeLabel(single.title)}</span>
                   </div>
 
                   <h3 className="text-xl font-black mb-3">{t.presave.title}</h3>
