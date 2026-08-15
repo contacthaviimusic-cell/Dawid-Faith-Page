@@ -67,7 +67,7 @@ export default function MobileMusicSection() {
       artist: 'Dawid Faith',
       duration: '0:29',
       audioSrc: '/musik/jupiter/Jupiter.mp3',
-      coverImage: '/musik/jupiter/Jupiter.png',
+      coverImage: '/musik/jupiter/Jupiter-Cover.jpg',
       video: '/musik/jupiter/Jupiter.mp4',
       description: 'Der fünfte Song der Release Kampagne'
     }

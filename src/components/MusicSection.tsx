@@ -46,7 +46,7 @@ const songs: Song[] = [
   {
     id: 'jupiter',
     title: 'Jupiter',
-    image: '/musik/jupiter/Jupiter.png',
+    image: '/musik/jupiter/Jupiter-Cover.jpg',
     video: '/musik/jupiter/Jupiter.mp4',
     description: 'Der fünfte Song der Release Kampagne'
   }
