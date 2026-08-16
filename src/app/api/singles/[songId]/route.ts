@@ -21,8 +21,8 @@ export async function GET(
     }
 
     // Der Premiere-Link wird erst kurz vor dem Video-Release öffentlich ausgeliefert,
-    // damit Pre-Order-Käufer und App-Nutzer ihren zeitlichen Vorsprung behalten. Bis
-    // dahin bekommt der Client nur "premiereConfigured", nicht die eigentliche URL.
+    // damit Pre-Order-Käufer und App-Nutzer ihren zeitlichen Vorsprung behalten – auch
+    // wenn er im Admin schon länger im Voraus hinterlegt wurde.
     const videoReleaseMs = single.videoReleaseDate ? new Date(single.videoReleaseDate).getTime() : NaN;
     const revealHours = Number(single.premiereRevealHours) || DEFAULT_PREMIERE_REVEAL_HOURS;
     const revealAtMs = Number.isNaN(videoReleaseMs) ? null : videoReleaseMs - revealHours * 3_600_000;
@@ -31,7 +31,6 @@ export async function GET(
     return NextResponse.json({
       ...single,
       premiereVideoUrl: revealed ? single.premiereVideoUrl : '',
-      premiereConfigured: !!single.premiereVideoUrl,
     });
   } catch (err) {
     console.error('[singles GET]', err);

@@ -22,7 +22,6 @@ interface PublicSingle {
   preorderPrice: string;
   bandcampUrl: string;
   premiereVideoUrl: string;
-  premiereConfigured: boolean;
   premiereRevealHours: string;
   active: boolean;
 }
@@ -216,7 +215,7 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
   // die Reveal-Zeit erreicht wird.
   useEffect(() => {
     if (!songId || !single) return;
-    if (!single.premiereConfigured || single.premiereVideoUrl) return;
+    if (single.premiereVideoUrl || getPhase(single, Date.now()) !== 'preorder') return;
     const interval = setInterval(async () => {
       try {
         const res = await fetch(`/api/singles/${songId}`, { cache: 'no-store' });
@@ -253,7 +252,7 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
   }, [single, phase]);
 
   const premiereRevealTarget = useMemo(() => {
-    if (!single || !single.premiereConfigured) return null;
+    if (!single) return null;
     const video = parseDate(single.videoReleaseDate);
     if (video === null) return null;
     const hours = Number(single.premiereRevealHours) || 48;
