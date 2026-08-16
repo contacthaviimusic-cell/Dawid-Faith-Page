@@ -361,7 +361,7 @@ export default function AdminSinglesPage() {
 
               {field('Premiere-Link (YouTube)', editing.premiereVideoUrl, (v) => setEditing({ ...editing, premiereVideoUrl: v }), {
                 placeholder: 'https://youtube.com/watch?v=…',
-                hint: 'Link zur YouTube-Premiere. Wird öffentlich erst kurz vor dem Video-Release freigeschaltet, damit Pre-Order-Käufer und App-Nutzer ihren Vorsprung behalten. Leer lassen = kein Premiere-Hinweis auf der Seite.',
+                hint: 'Link zur YouTube-Premiere. Wird öffentlich erst kurz vor dem Video-Release freigeschaltet, damit Pre-Order-Käufer und App-Nutzer ihren Vorsprung behalten. Die Premiere-Karte zeigt sich auch ohne Link (mit Countdown bzw. „Termin wird bald bekanntgegeben") – du kannst den Link einfach kurz vorher ergänzen.',
               })}
               {field('Vorlauf bis Premiere-Link sichtbar (Std.)', editing.premiereRevealHours, (v) => setEditing({ ...editing, premiereRevealHours: v }), {
                 placeholder: '48',
