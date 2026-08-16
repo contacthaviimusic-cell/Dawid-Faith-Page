@@ -53,8 +53,8 @@ const PreOrderTranslations: Record<LangKey, {
     watchButton: string;
   };
   premiere: {
-    appHint: string;
-    appButton: string;
+    cardTitle: string;
+    cardDesc: string;
     button: string;
     countdownLabel: string;
   };
@@ -112,8 +112,8 @@ const PreOrderTranslations: Record<LangKey, {
       watchButton: 'Video jetzt ansehen',
     },
     premiere: {
-      appHint: 'Verbinde deinen YouTube-Account in der D.FAITH Webapp, damit du Belohnungen bekommst, wenn du live bei der Premiere im Chat dabei bist.',
-      appButton: 'Account verbinden',
+      cardTitle: 'Premiere',
+      cardDesc: 'Sei live dabei, wenn Song und Musikvideo Premiere feiern, und sichere dir exklusive Belohnungen für alle, die im Chat mit dabei sind.',
       button: 'Zur Premiere',
       countdownLabel: 'Premiere-Link erscheint in',
     },
@@ -171,8 +171,8 @@ const PreOrderTranslations: Record<LangKey, {
       watchButton: 'Watch the video now',
     },
     premiere: {
-      appHint: 'Connect your YouTube account in the D.FAITH webapp so you get rewards for being live in chat at the premiere.',
-      appButton: 'Connect account',
+      cardTitle: 'Premiere',
+      cardDesc: 'Be there live when the song and music video premiere, and unlock exclusive rewards for being in the chat.',
       button: 'Go to premiere',
       countdownLabel: 'Premiere link appears in',
     },
@@ -230,8 +230,8 @@ const PreOrderTranslations: Record<LangKey, {
       watchButton: 'Obejrzyj teledysk teraz',
     },
     premiere: {
-      appHint: 'Połącz swoje konto YouTube w aplikacji D.FAITH, aby otrzymać nagrody za bycie na żywo na czacie podczas premiery.',
-      appButton: 'Połącz konto',
+      cardTitle: 'Premiera',
+      cardDesc: 'Bądź na żywo, gdy utwór i teledysk będą miały premierę, i zdobądź ekskluzywne nagrody za bycie na czacie.',
       button: 'Przejdź do premiery',
       countdownLabel: 'Link do premiery pojawi się za',
     },

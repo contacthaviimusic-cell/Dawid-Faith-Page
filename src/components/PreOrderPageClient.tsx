@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef, type FormEvent } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ArrowRight, Music, ShoppingBag, Sparkles, ChevronDown, Trophy } from 'lucide-react';
+import { ArrowRight, Music, ShoppingBag, Sparkles, ChevronDown, Trophy, Youtube } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import PreOrderTranslations, { type LangKey } from '@/lib/translations/PreOrderPageTrans';
@@ -324,6 +324,7 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
   }
 
   const showPresaveCard = phase === 'presave' && !!single.presaveUrl;
+  const showPremiereCard = phase === 'preorder' && single.premiereConfigured;
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
@@ -415,49 +416,6 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
           </motion.div>
         ) : (
           <>
-            {phase === 'preorder' && single.premiereConfigured && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.25 }}
-                className="mb-12 w-full max-w-xl text-center p-6 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
-              >
-                <p className="text-xs text-stone-400 leading-relaxed mb-4">{t.premiere.appHint}</p>
-                <a
-                  href="https://app.dawidfaith.de"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 border border-amber-500/50 hover:bg-amber-500/10 text-amber-400 px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-all"
-                >
-                  {t.premiere.appButton}
-                  <ArrowRight size={14} />
-                </a>
-
-                <div className="mt-5 pt-5 border-t border-white/10">
-                  {single.premiereVideoUrl ? (
-                    <a
-                      href={single.premiereVideoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-all"
-                    >
-                      {t.premiere.button}
-                      <ArrowRight size={14} />
-                    </a>
-                  ) : premiereRevealTarget !== null ? (
-                    <p className="text-xs text-stone-500">
-                      {t.premiere.countdownLabel}{' '}
-                      {formatRemaining(premiereRevealTarget, Date.now(), {
-                        days: t.days,
-                        hours: t.hours,
-                        minutes: t.minutes,
-                      })}
-                    </p>
-                  ) : null}
-                </div>
-              </motion.div>
-            )}
-
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -467,7 +425,7 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
               {t.chooseYourWay}
             </motion.p>
 
-            <div className={`grid gap-6 w-full items-start ${showPresaveCard ? 'md:grid-cols-3' : 'md:grid-cols-2 max-w-3xl'}`}>
+            <div className={`grid gap-6 w-full items-start ${showPresaveCard || showPremiereCard ? 'md:grid-cols-3' : 'md:grid-cols-2 max-w-3xl'}`}>
               {/* 01 – Presave */}
               {showPresaveCard && (
                 <motion.div
@@ -673,6 +631,43 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
                   <ArrowRight size={16} />
                 </a>
               </motion.div>
+
+              {/* 03 – Premiere */}
+              {showPremiereCard && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                  className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
+                >
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-amber-500/60 font-black text-sm">03</span>
+                    <Youtube className="text-amber-400" size={22} />
+                  </div>
+                  <h3 className="text-xl font-black mb-3">{t.premiere.cardTitle}</h3>
+                  <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.premiere.cardDesc}</p>
+                  {single.premiereVideoUrl ? (
+                    <a
+                      href={single.premiereVideoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
+                    >
+                      {t.premiere.button}
+                      <ArrowRight size={16} />
+                    </a>
+                  ) : premiereRevealTarget !== null ? (
+                    <p className="text-xs text-stone-500 text-center">
+                      {t.premiere.countdownLabel}{' '}
+                      {formatRemaining(premiereRevealTarget, Date.now(), {
+                        days: t.days,
+                        hours: t.hours,
+                        minutes: t.minutes,
+                      })}
+                    </p>
+                  ) : null}
+                </motion.div>
+              )}
             </div>
           </>
         )}
