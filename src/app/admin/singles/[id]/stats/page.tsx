@@ -68,7 +68,7 @@ export default function SingleStatsPage() {
   }, [songId]);
 
   function copyLink(platform: string) {
-    const url = `${BASE_URL}/api/track/${songId}/${platform}`;
+    const url = `${BASE_URL}/pre-order/${songId}/${platform}`;
     navigator.clipboard.writeText(url);
     setCopied(platform);
     setTimeout(() => setCopied(null), 2000);
@@ -113,7 +113,7 @@ export default function SingleStatsPage() {
         {/* Tracking links */}
         <div className="mb-8 space-y-3">
           {PLATFORMS.map((key) => {
-            const url = `${BASE_URL}/api/track/${songId}/${key}`;
+            const url = `${BASE_URL}/pre-order/${songId}/${key}`;
             return (
               <div key={key} className="p-4 rounded-xl border border-slate-700 bg-slate-900/40">
                 <div className="flex flex-wrap items-center gap-3">
