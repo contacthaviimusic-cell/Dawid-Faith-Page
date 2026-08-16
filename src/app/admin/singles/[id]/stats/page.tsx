@@ -45,6 +45,7 @@ export default function SingleStatsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
+  const [chartSource, setChartSource] = useState<Source>('youtube');
   const router = useRouter();
 
   useEffect(() => {
@@ -86,7 +87,9 @@ export default function SingleStatsPage() {
   }
 
   const days = Object.keys(byDay).sort((a, b) => (a < b ? 1 : -1));
+  const daysAsc = [...days].sort((a, b) => (a < b ? -1 : 1));
   const totalClicks = clicks.length;
+  const chartMax = Math.max(1, ...daysAsc.map((d) => byDay[d][chartSource]));
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -160,7 +163,55 @@ export default function SingleStatsPage() {
             <p className="text-sm mt-1">Poste die Links oben, sobald du bereit bist.</p>
           </div>
         ) : (
-          <div className="bg-gray-900/30 backdrop-blur-md rounded-2xl border border-gray-600/20 overflow-hidden">
+          <>
+            {/* Verlauf pro Plattform */}
+            <div className="mb-8 bg-gray-900/30 backdrop-blur-md rounded-2xl border border-gray-600/20 p-5">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+                <h2 className="text-lg font-bold text-white">Verlauf pro Tag</h2>
+                <div className="flex flex-wrap gap-1.5">
+                  {ALL_SOURCES.map((key) => (
+                    <button
+                      key={key}
+                      onClick={() => setChartSource(key)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                        chartSource === key
+                          ? 'bg-amber-500 text-black'
+                          : 'bg-slate-800 text-gray-300 hover:bg-slate-700'
+                      }`}
+                    >
+                      {SOURCE_LABELS[key]} · {totalsBySource[key]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="overflow-x-auto">
+                <div className="flex items-end gap-2 h-40 min-w-max px-1">
+                  {daysAsc.map((day) => {
+                    const value = byDay[day][chartSource];
+                    const heightPct = Math.max(4, (value / chartMax) * 100);
+                    return (
+                      <div key={day} className="flex flex-col items-center justify-end h-full w-9 flex-shrink-0">
+                        <span className="text-[11px] font-bold text-amber-400 mb-1">{value || ''}</span>
+                        <div
+                          title={`${formatDay(day)}: ${value}×`}
+                          className="w-full rounded-t-md bg-gradient-to-t from-amber-600 to-amber-400"
+                          style={{ height: `${heightPct}%` }}
+                        />
+                        <span className="text-[10px] text-gray-500 mt-2 whitespace-nowrap rotate-0">
+                          {formatDay(day).slice(0, 5)}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <p className="text-xs text-gray-500 mt-4">
+                Zeigt {SOURCE_LABELS[chartSource]}-Klicks chronologisch (ältester Tag links). So siehst du direkt,
+                ob z. B. nach einem beworbenen Reel die täglichen Klicks ansteigen.
+              </p>
+            </div>
+
+            <div className="bg-gray-900/30 backdrop-blur-md rounded-2xl border border-gray-600/20 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -200,7 +251,8 @@ export default function SingleStatsPage() {
                 </tfoot>
               </table>
             </div>
-          </div>
+            </div>
+          </>
         )}
       </div>
     </div>
