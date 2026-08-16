@@ -1,16 +1,9 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { put, head, BlobNotFoundError } from '@vercel/blob';
+import { PLATFORMS, ALL_SOURCES, type Platform, type Source } from './platformSources';
 
-export type Platform = 'youtube' | 'facebook' | 'tiktok' | 'instagram';
-
-// 'website' ist keine postbare Plattform, sondern markiert Besucher, die direkt
-// über die Website selbst (Hero, Musik-Sektion, News-Artikel) auf die
-// Pre-Order-Seite gekommen sind, ohne einen der Tracking-Links zu nutzen.
-export type Source = Platform | 'website';
-
-export const PLATFORMS: Platform[] = ['youtube', 'facebook', 'tiktok', 'instagram'];
-export const ALL_SOURCES: Source[] = [...PLATFORMS, 'website'];
+export { PLATFORMS, ALL_SOURCES, type Platform, type Source };
 
 export interface PlatformClick {
   id: string;

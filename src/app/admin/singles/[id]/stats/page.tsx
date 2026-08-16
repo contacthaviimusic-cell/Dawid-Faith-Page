@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Copy, Check } from 'lucide-react';
-import { ALL_SOURCES, PLATFORMS, type Source } from '@/lib/platformClicksStore';
+import { ALL_SOURCES, PLATFORMS, type Source } from '@/lib/platformSources';
 
 interface PlatformClick {
   id: string;
