@@ -21,6 +21,9 @@ interface PublicSingle {
   discountCode: string;
   preorderPrice: string;
   bandcampUrl: string;
+  premiereVideoUrl: string;
+  premiereConfigured: boolean;
+  premiereRevealHours: string;
   active: boolean;
 }
 
@@ -38,6 +41,20 @@ function getPhase(single: PublicSingle, now: number): Phase {
   if (video !== null && now >= video) return 'released';
   if (audio !== null && now >= audio) return 'preorder';
   return 'presave';
+}
+
+function formatRemaining(
+  target: number,
+  now: number,
+  labels: { days: string; hours: string; minutes: string }
+): string {
+  const diff = Math.max(0, target - now);
+  const days = Math.floor(diff / 86_400_000);
+  const hours = Math.floor((diff % 86_400_000) / 3_600_000);
+  const minutes = Math.floor((diff % 3_600_000) / 60_000);
+  if (days > 0) return `${days} ${labels.days}, ${hours} ${labels.hours}`;
+  if (hours > 0) return `${hours} ${labels.hours}, ${minutes} ${labels.minutes}`;
+  return `${minutes} ${labels.minutes}`;
 }
 
 function Countdown({ target, labels }: { target: number; labels: { days: string; hours: string; minutes: string; seconds: string } }) {
@@ -194,6 +211,21 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
     })();
   }, [songId]);
 
+  // Solange der Premiere-Link konfiguriert, aber noch nicht freigeschaltet ist,
+  // regelmäßig neu abfragen, damit er ohne Neuladen der Seite erscheint, sobald
+  // die Reveal-Zeit erreicht wird.
+  useEffect(() => {
+    if (!songId || !single) return;
+    if (!single.premiereConfigured || single.premiereVideoUrl) return;
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/singles/${songId}`, { cache: 'no-store' });
+        if (res.ok) setSingle((await res.json()) as PublicSingle);
+      } catch {}
+    }, 60_000);
+    return () => clearInterval(interval);
+  }, [songId, single]);
+
   useEffect(() => {
     if (!songId) return;
     // Nicht zusätzlich als Website-Besuch zählen, wenn der Klick bereits über
@@ -219,6 +251,14 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
     if (phase === 'preorder') return parseDate(single.videoReleaseDate);
     return null;
   }, [single, phase]);
+
+  const premiereRevealTarget = useMemo(() => {
+    if (!single || !single.premiereConfigured) return null;
+    const video = parseDate(single.videoReleaseDate);
+    if (video === null) return null;
+    const hours = Number(single.premiereRevealHours) || 48;
+    return video - hours * 3_600_000;
+  }, [single]);
 
   const langSwitcher = (
     <div className="fixed top-4 right-4 z-50" ref={langRef}>
@@ -346,18 +386,78 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
           >
             <h2 className="text-3xl md:text-4xl font-black mb-4">{t.released.title}</h2>
             <p className="text-stone-400 leading-relaxed mb-8">{t.released.desc}</p>
-            <a
-              href="https://app.dawidfaith.de"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-amber-500 hover:bg-amber-400 text-black px-10 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all hover:shadow-lg hover:shadow-amber-500/30"
-            >
-              {t.released.appButton}
-              <ArrowRight size={18} />
-            </a>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {single.premiereVideoUrl && (
+                <a
+                  href={single.premiereVideoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-amber-500 hover:bg-amber-400 text-black px-10 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all hover:shadow-lg hover:shadow-amber-500/30"
+                >
+                  {t.released.watchButton}
+                  <ArrowRight size={18} />
+                </a>
+              )}
+              <a
+                href="https://app.dawidfaith.de"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-3 px-10 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all ${
+                  single.premiereVideoUrl
+                    ? 'border border-amber-500/50 hover:bg-amber-500/10 text-amber-400'
+                    : 'bg-amber-500 hover:bg-amber-400 text-black hover:shadow-lg hover:shadow-amber-500/30'
+                }`}
+              >
+                {t.released.appButton}
+                <ArrowRight size={18} />
+              </a>
+            </div>
           </motion.div>
         ) : (
           <>
+            {phase === 'preorder' && single.premiereConfigured && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.25 }}
+                className="mb-12 w-full max-w-xl text-center p-6 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
+              >
+                <p className="text-xs text-stone-400 leading-relaxed mb-4">{t.premiere.appHint}</p>
+                <a
+                  href="https://app.dawidfaith.de"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 border border-amber-500/50 hover:bg-amber-500/10 text-amber-400 px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-all"
+                >
+                  {t.premiere.appButton}
+                  <ArrowRight size={14} />
+                </a>
+
+                <div className="mt-5 pt-5 border-t border-white/10">
+                  {single.premiereVideoUrl ? (
+                    <a
+                      href={single.premiereVideoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-all"
+                    >
+                      {t.premiere.button}
+                      <ArrowRight size={14} />
+                    </a>
+                  ) : premiereRevealTarget !== null ? (
+                    <p className="text-xs text-stone-500">
+                      {t.premiere.countdownLabel}{' '}
+                      {formatRemaining(premiereRevealTarget, Date.now(), {
+                        days: t.days,
+                        hours: t.hours,
+                        minutes: t.minutes,
+                      })}
+                    </p>
+                  ) : null}
+                </div>
+              </motion.div>
+            )}
+
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

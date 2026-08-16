@@ -28,6 +28,8 @@ export async function PUT(
     'discountCode',
     'preorderPrice',
     'bandcampUrl',
+    'premiereVideoUrl',
+    'premiereRevealHours',
   ] as const;
   for (const field of stringFields) {
     if (typeof body[field] === 'string') patch[field] = body[field];

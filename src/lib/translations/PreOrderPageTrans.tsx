@@ -50,6 +50,13 @@ const PreOrderTranslations: Record<LangKey, {
     title: string;
     desc: string;
     appButton: string;
+    watchButton: string;
+  };
+  premiere: {
+    appHint: string;
+    appButton: string;
+    button: string;
+    countdownLabel: string;
   };
 }> = {
   de: {
@@ -102,6 +109,13 @@ const PreOrderTranslations: Record<LangKey, {
       title: 'Jetzt überall verfügbar',
       desc: 'Der Song und das Musikvideo sind offiziell erschienen – streame sie auf deiner Lieblingsplattform oder hol dir die limitierte NFT-Edition in der D.FAITH Webapp.',
       appButton: 'D.FAITH Webapp besuchen',
+      watchButton: 'Video jetzt ansehen',
+    },
+    premiere: {
+      appHint: 'Verbinde deinen YouTube-Account in der D.FAITH Webapp, damit du Belohnungen bekommst, wenn du live bei der Premiere im Chat dabei bist.',
+      appButton: 'Account verbinden',
+      button: 'Zur Premiere',
+      countdownLabel: 'Premiere-Link erscheint in',
     },
   },
   en: {
@@ -154,6 +168,13 @@ const PreOrderTranslations: Record<LangKey, {
       title: 'Now available everywhere',
       desc: 'The song and music video are officially out – stream them on your favorite platform or get the limited NFT edition in the D.FAITH webapp.',
       appButton: 'Visit D.FAITH Webapp',
+      watchButton: 'Watch the video now',
+    },
+    premiere: {
+      appHint: 'Connect your YouTube account in the D.FAITH webapp so you get rewards for being live in chat at the premiere.',
+      appButton: 'Connect account',
+      button: 'Go to premiere',
+      countdownLabel: 'Premiere link appears in',
     },
   },
   pl: {
@@ -206,6 +227,13 @@ const PreOrderTranslations: Record<LangKey, {
       title: 'Teraz dostępne wszędzie',
       desc: 'Utwór i teledysk zostały oficjalnie wydane – streamuj je na ulubionej platformie lub zdobądź limitowaną edycję NFT w aplikacji D.FAITH.',
       appButton: 'Odwiedź aplikację D.FAITH',
+      watchButton: 'Obejrzyj teledysk teraz',
+    },
+    premiere: {
+      appHint: 'Połącz swoje konto YouTube w aplikacji D.FAITH, aby otrzymać nagrody za bycie na żywo na czacie podczas premiery.',
+      appButton: 'Połącz konto',
+      button: 'Przejdź do premiery',
+      countdownLabel: 'Link do premiery pojawi się za',
     },
   },
 };

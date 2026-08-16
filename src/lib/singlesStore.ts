@@ -13,6 +13,8 @@ export interface SingleConfig {
   discountCode: string;
   preorderPrice: string; // z.B. '4.99' (rein informativ, Preis wird auf Bandcamp gepflegt)
   bandcampUrl: string; // Link zum Bandcamp-Track/Album (leer, bis konfiguriert)
+  premiereVideoUrl: string; // YouTube-Premiere-Link; wird öffentlich erst ab premiereRevealHours vor videoReleaseDate ausgeliefert
+  premiereRevealHours: string; // Stunden vor videoReleaseDate, ab denen premiereVideoUrl öffentlich sichtbar wird (Default 48, siehe api/singles)
   active: boolean;
   createdAt: string;
   updatedAt: string;

@@ -13,6 +13,8 @@ interface SingleConfig {
   discountCode: string;
   preorderPrice: string;
   bandcampUrl: string;
+  premiereVideoUrl: string;
+  premiereRevealHours: string;
   active: boolean;
   createdAt: string;
   updatedAt: string;
@@ -83,6 +85,8 @@ export default function AdminSinglesPage() {
       discountCode: '',
       preorderPrice: '',
       bandcampUrl: '',
+      premiereVideoUrl: '',
+      premiereRevealHours: '',
       active: true,
     }),
     []
@@ -106,6 +110,8 @@ export default function AdminSinglesPage() {
         discountCode: form.discountCode,
         preorderPrice: form.preorderPrice,
         bandcampUrl: form.bandcampUrl,
+        premiereVideoUrl: form.premiereVideoUrl,
+        premiereRevealHours: form.premiereRevealHours,
         active: form.active,
       }),
     });
@@ -351,6 +357,15 @@ export default function AdminSinglesPage() {
               {field('Bandcamp-Link', editing.bandcampUrl, (v) => setEditing({ ...editing, bandcampUrl: v }), {
                 placeholder: 'https://dawidfaith.bandcamp.com/track/…',
                 hint: 'Link zum Track/Album auf Bandcamp (MP3 + Musikvideo als Bonus-Item). Leer lassen = Pre-Order-Karte zeigt „Bald verfügbar".',
+              })}
+
+              {field('Premiere-Link (YouTube)', editing.premiereVideoUrl, (v) => setEditing({ ...editing, premiereVideoUrl: v }), {
+                placeholder: 'https://youtube.com/watch?v=…',
+                hint: 'Link zur YouTube-Premiere. Wird öffentlich erst kurz vor dem Video-Release freigeschaltet, damit Pre-Order-Käufer und App-Nutzer ihren Vorsprung behalten. Leer lassen = kein Premiere-Hinweis auf der Seite.',
+              })}
+              {field('Vorlauf bis Premiere-Link sichtbar (Std.)', editing.premiereRevealHours, (v) => setEditing({ ...editing, premiereRevealHours: v }), {
+                placeholder: '48',
+                hint: 'Stunden vor dem Video-Release, ab denen der Premiere-Link öffentlich erscheint. Leer lassen = 48 Std. (Standard).',
               })}
             </div>
 
