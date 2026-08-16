@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef, type FormEvent } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowRight, Music, ShoppingBag, Sparkles, ChevronDown, Trophy } from 'lucide-react';
 import Link from 'next/link';
@@ -80,6 +80,7 @@ function Countdown({ target, labels }: { target: number; labels: { days: string;
 export default function PreOrderPage() {
   const params = useParams<{ songId: string }>();
   const songId = params?.songId;
+  const searchParams = useSearchParams();
 
   const [lang, setLang] = useState<LangKey>('de');
   const [single, setSingle] = useState<PublicSingle | null>(null);
@@ -193,6 +194,19 @@ export default function PreOrderPage() {
       setLoading(false);
     })();
   }, [songId]);
+
+  useEffect(() => {
+    if (!songId) return;
+    // Nur zählen, wenn kein Plattform-Tracking-Link genutzt wurde (der zählt
+    // sich selbst über /api/track/[songId]/[platform] und hängt "?ref=" an).
+    if (searchParams?.get('ref')) return;
+    fetch('/api/track-visit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ songId }),
+      keepalive: true,
+    }).catch(() => {});
+  }, [songId, searchParams]);
 
   const phase: Phase = useMemo(
     () => (single ? getPhase(single, Date.now()) : 'presave'),

@@ -257,6 +257,12 @@ export default function AdminSinglesPage() {
                     Seite öffnen
                   </a>
                   <button
+                    onClick={() => router.push(`/admin/singles/${s.id}/stats`)}
+                    className="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm"
+                  >
+                    📊 Klick-Statistik
+                  </button>
+                  <button
                     onClick={() => setEditing({ ...s, isNew: false })}
                     className="px-3 py-1.5 rounded bg-amber-600 hover:bg-amber-500 text-sm"
                   >
