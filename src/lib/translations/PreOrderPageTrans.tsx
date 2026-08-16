@@ -57,6 +57,7 @@ const PreOrderTranslations: Record<LangKey, {
     cardDesc: string;
     button: string;
     countdownLabel: string;
+    comingSoon: string;
   };
 }> = {
   de: {
@@ -116,6 +117,7 @@ const PreOrderTranslations: Record<LangKey, {
       cardDesc: 'Sei live dabei, wenn Song und Musikvideo Premiere feiern, und sichere dir exklusive Belohnungen für alle, die im Chat mit dabei sind.',
       button: 'Zur Premiere',
       countdownLabel: 'Premiere-Link erscheint in',
+      comingSoon: 'Termin wird bald bekanntgegeben',
     },
   },
   en: {
@@ -175,6 +177,7 @@ const PreOrderTranslations: Record<LangKey, {
       cardDesc: 'Be there live when the song and music video premiere, and unlock exclusive rewards for being in the chat.',
       button: 'Go to premiere',
       countdownLabel: 'Premiere link appears in',
+      comingSoon: 'Date to be announced soon',
     },
   },
   pl: {
@@ -234,6 +237,7 @@ const PreOrderTranslations: Record<LangKey, {
       cardDesc: 'Bądź na żywo, gdy utwór i teledysk będą miały premierę, i zdobądź ekskluzywne nagrody za bycie na czacie.',
       button: 'Przejdź do premiery',
       countdownLabel: 'Link do premiery pojawi się za',
+      comingSoon: 'Termin zostanie wkrótce ogłoszony',
     },
   },
 };

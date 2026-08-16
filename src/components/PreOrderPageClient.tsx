@@ -324,7 +324,7 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
   }
 
   const showPresaveCard = phase === 'presave' && !!single.presaveUrl;
-  const showPremiereCard = phase === 'preorder' && single.premiereConfigured;
+  const showPremiereCard = phase === 'preorder';
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
@@ -581,7 +581,11 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
                         minutes: t.minutes,
                       })}
                     </p>
-                  ) : null}
+                  ) : (
+                    <div className="inline-flex items-center justify-center gap-2 bg-stone-800 text-stone-400 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider cursor-not-allowed">
+                      {t.premiere.comingSoon}
+                    </div>
+                  )}
                 </motion.div>
               )}
 
