@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef, type FormEvent } from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowRight, Music, ShoppingBag, Sparkles, ChevronDown, Trophy } from 'lucide-react';
 import Link from 'next/link';
@@ -80,7 +80,6 @@ function Countdown({ target, labels }: { target: number; labels: { days: string;
 export default function PreOrderPageClient({ skipWebsiteTracking = false }: { skipWebsiteTracking?: boolean }) {
   const params = useParams<{ songId: string }>();
   const songId = params?.songId;
-  const searchParams = useSearchParams();
 
   const [lang, setLang] = useState<LangKey>('de');
   const [single, setSingle] = useState<PublicSingle | null>(null);
@@ -198,17 +197,16 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
   useEffect(() => {
     if (!songId) return;
     // Nicht zusätzlich als Website-Besuch zählen, wenn der Klick bereits über
-    // einen Plattform-Link gezählt wurde (skipWebsiteTracking-Prop, oder das
-    // ältere "?ref="-Format der /api/track-Redirects).
+    // einen Plattform-Link gezählt wurde (skipWebsiteTracking-Prop von der
+    // /pre-order/[songId]/[platform]-Route).
     if (skipWebsiteTracking) return;
-    if (searchParams?.get('ref')) return;
     fetch('/api/track-visit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ songId }),
       keepalive: true,
     }).catch(() => {});
-  }, [songId, searchParams, skipWebsiteTracking]);
+  }, [songId, skipWebsiteTracking]);
 
   const phase: Phase = useMemo(
     () => (single ? getPhase(single, Date.now()) : 'presave'),
