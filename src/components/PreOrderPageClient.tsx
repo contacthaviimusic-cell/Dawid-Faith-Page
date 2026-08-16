@@ -548,6 +548,43 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
                 </motion.div>
               )}
 
+              {/* 01 – Premiere */}
+              {showPremiereCard && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
+                >
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-amber-500/60 font-black text-sm">01</span>
+                    <Youtube className="text-amber-400" size={22} />
+                  </div>
+                  <h3 className="text-xl font-black mb-3">{t.premiere.cardTitle}</h3>
+                  <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.premiere.cardDesc}</p>
+                  {single.premiereVideoUrl ? (
+                    <a
+                      href={single.premiereVideoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
+                    >
+                      {t.premiere.button}
+                      <ArrowRight size={16} />
+                    </a>
+                  ) : premiereRevealTarget !== null ? (
+                    <p className="text-xs text-stone-500 text-center">
+                      {t.premiere.countdownLabel}{' '}
+                      {formatRemaining(premiereRevealTarget, Date.now(), {
+                        days: t.days,
+                        hours: t.hours,
+                        minutes: t.minutes,
+                      })}
+                    </p>
+                  ) : null}
+                </motion.div>
+              )}
+
               {/* 02 – Pre-Order */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -556,7 +593,7 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
                 className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/40 backdrop-blur-sm relative"
               >
                 <div className="flex items-center justify-between mb-6">
-                  <span className="text-amber-500/60 font-black text-sm">{showPresaveCard ? '02' : '01'}</span>
+                  <span className="text-amber-500/60 font-black text-sm">{showPresaveCard || showPremiereCard ? '02' : '01'}</span>
                   <ShoppingBag className="text-amber-400" size={22} />
                 </div>
                 <h3 className="text-xl font-black mb-3">{t.preorder.title}</h3>
@@ -592,7 +629,7 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
                 className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
               >
                 <div className="flex items-center justify-between mb-6">
-                  <span className="text-amber-500/60 font-black text-sm">{showPresaveCard ? '03' : '02'}</span>
+                  <span className="text-amber-500/60 font-black text-sm">{showPresaveCard || showPremiereCard ? '03' : '02'}</span>
                   <Sparkles className="text-amber-400" size={22} />
                 </div>
 
@@ -632,42 +669,6 @@ export default function PreOrderPageClient({ skipWebsiteTracking = false }: { sk
                 </a>
               </motion.div>
 
-              {/* 03 – Premiere */}
-              {showPremiereCard && (
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                  className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
-                >
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="text-amber-500/60 font-black text-sm">03</span>
-                    <Youtube className="text-amber-400" size={22} />
-                  </div>
-                  <h3 className="text-xl font-black mb-3">{t.premiere.cardTitle}</h3>
-                  <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.premiere.cardDesc}</p>
-                  {single.premiereVideoUrl ? (
-                    <a
-                      href={single.premiereVideoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
-                    >
-                      {t.premiere.button}
-                      <ArrowRight size={16} />
-                    </a>
-                  ) : premiereRevealTarget !== null ? (
-                    <p className="text-xs text-stone-500 text-center">
-                      {t.premiere.countdownLabel}{' '}
-                      {formatRemaining(premiereRevealTarget, Date.now(), {
-                        days: t.days,
-                        hours: t.hours,
-                        minutes: t.minutes,
-                      })}
-                    </p>
-                  ) : null}
-                </motion.div>
-              )}
             </div>
           </>
         )}
