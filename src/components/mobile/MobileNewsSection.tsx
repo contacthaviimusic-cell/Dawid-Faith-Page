@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import NewsTranslations from '@/lib/translations/NewsSectionTrans';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Newspaper, Clock, Tag, X, ExternalLink, Share, Star, ArrowRight } from 'lucide-react';
-import Image from 'next/image';
+import CoverMedia from '../CoverMedia';
 import type { NewsItem } from '@/types/news';
 import NewsDetailRenderer from '@/components/news';
 
@@ -143,10 +143,9 @@ export default function MobileNewsSection() {
                 <div className="flex gap-4 p-4">
                   {/* Image */}
                   <div className="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
-                    <Image
+                    <CoverMedia
                       src={item.image}
                       alt={item.title}
-                      fill
                       className="object-cover"
                     />
                     {item.featured && (
@@ -232,10 +231,9 @@ export default function MobileNewsSection() {
             >
               {/* Header */}
               <div className="relative h-48">
-                <Image
+                <CoverMedia
                   src={selectedNews.image}
                   alt={selectedNews.title}
-                  fill
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />

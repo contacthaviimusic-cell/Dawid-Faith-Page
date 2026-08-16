@@ -3,8 +3,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, Music, Heart, Download, Share, Video, ExternalLink, ShoppingBag } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
+import CoverMedia from '../CoverMedia';
 
 interface Track {
   id: string;
@@ -27,7 +27,7 @@ export default function MobileMusicSection() {
       artist: 'Dawid Faith',
       duration: '3:45',
       audioSrc: '/musik/katze/Katze_V4.mp3',
-      coverImage: '/musik/katze/photo_2026-01-06_14-31-47.jpg',
+      coverImage: '/musik/katze/Katze-Cover.mp4',
       video: '/musik/katze/video_2026-04-10_14-55-08.mp4',
       description: 'Der erste Song der Release Kampagne - ab 18. September 2026'
     },
@@ -260,10 +260,9 @@ export default function MobileMusicSection() {
                 ) : (
                   // Cover Image mit Play Button
                   <>
-                    <Image
+                    <CoverMedia
                       src={track.coverImage}
                       alt={track.title}
-                      fill
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -416,10 +415,9 @@ export default function MobileMusicSection() {
                 {/* Current Track Info */}
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
-                    <Image
+                    <CoverMedia
                       src={currentTrack.coverImage}
                       alt={getTrackInfo(currentTrack.id, 'title')}
-                      fill
                       className="object-cover"
                     />
                   </div>

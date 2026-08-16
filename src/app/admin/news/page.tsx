@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import CoverMedia from '@/components/CoverMedia';
 import type { NewsItem } from '@/types/news';
 
 type FormState = Omit<NewsItem, 'id'> & { id?: string };
@@ -137,7 +137,9 @@ export default function AdminNewsPage() {
             {items.map((n) => (
               <div key={n.id} className="p-4 bg-black/30 border border-slate-800 rounded">
                 <div className="flex items-start gap-4">
-                  <Image src={n.image} alt="" width={96} height={64} className="w-24 h-16 object-cover rounded" />
+                  <div className="relative w-24 h-16 rounded overflow-hidden flex-shrink-0">
+                    <CoverMedia src={n.image} alt="" className="object-cover" />
+                  </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
                       {n.featured && <span className="text-yellow-400">★</span>}

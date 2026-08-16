@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import NewsTranslations from '@/lib/translations/NewsSectionTrans';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import CoverMedia from './CoverMedia';
 import { Calendar, Clock, ArrowRight, Star, Music, Headphones, Users, X, Share2 } from 'lucide-react';
 import type { NewsItem } from '@/types/news';
 import NewsDetailRenderer from '@/components/news';
@@ -227,10 +227,9 @@ const NewsSection = () => {
               className="relative h-[26rem] md:h-[30rem] rounded-2xl overflow-hidden group cursor-pointer border border-white/10 hover:border-amber-500/40 transition-colors duration-500"
               onClick={() => setSelectedArticle(item)}
             >
-              <Image
+              <CoverMedia
                 src={item.image}
                 alt={item.title}
-                fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10"></div>
@@ -291,10 +290,9 @@ const NewsSection = () => {
               className="group cursor-pointer bg-white/[0.03] rounded-2xl overflow-hidden border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.05] transition-all duration-500"
             >
               <div className="relative h-52 overflow-hidden">
-                <Image
+                <CoverMedia
                   src={item.image}
                   alt={item.title}
-                  fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
@@ -368,10 +366,9 @@ const NewsSection = () => {
           >
             {/* Header */}
             <div className="relative h-64 md:h-80">
-              <Image
+              <CoverMedia
                 src={selectedArticle.image}
                 alt={selectedArticle.title}
-                fill
                 className="object-cover rounded-t-3xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-t-3xl"></div>

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+import CoverMedia from '@/components/CoverMedia';
 import BookingPageTrans from '@/lib/translations/BookingPageTrans';
 import FlagForLang, { FlagDE, FlagGB, FlagPL } from '@/components/FlagIcon';
 
@@ -113,7 +114,7 @@ export default function BookingPage() {
   }, []);
 
   const songs = [
-    { id: 'katze', name: 'Katze', image: '/musik/katze/photo_2026-01-06_14-31-47.jpg', video: '/musik/katze/video_2026-04-10_14-55-08.mp4', desc: { de: 'Der erste Song der Release Kampagne', en: 'The first song of the Release Campaign', pl: 'Pierwszy utwór Kampanii Release' } },
+    { id: 'katze', name: 'Katze', image: '/musik/katze/Katze-Cover.mp4', video: '/musik/katze/video_2026-04-10_14-55-08.mp4', desc: { de: 'Der erste Song der Release Kampagne', en: 'The first song of the Release Campaign', pl: 'Pierwszy utwór Kampanii Release' } },
     { id: 'znikla', name: 'Znikła', image: '/musik/znikla/Znikła pic.jpg', video: '/musik/znikla/Znikłą Vid1.mp4', desc: { de: 'Eine intensive Reise durch Verlust und Sehnsucht', en: 'An intense journey through loss and longing', pl: 'Intensywna podróż przez stratę i tęsknotę' } },
     { id: 'maria', name: 'Maria', image: '/musik/maria/Maria.jpg', video: '/musik/maria/Maria Vid1.mp4', desc: { de: 'Eine herzzerreißende Ballade über Einsamkeit und verlorene Liebe', en: 'A heartbreaking ballad about loneliness and lost love', pl: 'Ballada o samotności i utraconej miłości' } },
     { id: 'niebianski-groove', name: 'Niebianski Groove', image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png', video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4', desc: { de: 'Ein weiterer Track aus der Release Kampagne', en: 'Another track from the Release Campaign', pl: 'Kolejny utwór z Kampanii Release' } },
@@ -406,10 +407,9 @@ export default function BookingPage() {
                 {/* Thumbnail / Video Container */}
                 <div className="relative h-64 rounded-t-2xl overflow-hidden">
                   {/* Thumbnail */}
-                  <Image
+                  <CoverMedia
                     src={song.image}
                     alt={song.name}
-                    fill
                     className={`object-cover transition-transform duration-500 ${showVideo === song.id ? 'opacity-0' : 'group-hover:scale-105'}`}
                   />
                   <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent transition-opacity duration-300 ${showVideo === song.id ? 'opacity-0' : ''}`} />

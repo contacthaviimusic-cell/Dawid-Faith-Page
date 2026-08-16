@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
+import CoverMedia from './CoverMedia';
 import { Music, Video, Smartphone, ExternalLink, ShoppingBag } from 'lucide-react';
 
 interface Song {
@@ -18,7 +18,7 @@ const songs: Song[] = [
   {
     id: 'katze',
     title: 'Katze',
-    image: '/musik/katze/photo_2026-01-06_14-31-47.jpg',
+    image: '/musik/katze/Katze-Cover.mp4',
     video: '/musik/katze/video_2026-04-10_14-55-08.mp4',
     description: 'Der erste Song der Release Kampagne - ab 18. September 2026'
   },
@@ -123,10 +123,9 @@ const MusicSection = () => {
 
                 {/* Cover */}
                 <div className="relative w-full sm:w-44 h-44 shrink-0 overflow-hidden">
-                  <Image
+                  <CoverMedia
                     src={song.image}
                     alt={song.title}
-                    fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <button
