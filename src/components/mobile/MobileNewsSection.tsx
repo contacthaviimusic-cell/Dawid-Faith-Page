@@ -8,6 +8,14 @@ import CoverMedia from '../CoverMedia';
 import type { NewsItem } from '@/types/news';
 import NewsDetailRenderer from '@/components/news';
 
+// Auf Mobile zeigt die Katze-News das statische Foto statt des Video-Covers
+// (Desktop nutzt weiterhin Katze-Cover.mp4).
+const KATZE_NEWS_ID = '1758217302493-waterfall';
+const KATZE_MOBILE_IMAGE = '/musik/katze/photo_2026-01-06_14-31-47.jpg';
+function mobileNewsImage(item: NewsItem): string {
+  return item.id === KATZE_NEWS_ID ? KATZE_MOBILE_IMAGE : item.image;
+}
+
 export default function MobileNewsSection() {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
@@ -144,7 +152,7 @@ export default function MobileNewsSection() {
                   {/* Image */}
                   <div className="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
                     <CoverMedia
-                      src={item.image}
+                      src={mobileNewsImage(item)}
                       alt={item.title}
                       className="object-cover"
                     />
@@ -232,7 +240,7 @@ export default function MobileNewsSection() {
               {/* Header */}
               <div className="relative h-48">
                 <CoverMedia
-                  src={selectedNews.image}
+                  src={mobileNewsImage(selectedNews)}
                   alt={selectedNews.title}
                   className="object-cover"
                 />
