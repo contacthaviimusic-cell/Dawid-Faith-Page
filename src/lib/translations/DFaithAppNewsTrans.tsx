@@ -12,7 +12,7 @@ const DFaithAppNewsTranslations = {
     rewards: [
       'Gib deine Tokens stattdessen für exklusive Sachen von Dawid Faith aus.',
       'Songs gibt es als limitierte, nummerierte NFTs in deiner eigenen Wallet.',
-      'Musikvideos bekommst du inklusive Song schon vor dem offiziellen Release als Download – ganz ohne NFT.'
+      'Musikvideos bekommst du inklusive Song schon vor dem offiziellen Release als Download.'
     ],
     shopTitle: '3. Sammelkarten sammeln',
     shopDesc: 'Zu jedem Song gibt es eigene Sammelkarten – manche häufig, manche selten. Je aktiver du bist, desto seltener deine Karten – und seltene Karten bringen dauerhaft mehr Belohnungen.',
@@ -31,7 +31,7 @@ const DFaithAppNewsTranslations = {
     rewards: [
       'Spend your Tokens on exclusive things from Dawid Faith instead.',
       'Songs are available as limited, numbered NFTs in your own wallet.',
-      'Music videos come with the song as an early download before the official release – no NFT needed.'
+      'Music videos come with the song as an early download before the official release.'
     ],
     shopTitle: '3. Collect Collectible Cards',
     shopDesc: 'Every song has its own collectible cards – some common, some rare. The more active you are, the rarer your cards get – and rare cards give you permanently higher rewards.',
@@ -50,7 +50,7 @@ const DFaithAppNewsTranslations = {
     rewards: [
       'Wydaj swoje Tokeny na ekskluzywne rzeczy od Dawida Faith.',
       'Utwory dostępne są jako limitowane, ponumerowane NFT w twoim portfelu.',
-      'Teledyski otrzymujesz wraz z utworem do pobrania jeszcze przed oficjalną premierą – bez NFT.'
+      'Teledyski otrzymujesz wraz z utworem do pobrania jeszcze przed oficjalną premierą.'
     ],
     shopTitle: '3. Zbieraj karty kolekcjonerskie',
     shopDesc: 'Do każdego utworu istnieją własne karty kolekcjonerskie – niektóre częste, niektóre rzadkie. Im aktywniej bierzesz udział, tym rzadsze karty otrzymujesz – a rzadkie karty dają trwale wyższe nagrody.',
