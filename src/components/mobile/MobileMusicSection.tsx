@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, Music, Heart, Download, Share, Video, ExternalLink, ShoppingBag } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Music, Video, ExternalLink, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import CoverMedia from '../CoverMedia';
 
@@ -73,51 +73,8 @@ export default function MobileMusicSection() {
     }
   ]);
 
-  const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(1);
-  const [isMuted, setIsMuted] = useState(false);
   const [showVideo, setShowVideo] = useState<string | null>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
-
-  // Helper function to get localized track info
-  const getTrackInfo = (trackId: string, field: 'title' | 'description'): string => {
-    const translatedTrack = MusicTranslations[lang].songs?.[trackId];
-    if (translatedTrack && translatedTrack[field]) {
-      return translatedTrack[field];
-    }
-    const track = tracks.find(t => t.id === trackId);
-    return track?.[field as keyof Track] || '';
-  };
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    const updateTime = () => setCurrentTime(audio.currentTime);
-    const updateDuration = () => setDuration(audio.duration);
-    const handleEnded = () => {
-      setIsPlaying(false);
-      // Auto-play next track
-      const currentIndex = tracks.findIndex(track => track.id === currentTrack?.id);
-      if (currentIndex < tracks.length - 1) {
-        setCurrentTrack(tracks[currentIndex + 1]);
-      }
-    };
-
-    audio.addEventListener('timeupdate', updateTime);
-    audio.addEventListener('loadedmetadata', updateDuration);
-    audio.addEventListener('ended', handleEnded);
-
-    return () => {
-      audio.removeEventListener('timeupdate', updateTime);
-      audio.removeEventListener('loadedmetadata', updateDuration);
-      audio.removeEventListener('ended', handleEnded);
-    };
-  }, [currentTrack, tracks]);
 
   useEffect(() => {
     try {
@@ -137,77 +94,6 @@ export default function MobileMusicSection() {
     window.addEventListener('site-lang-changed', onLang as EventListener);
     return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
   }, []);
-
-  const playTrack = (track: Track) => {
-    if (currentTrack?.id === track.id) {
-      togglePlayPause();
-    } else {
-      setCurrentTrack(track);
-      setIsPlaying(true);
-    }
-  };
-
-  const togglePlayPause = () => {
-    const audio = audioRef.current;
-    if (!audio || !currentTrack) return;
-
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      audio.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
-
-  const skipTrack = (direction: 'prev' | 'next') => {
-    const currentIndex = tracks.findIndex(track => track.id === currentTrack?.id);
-    let newIndex;
-    
-    if (direction === 'next') {
-      newIndex = (currentIndex + 1) % tracks.length;
-    } else {
-      newIndex = currentIndex === 0 ? tracks.length - 1 : currentIndex - 1;
-    }
-    
-    setCurrentTrack(tracks[newIndex]);
-    setIsPlaying(true);
-  };
-
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  };
-
-  const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    
-    const newTime = (parseFloat(e.target.value) / 100) * duration;
-    audio.currentTime = newTime;
-    setCurrentTime(newTime);
-  };
-
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(e.target.value) / 100;
-    setVolume(newVolume);
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume;
-    }
-    setIsMuted(newVolume === 0);
-  };
-
-  const toggleMute = () => {
-    if (audioRef.current) {
-      if (isMuted) {
-        audioRef.current.volume = volume;
-        setIsMuted(false);
-      } else {
-        audioRef.current.volume = 0;
-        setIsMuted(true);
-      }
-    }
-  };
 
   return (
     <section id="music" className="py-8 px-4 bg-gradient-to-b from-black via-yellow-900/10 to-black">
@@ -318,51 +204,6 @@ export default function MobileMusicSection() {
                     </motion.div>
                   </Link>
                 )}
-
-                {/* Action Buttons */}
-                <div className="flex gap-3">
-                  {/* Play Audio Button */}
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => playTrack(track)}
-                    className="flex-1 bg-gradient-to-r from-yellow-600 to-amber-600 hover:from-yellow-500 hover:to-amber-500 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center"
-                  >
-                    {currentTrack?.id === track.id && isPlaying ? (
-                      <Pause size={18} />
-                    ) : (
-                      <Play size={18} />
-                    )}
-                  </motion.button>
-
-                  {/* Webapp Button */}
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => window.open('https://app.dawidfaith.de', '_blank')}
-                    className="bg-stone-700/60 hover:bg-stone-600/60 rounded-xl px-4 py-3 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2"
-                    aria-label="Webapp öffnen"
-                  >
-                    <ExternalLink size={18} />
-                    Webapp
-                  </motion.button>
-                </div>
-
-                {/* Progress Bar for Current Track */}
-                {currentTrack?.id === track.id && (
-                  <div className="mt-4">
-                    <div className="flex items-center gap-2 text-xs text-stone-400 mb-2">
-                      <span>{formatTime(currentTime)}</span>
-                      <div className="flex-1 bg-stone-700 rounded-full h-1.5">
-                        <div 
-                          className="bg-gradient-to-r from-yellow-500 to-amber-500 h-1.5 rounded-full transition-all duration-300"
-                          style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
-                        />
-                      </div>
-                      <span>{formatTime(duration)}</span>
-                    </div>
-                  </div>
-                )}
               </div>
             </motion.div>
           ))}
@@ -395,127 +236,6 @@ export default function MobileMusicSection() {
             {MusicTranslations[lang].webappButton || 'D.FAITH Webapp besuchen'}
           </motion.a>
         </motion.div>
-
-        {/* Mobile Player Controls */}
-        <AnimatePresence>
-          {currentTrack && (
-            <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 100, opacity: 0 }}
-              className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-t from-stone-900 via-amber-900/50 to-transparent backdrop-blur-md border-t border-amber-500/30 p-4"
-            >
-              <div className="flex items-center gap-4">
-                {/* Current Track Info */}
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
-                    <CoverMedia
-                      src={currentTrack.coverImage}
-                      alt={getTrackInfo(currentTrack.id, 'title')}
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="font-bold text-white text-sm truncate">
-                      {getTrackInfo(currentTrack.id, 'title')}
-                    </h3>
-                    <p className="text-stone-400 text-xs">
-                      {currentTrack.artist}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Player Controls */}
-                <div className="flex items-center gap-3">
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => skipTrack('prev')}
-                    className="w-10 h-10 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-400"
-                  >
-                    <SkipBack size={18} />
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={togglePlayPause}
-                    className="w-12 h-12 bg-gradient-to-r from-yellow-600 to-amber-600 rounded-full flex items-center justify-center text-white shadow-lg"
-                  >
-                    {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => skipTrack('next')}
-                    className="w-10 h-10 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-400"
-                  >
-                    <SkipForward size={18} />
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={toggleMute}
-                    className="w-10 h-10 bg-stone-500/20 rounded-full flex items-center justify-center text-stone-400"
-                  >
-                    {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-                  </motion.button>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              <div className="mt-3">
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={duration ? (currentTime / duration) * 100 : 0}
-                  onChange={handleProgressChange}
-                  className="w-full h-1 bg-stone-700 rounded-lg appearance-none cursor-pointer slider"
-                />
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Hidden Audio Element */}
-        {currentTrack && (
-          <audio
-            ref={audioRef}
-            src={currentTrack.audioSrc}
-            autoPlay={isPlaying}
-            onLoadedMetadata={() => {
-              if (audioRef.current) {
-                setDuration(audioRef.current.duration);
-              }
-            }}
-          />
-        )}
-
-        {/* Style for custom slider */}
-        <style jsx>{`
-          .slider::-webkit-slider-thumb {
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ec4899, #8b5cf6);
-            cursor: pointer;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-          }
-          .slider::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ec4899, #8b5cf6);
-            cursor: pointer;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-          }
-        `}</style>
       </div>
     </section>
   );
