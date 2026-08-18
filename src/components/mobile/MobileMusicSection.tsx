@@ -306,12 +306,6 @@ export default function MobileMusicSection() {
 
               {/* Track Info & Controls */}
               <div className="p-4">
-                {((MusicTranslations[lang].songs && MusicTranslations[lang].songs![track.id]?.description) || track.description) && (
-                  <p className="text-stone-400 text-sm mb-4 leading-relaxed">
-                    {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![track.id]?.description) || track.description}
-                  </p>
-                )}
-
                 {/* Pre-Order Button */}
                 {track.id === 'katze' && (
                   <Link href="/pre-order/katze" className="block mb-3">

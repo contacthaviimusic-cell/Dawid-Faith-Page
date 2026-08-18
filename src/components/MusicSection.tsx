@@ -145,9 +145,6 @@ const MusicSection = () => {
                     <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-amber-300 transition-colors mb-1.5">
                       {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.title) || song.title}
                     </h3>
-                    <p className="text-stone-400 text-sm leading-relaxed">
-                      {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.description) || song.description}
-                    </p>
                   </div>
 
                   <div className="flex flex-wrap gap-3">
