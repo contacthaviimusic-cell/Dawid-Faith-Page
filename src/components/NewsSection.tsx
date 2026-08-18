@@ -209,73 +209,9 @@ const NewsSection = () => {
           </h2>
         </motion.div>
 
-        {/* Featured Article – cover story */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mb-10"
-        >
-          {newsItems.filter(item => item.featured).map((item) => {
-            const Icon = iconFor[item.category as keyof typeof iconFor] || Star;
-            const displayTitle = getLocalizedField(item, 'title', lang);
-            const displayExcerpt = getLocalizedField(item, 'excerpt', lang);
-            return (
-            <div
-              key={item.id}
-              className="relative h-[26rem] md:h-[30rem] rounded-2xl overflow-hidden group cursor-pointer border border-white/10 hover:border-amber-500/40 transition-colors duration-500"
-              onClick={() => setSelectedArticle(item)}
-            >
-              <CoverMedia
-                src={item.image}
-                alt={item.title}
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10"></div>
-
-              <div className="absolute top-5 left-5 flex items-center gap-3">
-                <span className="bg-amber-500 text-black px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
-                  {NewsTranslations[lang].featuredTag}
-                </span>
-              </div>
-
-              <div className="absolute bottom-0 left-0 right-0 p-7 md:p-10">
-                <div className="flex flex-wrap items-center gap-4 mb-4 text-sm">
-                  <span className="text-amber-400 font-semibold flex items-center gap-2">
-                    <Icon size={15} />
-                    {item.category}
-                  </span>
-                  <span className="flex items-center gap-2 text-stone-400">
-                    <Calendar size={14} />
-                    {formatDate(item.date)}
-                  </span>
-                  <span className="flex items-center gap-2 text-stone-400">
-                    <Clock size={14} />
-                    {isClockTime(item.readTime) ? formatTime(item.date, item.readTime) : item.readTime}
-                  </span>
-                </div>
-
-                <h3 className="text-3xl md:text-4xl font-black mb-4 max-w-3xl leading-tight group-hover:text-amber-300 transition-colors">
-                  {displayTitle}
-                </h3>
-
-                <p className="text-stone-300 leading-relaxed mb-6 max-w-2xl hidden sm:block">
-                  {displayExcerpt}
-                </p>
-
-                <span className="inline-flex items-center gap-2 bg-amber-500 group-hover:bg-amber-400 text-black px-7 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-colors">
-                  {NewsTranslations[lang].readMore}
-                  <ArrowRight size={16} />
-                </span>
-              </div>
-            </div>
-          );})}
-        </motion.div>
-
-        {/* News Grid */}
+        {/* News Grid – alle News gleich groß, nebeneinander */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {newsItems.filter(item => !item.featured).slice(0, 2).map((item, index) => {
+          {newsItems.slice(0, 2).map((item, index) => {
             const Icon = iconFor[item.category as keyof typeof iconFor] || Star;
             const displayTitle = getLocalizedField(item, 'title', lang);
             const displayExcerpt = getLocalizedField(item, 'excerpt', lang);
@@ -302,6 +238,13 @@ const NewsSection = () => {
                     {item.category}
                   </span>
                 </div>
+                {item.featured && (
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-amber-500 text-black px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                      {NewsTranslations[lang].featuredTag}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div className="p-6">
@@ -334,7 +277,7 @@ const NewsSection = () => {
         </div>
 
         {/* "See All News" Button - zeige nur wenn mehr als 2 News existieren */}
-        {newsItems.filter(item => !item.featured).length > 2 && (
+        {newsItems.length > 2 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
