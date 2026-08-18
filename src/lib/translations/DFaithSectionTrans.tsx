@@ -18,7 +18,7 @@ export const DFaithTranslations: Record<LangKey, {
       },
       {
         title: 'Exklusive Inhalte kaufen',
-        text: 'Kaufe mit deinen Tokens limitierte Songs und Videos — als nummerierte NFTs in deinem Wallet.'
+        text: 'Kaufe mit deinen Tokens limitierte Song-NFTs — oder hol dir Musikvideos samt Song schon vor dem offiziellen Release zum Download.'
       },
       {
         title: 'Collectible Cards sammeln',
@@ -37,7 +37,7 @@ export const DFaithTranslations: Record<LangKey, {
       },
       {
         title: 'Buy exclusive content',
-        text: 'Use your Tokens to buy limited songs and videos — as numbered NFTs in your wallet.'
+        text: 'Use your Tokens to buy limited Song NFTs — or get music videos with the song as an early download before the official release.'
       },
       {
         title: 'Collect Collectible Cards',
@@ -56,7 +56,7 @@ export const DFaithTranslations: Record<LangKey, {
       },
       {
         title: 'Kupuj ekskluzywne treści',
-        text: 'Za Tokeny kupujesz limitowane utwory i filmy — jako ponumerowane NFT w swoim portfelu.'
+        text: 'Za Tokeny kupujesz limitowane Song NFT — lub zdobywasz teledyski wraz z utworem do pobrania jeszcze przed oficjalną premierą.'
       },
       {
         title: 'Zbieraj Collectible Cards',
