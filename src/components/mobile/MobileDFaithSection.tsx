@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import DFaithTranslations from '@/lib/translations/DFaithSectionTrans';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import CoverMedia from '../CoverMedia';
 import { Zap, ArrowRight, Target, ShoppingBag, Layers } from 'lucide-react';
 
 const pointIcons = [
@@ -64,7 +64,7 @@ export default function MobileDFaithSection() {
               <div className="relative">
                 <div className="absolute inset-0 w-24 h-24 rounded-full bg-gradient-to-r from-amber-500/30 via-yellow-500/30 to-amber-500/30 blur-lg animate-pulse" />
                 <div className="relative w-20 h-20 mb-4 rounded-full overflow-hidden border-2 border-amber-500/60 shadow-2xl shadow-amber-500/30">
-                  <Image src="/dfaith-token.png" alt="D.FAITH Token" width={80} height={80} className="object-cover" />
+                  <CoverMedia src="/dfaith-token-showcase.mp4" alt="D.FAITH Token" className="object-cover" />
                   {/* Subtle shine effect */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent animate-pulse" />
                 </div>

@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import DFaithTranslations from '../lib/translations/DFaithSectionTrans';
+import CoverMedia from './CoverMedia';
 
 const DFaithSection = () => {
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
@@ -59,7 +59,7 @@ const DFaithSection = () => {
               transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
               className="relative w-full h-full rounded-full overflow-hidden border-2 border-amber-500/40 shadow-2xl shadow-amber-500/20"
             >
-              <Image src="/dfaith-token.png" alt="D.FAITH Token" fill className="object-cover" />
+              <CoverMedia src="/dfaith-token-showcase.mp4" alt="D.FAITH Token" className="object-cover" />
             </motion.div>
           </div>
 
