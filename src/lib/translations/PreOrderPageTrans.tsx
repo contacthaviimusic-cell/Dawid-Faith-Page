@@ -73,8 +73,8 @@ const PreOrderTranslations: Record<LangKey, {
     chooseYourWay: 'Wähle deinen Weg',
     presave: {
       title: 'Presave',
-      desc: 'Speichere den Song jetzt in deiner Musik-Bibliothek vor und sichere dir automatisch die Chance auf ein exklusives Mythic-NFT aus den D.FAITH Collectibles – eine der seltensten Song-Karten überhaupt. Das Song-NFT ist nur bis zum Release des Musikvideos verfügbar.',
-      prizeLabel: 'Zu gewinnen: Mythic-NFT + limitiertes Song NFT',
+      desc: 'Speichere den Song jetzt in deiner Musik-Bibliothek vor und sichere dir automatisch die Chance auf ein exklusives Mythic-NFT aus den D.FAITH Collectibles – eine der seltensten Song-Karten überhaupt. Die Song-NFTs sind nur bis zum Release des Musikvideos verfügbar.',
+      prizeLabel: 'Zu gewinnen: Mythic-NFT + 5 limitierte Song NFTs',
       button: 'Jetzt presaven',
       checkbox: 'Ich habe presaved',
       codeLabel: 'Dein Rabattcode',
@@ -133,8 +133,8 @@ const PreOrderTranslations: Record<LangKey, {
     chooseYourWay: 'Choose your way',
     presave: {
       title: 'Presave',
-      desc: 'Presave the song to your music library now and automatically get a chance to win an exclusive Mythic NFT from the D.FAITH Collectibles – one of the rarest song cards there is. The Song NFT is only available until the music video release.',
-      prizeLabel: 'To win: Mythic NFT + limited Song NFT',
+      desc: 'Presave the song to your music library now and automatically get a chance to win an exclusive Mythic NFT from the D.FAITH Collectibles – one of the rarest song cards there is. The Song NFTs are only available until the music video release.',
+      prizeLabel: 'To win: Mythic NFT + 5 limited Song NFTs',
       button: 'Presave now',
       checkbox: 'I have presaved',
       codeLabel: 'Your discount code',
@@ -193,8 +193,8 @@ const PreOrderTranslations: Record<LangKey, {
     chooseYourWay: 'Wybierz swoją drogę',
     presave: {
       title: 'Presave',
-      desc: 'Zrób presave utworu już teraz i automatycznie zyskaj szansę na wygranie ekskluzywnego Mythic NFT z kolekcji D.FAITH Collectibles – jednej z najrzadszych kart utworów. Song NFT jest dostępne tylko do premiery teledysku.',
-      prizeLabel: 'Do wygrania: Mythic NFT + limitowane Song NFT',
+      desc: 'Zrób presave utworu już teraz i automatycznie zyskaj szansę na wygranie ekskluzywnego Mythic NFT z kolekcji D.FAITH Collectibles – jednej z najrzadszych kart utworów. Song NFT są dostępne tylko do premiery teledysku.',
+      prizeLabel: 'Do wygrania: Mythic NFT + 5 limitowanych Song NFT',
       button: 'Presave teraz',
       checkbox: 'Zrobiłem/am presave',
       codeLabel: 'Twój kod rabatowy',
