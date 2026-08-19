@@ -64,6 +64,7 @@ export default function TeilnahmebedingungenPage() {
             <p>Zu gewinnen gibt es pro Gewinnspiel:</p>
             <ul className="list-disc list-inside mt-2 space-y-1.5">
               <li>1× Mythic-NFT aus den D.FAITH Collectibles (limitierte, seltenheitsgestufte Song-Karte)</li>
+              <li>5× limitiertes Song-NFT des jeweiligen Songs (verfügbar nur bis zum Release des Musikvideos)</li>
             </ul>
             <p className="mt-3">
               Der Gewinn wird dem Gewinner/der Gewinnerin in dessen/deren D.FAITH-Webapp-Wallet gutgeschrieben. Eine
