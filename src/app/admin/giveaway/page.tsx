@@ -20,8 +20,13 @@ interface GiveawayEntry {
 
 const LANG_LABELS: Record<string, string> = { de: '🇩🇪 DE', en: '🇬🇧 EN', pl: '🇵🇱 PL' };
 
+type PrizeType = 'mythic' | 'song-nft';
+const SONG_NFT_SLOTS = 5;
+
 interface GiveawayWinner {
+  id: string;
   songId: string;
+  prizeType: PrizeType;
   entryId: string;
   email: string;
   drawnAt: string;
@@ -43,8 +48,8 @@ export default function AdminGiveawayPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filterSongId, setFilterSongId] = useState('');
-  const [winner, setWinner] = useState<GiveawayWinner | null>(null);
-  const [drawing, setDrawing] = useState(false);
+  const [winners, setWinners] = useState<GiveawayWinner[]>([]);
+  const [drawing, setDrawing] = useState<string | null>(null);
   const [drawError, setDrawError] = useState('');
   const router = useRouter();
 
@@ -64,15 +69,15 @@ export default function AdminGiveawayPage() {
     setLoading(false);
   }
 
-  async function fetchWinner(songId: string) {
+  async function fetchWinners(songId: string) {
     if (!songId) {
-      setWinner(null);
+      setWinners([]);
       return;
     }
     const res = await fetch(`/api/admin/giveaway/draw?songId=${encodeURIComponent(songId)}`, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
-      setWinner(data.winner ?? null);
+      setWinners(data.winners ?? []);
     }
   }
 
@@ -87,32 +92,54 @@ export default function AdminGiveawayPage() {
 
   useEffect(() => {
     setDrawError('');
-    fetchWinner(filterSongId);
+    fetchWinners(filterSongId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterSongId]);
 
-  async function handleDraw(redraw = false) {
+  async function handleDraw(prizeType: PrizeType) {
     if (!filterSongId) return;
-    if (redraw && !confirm('Wirklich neu auslosen? Der bisherige Gewinner wird ersetzt.')) return;
-    setDrawing(true);
+    setDrawing(prizeType);
     setDrawError('');
     const res = await fetch('/api/admin/giveaway/draw', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ songId: filterSongId, redraw }),
+      body: JSON.stringify({ songId: filterSongId, prizeType }),
     });
     const data = await res.json().catch(() => ({}));
-    setDrawing(false);
+    setDrawing(null);
     if (!res.ok) {
       setDrawError(data.error ?? 'Konnte nicht auslosen.');
       return;
     }
-    setWinner(data);
+    setWinners((prev) => [...prev, data]);
+  }
+
+  async function handleRedraw(winnerId: string) {
+    if (!filterSongId) return;
+    if (!confirm('Wirklich neu auslosen? Der bisherige Gewinner wird ersetzt.')) return;
+    setDrawing(winnerId);
+    setDrawError('');
+    const res = await fetch('/api/admin/giveaway/draw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ songId: filterSongId, winnerId }),
+    });
+    const data = await res.json().catch(() => ({}));
+    setDrawing(null);
+    if (!res.ok) {
+      setDrawError(data.error ?? 'Konnte nicht neu auslosen.');
+      return;
+    }
+    setWinners((prev) => [...prev.filter((w) => w.id !== winnerId), data]);
   }
 
   const songIds = Array.from(new Set(entries.map((e) => e.songId)));
   const visibleEntries = filterSongId ? entries.filter((e) => e.songId === filterSongId) : entries;
   const clickedCount = visibleEntries.filter((e) => e.clickedAt).length;
+
+  const mythicWinner = winners.find((w) => w.prizeType === 'mythic') ?? null;
+  const songNftWinners = winners.filter((w) => w.prizeType === 'song-nft');
+  const winnerByEntryId = new Map(winners.map((w) => [w.entryId, w]));
 
   // Gruppiert alle Einträge (über alle Songs hinweg) nach Geräte-Fingerprint,
   // damit wir erkennen, wenn dasselbe Gerät mehrere E-Mail-Adressen benutzt hat.
@@ -168,45 +195,90 @@ export default function AdminGiveawayPage() {
 
         {/* Verlosung */}
         {filterSongId && (
-          <div className="mb-6 p-5 rounded-2xl border border-amber-500/30 bg-amber-900/10">
-            {winner ? (
-              <div className="flex flex-col md:flex-row md:items-center gap-4">
-                <div className="flex items-center gap-3 flex-1">
-                  <div className="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center flex-shrink-0">
-                    <Trophy size={20} className="text-amber-400" />
+          <div className="mb-6 space-y-4">
+            {/* Mythic-NFT (1 Gewinner) */}
+            <div className="p-5 rounded-2xl border border-amber-500/30 bg-amber-900/10">
+              <p className="text-xs uppercase tracking-wide text-amber-400 font-bold mb-3">Mythic-NFT · 1 Gewinner</p>
+              {mythicWinner ? (
+                <div className="flex flex-col md:flex-row md:items-center gap-4">
+                  <div className="flex items-center gap-3 flex-1">
+                    <div className="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center flex-shrink-0">
+                      <Trophy size={20} className="text-amber-400" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">{mythicWinner.email}</p>
+                      <p className="text-xs text-gray-500">Ausgelost: {formatDate(mythicWinner.drawnAt)}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-wide text-amber-400 font-bold">Gewinner</p>
-                    <p className="font-semibold text-white">{winner.email}</p>
-                    <p className="text-xs text-gray-500">Ausgelost: {formatDate(winner.drawnAt)}</p>
-                  </div>
+                  <button
+                    onClick={() => handleRedraw(mythicWinner.id)}
+                    disabled={!!drawing}
+                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm font-semibold transition-all disabled:opacity-50 flex-shrink-0"
+                  >
+                    {drawing === mythicWinner.id ? 'Lost aus…' : 'Neu auslosen'}
+                  </button>
                 </div>
+              ) : (
+                <div className="flex flex-col md:flex-row md:items-center gap-4">
+                  <p className="text-sm text-gray-300 flex-1">
+                    {clickedCount === 0
+                      ? 'Noch keine bestätigten Teilnahmen für diesen Song.'
+                      : `${clickedCount} bestätigte Teilnahme${clickedCount === 1 ? '' : 'n'} – bereit für die Verlosung.`}
+                  </p>
+                  <button
+                    onClick={() => handleDraw('mythic')}
+                    disabled={!!drawing || clickedCount === 0}
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 font-semibold text-black transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+                  >
+                    <Sparkles size={16} />
+                    {drawing === 'mythic' ? 'Lost aus…' : 'Verlosen'}
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Song-NFTs (bis zu 5 Gewinner) */}
+            <div className="p-5 rounded-2xl border border-amber-500/20 bg-slate-900/40">
+              <p className="text-xs uppercase tracking-wide text-amber-400 font-bold mb-3">
+                Song-NFTs · {songNftWinners.length}/{SONG_NFT_SLOTS} vergeben
+              </p>
+              {songNftWinners.length > 0 && (
+                <div className="space-y-2 mb-3">
+                  {songNftWinners.map((w) => (
+                    <div key={w.id} className="flex flex-col md:flex-row md:items-center gap-3 p-3 rounded-lg bg-black/30 border border-white/5">
+                      <div className="flex items-center gap-3 flex-1">
+                        <Trophy size={16} className="text-amber-400 flex-shrink-0" />
+                        <div>
+                          <p className="text-sm font-semibold text-white">{w.email}</p>
+                          <p className="text-xs text-gray-500">Ausgelost: {formatDate(w.drawnAt)}</p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => handleRedraw(w.id)}
+                        disabled={!!drawing}
+                        className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold transition-all disabled:opacity-50 flex-shrink-0"
+                      >
+                        {drawing === w.id ? 'Lost aus…' : 'Neu auslosen'}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {songNftWinners.length < SONG_NFT_SLOTS && (
                 <button
-                  onClick={() => handleDraw(true)}
-                  disabled={drawing}
-                  className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sm font-semibold transition-all disabled:opacity-50 flex-shrink-0"
-                >
-                  {drawing ? 'Lost aus…' : 'Neu auslosen'}
-                </button>
-              </div>
-            ) : (
-              <div className="flex flex-col md:flex-row md:items-center gap-4">
-                <p className="text-sm text-gray-300 flex-1">
-                  {clickedCount === 0
-                    ? 'Noch keine bestätigten Teilnahmen für diesen Song.'
-                    : `${clickedCount} bestätigte Teilnahme${clickedCount === 1 ? '' : 'n'} – bereit für die Verlosung.`}
-                </p>
-                <button
-                  onClick={() => handleDraw(false)}
-                  disabled={drawing || clickedCount === 0}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 font-semibold text-black transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+                  onClick={() => handleDraw('song-nft')}
+                  disabled={!!drawing || clickedCount === 0}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 font-semibold text-black text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <Sparkles size={16} />
-                  {drawing ? 'Lost aus…' : 'Verlosung starten'}
+                  {drawing === 'song-nft'
+                    ? 'Lost aus…'
+                    : `Nächsten Song-NFT-Gewinner auslosen (${songNftWinners.length + 1}/${SONG_NFT_SLOTS})`}
                 </button>
-              </div>
-            )}
-            {drawError && <p className="text-red-400 text-sm mt-3">{drawError}</p>}
+              )}
+            </div>
+
+            {drawError && <p className="text-red-400 text-sm">{drawError}</p>}
           </div>
         )}
 
@@ -224,7 +296,8 @@ export default function AdminGiveawayPage() {
           <div className="space-y-3">
             {visibleEntries.map((entry) => {
               const clicked = !!entry.clickedAt;
-              const isWinner = winner?.entryId === entry.id;
+              const entryWinner = winnerByEntryId.get(entry.id);
+              const isWinner = !!entryWinner;
               const sameDeviceEmails = otherEmailsSameDevice(entry);
               return (
                 <div
@@ -241,9 +314,9 @@ export default function AdminGiveawayPage() {
                 >
                   <div className="flex flex-col md:flex-row md:items-center gap-3">
                     <div className="flex-shrink-0 flex items-center gap-2">
-                      {isWinner && (
+                      {entryWinner && (
                         <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-semibold">
-                          <Trophy size={12} /> Gewinner
+                          <Trophy size={12} /> {entryWinner.prizeType === 'mythic' ? 'Mythic-Gewinner' : 'Song-NFT-Gewinner'}
                         </span>
                       )}
                       {clicked ? (
