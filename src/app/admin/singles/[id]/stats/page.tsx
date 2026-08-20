@@ -18,6 +18,9 @@ const SOURCE_LABELS: Record<Source, string> = {
   facebook: 'Facebook',
   tiktok: 'TikTok',
   instagram: 'Instagram',
+  'facebook-pl': 'Facebook Polska',
+  'instagram-pl': 'Instagram Polska',
+  'tiktok-pl': 'TikTok Polska',
   website: 'Website',
 };
 
@@ -35,7 +38,16 @@ function formatDay(dateKey: string) {
 }
 
 function emptySourceRecord(): Record<Source, number> {
-  return { youtube: 0, facebook: 0, tiktok: 0, instagram: 0, website: 0 };
+  return {
+    youtube: 0,
+    facebook: 0,
+    tiktok: 0,
+    instagram: 0,
+    'facebook-pl': 0,
+    'instagram-pl': 0,
+    'tiktok-pl': 0,
+    website: 0,
+  };
 }
 
 export default function SingleStatsPage() {
