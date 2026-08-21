@@ -300,3 +300,49 @@ export async function sendBookingNotificationEmail(
     html,
   });
 }
+
+// ── Newsletter-Broadcast ─────────────────────────────────────────────────────
+
+// Für Updates an die Newsletter-Liste (z. B. Release-Ankündigungen). bodyHtml
+// ist der bereits fertig formatierte innere Inhalt (Absätze, Links, Listen),
+// wird nur noch in den Marken-Rahmen inkl. Abmelde-Footer eingebettet.
+export async function sendNewsletterBroadcast(
+  email: string,
+  subject: string,
+  bodyHtml: string,
+  bodyText: string,
+  origin: string
+): Promise<void> {
+  const unsubscribeLink = `${origin}/abmelden`;
+
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
+      <div style="text-align: center; padding: 30px 0; border-bottom: 2px solid #f59e0b;">
+        <h1 style="margin: 0; font-size: 28px; color: #111;">Dawid Faith</h1>
+      </div>
+      <div style="padding: 30px 0; line-height: 1.6; color: #333;">
+        ${bodyHtml}
+      </div>
+      <div style="border-top: 1px solid #eee; padding: 20px 0; text-align: center; color: #aaa; font-size: 12px;">
+        <p style="margin: 0 0 6px;">© ${new Date().getFullYear()} Dawid Faith</p>
+        <p style="margin: 0;">
+          Keine weiteren Update-Mails erhalten?
+          <a href="${unsubscribeLink}" style="color: #aaa; text-decoration: underline;">Hier abmelden</a>
+        </p>
+      </div>
+    </div>
+  `;
+
+  const text = `${bodyText}\n\n---\nKeine weiteren Update-Mails erhalten? Hier abmelden: ${unsubscribeLink}`;
+
+  await getResendClient().emails.send({
+    from: FROM_ADDRESS,
+    to: email,
+    subject,
+    html,
+    text,
+    headers: {
+      'List-Unsubscribe': `<${unsubscribeLink}>, <mailto:${NOTIFY_TO}?subject=Abmelden>`,
+    },
+  });
+}
