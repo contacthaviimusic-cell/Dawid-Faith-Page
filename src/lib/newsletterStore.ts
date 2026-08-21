@@ -79,3 +79,28 @@ export async function deleteSubscriberByEmail(email: string): Promise<boolean> {
   await saveNewsletterSubscribers(remaining);
   return true;
 }
+
+// Entfernt mehrere E-Mail-Adressen in einem einzigen Lese-Ändere-Schreibe-
+// Zyklus (statt mehrerer separater deleteSubscriberByEmail-Aufrufe), um die
+// Race Condition bei schnell aufeinanderfolgenden Blob-Schreibvorgängen zu
+// vermeiden.
+export async function deleteSubscribersByEmails(emails: string[]): Promise<{ removed: string[]; notFound: string[] }> {
+  const subscribers = await getNewsletterSubscribers();
+  const toRemove = new Set(emails.map((e) => e.toLowerCase().trim()));
+  const removed: string[] = [];
+  const notFound: string[] = [];
+
+  for (const email of toRemove) {
+    if (subscribers.some((s) => s.email.toLowerCase() === email)) {
+      removed.push(email);
+    } else {
+      notFound.push(email);
+    }
+  }
+
+  const remaining = subscribers.filter((s) => !toRemove.has(s.email.toLowerCase()));
+  if (removed.length > 0) {
+    await saveNewsletterSubscribers(remaining);
+  }
+  return { removed, notFound };
+}
