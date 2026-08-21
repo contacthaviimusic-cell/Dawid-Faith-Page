@@ -67,5 +67,12 @@ export async function POST(request: NextRequest) {
     await saveNewsletterSubscribers(subscribers);
   }
 
-  return NextResponse.json({ added, skipped, addedCount: added.length, skippedCount: skipped.length });
+  return NextResponse.json({
+    version: 'atomic-v2',
+    added,
+    skipped,
+    addedCount: added.length,
+    skippedCount: skipped.length,
+    totalAfter: subscribers.length,
+  });
 }
