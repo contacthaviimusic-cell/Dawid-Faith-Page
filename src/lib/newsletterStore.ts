@@ -37,6 +37,7 @@ export async function saveNewsletterSubscribers(subscribers: NewsletterSubscribe
   await put(BLOB_FILENAME, JSON.stringify(subscribers, null, 2), {
     access: 'public',
     contentType: 'application/json',
+    addRandomSuffix: false,
     allowOverwrite: true,
   });
 }
