@@ -14,61 +14,55 @@ function normalizeMailLang(lang: string | undefined | null): MailLang {
   return lang === 'en' || lang === 'pl' ? lang : 'de';
 }
 
-// ── Giveaway / Presave-Mail ─────────────────────────────────────────────────
+// ── Giveaway / Presave-Bestätigungsmail ─────────────────────────────────────
+// Die Teilnahme wird jetzt direkt beim Absenden des Formulars auf der Seite
+// bestätigt (kein Klick auf einen zugeschickten Link mehr nötig) – diese Mail
+// ist daher nur noch eine reine Bestätigung, ohne Action-Button.
 
 const giveawayTranslations: Record<MailLang, {
   tagline: string;
   subject: (songTitle: string) => string;
   heading: string;
   body: (songTitle: string) => string;
-  button: string;
-  personalNote: string;
   closing: string;
   unsubscribeQuestion: string;
   unsubscribeLink: string;
 }> = {
   de: {
     tagline: 'Presave & Gewinnspiel',
-    subject: (songTitle) => `Dein Presave-Link für „${songTitle}" – Gewinnspiel-Teilnahme`,
-    heading: 'Dein persönlicher Presave-Link',
+    subject: (songTitle) => `Du bist dabei! Gewinnspiel-Teilnahme für „${songTitle}" bestätigt`,
+    heading: 'Deine Teilnahme ist bestätigt',
     body: (songTitle) =>
-      `Danke für dein Interesse an „${songTitle}"! Klick auf den Button unten, um den Song zu presaven — damit nimmst du automatisch am Gewinnspiel teil.`,
-    button: '🎵 Jetzt presaven & teilnehmen',
-    personalNote: 'Dieser Link ist persönlich für dich – bitte nicht weitergeben.',
+      `Danke für dein Interesse an „${songTitle}"! Du nimmst jetzt automatisch am Gewinnspiel teil. Falls du gewinnst, melden wir uns per E-Mail bei dir.`,
     closing: 'Herzliche Grüße,',
     unsubscribeQuestion: 'Keine weiteren Update-Mails erhalten?',
     unsubscribeLink: 'Hier abmelden',
   },
   en: {
     tagline: 'Presave & Giveaway',
-    subject: (songTitle) => `Your presave link for "${songTitle}" – giveaway entry`,
-    heading: 'Your personal presave link',
+    subject: (songTitle) => `You're in! Giveaway entry for "${songTitle}" confirmed`,
+    heading: 'Your entry is confirmed',
     body: (songTitle) =>
-      `Thanks for your interest in "${songTitle}"! Click the button below to presave the song — that automatically enters you into the giveaway.`,
-    button: '🎵 Presave now & enter',
-    personalNote: 'This link is personal to you – please don’t share it.',
+      `Thanks for your interest in "${songTitle}"! You're now automatically entered into the giveaway. If you win, we'll reach out by email.`,
     closing: 'Best regards,',
     unsubscribeQuestion: 'Don’t want any more update emails?',
     unsubscribeLink: 'Unsubscribe here',
   },
   pl: {
     tagline: 'Presave i konkurs',
-    subject: (songTitle) => `Twój link presave dla „${songTitle}" – udział w konkursie`,
-    heading: 'Twój osobisty link presave',
+    subject: (songTitle) => `Jesteś w grze! Udział w konkursie dla „${songTitle}" potwierdzony`,
+    heading: 'Twój udział jest potwierdzony',
     body: (songTitle) =>
-      `Dzięki za zainteresowanie „${songTitle}"! Kliknij poniższy przycisk, aby dodać utwór do presave — automatycznie bierzesz udział w konkursie.`,
-    button: '🎵 Presave i weź udział',
-    personalNote: 'Ten link jest przypisany tylko do Ciebie – prosimy nim się nie dzielić.',
+      `Dzięki za zainteresowanie „${songTitle}"! Automatycznie bierzesz teraz udział w konkursie. Jeśli wygrasz, odezwiemy się mailowo.`,
     closing: 'Pozdrawiam serdecznie,',
     unsubscribeQuestion: 'Nie chcesz więcej otrzymywać e-maili z aktualnościami?',
     unsubscribeLink: 'Wypisz się tutaj',
   },
 };
 
-export async function sendGiveawayEmail(
+export async function sendGiveawayConfirmationEmail(
   email: string,
   songTitle: string,
-  giveawayLink: string,
   origin: string,
   lang?: string
 ): Promise<void> {
@@ -86,14 +80,6 @@ export async function sendGiveawayEmail(
         <p style="line-height: 1.6; color: #555;">
           ${t.body(songTitle)}
         </p>
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="${giveawayLink}" style="display: inline-block; background: #f59e0b; color: #000; font-weight: bold; padding: 14px 28px; border-radius: 999px; text-decoration: none;">
-            ${t.button}
-          </a>
-        </div>
-        <p style="line-height: 1.6; color: #555; font-size: 13px;">
-          ${t.personalNote}
-        </p>
         <p style="line-height: 1.6; color: #555;">
           ${t.closing}<br/>
           <strong>Dawid Faith</strong>
@@ -109,7 +95,7 @@ export async function sendGiveawayEmail(
     </div>
   `;
 
-  const text = `${t.body(songTitle)}\n\n${giveawayLink}\n\n${t.personalNote}\n\n${t.closing}\nDawid Faith\n\n---\n${t.unsubscribeQuestion} ${t.unsubscribeLink}: ${unsubscribeLink}`;
+  const text = `${t.body(songTitle)}\n\n${t.closing}\nDawid Faith\n\n---\n${t.unsubscribeQuestion} ${t.unsubscribeLink}: ${unsubscribeLink}`;
 
   await getResendClient().emails.send({
     from: FROM_ADDRESS,

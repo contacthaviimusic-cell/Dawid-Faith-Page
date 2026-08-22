@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSingle } from '@/lib/singlesStore';
-import { createEntry } from '@/lib/giveawayStore';
-import { sendGiveawayEmail } from '@/lib/mailer';
+import { createEntry, markClicked } from '@/lib/giveawayStore';
+import { sendGiveawayConfirmationEmail } from '@/lib/mailer';
 
 export const dynamic = 'force-dynamic';
 
@@ -34,11 +34,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error ?? 'Konnte nicht eintragen.' }, { status: 409 });
     }
 
-    const origin = new URL(request.url).origin;
-    const giveawayLink = `${origin}/api/giveaway/click/${entry.token}`;
-    await sendGiveawayEmail(entry.email, single.title, giveawayLink, origin, entry.language);
+    // Die Teilnahme wird direkt mit dem Absenden des Formulars bestätigt –
+    // der Fan wird im Anschluss unmittelbar zum Presave weitergeleitet, ein
+    // zusätzlicher Klick auf einen zugeschickten Link ist nicht mehr nötig.
+    await markClicked(entry.id);
 
-    return NextResponse.json({ success: true });
+    const origin = new URL(request.url).origin;
+    await sendGiveawayConfirmationEmail(entry.email, single.title, origin, entry.language);
+
+    return NextResponse.json({ success: true, presaveUrl: single.presaveUrl });
   } catch (err) {
     console.error('[giveaway enter]', err);
     return NextResponse.json({ error: 'Interner Fehler.' }, { status: 500 });

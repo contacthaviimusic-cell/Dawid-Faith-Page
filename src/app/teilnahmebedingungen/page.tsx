@@ -47,15 +47,17 @@ export default function TeilnahmebedingungenPage() {
 
           <section>
             <h2 className="text-xl font-black text-white mb-3">4. Teilnahmevoraussetzungen</h2>
-            <p>Um teilzunehmen, muss der Fan:</p>
+            <p>
+              Um teilzunehmen, klickt der Fan auf der jeweiligen Pre-Order-Seite auf „Presave" und muss im daraufhin
+              erscheinenden Formular:
+            </p>
             <ul className="list-disc list-inside mt-2 space-y-1.5">
-              <li>auf der jeweiligen Pre-Order-Seite eine gültige E-Mail-Adresse sowie seinen Wohnort im Presave-Formular hinterlegen,</li>
-              <li>der Nutzung dieser Daten gemäß Punkt 8 zustimmen (Checkbox),</li>
-              <li>den daraufhin per E-Mail zugesendeten persönlichen Presave-Link öffnen und darüber den Song presaven.</li>
+              <li>seinen Wohnort und eine gültige E-Mail-Adresse angeben,</li>
+              <li>der Nutzung dieser Daten gemäß Punkt 8 zustimmen (Checkbox).</li>
             </ul>
             <p className="mt-3">
-              Die Teilnahme gilt erst als vollständig, wenn der persönliche Link nachweislich geöffnet wurde. Das bloße
-              Absenden der E-Mail-Adresse allein berechtigt noch nicht zur Teilnahme an der Gewinnerziehung.
+              Mit dem Absenden des Formulars gilt die Teilnahme als vollständig; der Fan wird im Anschluss automatisch
+              zum Presave auf der jeweiligen Plattform weitergeleitet.
             </p>
           </section>
 
@@ -97,7 +99,7 @@ export default function TeilnahmebedingungenPage() {
             <h2 className="text-xl font-black text-white mb-3">8. Datenschutz</h2>
             <p>
               Im Rahmen der Teilnahme werden die angegebene E-Mail-Adresse und der Wohnort verarbeitet, um
-              (a) den persönlichen Presave-Link zuzusenden, (b) die Teilnahme am Gewinnspiel zu ermöglichen,
+              (a) die Teilnahmebestätigung per E-Mail zuzusenden, (b) die Teilnahme am Gewinnspiel zu ermöglichen,
               (c) den Gewinner/die Gewinnerin zu benachrichtigen und (d), sofern in der Checkbox zugestimmt,
               künftig Updates zu neuen Musik-Releases und Events per E-Mail zu versenden. Der Wohnort dient
               ausschließlich der Planung künftiger Konzerte in deiner Nähe.

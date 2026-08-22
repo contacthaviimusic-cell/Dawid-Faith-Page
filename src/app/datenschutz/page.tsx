@@ -93,7 +93,7 @@ export default function DatenschutzPage() {
             <h2 className="text-xl font-black text-white mb-3">7. Presave-Gewinnspiel</h2>
             <p>
               Für die Teilnahme an unserem Presave-Gewinnspiel verarbeiten wir deine E-Mail-Adresse, um dir
-              einen persönlichen Presave-Link zuzusenden und deine Teilnahme zu ermöglichen. Details hierzu
+              eine Teilnahmebestätigung zuzusenden und deine Teilnahme zu ermöglichen. Details hierzu
               findest du in den{' '}
               <Link href="/teilnahmebedingungen" className="text-amber-400 hover:underline">
                 Teilnahmebedingungen

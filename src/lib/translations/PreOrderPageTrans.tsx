@@ -19,6 +19,7 @@ const PreOrderTranslations: Record<LangKey, {
     checkbox: string;
     codeLabel: string;
     codeHint: string;
+    giveawayModalTitle: string;
     giveawayDesc: string;
     giveawayEmailPlaceholder: string;
     giveawayEmailInvalid: string;
@@ -28,8 +29,10 @@ const PreOrderTranslations: Record<LangKey, {
     giveawayConsent: string;
     giveawayTermsLink: string;
     giveawayButton: string;
+    giveawayCancel: string;
     giveawaySending: string;
     giveawaySuccess: string;
+    giveawayClose: string;
     giveawayError: string;
   };
   preorder: {
@@ -79,17 +82,20 @@ const PreOrderTranslations: Record<LangKey, {
       checkbox: 'Ich habe presaved',
       codeLabel: 'Dein Rabattcode',
       codeHint: 'Gib den Code beim Pre-Order-Checkout ein.',
-      giveawayDesc: 'Trag deine E-Mail ein und presave direkt darüber, um automatisch am Gewinnspiel teilzunehmen.',
+      giveawayModalTitle: 'Am Gewinnspiel teilnehmen',
+      giveawayDesc: 'Trag deinen Wohnort und deine E-Mail ein, um automatisch am Gewinnspiel teilzunehmen. Danach geht’s direkt weiter zum Presave.',
       giveawayEmailPlaceholder: 'Deine E-Mail-Adresse',
       giveawayEmailInvalid: 'Bitte gib eine gültige E-Mail-Adresse ein.',
       giveawayLocationPlaceholder: 'Dein Wohnort',
       giveawayLocationInvalid: 'Bitte gib deinen Wohnort an.',
       giveawayLocationHint: 'Damit ich weiß, in welchen Städten ich als Nächstes Konzerte spielen sollte.',
-      giveawayConsent: 'Ich bin einverstanden, dass meine E-Mail für die Gewinnspiel-Teilnahme genutzt, mir der Presave-Link zugeschickt wird und ich künftig weitere Updates zu Musik-Releases und Events von Dawid Faith per E-Mail erhalte, und akzeptiere die',
+      giveawayConsent: 'Ich bin einverstanden, dass meine E-Mail für die Gewinnspiel-Teilnahme genutzt wird und ich künftig weitere Updates zu Musik-Releases und Events von Dawid Faith per E-Mail erhalte, und akzeptiere die',
       giveawayTermsLink: 'Teilnahmebedingungen',
-      giveawayButton: 'Mail senden & teilnehmen',
+      giveawayButton: 'Teilnehmen & presaven',
+      giveawayCancel: 'Abbrechen',
       giveawaySending: 'Wird gesendet…',
-      giveawaySuccess: '✔ Check deine Mails! Wir haben dir deinen persönlichen Presave-Link geschickt.',
+      giveawaySuccess: '✔ Du nimmst jetzt am Gewinnspiel teil! Presave öffnet sich in einem neuen Tab.',
+      giveawayClose: 'Schließen',
       giveawayError: 'Etwas ist schiefgelaufen. Bitte versuch es erneut.',
     },
     preorder: {
@@ -139,17 +145,20 @@ const PreOrderTranslations: Record<LangKey, {
       checkbox: 'I have presaved',
       codeLabel: 'Your discount code',
       codeHint: 'Enter the code at the pre-order checkout.',
-      giveawayDesc: 'Enter your email and presave through it to automatically enter the giveaway.',
+      giveawayModalTitle: 'Enter the giveaway',
+      giveawayDesc: 'Enter your city and email to automatically enter the giveaway. You’ll then continue straight to presave.',
       giveawayEmailPlaceholder: 'Your email address',
       giveawayEmailInvalid: 'Please enter a valid email address.',
       giveawayLocationPlaceholder: 'Your city',
       giveawayLocationInvalid: 'Please enter your city.',
       giveawayLocationHint: 'So I know which cities to play concerts in next.',
-      giveawayConsent: 'I agree that my email will be used for the giveaway entry, to send me the presave link, and to receive future updates about music releases and events from Dawid Faith, and I accept the',
+      giveawayConsent: 'I agree that my email will be used for the giveaway entry and to receive future updates about music releases and events from Dawid Faith, and I accept the',
       giveawayTermsLink: 'terms & conditions',
-      giveawayButton: 'Send email & enter',
+      giveawayButton: 'Enter & presave',
+      giveawayCancel: 'Cancel',
       giveawaySending: 'Sending…',
-      giveawaySuccess: '✔ Check your inbox! We sent you your personal presave link.',
+      giveawaySuccess: '✔ You’re now entered in the giveaway! Presave is opening in a new tab.',
+      giveawayClose: 'Close',
       giveawayError: 'Something went wrong. Please try again.',
     },
     preorder: {
@@ -199,17 +208,20 @@ const PreOrderTranslations: Record<LangKey, {
       checkbox: 'Zrobiłem/am presave',
       codeLabel: 'Twój kod rabatowy',
       codeHint: 'Wpisz kod przy zakupie pre-order.',
-      giveawayDesc: 'Podaj swój e-mail i zrób presave przez ten link, aby automatycznie wziąć udział w konkursie.',
+      giveawayModalTitle: 'Weź udział w konkursie',
+      giveawayDesc: 'Podaj swoją miejscowość i e-mail, aby automatycznie wziąć udział w konkursie. Następnie przejdziesz od razu do presave.',
       giveawayEmailPlaceholder: 'Twój adres e-mail',
       giveawayEmailInvalid: 'Podaj prawidłowy adres e-mail.',
       giveawayLocationPlaceholder: 'Twoja miejscowość',
       giveawayLocationInvalid: 'Podaj swoją miejscowość.',
       giveawayLocationHint: 'Dzięki temu wiem, w jakich miastach zagrać kolejne koncerty.',
-      giveawayConsent: 'Zgadzam się na wykorzystanie mojego e-maila do udziału w konkursie, przesłanie mi linku presave oraz otrzymywanie przyszłych aktualizacji o wydaniach muzycznych i wydarzeniach Dawida Faith, oraz akceptuję',
+      giveawayConsent: 'Zgadzam się na wykorzystanie mojego e-maila do udziału w konkursie oraz na otrzymywanie przyszłych aktualizacji o wydaniach muzycznych i wydarzeniach Dawida Faith, oraz akceptuję',
       giveawayTermsLink: 'regulamin konkursu',
-      giveawayButton: 'Wyślij e-mail i weź udział',
+      giveawayButton: 'Weź udział i zrób presave',
+      giveawayCancel: 'Anuluj',
       giveawaySending: 'Wysyłanie…',
-      giveawaySuccess: '✔ Sprawdź skrzynkę! Wysłaliśmy Ci Twój osobisty link presave.',
+      giveawaySuccess: '✔ Bierzesz teraz udział w konkursie! Presave otworzy się w nowej karcie.',
+      giveawayClose: 'Zamknij',
       giveawayError: 'Coś poszło nie tak. Spróbuj ponownie.',
     },
     preorder: {

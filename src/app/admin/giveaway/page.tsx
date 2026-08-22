@@ -170,7 +170,7 @@ export default function AdminGiveawayPage() {
               Gewinnspiel-Teilnehmer
             </h1>
             <p className="text-gray-400 mt-1">
-              Nur Einträge mit &bdquo;geklickt&ldquo; haben ihren persönlichen Presave-Link wirklich benutzt.
+              Nur Einträge mit &bdquo;bestätigt&ldquo; haben das Gewinnspiel-Formular vollständig abgeschickt.
             </p>
           </div>
         </div>
@@ -188,7 +188,7 @@ export default function AdminGiveawayPage() {
               ))}
             </select>
             <span className="text-sm text-gray-400">
-              {visibleEntries.length} Einträge · {clickedCount} geklickt
+              {visibleEntries.length} Einträge · {clickedCount} bestätigt
             </span>
           </div>
         )}
@@ -321,7 +321,7 @@ export default function AdminGiveawayPage() {
                       )}
                       {clicked ? (
                         <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-semibold">
-                          ✅ Geklickt
+                          ✅ Bestätigt
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-700 text-slate-400 text-xs font-semibold">
@@ -349,7 +349,7 @@ export default function AdminGiveawayPage() {
                       <p className="text-xs text-gray-600 mt-0.5">
                         {entry.location && <>📍 {entry.location} · </>}
                         {LANG_LABELS[entry.language ?? 'de']} · Song: {entry.songId} · Eingetragen: {formatDate(entry.createdAt)}
-                        {clicked && <>&nbsp;·&nbsp;Geklickt: {formatDate(entry.clickedAt)}</>}
+                        {clicked && <>&nbsp;·&nbsp;Bestätigt: {formatDate(entry.clickedAt)}</>}
                       </p>
                     </div>
                   </div>
