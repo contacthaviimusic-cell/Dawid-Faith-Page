@@ -48,8 +48,8 @@ export default function TeilnahmebedingungenPage() {
           <section>
             <h2 className="text-xl font-black text-white mb-3">4. Teilnahmevoraussetzungen</h2>
             <p>
-              Um teilzunehmen, klickt der Fan auf der jeweiligen Pre-Order-Seite auf „Presave" und muss im daraufhin
-              erscheinenden Formular:
+              Um teilzunehmen, klickt der Fan auf der jeweiligen Pre-Order-Seite auf &bdquo;Presave&ldquo; und muss im
+              daraufhin erscheinenden Formular:
             </p>
             <ul className="list-disc list-inside mt-2 space-y-1.5">
               <li>seinen Wohnort und eine gültige E-Mail-Adresse angeben,</li>
