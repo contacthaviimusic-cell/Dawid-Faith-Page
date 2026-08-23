@@ -173,6 +173,9 @@ export default function PreOrderPageClient({
         return;
       }
       setGiveawayStatus('success');
+      if (typeof window !== 'undefined' && window.fbq) {
+        window.fbq('track', 'Lead', { content_name: single.title, content_category: 'presave' });
+      }
       const target = data.presaveUrl || single.presaveUrl;
       if (presaveTab) {
         presaveTab.location.href = target;
