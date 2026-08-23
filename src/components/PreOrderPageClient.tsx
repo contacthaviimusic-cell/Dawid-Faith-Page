@@ -584,6 +584,12 @@ export default function PreOrderPageClient({
                     href={single.bandcampUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() =>
+                      window.fbq?.('track', 'InitiateCheckout', {
+                        content_name: single.title,
+                        content_category: 'preorder',
+                      })
+                    }
                     className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
                   >
                     {t.preorder.button}
@@ -638,6 +644,12 @@ export default function PreOrderPageClient({
                   href="https://app.dawidfaith.de"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() =>
+                    window.fbq?.('trackCustom', 'AppClick', {
+                      content_name: single.title,
+                      content_category: 'engagement',
+                    })
+                  }
                   className="inline-flex items-center justify-center gap-2 border border-amber-500/50 hover:bg-amber-500/10 text-amber-400 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
                 >
                   {t.engagement.button}
