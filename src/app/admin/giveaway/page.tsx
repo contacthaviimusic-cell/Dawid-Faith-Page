@@ -51,7 +51,28 @@ export default function AdminGiveawayPage() {
   const [winners, setWinners] = useState<GiveawayWinner[]>([]);
   const [drawing, setDrawing] = useState<string | null>(null);
   const [drawError, setDrawError] = useState('');
+  const [confirmingId, setConfirmingId] = useState<string | null>(null);
   const router = useRouter();
+
+  async function confirmEntry(entryId: string) {
+    if (!confirm('Diesen Eintrag manuell als bestätigt markieren? Das ist nur für Alt-Einträge von vor der Modal-Umstellung gedacht.')) return;
+    setConfirmingId(entryId);
+    const res = await fetch('/api/admin/giveaway', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ entryId }),
+    });
+    setConfirmingId(null);
+    if (res.status === 401) {
+      router.replace('/admin/login');
+      return;
+    }
+    if (res.ok) {
+      await fetchEntries();
+    } else {
+      alert('Konnte nicht bestätigen.');
+    }
+  }
 
   async function fetchEntries() {
     setLoading(true);
@@ -324,9 +345,18 @@ export default function AdminGiveawayPage() {
                           ✅ Bestätigt
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-700 text-slate-400 text-xs font-semibold">
-                          ⏳ Noch nicht
-                        </span>
+                        <>
+                          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-slate-700 text-slate-400 text-xs font-semibold">
+                            ⏳ Noch nicht
+                          </span>
+                          <button
+                            onClick={() => confirmEntry(entry.id)}
+                            disabled={confirmingId === entry.id}
+                            className="px-2 py-1 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 text-xs font-semibold transition-all disabled:opacity-50"
+                          >
+                            {confirmingId === entry.id ? 'Bestätige…' : 'Manuell bestätigen'}
+                          </button>
+                        </>
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
