@@ -28,9 +28,10 @@ export default async function PreOrderPlatformPage({
     console.error('[pre-order platform tracking]', err);
   }
 
-  // Plattform-Links mit "-pl"-Suffix (z. B. facebook-pl) öffnen die Seite
-  // direkt auf Polnisch, unabhängig von gespeicherter Spracheinstellung.
-  const forceLang = platform.endsWith('-pl') ? 'pl' : undefined;
+  // Plattform-Links mit "-pl"/"-de"-Suffix (z. B. facebook-pl, facebook-de)
+  // öffnen die Seite direkt in der jeweiligen Sprache, unabhängig von
+  // gespeicherter Spracheinstellung.
+  const forceLang = platform.endsWith('-pl') ? 'pl' : platform.endsWith('-de') ? 'de' : undefined;
 
   return <PreOrderPageClient skipWebsiteTracking forceLang={forceLang} />;
 }

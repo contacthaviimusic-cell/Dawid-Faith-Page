@@ -3,6 +3,7 @@ export type Platform =
   | 'facebook'
   | 'tiktok'
   | 'instagram'
+  | 'facebook-de'
   | 'facebook-pl'
   | 'instagram-pl'
   | 'tiktok-pl';
@@ -17,6 +18,7 @@ export const PLATFORMS: Platform[] = [
   'facebook',
   'tiktok',
   'instagram',
+  'facebook-de',
   'facebook-pl',
   'instagram-pl',
   'tiktok-pl',
