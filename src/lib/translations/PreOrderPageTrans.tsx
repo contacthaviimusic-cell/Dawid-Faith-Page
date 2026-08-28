@@ -225,7 +225,7 @@ const PreOrderTranslations: Record<LangKey, {
       giveawayError: 'Coś poszło nie tak. Spróbuj ponownie.',
     },
     preorder: {
-      title: 'Pre-Order',
+      title: 'Przedsprzedaż',
       desc: 'Zdobądź utwór jako MP3 plus niepublikowany teledysk – przez Bandcamp, bez rejestracji.',
       button: 'Kup teraz na Bandcamp',
       comingSoon: 'Wkrótce dostępne',
