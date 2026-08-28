@@ -4,7 +4,7 @@ import Script from 'next/script';
 import { useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-const PIXEL_ID = '28525096137131628';
+const PIXEL_ID = '1108287195479380';
 
 declare global {
   interface Window {
