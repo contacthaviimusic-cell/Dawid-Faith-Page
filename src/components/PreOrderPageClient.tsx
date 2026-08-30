@@ -416,7 +416,7 @@ export default function PreOrderPageClient({
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() =>
-                      window.fbq?.('track', 'Lead', {
+                      window.fbq?.('trackCustom', 'PresaveClick', {
                         content_name: single.title,
                         content_category: 'presave',
                       })
