@@ -1,13 +1,14 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { put, head, BlobNotFoundError } from '@vercel/blob';
+import { ACTIONS, type Action } from './actionSources';
 
 // Tracked, welchen der drei Wege ("Wähle deinen Weg") Besucher auf der
 // Pre-Order-Seite tatsächlich anklicken – unabhängig davon, über welche
 // Plattform sie überhaupt auf die Seite gekommen sind (siehe platformClicksStore
-// für die Traffic-Quelle).
-export type Action = 'presave' | 'preorder' | 'engagement';
-export const ACTIONS: Action[] = ['presave', 'preorder', 'engagement'];
+// für die Traffic-Quelle). Action/ACTIONS liegen in actionSources.ts, damit
+// Client Components sie importieren können, ohne dieses fs/Blob-Modul mitzuziehen.
+export { ACTIONS, type Action };
 
 export interface ActionClick {
   id: string;

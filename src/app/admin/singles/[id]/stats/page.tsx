@@ -5,7 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Copy, Check } from 'lucide-react';
 import { ALL_SOURCES, PLATFORMS, type Source } from '@/lib/platformSources';
-import { ACTIONS, type Action } from '@/lib/actionClicksStore';
+import { ACTIONS, type Action } from '@/lib/actionSources';
 
 interface PlatformClick {
   id: string;
