@@ -112,7 +112,7 @@ export default function GewinnspielPage() {
         return;
       }
       setStatus('success');
-      window.fbq?.('track', 'Lead', { content_name: single.title, content_category: 'presave' });
+      window.fbq?.('trackCustom', 'GiveawayEntry', { content_name: single.title, content_category: 'presave' });
     } catch {
       setStatus('error');
       setError(t.presave.giveawayError);
