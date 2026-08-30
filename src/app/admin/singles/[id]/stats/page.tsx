@@ -5,12 +5,30 @@ import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Copy, Check } from 'lucide-react';
 import { ALL_SOURCES, PLATFORMS, type Source } from '@/lib/platformSources';
+import { ACTIONS, type Action } from '@/lib/actionClicksStore';
 
 interface PlatformClick {
   id: string;
   songId: string;
   platform: Source;
   clickedAt: string;
+}
+
+interface ActionClick {
+  id: string;
+  songId: string;
+  action: Action;
+  clickedAt: string;
+}
+
+const ACTION_LABELS: Record<Action, string> = {
+  presave: 'Presave',
+  preorder: 'Pre-Order',
+  engagement: 'Engagement',
+};
+
+function emptyActionRecord(): Record<Action, number> {
+  return { presave: 0, preorder: 0, engagement: 0 };
 }
 
 const SOURCE_LABELS: Record<Source, string> = {
@@ -56,6 +74,7 @@ export default function SingleStatsPage() {
   const params = useParams<{ id: string }>();
   const songId = params?.id;
   const [clicks, setClicks] = useState<PlatformClick[]>([]);
+  const [actionClicks, setActionClicks] = useState<ActionClick[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
@@ -68,13 +87,19 @@ export default function SingleStatsPage() {
       if (!me.ok) { router.replace('/admin/login'); return; }
       if (!songId) return;
 
-      const res = await fetch(`/api/admin/platform-clicks?songId=${encodeURIComponent(songId)}`, { cache: 'no-store' });
-      if (res.status === 401) { router.replace('/admin/login'); return; }
+      const [res, actionRes] = await Promise.all([
+        fetch(`/api/admin/platform-clicks?songId=${encodeURIComponent(songId)}`, { cache: 'no-store' }),
+        fetch(`/api/admin/action-clicks?songId=${encodeURIComponent(songId)}`, { cache: 'no-store' }),
+      ]);
+      if (res.status === 401 || actionRes.status === 401) { router.replace('/admin/login'); return; }
       if (res.ok) {
         setClicks(await res.json());
         setError(null);
       } else {
         setError('Konnte Statistik nicht laden.');
+      }
+      if (actionRes.ok) {
+        setActionClicks(await actionRes.json());
       }
       setLoading(false);
     })();
@@ -104,6 +129,11 @@ export default function SingleStatsPage() {
   const daysAsc = [...days].sort((a, b) => (a < b ? -1 : 1));
   const totalClicks = clicks.length;
   const chartMax = Math.max(1, ...daysAsc.map((d) => byDay[d][chartSource]));
+
+  const actionTotals = emptyActionRecord();
+  for (const click of actionClicks) {
+    actionTotals[click.action]++;
+  }
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -164,6 +194,25 @@ export default function SingleStatsPage() {
             </div>
           </div>
         </div>
+
+        {/* Klicks auf die drei "Wähle deinen Weg"-Buttons */}
+        {!loading && (
+          <div className="mb-8">
+            <h2 className="text-lg font-bold text-white mb-1">Klicks auf die drei Wege</h2>
+            <p className="text-xs text-gray-500 mb-3">
+              Zeigt, worauf Besucher der Pre-Order-Seite tatsächlich klicken – unabhängig davon, über welche
+              Plattform sie gekommen sind.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {ACTIONS.map((action) => (
+                <div key={action} className="p-4 rounded-xl border border-slate-700 bg-slate-900/40 flex items-center justify-between">
+                  <span className="font-semibold text-white">{ACTION_LABELS[action]}</span>
+                  <span className="text-amber-400 font-bold text-lg">{actionTotals[action]}×</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {loading ? (
           <div className="flex items-center justify-center py-20">

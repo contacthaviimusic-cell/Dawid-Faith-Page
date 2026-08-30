@@ -125,6 +125,19 @@ export default function PreOrderPageClient({
     }
   }
 
+  // Zählt, welchen der drei "Wähle deinen Weg"-Buttons ein Besucher anklickt
+  // (unabhängig von der Traffic-Quelle) – fire-and-forget, blockiert den
+  // eigentlichen Klick/Redirect nicht.
+  function trackAction(action: 'presave' | 'preorder' | 'engagement') {
+    if (!songId) return;
+    fetch('/api/track-action', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ songId, action }),
+      keepalive: true,
+    }).catch(() => {});
+  }
+
   useEffect(() => {
     if (forceLang) {
       // Plattform-Link erzwingt die Sprache dieser Seite – trotzdem merken,
@@ -415,12 +428,13 @@ export default function PreOrderPageClient({
                     href={single.presaveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() =>
+                    onClick={() => {
+                      trackAction('presave');
                       window.fbq?.('trackCustom', 'PresaveClick', {
                         content_name: single.title,
                         content_category: 'presave',
-                      })
-                    }
+                      });
+                    }}
                     className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all mb-5"
                   >
                     {t.presave.button}
@@ -522,12 +536,13 @@ export default function PreOrderPageClient({
                     href={single.bandcampUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() =>
+                    onClick={() => {
+                      trackAction('preorder');
                       window.fbq?.('track', 'InitiateCheckout', {
                         content_name: single.title,
                         content_category: 'preorder',
-                      })
-                    }
+                      });
+                    }}
                     className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
                   >
                     {t.preorder.button}
@@ -582,12 +597,13 @@ export default function PreOrderPageClient({
                   href="https://app.dawidfaith.de"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() =>
+                  onClick={() => {
+                    trackAction('engagement');
                     window.fbq?.('trackCustom', 'AppClick', {
                       content_name: single.title,
                       content_category: 'engagement',
-                    })
-                  }
+                    });
+                  }}
                   className="inline-flex items-center justify-center gap-2 border border-amber-500/50 hover:bg-amber-500/10 text-amber-400 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
                 >
                   {t.engagement.button}
