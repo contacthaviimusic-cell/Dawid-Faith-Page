@@ -35,6 +35,12 @@ const PreOrderTranslations: Record<LangKey, {
     giveawayClose: string;
     giveawayError: string;
   };
+  giveawayPage: {
+    title: string;
+    intro: (songTitle: string) => string;
+    submitButton: string;
+    success: string;
+  };
   preorder: {
     title: string;
     desc: string;
@@ -97,6 +103,12 @@ const PreOrderTranslations: Record<LangKey, {
       giveawaySuccess: '✔ Du nimmst jetzt am Gewinnspiel teil! Presave öffnet sich in einem neuen Tab.',
       giveawayClose: 'Schließen',
       giveawayError: 'Etwas ist schiefgelaufen. Bitte versuch es erneut.',
+    },
+    giveawayPage: {
+      title: 'Danke fürs Presaven!',
+      intro: (songTitle) => `Du hast „${songTitle}" gerade presaved – klasse! Trag dich jetzt noch fürs Gewinnspiel ein.`,
+      submitButton: 'Am Gewinnspiel teilnehmen',
+      success: '✔ Du nimmst jetzt am Gewinnspiel teil! Falls du gewinnst, melden wir uns per E-Mail bei dir.',
     },
     preorder: {
       title: 'Pre-Order',
@@ -161,6 +173,12 @@ const PreOrderTranslations: Record<LangKey, {
       giveawayClose: 'Close',
       giveawayError: 'Something went wrong. Please try again.',
     },
+    giveawayPage: {
+      title: 'Thanks for presaving!',
+      intro: (songTitle) => `You just presaved "${songTitle}" – awesome! Now enter the giveaway too.`,
+      submitButton: 'Enter the giveaway',
+      success: '✔ You’re now entered in the giveaway! If you win, we’ll reach out by email.',
+    },
     preorder: {
       title: 'Pre-Order',
       desc: 'Get the song as MP3 plus the unreleased music video – via Bandcamp, no registration needed.',
@@ -223,6 +241,12 @@ const PreOrderTranslations: Record<LangKey, {
       giveawaySuccess: '✔ Bierzesz teraz udział w konkursie! Presave otworzy się w nowej karcie.',
       giveawayClose: 'Zamknij',
       giveawayError: 'Coś poszło nie tak. Spróbuj ponownie.',
+    },
+    giveawayPage: {
+      title: 'Dzięki za presave!',
+      intro: (songTitle) => `Właśnie zrobiłeś/aś presave „${songTitle}" – super! Teraz weź jeszcze udział w konkursie.`,
+      submitButton: 'Weź udział w konkursie',
+      success: '✔ Bierzesz teraz udział w konkursie! Jeśli wygrasz, odezwiemy się mailowo.',
     },
     preorder: {
       title: 'Przedsprzedaż',

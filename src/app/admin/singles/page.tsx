@@ -342,8 +342,8 @@ export default function AdminSinglesPage() {
               })}
 
               {field('Presave-URL', editing.presaveUrl, (v) => setEditing({ ...editing, presaveUrl: v }), {
-                placeholder: 'https://ffm.to/…',
-                hint: 'Feature.fm/Presave-Link. Leer lassen = Presave-Karte ausblenden.',
+                placeholder: 'https://hypeddit.com/…',
+                hint: 'Hypeddit-Presave-Link (dort Redirect nach Presave auf /pre-order/' + (editing.id || '<song-id>') + '/gewinnspiel einstellen). Leer lassen = Presave-Karte ausblenden.',
               })}
               {field('Rabattcode', editing.discountCode, (v) => setEditing({ ...editing, discountCode: v }), {
                 placeholder: 'z.B. PRESAVE20',
