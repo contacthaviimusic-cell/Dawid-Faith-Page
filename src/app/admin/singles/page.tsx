@@ -43,6 +43,14 @@ export default function AdminSinglesPage() {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  function copyGiveawayLink(id: string) {
+    const url = `${window.location.origin}/pre-order/${id}/gewinnspiel`;
+    navigator.clipboard.writeText(url);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  }
   const router = useRouter();
 
   async function fetchSingles() {
@@ -262,6 +270,13 @@ export default function AdminSinglesPage() {
                   >
                     Seite öffnen
                   </a>
+                  <button
+                    onClick={() => copyGiveawayLink(s.id)}
+                    className="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm"
+                    title="Für Hypeddit: als Redirect-Ziel nach dem Presave eintragen"
+                  >
+                    {copiedId === s.id ? '✓ Kopiert!' : '🎁 Gewinnspiel-Link'}
+                  </button>
                   <button
                     onClick={() => router.push(`/admin/singles/${s.id}/stats`)}
                     className="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm"
