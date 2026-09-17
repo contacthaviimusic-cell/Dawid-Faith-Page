@@ -78,12 +78,13 @@ export default function TeilnahmebedingungenPage() {
             <h2 className="text-xl font-black text-white mb-3">6. Ermittlung der Gewinner</h2>
             <p>
               Unter allen gültigen Teilnahmen (siehe Punkt 4) werden nach Ablauf des Teilnahmezeitraums per
-              Zufallsprinzip (Losverfahren) insgesamt 6 Gewinner/Gewinnerinnen ermittelt: 1 Gewinner/Gewinnerin für
-              den Mythic-NFT und 5 weitere, unterschiedliche Gewinner/Gewinnerinnen für je ein Song-NFT. Niemand kann
-              mehr als einen Preis pro Song gewinnen. Die Benachrichtigung erfolgt per E-Mail an die angegebene
-              Adresse innerhalb von 14 Tagen nach Ende des Teilnahmezeitraums. Meldet sich ein Gewinner/eine
-              Gewinnerin nicht innerhalb von 14 Tagen nach Benachrichtigung, verfällt der Gewinnanspruch für diesen
-              Preis und es wird erneut ausgelost.
+              Zufallsprinzip (Losverfahren) zunächst 5 unterschiedliche Gewinner/Gewinnerinnen für je ein Song-NFT
+              ermittelt. Anschließend wird der Mythic-NFT unter diesen 5 Song-NFT-Gewinner/-innen verlost – die
+              hierbei gezogene Person erhält zusätzlich zu ihrem Song-NFT auch den Mythic-NFT und gewinnt damit
+              bewusst zwei Preise. Alle übrigen Gewinner/Gewinnerinnen erhalten jeweils genau einen Preis (ihr
+              Song-NFT). Die Benachrichtigung erfolgt per E-Mail an die angegebene Adresse innerhalb von 14 Tagen
+              nach Ende des Teilnahmezeitraums. Meldet sich ein Gewinner/eine Gewinnerin nicht innerhalb von 14 Tagen
+              nach Benachrichtigung, verfällt der Gewinnanspruch für diesen Preis und es wird erneut ausgelost.
             </p>
           </section>
 
