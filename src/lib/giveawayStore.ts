@@ -235,6 +235,14 @@ export async function unsubscribeByEmail(email: string): Promise<number> {
   return count;
 }
 
+export async function deleteEntry(id: string): Promise<boolean> {
+  const entries = await readAll();
+  const remaining = entries.filter((e) => e.id !== id);
+  if (remaining.length === entries.length) return false;
+  await writeAll(remaining);
+  return true;
+}
+
 export async function markClicked(id: string): Promise<void> {
   const entries = await readAll();
   const idx = entries.findIndex((e) => e.id === id);

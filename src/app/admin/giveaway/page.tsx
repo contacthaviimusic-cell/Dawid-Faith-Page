@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Trophy, Sparkles } from 'lucide-react';
+import { ArrowLeft, Trophy, Sparkles, Trash2 } from 'lucide-react';
 
 interface GiveawayEntry {
   id: string;
@@ -52,7 +52,26 @@ export default function AdminGiveawayPage() {
   const [drawing, setDrawing] = useState<string | null>(null);
   const [drawError, setDrawError] = useState('');
   const [confirmingId, setConfirmingId] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const router = useRouter();
+
+  async function deleteEntry(entryId: string, email: string) {
+    if (!confirm(`Teilnahme von „${email}" wirklich löschen? Das kann nicht rückgängig gemacht werden.`)) return;
+    setDeletingId(entryId);
+    const res = await fetch(`/api/admin/giveaway?entryId=${encodeURIComponent(entryId)}`, {
+      method: 'DELETE',
+    });
+    setDeletingId(null);
+    if (res.status === 401) {
+      router.replace('/admin/login');
+      return;
+    }
+    if (res.ok) {
+      setEntries((prev) => prev.filter((e) => e.id !== entryId));
+    } else {
+      alert('Konnte Eintrag nicht löschen.');
+    }
+  }
 
   async function confirmEntry(entryId: string) {
     if (!confirm('Diesen Eintrag manuell als bestätigt markieren? Das ist nur für Alt-Einträge von vor der Modal-Umstellung gedacht.')) return;
@@ -382,6 +401,14 @@ export default function AdminGiveawayPage() {
                         {clicked && <>&nbsp;·&nbsp;Bestätigt: {formatDate(entry.clickedAt)}</>}
                       </p>
                     </div>
+                    <button
+                      onClick={() => deleteEntry(entry.id, entry.email)}
+                      disabled={deletingId === entry.id}
+                      title="Teilnahme löschen"
+                      className="flex-shrink-0 p-2 rounded-lg bg-slate-800 hover:bg-red-500/20 text-slate-400 hover:text-red-400 transition-all disabled:opacity-50"
+                    >
+                      <Trash2 size={16} />
+                    </button>
                   </div>
                 </div>
               );

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAdminAuthenticated } from '@/lib/adminSession';
-import { getAllEntries, getEntriesForSong, markClicked } from '@/lib/giveawayStore';
+import { getAllEntries, getEntriesForSong, markClicked, deleteEntry } from '@/lib/giveawayStore';
 
 export const dynamic = 'force-dynamic';
 
@@ -36,6 +36,30 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error('[admin giveaway POST]', err);
+    return NextResponse.json({ error: 'Interner Fehler.' }, { status: 500 });
+  }
+}
+
+// Entfernt einen einzelnen Teilnahme-Eintrag, z. B. eigene Test-Einträge des
+// Admins selbst. Löscht nur den Eintrag – ein bereits gezogener Gewinner-Datensatz
+// bleibt davon unberührt.
+export async function DELETE(request: NextRequest) {
+  if (!(await isAdminAuthenticated()))
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+  const entryId = new URL(request.url).searchParams.get('entryId');
+  if (!entryId) {
+    return NextResponse.json({ error: 'entryId fehlt.' }, { status: 400 });
+  }
+
+  try {
+    const deleted = await deleteEntry(entryId);
+    if (!deleted) {
+      return NextResponse.json({ error: 'Eintrag nicht gefunden.' }, { status: 404 });
+    }
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error('[admin giveaway DELETE]', err);
     return NextResponse.json({ error: 'Interner Fehler.' }, { status: 500 });
   }
 }
