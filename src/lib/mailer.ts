@@ -126,10 +126,12 @@ const winnerTranslations: Record<MailLang, {
   intro: (songTitle: string) => string;
   prizeMythic: string;
   prizeSongNft: string;
+  thankYou: string;
   mythicFact: string;
   marketplaceNote: string;
   claimInstructions: string;
   ctaButton: string;
+  personalClosing: string;
   closing: string;
 }> = {
   de: {
@@ -139,6 +141,8 @@ const winnerTranslations: Record<MailLang, {
     intro: (songTitle) => `Du hast beim Presave-Gewinnspiel zu „${songTitle}" gewonnen:`,
     prizeMythic: '🏆 1× Mythic-NFT aus den D.FAITH Collectibles',
     prizeSongNft: '🎵 1× limitiertes Song-NFT',
+    thankYou:
+      'Vielen Dank für deine Unterstützung – dass du presaved und am Gewinnspiel teilgenommen hast, bedeutet mir wirklich viel und hilft mir enorm dabei, meine Musik weiter voranzubringen.',
     mythicFact:
       '🏆 Wusstest du schon? Der Mythic-NFT ist die höchste und seltenste Stufe der D.FAITH Collectibles – er erhöht die Belohnungen, die du beim Erfüllen von Social-Media-Quests in der D.FAITH Webapp erhältst.',
     marketplaceNote:
@@ -146,6 +150,7 @@ const winnerTranslations: Record<MailLang, {
     claimInstructions:
       'Dein Gewinn wird automatisch deiner Wallet gutgeschrieben, sobald du dich mit dieser E-Mail-Adresse in der D.FAITH-Webapp registrierst – eine Antwort auf diese E-Mail ist nicht nötig. Registrierst du dich nicht innerhalb von 14 Tagen, verfällt der Gewinnanspruch leider gemäß unseren Teilnahmebedingungen.',
     ctaButton: 'Jetzt registrieren',
+    personalClosing: 'Bei weiteren Fragen stehe ich dir gerne persönlich zur Verfügung – melde dich einfach jederzeit bei mir.',
     closing: 'Herzliche Glückwünsche,',
   },
   en: {
@@ -155,6 +160,8 @@ const winnerTranslations: Record<MailLang, {
     intro: (songTitle) => `You won the following in the presave giveaway for "${songTitle}":`,
     prizeMythic: '🏆 1× Mythic NFT from the D.FAITH Collectibles',
     prizeSongNft: '🎵 1× limited Song NFT',
+    thankYou:
+      'Thank you so much for your support – presaving and entering the giveaway means a lot to me and helps me keep pushing my music forward.',
     mythicFact:
       '🏆 Did you know? The Mythic NFT is the highest and rarest tier of the D.FAITH Collectibles – it increases the rewards you get for completing social media quests in the D.FAITH webapp.',
     marketplaceNote:
@@ -162,6 +169,7 @@ const winnerTranslations: Record<MailLang, {
     claimInstructions:
       'Your prize is credited to your wallet automatically as soon as you register in the D.FAITH webapp with this email address – no reply to this email is needed. If you don’t register within 14 days, the prize will unfortunately be forfeited per our terms & conditions.',
     ctaButton: 'Register now',
+    personalClosing: 'If you have any questions, feel free to reach out to me personally anytime.',
     closing: 'Congratulations again,',
   },
   pl: {
@@ -171,6 +179,8 @@ const winnerTranslations: Record<MailLang, {
     intro: (songTitle) => `Wygrałeś/aś w konkursie presave dla „${songTitle}":`,
     prizeMythic: '🏆 1× Mythic NFT z kolekcji D.FAITH Collectibles',
     prizeSongNft: '🎵 1× limitowane Song NFT',
+    thankYou:
+      'Bardzo dziękuję za Twoje wsparcie – zrobienie presave i udział w konkursie naprawdę wiele dla mnie znaczy i pomaga mi rozwijać moją muzykę.',
     mythicFact:
       '🏆 Czy wiesz, że? Mythic NFT to najwyższy i najrzadszy poziom kolekcji D.FAITH Collectibles – zwiększa nagrody, które otrzymujesz za wykonywanie questów w mediach społecznościowych w aplikacji D.FAITH.',
     marketplaceNote:
@@ -178,6 +188,7 @@ const winnerTranslations: Record<MailLang, {
     claimInstructions:
       'Twoja nagroda zostanie automatycznie przypisana do Twojego portfela, gdy tylko zarejestrujesz się w aplikacji D.FAITH przy użyciu tego adresu e-mail – nie musisz odpowiadać na tego maila. Jeśli nie zarejestrujesz się w ciągu 14 dni, nagroda niestety przepadnie zgodnie z regulaminem konkursu.',
     ctaButton: 'Zarejestruj się teraz',
+    personalClosing: 'Jeśli masz jakieś pytania, śmiało napisz do mnie osobiście w dowolnym momencie.',
     closing: 'Jeszcze raz gratulacje,',
   },
 };
@@ -203,6 +214,7 @@ export function renderGiveawayWinnerEmail(
         <ul style="line-height: 1.8; color: #333; font-weight: bold; padding-left: 20px;">
           ${prizeLines.map((line) => `<li>${line}</li>`).join('')}
         </ul>
+        <p style="line-height: 1.6; color: #555;">${t.thankYou}</p>
         ${hasMythic ? `
         <div style="background: #fff8ec; border: 1px solid #f5d9a8; border-radius: 8px; padding: 16px; margin: 20px 0;">
           <p style="line-height: 1.5; color: #7a4e00; margin: 0; font-size: 14px;">${t.mythicFact}</p>
@@ -218,6 +230,7 @@ export function renderGiveawayWinnerEmail(
             ${t.ctaButton}
           </a>
         </div>
+        <p style="line-height: 1.6; color: #555;">${t.personalClosing}</p>
         <p style="line-height: 1.6; color: #555;">
           ${t.closing}<br/>
           <strong>Dawid Faith</strong>
@@ -234,12 +247,16 @@ export function renderGiveawayWinnerEmail(
     '',
     prizeLines.map((l) => `- ${l}`).join('\n'),
     '',
+    t.thankYou,
+    '',
     ...(hasMythic ? [t.mythicFact, ''] : []),
     t.marketplaceNote,
     '',
     t.claimInstructions,
     '',
     `${t.ctaButton}: ${APP_URL}`,
+    '',
+    t.personalClosing,
     '',
     t.closing,
     'Dawid Faith',
