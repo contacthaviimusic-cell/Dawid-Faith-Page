@@ -69,8 +69,10 @@ export default function TeilnahmebedingungenPage() {
               <li>5× limitiertes Song-NFT des jeweiligen Songs (verfügbar nur bis zum Release des Musikvideos)</li>
             </ul>
             <p className="mt-3">
-              Der Gewinn wird dem Gewinner/der Gewinnerin in dessen/deren D.FAITH-Webapp-Wallet gutgeschrieben. Eine
-              Barauszahlung oder ein Umtausch des Gewinns ist ausgeschlossen. Der Rechtsweg ist ausgeschlossen.
+              Der Gewinn wird dem Gewinner/der Gewinnerin automatisch in dessen/deren Wallet gutgeschrieben, sobald
+              er/sie sich mit der bei der Teilnahme angegebenen E-Mail-Adresse in der D.FAITH-Webapp
+              (app.dawidfaith.de) registriert – eine gesonderte Anfrage ist dafür nicht nötig. Eine Barauszahlung
+              oder ein Umtausch des Gewinns ist ausgeschlossen. Der Rechtsweg ist ausgeschlossen.
             </p>
           </section>
 
@@ -83,8 +85,9 @@ export default function TeilnahmebedingungenPage() {
               hierbei gezogene Person erhält zusätzlich zu ihrem Song-NFT auch den Mythic-NFT und gewinnt damit
               bewusst zwei Preise. Alle übrigen Gewinner/Gewinnerinnen erhalten jeweils genau einen Preis (ihr
               Song-NFT). Die Benachrichtigung erfolgt per E-Mail an die angegebene Adresse innerhalb von 14 Tagen
-              nach Ende des Teilnahmezeitraums. Meldet sich ein Gewinner/eine Gewinnerin nicht innerhalb von 14 Tagen
-              nach Benachrichtigung, verfällt der Gewinnanspruch für diesen Preis und es wird erneut ausgelost.
+              nach Ende des Teilnahmezeitraums. Registriert sich ein Gewinner/eine Gewinnerin nicht innerhalb von 14
+              Tagen nach Benachrichtigung mit der angegebenen E-Mail-Adresse in der D.FAITH-Webapp, verfällt der
+              Gewinnanspruch für diesen Preis und es wird erneut ausgelost.
             </p>
           </section>
 

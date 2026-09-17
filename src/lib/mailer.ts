@@ -117,6 +117,8 @@ export async function sendGiveawayConfirmationEmail(
 
 export type WinnerPrizeType = 'mythic' | 'song-nft';
 
+const APP_URL = 'https://app.dawidfaith.de';
+
 const winnerTranslations: Record<MailLang, {
   tagline: string;
   subject: (songTitle: string) => string;
@@ -125,6 +127,7 @@ const winnerTranslations: Record<MailLang, {
   prizeMythic: string;
   prizeSongNft: string;
   claimInstructions: string;
+  ctaButton: string;
   closing: string;
 }> = {
   de: {
@@ -135,7 +138,8 @@ const winnerTranslations: Record<MailLang, {
     prizeMythic: '🏆 1× Mythic-NFT aus den D.FAITH Collectibles',
     prizeSongNft: '🎵 1× limitiertes Song-NFT',
     claimInstructions:
-      'Damit wir dir deinen Gewinn in deiner D.FAITH-Webapp-Wallet gutschreiben können, antworte uns bitte innerhalb der nächsten 14 Tage auf diese E-Mail mit der E-Mail-Adresse bzw. dem Benutzernamen, den du in der D.FAITH-Webapp nutzt. Meldest du dich nicht innerhalb von 14 Tagen, verfällt der Gewinnanspruch leider gemäß unseren Teilnahmebedingungen.',
+      'Dein Gewinn wird automatisch deiner Wallet gutgeschrieben, sobald du dich mit dieser E-Mail-Adresse in der D.FAITH-Webapp registrierst – eine Antwort auf diese E-Mail ist nicht nötig. Registrierst du dich nicht innerhalb von 14 Tagen, verfällt der Gewinnanspruch leider gemäß unseren Teilnahmebedingungen.',
+    ctaButton: 'Jetzt registrieren',
     closing: 'Herzliche Glückwünsche,',
   },
   en: {
@@ -146,7 +150,8 @@ const winnerTranslations: Record<MailLang, {
     prizeMythic: '🏆 1× Mythic NFT from the D.FAITH Collectibles',
     prizeSongNft: '🎵 1× limited Song NFT',
     claimInstructions:
-      'To credit your prize to your D.FAITH webapp wallet, please reply to this email within the next 14 days with the email address or username you use in the D.FAITH webapp. If we don’t hear from you within 14 days, the prize will unfortunately be forfeited per our terms & conditions.',
+      'Your prize is credited to your wallet automatically as soon as you register in the D.FAITH webapp with this email address – no reply to this email is needed. If you don’t register within 14 days, the prize will unfortunately be forfeited per our terms & conditions.',
+    ctaButton: 'Register now',
     closing: 'Congratulations again,',
   },
   pl: {
@@ -157,7 +162,8 @@ const winnerTranslations: Record<MailLang, {
     prizeMythic: '🏆 1× Mythic NFT z kolekcji D.FAITH Collectibles',
     prizeSongNft: '🎵 1× limitowane Song NFT',
     claimInstructions:
-      'Aby zapisać Twoją nagrodę na Twoim portfelu w aplikacji D.FAITH, odpowiedz na tego maila w ciągu najbliższych 14 dni, podając adres e-mail lub nazwę użytkownika, której używasz w aplikacji D.FAITH. Jeśli nie odezwiesz się w ciągu 14 dni, nagroda niestety przepadnie zgodnie z regulaminem konkursu.',
+      'Twoja nagroda zostanie automatycznie przypisana do Twojego portfela, gdy tylko zarejestrujesz się w aplikacji D.FAITH przy użyciu tego adresu e-mail – nie musisz odpowiadać na tego maila. Jeśli nie zarejestrujesz się w ciągu 14 dni, nagroda niestety przepadnie zgodnie z regulaminem konkursu.',
+    ctaButton: 'Zarejestruj się teraz',
     closing: 'Jeszcze raz gratulacje,',
   },
 };
@@ -185,6 +191,11 @@ export function renderGiveawayWinnerEmail(
         <p style="line-height: 1.6; color: #555; margin-top: 20px;">
           ${t.claimInstructions}
         </p>
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${APP_URL}" style="display: inline-block; background: #f59e0b; color: #000; font-weight: bold; padding: 14px 28px; border-radius: 999px; text-decoration: none;">
+            ${t.ctaButton}
+          </a>
+        </div>
         <p style="line-height: 1.6; color: #555;">
           ${t.closing}<br/>
           <strong>Dawid Faith</strong>
@@ -196,7 +207,7 @@ export function renderGiveawayWinnerEmail(
     </div>
   `;
 
-  const text = `${t.intro(songTitle)}\n\n${prizeLines.map((l) => `- ${l}`).join('\n')}\n\n${t.claimInstructions}\n\n${t.closing}\nDawid Faith`;
+  const text = `${t.intro(songTitle)}\n\n${prizeLines.map((l) => `- ${l}`).join('\n')}\n\n${t.claimInstructions}\n\n${t.ctaButton}: ${APP_URL}\n\n${t.closing}\nDawid Faith`;
 
   return { subject: t.subject(songTitle), html, text };
 }
