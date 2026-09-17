@@ -332,11 +332,15 @@ export async function drawWinner(
     return { winner };
   }
 
-  if (songWinners.filter((w) => w.prizeType === 'song-nft').length >= SONG_NFT_SLOTS) {
+  const existingSongNftWinners = songWinners.filter((w) => w.prizeType === 'song-nft');
+  if (existingSongNftWinners.length >= SONG_NFT_SLOTS) {
     return { winner: null, error: `Alle ${SONG_NFT_SLOTS} Song-NFT-Plätze sind bereits vergeben.` };
   }
 
-  const eligible = eligibleEntries(entries, buildExclusion(songWinners, entryById));
+  // Nur bereits vergebene Song-NFTs schließen von der Song-NFT-Ziehung aus –
+  // wer (z. B. aus einer älteren Ziehung) nur den Mythic-NFT hält, ohne
+  // dazugehöriges Song-NFT, darf trotzdem noch eins gewinnen.
+  const eligible = eligibleEntries(entries, buildExclusion(existingSongNftWinners, entryById));
   if (eligible.length === 0) {
     return { winner: null, error: 'Keine weiteren bestätigten Teilnahmen für diesen Song verfügbar.' };
   }
@@ -410,8 +414,8 @@ export async function redrawWinner(
     };
   }
 
-  const otherSongWinners = songWinners.filter((w) => w.id !== winnerId);
-  const eligible = eligibleEntries(entries, buildExclusion(otherSongWinners, entryById));
+  const otherSongNftWinners = songWinners.filter((w) => w.id !== winnerId && w.prizeType === 'song-nft');
+  const eligible = eligibleEntries(entries, buildExclusion(otherSongNftWinners, entryById));
   if (eligible.length === 0) {
     return { winner: null, error: 'Keine weiteren bestätigten Teilnahmen für diesen Song verfügbar.' };
   }
