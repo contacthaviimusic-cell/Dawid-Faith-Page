@@ -109,6 +109,114 @@ export async function sendGiveawayConfirmationEmail(
   });
 }
 
+// ── Gewinner-Mail ────────────────────────────────────────────────────────────
+// Manuell im Admin-Panel ausgelöst (mit Vorschau vor dem Versand), nicht
+// automatisch. Eine Person kann pro Song bis zu zwei Preise gewinnen
+// (Song-NFT + zusätzlich Mythic-NFT), bekommt dafür aber nur eine
+// gemeinsame Mail statt mehrerer.
+
+export type WinnerPrizeType = 'mythic' | 'song-nft';
+
+const winnerTranslations: Record<MailLang, {
+  tagline: string;
+  subject: (songTitle: string) => string;
+  heading: string;
+  intro: (songTitle: string) => string;
+  prizeMythic: string;
+  prizeSongNft: string;
+  claimInstructions: string;
+  closing: string;
+}> = {
+  de: {
+    tagline: 'Presave & Gewinnspiel',
+    subject: (songTitle) => `🎉 Du hast beim „${songTitle}"-Gewinnspiel gewonnen!`,
+    heading: 'Herzlichen Glückwunsch!',
+    intro: (songTitle) => `Du hast beim Presave-Gewinnspiel zu „${songTitle}" gewonnen:`,
+    prizeMythic: '🏆 1× Mythic-NFT aus den D.FAITH Collectibles',
+    prizeSongNft: '🎵 1× limitiertes Song-NFT',
+    claimInstructions:
+      'Damit wir dir deinen Gewinn in deiner D.FAITH-Webapp-Wallet gutschreiben können, antworte uns bitte innerhalb der nächsten 14 Tage auf diese E-Mail mit der E-Mail-Adresse bzw. dem Benutzernamen, den du in der D.FAITH-Webapp nutzt. Meldest du dich nicht innerhalb von 14 Tagen, verfällt der Gewinnanspruch leider gemäß unseren Teilnahmebedingungen.',
+    closing: 'Herzliche Glückwünsche,',
+  },
+  en: {
+    tagline: 'Presave & Giveaway',
+    subject: (songTitle) => `🎉 You won the "${songTitle}" giveaway!`,
+    heading: 'Congratulations!',
+    intro: (songTitle) => `You won the following in the presave giveaway for "${songTitle}":`,
+    prizeMythic: '🏆 1× Mythic NFT from the D.FAITH Collectibles',
+    prizeSongNft: '🎵 1× limited Song NFT',
+    claimInstructions:
+      'To credit your prize to your D.FAITH webapp wallet, please reply to this email within the next 14 days with the email address or username you use in the D.FAITH webapp. If we don’t hear from you within 14 days, the prize will unfortunately be forfeited per our terms & conditions.',
+    closing: 'Congratulations again,',
+  },
+  pl: {
+    tagline: 'Presave i konkurs',
+    subject: (songTitle) => `🎉 Wygrałeś/aś konkurs „${songTitle}"!`,
+    heading: 'Gratulacje!',
+    intro: (songTitle) => `Wygrałeś/aś w konkursie presave dla „${songTitle}":`,
+    prizeMythic: '🏆 1× Mythic NFT z kolekcji D.FAITH Collectibles',
+    prizeSongNft: '🎵 1× limitowane Song NFT',
+    claimInstructions:
+      'Aby zapisać Twoją nagrodę na Twoim portfelu w aplikacji D.FAITH, odpowiedz na tego maila w ciągu najbliższych 14 dni, podając adres e-mail lub nazwę użytkownika, której używasz w aplikacji D.FAITH. Jeśli nie odezwiesz się w ciągu 14 dni, nagroda niestety przepadnie zgodnie z regulaminem konkursu.',
+    closing: 'Jeszcze raz gratulacje,',
+  },
+};
+
+export function renderGiveawayWinnerEmail(
+  songTitle: string,
+  prizeTypes: WinnerPrizeType[],
+  lang?: string
+): { subject: string; html: string; text: string } {
+  const t = winnerTranslations[normalizeMailLang(lang)];
+  const prizeLines = prizeTypes.map((p) => (p === 'mythic' ? t.prizeMythic : t.prizeSongNft));
+
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
+      <div style="text-align: center; padding: 30px 0; border-bottom: 2px solid #f59e0b;">
+        <h1 style="margin: 0; font-size: 28px; color: #111;">Dawid Faith</h1>
+        <p style="margin: 5px 0 0; color: #888; font-size: 14px;">${t.tagline}</p>
+      </div>
+      <div style="padding: 30px 0;">
+        <h2 style="color: #111; margin-top: 0;">${t.heading}</h2>
+        <p style="line-height: 1.6; color: #555;">${t.intro(songTitle)}</p>
+        <ul style="line-height: 1.8; color: #333; font-weight: bold; padding-left: 20px;">
+          ${prizeLines.map((line) => `<li>${line}</li>`).join('')}
+        </ul>
+        <p style="line-height: 1.6; color: #555; margin-top: 20px;">
+          ${t.claimInstructions}
+        </p>
+        <p style="line-height: 1.6; color: #555;">
+          ${t.closing}<br/>
+          <strong>Dawid Faith</strong>
+        </p>
+      </div>
+      <div style="border-top: 1px solid #eee; padding: 20px 0; text-align: center; color: #aaa; font-size: 12px;">
+        <p style="margin: 0;">© ${new Date().getFullYear()} Dawid Faith</p>
+      </div>
+    </div>
+  `;
+
+  const text = `${t.intro(songTitle)}\n\n${prizeLines.map((l) => `- ${l}`).join('\n')}\n\n${t.claimInstructions}\n\n${t.closing}\nDawid Faith`;
+
+  return { subject: t.subject(songTitle), html, text };
+}
+
+export async function sendGiveawayWinnerEmail(
+  email: string,
+  songTitle: string,
+  prizeTypes: WinnerPrizeType[],
+  lang?: string
+): Promise<void> {
+  const { subject, html, text } = renderGiveawayWinnerEmail(songTitle, prizeTypes, lang);
+  await getResendClient().emails.send({
+    from: FROM_ADDRESS,
+    to: email,
+    subject,
+    html,
+    text,
+  });
+}
+
 // ── Booking-Mails ────────────────────────────────────────────────────────────
 
 const bookingTranslations: Record<MailLang, {

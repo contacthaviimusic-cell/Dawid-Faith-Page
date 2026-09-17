@@ -32,6 +32,18 @@ interface GiveawayWinner {
   drawnAt: string;
 }
 
+interface WinnerMailPreview {
+  entryId: string;
+  email: string;
+  prizeTypes: PrizeType[];
+  lang: 'de' | 'en' | 'pl';
+  subject: string;
+  html: string;
+  text: string;
+}
+
+const PRIZE_LABELS: Record<PrizeType, string> = { mythic: 'Mythic-NFT', 'song-nft': 'Song-NFT' };
+
 function formatDate(iso: string | null) {
   if (!iso) return '—';
   return new Date(iso).toLocaleString('de-DE', {
@@ -53,7 +65,45 @@ export default function AdminGiveawayPage() {
   const [drawError, setDrawError] = useState('');
   const [confirmingId, setConfirmingId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [notifyPreviews, setNotifyPreviews] = useState<WinnerMailPreview[]>([]);
+  const [expandedPreview, setExpandedPreview] = useState<string | null>(null);
+  const [sendingId, setSendingId] = useState<string | null>(null);
+  const [sentIds, setSentIds] = useState<Set<string>>(new Set());
   const router = useRouter();
+
+  async function fetchNotifyPreviews(songId: string) {
+    if (!songId) {
+      setNotifyPreviews([]);
+      return;
+    }
+    const res = await fetch(`/api/admin/giveaway/notify?songId=${encodeURIComponent(songId)}`, { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      setNotifyPreviews(data.previews ?? []);
+    }
+  }
+
+  async function sendWinnerEmail(entryId: string, email: string) {
+    if (!filterSongId) return;
+    if (!confirm(`Gewinner-Mail jetzt wirklich an „${email}" senden?`)) return;
+    setSendingId(entryId);
+    const res = await fetch('/api/admin/giveaway/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ songId: filterSongId, entryId }),
+    });
+    setSendingId(null);
+    if (res.status === 401) {
+      router.replace('/admin/login');
+      return;
+    }
+    if (res.ok) {
+      setSentIds((prev) => new Set(prev).add(entryId));
+    } else {
+      const data = await res.json().catch(() => ({}));
+      alert(data.error ?? 'Konnte Mail nicht senden.');
+    }
+  }
 
   async function deleteEntry(entryId: string, email: string) {
     if (!confirm(`Teilnahme von „${email}" wirklich löschen? Das kann nicht rückgängig gemacht werden.`)) return;
@@ -132,7 +182,9 @@ export default function AdminGiveawayPage() {
 
   useEffect(() => {
     setDrawError('');
+    setExpandedPreview(null);
     fetchWinners(filterSongId);
+    fetchNotifyPreviews(filterSongId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterSongId]);
 
@@ -152,6 +204,7 @@ export default function AdminGiveawayPage() {
       return;
     }
     setWinners((prev) => [...prev, data]);
+    fetchNotifyPreviews(filterSongId);
   }
 
   async function handleRedraw(winnerId: string) {
@@ -171,6 +224,7 @@ export default function AdminGiveawayPage() {
       return;
     }
     setWinners((prev) => [...prev.filter((w) => w.id !== winnerId), data]);
+    fetchNotifyPreviews(filterSongId);
   }
 
   const songIds = Array.from(new Set(entries.map((e) => e.songId)));
@@ -329,6 +383,62 @@ export default function AdminGiveawayPage() {
             </div>
 
             {drawError && <p className="text-red-400 text-sm">{drawError}</p>}
+
+            {/* Gewinner-Mails: Vorschau vor dem Versand, einzeln pro Person */}
+            {notifyPreviews.length > 0 && (
+              <div className="p-5 rounded-2xl border border-slate-700 bg-slate-900/40">
+                <p className="text-xs uppercase tracking-wide text-amber-400 font-bold mb-3">
+                  Gewinner-Mails · {notifyPreviews.length} Person{notifyPreviews.length === 1 ? '' : 'en'}
+                </p>
+                <div className="space-y-2">
+                  {notifyPreviews.map((p) => {
+                    const isExpanded = expandedPreview === p.entryId;
+                    const isSent = sentIds.has(p.entryId);
+                    return (
+                      <div key={p.entryId} className="p-3 rounded-lg bg-black/30 border border-white/5">
+                        <div className="flex flex-col md:flex-row md:items-center gap-3">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-white truncate">{p.email}</p>
+                            <p className="text-xs text-gray-500 mt-0.5">
+                              {p.prizeTypes.map((pt) => PRIZE_LABELS[pt]).join(' + ')} · {LANG_LABELS[p.lang]}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2 flex-shrink-0">
+                            <button
+                              onClick={() => setExpandedPreview(isExpanded ? null : p.entryId)}
+                              className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold transition-all"
+                            >
+                              {isExpanded ? 'Vorschau verbergen' : 'Vorschau anzeigen'}
+                            </button>
+                            <button
+                              onClick={() => sendWinnerEmail(p.entryId, p.email)}
+                              disabled={sendingId === p.entryId}
+                              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all disabled:opacity-50 ${
+                                isSent
+                                  ? 'bg-green-500/20 text-green-400'
+                                  : 'bg-gradient-to-r from-amber-500 to-orange-500 text-black hover:from-amber-400 hover:to-orange-400'
+                              }`}
+                            >
+                              {sendingId === p.entryId ? 'Sende…' : isSent ? '✓ Gesendet' : 'Mail senden'}
+                            </button>
+                          </div>
+                        </div>
+                        {isExpanded && (
+                          <div className="mt-3 pt-3 border-t border-white/5">
+                            <p className="text-xs text-gray-500 mb-2">
+                              <span className="text-gray-400 font-semibold">Betreff:</span> {p.subject}
+                            </p>
+                            <pre className="text-xs text-gray-300 whitespace-pre-wrap bg-black/40 rounded-lg p-3 font-sans">
+                              {p.text}
+                            </pre>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
