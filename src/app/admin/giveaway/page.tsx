@@ -69,6 +69,7 @@ export default function AdminGiveawayPage() {
   const [expandedPreview, setExpandedPreview] = useState<string | null>(null);
   const [sendingId, setSendingId] = useState<string | null>(null);
   const [sentIds, setSentIds] = useState<Set<string>>(new Set());
+  const [testEmail, setTestEmail] = useState('');
   const router = useRouter();
 
   async function fetchNotifyPreviews(songId: string) {
@@ -102,6 +103,31 @@ export default function AdminGiveawayPage() {
     } else {
       const data = await res.json().catch(() => ({}));
       alert(data.error ?? 'Konnte Mail nicht senden.');
+    }
+  }
+
+  async function sendTestWinnerEmail(entryId: string) {
+    if (!filterSongId) return;
+    if (!testEmail.trim()) {
+      alert('Bitte zuerst eine Test-E-Mail-Adresse eingeben.');
+      return;
+    }
+    setSendingId(`test-${entryId}`);
+    const res = await fetch('/api/admin/giveaway/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ songId: filterSongId, entryId, testEmail: testEmail.trim() }),
+    });
+    setSendingId(null);
+    if (res.status === 401) {
+      router.replace('/admin/login');
+      return;
+    }
+    if (res.ok) {
+      alert(`Test-Mail an ${testEmail.trim()} gesendet.`);
+    } else {
+      const data = await res.json().catch(() => ({}));
+      alert(data.error ?? 'Konnte Test-Mail nicht senden.');
     }
   }
 
@@ -390,6 +416,15 @@ export default function AdminGiveawayPage() {
                 <p className="text-xs uppercase tracking-wide text-amber-400 font-bold mb-3">
                   Gewinner-Mails · {notifyPreviews.length} Person{notifyPreviews.length === 1 ? '' : 'en'}
                 </p>
+                <div className="flex items-center gap-2 mb-4">
+                  <input
+                    type="email"
+                    value={testEmail}
+                    onChange={(e) => setTestEmail(e.target.value)}
+                    placeholder="Test-E-Mail-Adresse (z. B. deine eigene)"
+                    className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  />
+                </div>
                 <div className="space-y-2">
                   {notifyPreviews.map((p) => {
                     const isExpanded = expandedPreview === p.entryId;
@@ -409,6 +444,13 @@ export default function AdminGiveawayPage() {
                               className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold transition-all"
                             >
                               {isExpanded ? 'Vorschau verbergen' : 'Vorschau anzeigen'}
+                            </button>
+                            <button
+                              onClick={() => sendTestWinnerEmail(p.entryId)}
+                              disabled={sendingId === `test-${p.entryId}`}
+                              className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold transition-all disabled:opacity-50"
+                            >
+                              {sendingId === `test-${p.entryId}` ? 'Sende…' : 'Test an mich'}
                             </button>
                             <button
                               onClick={() => sendWinnerEmail(p.entryId, p.email)}

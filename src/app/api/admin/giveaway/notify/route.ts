@@ -65,9 +65,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await request.json().catch(() => ({}));
-  const { songId, entryId } = body;
+  const { songId, entryId, testEmail } = body;
   if (!songId || typeof songId !== 'string' || !entryId || typeof entryId !== 'string') {
     return NextResponse.json({ error: 'songId/entryId fehlt.' }, { status: 400 });
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (testEmail !== undefined && (typeof testEmail !== 'string' || !emailRegex.test(testEmail))) {
+    return NextResponse.json({ error: 'Ungültige Test-E-Mail-Adresse.' }, { status: 400 });
   }
 
   try {
@@ -86,11 +90,14 @@ export async function POST(request: NextRequest) {
     }
 
     const entry = entries.find((e) => e.id === entryId);
-    const email = entry?.email ?? winners.find((w) => w.entryId === entryId)!.email;
+    // Bei testEmail geht der reale Inhalt (Preise, Sprache) an eine
+    // Test-Adresse statt an den echten Gewinner – zum Gegenchecken vor dem
+    // eigentlichen Versand.
+    const email = testEmail || entry?.email || winners.find((w) => w.entryId === entryId)!.email;
     const lang = entry?.language;
 
     await sendGiveawayWinnerEmail(email, single.title, prizeTypes, lang);
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, sentTo: email, isTest: !!testEmail });
   } catch (err) {
     console.error('[admin giveaway notify POST]', err);
     return NextResponse.json({ error: 'Interner Fehler.' }, { status: 500 });
