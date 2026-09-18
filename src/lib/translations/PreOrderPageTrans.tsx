@@ -48,6 +48,12 @@ const PreOrderTranslations: Record<LangKey, {
     comingSoon: string;
     availableUntil: string;
   };
+  listen: {
+    title: string;
+    desc: string;
+    button: string;
+    comingSoon: string;
+  };
   engagement: {
     title: string;
     desc: string;
@@ -116,6 +122,12 @@ const PreOrderTranslations: Record<LangKey, {
       button: 'Jetzt auf Bandcamp kaufen',
       comingSoon: 'Bald verfügbar',
       availableUntil: 'Verfügbar bis zum Musikvideo-Release',
+    },
+    listen: {
+      title: 'Jetzt überall hören',
+      desc: 'Der Song ist da! Streame ihn auf deiner Lieblingsplattform – Spotify, Apple Music, YouTube Music und mehr.',
+      button: 'Jetzt anhören',
+      comingSoon: 'Bald verfügbar',
     },
     engagement: {
       title: 'Zahle mit Engagement',
@@ -186,6 +198,12 @@ const PreOrderTranslations: Record<LangKey, {
       comingSoon: 'Coming soon',
       availableUntil: 'Available until the music video release',
     },
+    listen: {
+      title: 'Listen everywhere now',
+      desc: 'The song is out! Stream it on your favorite platform – Spotify, Apple Music, YouTube Music and more.',
+      button: 'Listen now',
+      comingSoon: 'Coming soon',
+    },
     engagement: {
       title: 'Pay with engagement',
       desc: 'No money needed: earn tokens through quests in the D.FAITH webapp and secure the song\'s NFT edition – available only until the music video release.',
@@ -254,6 +272,12 @@ const PreOrderTranslations: Record<LangKey, {
       button: 'Kup teraz na Bandcamp',
       comingSoon: 'Wkrótce dostępne',
       availableUntil: 'Dostępne do premiery teledysku',
+    },
+    listen: {
+      title: 'Słuchaj już wszędzie',
+      desc: 'Utwór jest już dostępny! Odtwarzaj go na ulubionej platformie – Spotify, Apple Music, YouTube Music i innych.',
+      button: 'Posłuchaj teraz',
+      comingSoon: 'Wkrótce dostępne',
     },
     engagement: {
       title: 'Zapłać zaangażowaniem',

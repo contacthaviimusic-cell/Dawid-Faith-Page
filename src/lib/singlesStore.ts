@@ -13,6 +13,7 @@ export interface SingleConfig {
   discountCode: string;
   preorderPrice: string; // z.B. '4.99' (rein informativ, Preis wird auf Bandcamp gepflegt)
   bandcampUrl: string; // Link zum Bandcamp-Track/Album (leer, bis konfiguriert)
+  streamingUrl: string; // "Jetzt überall hören"-Link (z.B. Ditto/Songwhip-Smartlink), ersetzt die Pre-Order-Karte, sobald der Song veröffentlicht ist
   premiereVideoUrl: string; // YouTube-Premiere-Link; wird öffentlich erst ab premiereRevealHours vor videoReleaseDate ausgeliefert
   premiereRevealHours: string; // Stunden vor videoReleaseDate, ab denen premiereVideoUrl öffentlich sichtbar wird (Default 48, siehe api/singles)
   active: boolean;

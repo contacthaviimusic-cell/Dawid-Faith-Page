@@ -13,6 +13,7 @@ interface SingleConfig {
   discountCode: string;
   preorderPrice: string;
   bandcampUrl: string;
+  streamingUrl: string;
   premiereVideoUrl: string;
   premiereRevealHours: string;
   active: boolean;
@@ -93,6 +94,7 @@ export default function AdminSinglesPage() {
       discountCode: '',
       preorderPrice: '',
       bandcampUrl: '',
+      streamingUrl: '',
       premiereVideoUrl: '',
       premiereRevealHours: '',
       active: true,
@@ -118,6 +120,7 @@ export default function AdminSinglesPage() {
         discountCode: form.discountCode,
         preorderPrice: form.preorderPrice,
         bandcampUrl: form.bandcampUrl,
+        streamingUrl: form.streamingUrl,
         premiereVideoUrl: form.premiereVideoUrl,
         premiereRevealHours: form.premiereRevealHours,
         active: form.active,
@@ -259,7 +262,8 @@ export default function AdminSinglesPage() {
                       Audio: {s.audioReleaseDate ? new Date(s.audioReleaseDate).toLocaleString('de-DE') : '–'} ·
                       Video: {s.videoReleaseDate ? new Date(s.videoReleaseDate).toLocaleString('de-DE') : '–'} ·
                       Preis: {s.preorderPrice ? `${s.preorderPrice} €` : '–'} ·
-                      Bandcamp: {s.bandcampUrl ? '✓' : '✗'}
+                      Bandcamp: {s.bandcampUrl ? '✓' : '✗'} ·
+                      Streaming: {s.streamingUrl ? '✓' : '✗'}
                     </div>
                   </div>
                   <a
@@ -371,7 +375,11 @@ export default function AdminSinglesPage() {
               })}
               {field('Bandcamp-Link', editing.bandcampUrl, (v) => setEditing({ ...editing, bandcampUrl: v }), {
                 placeholder: 'https://dawidfaith.bandcamp.com/track/…',
-                hint: 'Link zum Track/Album auf Bandcamp (MP3 + Musikvideo als Bonus-Item). Leer lassen = Pre-Order-Karte zeigt „Bald verfügbar".',
+                hint: 'Link zum Track/Album auf Bandcamp (MP3 + Musikvideo als Bonus-Item). Wird nur gezeigt, solange der Song noch nicht offiziell released ist (Presave-Phase). Leer lassen = Pre-Order-Karte zeigt „Bald verfügbar".',
+              })}
+              {field('Streaming-Link ("Jetzt überall hören")', editing.streamingUrl, (v) => setEditing({ ...editing, streamingUrl: v }), {
+                placeholder: 'https://ditto.fm/…',
+                hint: 'Smart-Link (z.B. Ditto/Songwhip) zu allen Streaming-Plattformen. Ersetzt die Pre-Order-Karte, sobald der Song draußen ist, aber das Musikvideo noch aussteht. Leer lassen = Karte zeigt „Bald verfügbar".',
               })}
 
               {field('Premiere-Link (YouTube)', editing.premiereVideoUrl, (v) => setEditing({ ...editing, premiereVideoUrl: v }), {

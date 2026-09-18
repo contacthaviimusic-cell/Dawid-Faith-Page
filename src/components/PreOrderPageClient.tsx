@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ArrowRight, Music, ShoppingBag, Sparkles, ChevronDown, Trophy, Youtube } from 'lucide-react';
+import { ArrowRight, Music, ShoppingBag, Sparkles, ChevronDown, Trophy, Youtube, Headphones } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import PreOrderTranslations, { type LangKey } from '@/lib/translations/PreOrderPageTrans';
@@ -20,6 +20,7 @@ interface PublicSingle {
   discountCode: string;
   preorderPrice: string;
   bandcampUrl: string;
+  streamingUrl: string;
   premiereVideoUrl: string;
   premiereRevealHours: string;
   active: boolean;
@@ -513,7 +514,7 @@ export default function PreOrderPageClient({
                 </motion.div>
               )}
 
-              {/* 02 – Pre-Order */}
+              {/* 02 – Pre-Order (vor Release) oder Jetzt hören (Audio schon draußen, Video steht noch aus) */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -522,38 +523,73 @@ export default function PreOrderPageClient({
               >
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-amber-500/60 font-black text-sm">{showPresaveCard || showPremiereCard ? '02' : '01'}</span>
-                  <ShoppingBag className="text-amber-400" size={22} />
+                  {phase === 'preorder' ? (
+                    <Headphones className="text-amber-400" size={22} />
+                  ) : (
+                    <ShoppingBag className="text-amber-400" size={22} />
+                  )}
                 </div>
-                <h3 className="text-xl font-black mb-3">{t.preorder.title}</h3>
-                <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.preorder.desc}</p>
-
-                {single.preorderPrice && (
-                  <p className="text-3xl font-black text-amber-400 mb-4">{single.preorderPrice} €</p>
-                )}
-
-                {single.bandcampUrl ? (
-                  <a
-                    href={single.bandcampUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => {
-                      trackAction('preorder');
-                      window.fbq?.('track', 'InitiateCheckout', {
-                        content_name: single.title,
-                        content_category: 'preorder',
-                      });
-                    }}
-                    className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
-                  >
-                    {t.preorder.button}
-                    <ArrowRight size={16} />
-                  </a>
+                {phase === 'preorder' ? (
+                  <>
+                    <h3 className="text-xl font-black mb-3">{t.listen.title}</h3>
+                    <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.listen.desc}</p>
+                    {single.streamingUrl ? (
+                      <a
+                        href={single.streamingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => {
+                          trackAction('preorder');
+                          window.fbq?.('trackCustom', 'ListenClick', {
+                            content_name: single.title,
+                            content_category: 'listen',
+                          });
+                        }}
+                        className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
+                      >
+                        {t.listen.button}
+                        <ArrowRight size={16} />
+                      </a>
+                    ) : (
+                      <div className="inline-flex items-center justify-center gap-2 bg-stone-800 text-stone-400 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider cursor-not-allowed">
+                        {t.listen.comingSoon}
+                      </div>
+                    )}
+                  </>
                 ) : (
-                  <div className="inline-flex items-center justify-center gap-2 bg-stone-800 text-stone-400 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider cursor-not-allowed">
-                    {t.preorder.comingSoon}
-                  </div>
+                  <>
+                    <h3 className="text-xl font-black mb-3">{t.preorder.title}</h3>
+                    <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.preorder.desc}</p>
+
+                    {single.preorderPrice && (
+                      <p className="text-3xl font-black text-amber-400 mb-4">{single.preorderPrice} €</p>
+                    )}
+
+                    {single.bandcampUrl ? (
+                      <a
+                        href={single.bandcampUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => {
+                          trackAction('preorder');
+                          window.fbq?.('track', 'InitiateCheckout', {
+                            content_name: single.title,
+                            content_category: 'preorder',
+                          });
+                        }}
+                        className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
+                      >
+                        {t.preorder.button}
+                        <ArrowRight size={16} />
+                      </a>
+                    ) : (
+                      <div className="inline-flex items-center justify-center gap-2 bg-stone-800 text-stone-400 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider cursor-not-allowed">
+                        {t.preorder.comingSoon}
+                      </div>
+                    )}
+                    <p className="text-xs text-stone-500 mt-4 text-center">{t.preorder.availableUntil}</p>
+                  </>
                 )}
-                <p className="text-xs text-stone-500 mt-4 text-center">{t.preorder.availableUntil}</p>
               </motion.div>
 
               {/* 03 – Engagement */}
