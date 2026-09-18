@@ -93,7 +93,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
       description: 'facebook'
     },
     {
-      name: 'TikTok',
+      name: 'TikTok PL',
       icon: TikTokIcon,
       url: 'https://www.tiktok.com/@dawidfaith_polska',
       color: 'from-gray-900 via-pink-500 to-cyan-400',
@@ -171,7 +171,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
     'Instagram PL': '#E1306C',
     'Facebook DE': '#1877F2',
     'Facebook PL': '#1877F2',
-    'TikTok': '#000000',
+    'TikTok PL': '#000000',
     'YouTube': '#FF0000',
     'Spotify': '#1DB954',
     'E-Mail': '#10B981'

@@ -201,7 +201,7 @@ const SocialMediaWidget: React.FC = () => {
       description: 'Community & News'
     },
     {
-      name: 'TikTok',
+      name: 'TikTok PL',
       icon: TikTokIcon,
       url: 'https://www.tiktok.com/@dawidfaith_polska',
       iconColor: '#ffffff',
