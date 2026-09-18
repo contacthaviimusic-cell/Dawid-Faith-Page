@@ -19,12 +19,12 @@ const MusicTranslations: Record<LangKey, {
     webappButton: 'D.FAITH Webapp besuchen',
     videoOpen: 'Video ansehen',
     videoClose: 'Video schließen',
-    preorderButton: 'Jetzt vorbestellen'
+    preorderButton: 'Jetzt anhören'
     ,
     songs: {
       katze: {
         title: 'Katze',
-        description: 'Der erste Song der Release Kampagne - ab 18. September 2026'
+        description: 'Der erste Song der Release Kampagne'
       },
       znikla: {
         title: 'Znikła',
@@ -52,12 +52,12 @@ const MusicTranslations: Record<LangKey, {
     webappButton: 'Visit D.FAITH Webapp',
     videoOpen: 'Watch video',
     videoClose: 'Close video',
-    preorderButton: 'Pre-order now'
+    preorderButton: 'Listen now'
     ,
     songs: {
       katze: {
         title: 'Katze',
-        description: 'The first song of the Release Campaign - from September 18th, 2026'
+        description: 'The first song of the Release Campaign'
       },
       znikla: {
         title: 'Znikła',
@@ -85,12 +85,12 @@ const MusicTranslations: Record<LangKey, {
     webappButton: 'Odwiedź aplikację D.FAITH',
     videoOpen: 'Obejrzyj wideo',
     videoClose: 'Zamknij wideo',
-    preorderButton: 'Zamów już teraz'
+    preorderButton: 'Posłuchaj teraz'
     ,
     songs: {
       katze: {
         title: 'Katze',
-        description: 'Pierwszy utwór Kampanii Release - od 18 września 2026'
+        description: 'Pierwszy utwór Kampanii Release'
       },
       znikla: {
         title: 'Znikła',

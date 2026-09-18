@@ -20,7 +20,7 @@ const songs: Song[] = [
     title: 'Katze',
     image: '/musik/katze/Katze-Cover.mp4',
     video: '/musik/katze/video_2026-04-10_14-55-08.mp4',
-    description: 'Der erste Song der Release Kampagne - ab 18. September 2026'
+    description: 'Der erste Song der Release Kampagne'
   },
   {
     id: 'znikla',
