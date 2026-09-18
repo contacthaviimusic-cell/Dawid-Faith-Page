@@ -6,10 +6,18 @@ import type { LucideIcon } from 'lucide-react';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import SocialWidgetTrans from '@/lib/translations/SocialWidgetTrans';
+import { FlagDE, FlagPL } from '@/components/FlagIcon';
 
 interface MobileSocialWidgetProps {
   onClose: () => void;
 }
+
+type RegionChooserKey = 'instagram' | 'facebook';
+
+const REGION_LINKS: Record<RegionChooserKey, { label: string; de: string; pl: string }> = {
+  instagram: { label: 'Instagram', de: 'https://www.instagram.com/dawidfaith_germany/', pl: 'https://www.instagram.com/dawidfaith_polska/' },
+  facebook: { label: 'Facebook', de: 'https://www.facebook.com/dawidfaithgermany', pl: 'https://www.facebook.com/Dawidfaith/' },
+};
 
 type CustomIconProps = {
   size: number;
@@ -32,6 +40,7 @@ type SocialLink = {
 export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps) {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
+  const [regionChooser, setRegionChooser] = useState<RegionChooserKey | null>(null);
 
   const FacebookIcon = ({ size, className }: { size: number, className: string }) => (
     <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -59,9 +68,9 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
 
   const socialLinks: SocialLink[] = [
     {
-      name: 'Instagram DE',
+      name: 'Instagram',
       icon: Instagram,
-      url: 'https://www.instagram.com/dawidfaith_germany/',
+      action: () => setRegionChooser('instagram'),
       color: 'from-pink-500 via-purple-500 to-pink-600',
       bgColor: 'bg-gradient-to-br from-pink-500/20 to-purple-500/20',
       borderColor: 'border-pink-500/40',
@@ -69,19 +78,9 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
       description: 'instagram'
     },
     {
-      name: 'Instagram PL',
-      icon: Instagram,
-      url: 'https://www.instagram.com/dawidfaith_polska/',
-      color: 'from-pink-500 via-purple-500 to-pink-600',
-      bgColor: 'bg-gradient-to-br from-pink-500/20 to-purple-500/20',
-      borderColor: 'border-pink-500/40',
-      hoverColor: 'hover:border-pink-400',
-      description: 'instagram'
-    },
-    {
-      name: 'Facebook DE',
+      name: 'Facebook',
       icon: FacebookIcon,
-      url: 'https://www.facebook.com/dawidfaithgermany',
+      action: () => setRegionChooser('facebook'),
       color: 'from-blue-600 via-blue-500 to-blue-700',
       bgColor: 'bg-gradient-to-br from-blue-600/20 to-blue-500/20',
       borderColor: 'border-blue-500/40',
@@ -89,17 +88,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
       description: 'facebook'
     },
     {
-      name: 'Facebook PL',
-      icon: FacebookIcon,
-      url: 'https://www.facebook.com/Dawidfaith/',
-      color: 'from-blue-600 via-blue-500 to-blue-700',
-      bgColor: 'bg-gradient-to-br from-blue-600/20 to-blue-500/20',
-      borderColor: 'border-blue-500/40',
-      hoverColor: 'hover:border-blue-400',
-      description: 'facebook'
-    },
-    {
-      name: 'TikTok PL',
+      name: 'TikTok',
       icon: TikTokIcon,
       url: 'https://www.tiktok.com/@dawidfaith_polska',
       color: 'from-gray-900 via-pink-500 to-cyan-400',
@@ -183,11 +172,9 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
   // Brand colors for icons
   const brandColors: Record<string, string> = {
     'D.FAITH': '#A78BFA',
-    'Instagram DE': '#E1306C',
-    'Instagram PL': '#E1306C',
-    'Facebook DE': '#1877F2',
-    'Facebook PL': '#1877F2',
-    'TikTok PL': '#000000',
+    'Instagram': '#E1306C',
+    'Facebook': '#1877F2',
+    'TikTok': '#000000',
     'YouTube': '#FF0000',
     'Spotify': '#1DB954',
     'Bandcamp': '#1DA0C3',
@@ -386,6 +373,58 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
                     </p>
                   </motion.div>
                 )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Region Chooser Modal (Instagram / Facebook) */}
+        <AnimatePresence>
+          {regionChooser && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+              onClick={() => setRegionChooser(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                className="bg-black/95 backdrop-blur-xl rounded-2xl p-6 border border-amber-500/20 shadow-2xl max-w-sm w-full relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
+                <h3 className="text-xl font-black text-white mb-6 text-center">
+                  {REGION_LINKS[regionChooser].label}
+                </h3>
+                <div className="space-y-3">
+                  <a
+                    href={REGION_LINKS[regionChooser].de}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setRegionChooser(null)}
+                    className="w-full flex items-center justify-center gap-3 bg-white/[0.03] border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.06] py-3.5 rounded-full font-semibold text-sm text-white transition-all"
+                  >
+                    <FlagDE /> Deutschland
+                  </a>
+                  <a
+                    href={REGION_LINKS[regionChooser].pl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setRegionChooser(null)}
+                    className="w-full flex items-center justify-center gap-3 bg-white/[0.03] border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.06] py-3.5 rounded-full font-semibold text-sm text-white transition-all"
+                  >
+                    <FlagPL /> Polska
+                  </a>
+                  <button
+                    onClick={() => setRegionChooser(null)}
+                    className="w-full border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white py-3 rounded-full font-semibold text-sm uppercase tracking-wider transition-all"
+                  >
+                    {SocialWidgetTrans[lang].close}
+                  </button>
+                </div>
               </motion.div>
             </motion.div>
           )}

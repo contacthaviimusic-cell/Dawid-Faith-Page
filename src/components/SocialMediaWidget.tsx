@@ -4,10 +4,19 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Instagram, Youtube, Star, Mail, Copy, X, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
+import { FlagDE, FlagPL } from '@/components/FlagIcon';
+
+type RegionChooserKey = 'instagram' | 'facebook';
+
+const REGION_LINKS: Record<RegionChooserKey, { label: string; de: string; pl: string }> = {
+  instagram: { label: 'Instagram', de: 'https://www.instagram.com/dawidfaith_germany/', pl: 'https://www.instagram.com/dawidfaith_polska/' },
+  facebook: { label: 'Facebook', de: 'https://www.facebook.com/dawidfaithgermany', pl: 'https://www.facebook.com/Dawidfaith/' },
+};
 
 const SocialMediaWidget: React.FC = () => {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
+  const [regionChooser, setRegionChooser] = useState<RegionChooserKey | null>(null);
   const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
 
   // Initialize lang and listen for site-lang-changed
@@ -153,6 +162,61 @@ const SocialMediaWidget: React.FC = () => {
     </AnimatePresence>
   );
 
+  const RegionChooserModal = () => {
+    const config = regionChooser ? REGION_LINKS[regionChooser] : null;
+    return (
+      <AnimatePresence>
+        {config && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+            onClick={() => setRegionChooser(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: "spring", duration: 0.4 }}
+              className="bg-black/95 backdrop-blur-xl rounded-2xl p-8 border border-amber-500/20 shadow-2xl max-w-xs w-full relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
+              <button
+                onClick={() => setRegionChooser(null)}
+                className="absolute top-4 right-4 text-stone-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full"
+              >
+                <X size={20} />
+              </button>
+              <h3 className="text-xl font-black text-white mb-6 text-center">{config.label}</h3>
+              <div className="space-y-3">
+                <a
+                  href={config.de}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setRegionChooser(null)}
+                  className="w-full flex items-center justify-center gap-3 bg-white/[0.03] border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.06] py-3.5 rounded-full font-semibold text-sm text-white transition-all"
+                >
+                  <FlagDE /> Deutschland
+                </a>
+                <a
+                  href={config.pl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setRegionChooser(null)}
+                  className="w-full flex items-center justify-center gap-3 bg-white/[0.03] border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.06] py-3.5 rounded-full font-semibold text-sm text-white transition-all"
+                >
+                  <FlagPL /> Polska
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    );
+  };
+
   const FacebookIcon = ({ size, className }: { size: number, className: string }) => (
     <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="currentColor">
       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -177,37 +241,30 @@ const SocialMediaWidget: React.FC = () => {
     </svg>
   );
 
-  const socialLinks = [
+  const socialLinks: {
+    name: string;
+    icon: React.ElementType;
+    url?: string;
+    chooser?: RegionChooserKey;
+    iconColor: string;
+    description: string;
+  }[] = [
     {
-      name: 'Instagram DE',
+      name: 'Instagram',
       icon: Instagram,
-      url: 'https://www.instagram.com/dawidfaith_germany/',
+      chooser: 'instagram' as RegionChooserKey,
       iconColor: '#E1306C',
       description: 'Stories & Updates'
     },
     {
-      name: 'Instagram PL',
-      icon: Instagram,
-      url: 'https://www.instagram.com/dawidfaith_polska/',
-      iconColor: '#E1306C',
-      description: 'Stories & Updates'
-    },
-    {
-      name: 'Facebook DE',
+      name: 'Facebook',
       icon: FacebookIcon,
-      url: 'https://www.facebook.com/dawidfaithgermany',
+      chooser: 'facebook' as RegionChooserKey,
       iconColor: '#1877F2',
       description: 'Community & News'
     },
     {
-      name: 'Facebook PL',
-      icon: FacebookIcon,
-      url: 'https://www.facebook.com/Dawidfaith/',
-      iconColor: '#1877F2',
-      description: 'Community & News'
-    },
-    {
-      name: 'TikTok PL',
+      name: 'TikTok',
       icon: TikTokIcon,
       url: 'https://www.tiktok.com/@dawidfaith_polska',
       iconColor: '#ffffff',
@@ -289,19 +346,27 @@ const SocialMediaWidget: React.FC = () => {
 
         {/* Social Links Grid */}
         <div className="relative z-10 grid grid-cols-3 gap-2 mb-5">
-          {socialLinks.map((link, index) => (
+          {socialLinks.map((link, index) => {
+            const isSpecial = link.name === 'E-Mail' || !!link.chooser;
+            return (
             <motion.a
               key={link.name}
-              href={link.name === 'E-Mail' ? undefined : link.url}
-              target={link.name === 'E-Mail' ? undefined : "_blank"}
-              rel={link.name === 'E-Mail' ? undefined : "noopener noreferrer"}
-              onClick={link.name === 'E-Mail' ? handleEmailClick : undefined}
+              href={isSpecial ? undefined : link.url}
+              target={isSpecial ? undefined : "_blank"}
+              rel={isSpecial ? undefined : "noopener noreferrer"}
+              onClick={
+                link.name === 'E-Mail'
+                  ? handleEmailClick
+                  : link.chooser
+                  ? (e: React.MouseEvent) => { e.preventDefault(); setRegionChooser(link.chooser!); }
+                  : undefined
+              }
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.06 + 0.2 }}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.96 }}
-              className={`bg-white/[0.03] border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.06] p-4 rounded-xl transition-all duration-300 group ${link.name === 'E-Mail' ? 'cursor-pointer' : ''}`}
+              className={`bg-white/[0.03] border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.06] p-4 rounded-xl transition-all duration-300 group ${isSpecial ? 'cursor-pointer' : ''}`}
             >
               <div className="flex flex-col items-center gap-2">
                 <link.icon
@@ -314,7 +379,8 @@ const SocialMediaWidget: React.FC = () => {
                 </div>
               </div>
             </motion.a>
-          ))}
+            );
+          })}
         </div>
 
         {/* Footer */}
@@ -325,6 +391,7 @@ const SocialMediaWidget: React.FC = () => {
         </div>
       </motion.div>
       <EmailModal />
+      <RegionChooserModal />
     </>
   );
 };
