@@ -109,8 +109,9 @@ function AppleIcon({ size, className }: { size: number; className?: string }) {
   );
 }
 
-// Kleine, anklickbare Plattform-Badges unter dem Haupt-Button – rein visuell als
-// Hinweis, verlinken alle auf denselben Smart-/Premiere-Link.
+// Kleine, anklickbare Plattform-Badges – rein visuell als Hinweis, verlinken
+// alle auf denselben Smart-/Premiere-Link. In der Kopfzeile der Karte (auf
+// Höhe der Kartenzahl) statt unter dem Button platziert.
 function PlatformBadges({
   url,
   platforms,
@@ -119,7 +120,7 @@ function PlatformBadges({
   platforms: { label: string; icon: ReactNode; color: string }[];
 }) {
   return (
-    <div className="flex items-center justify-center gap-2 mt-3">
+    <div className="flex items-center gap-1.5">
       {platforms.map((p) => (
         <a
           key={p.label}
@@ -128,7 +129,7 @@ function PlatformBadges({
           rel="noopener noreferrer"
           aria-label={p.label}
           title={p.label}
-          className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-amber-500/40 hover:bg-white/10 transition-all"
+          className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-amber-500/40 hover:bg-white/10 transition-all"
         >
           <span style={{ color: p.color }}>{p.icon}</span>
         </a>
@@ -517,64 +518,28 @@ export default function PreOrderPageClient({
                 </motion.div>
               )}
 
-              {/* 01 – Premiere */}
-              {showPremiereCard && (
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                  className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
-                >
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="text-amber-500/60 font-black text-sm">01</span>
-                    <Youtube className="text-amber-400" size={22} />
-                  </div>
-                  <h3 className="text-xl font-black mb-3">{t.premiere.cardTitle}</h3>
-                  <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.premiere.cardDesc}</p>
-                  {single.premiereVideoUrl ? (
-                    <>
-                      <a
-                        href={single.premiereVideoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
-                      >
-                        {t.premiere.button}
-                        <ArrowRight size={16} />
-                      </a>
-                      <PlatformBadges
-                        url={single.premiereVideoUrl}
-                        platforms={[{ label: 'YouTube', icon: <Youtube size={16} />, color: '#FF0000' }]}
-                      />
-                    </>
-                  ) : premiereRevealTarget !== null ? (
-                    <p className="text-xs text-stone-500 text-center">
-                      {t.premiere.countdownLabel}{' '}
-                      {formatRemaining(premiereRevealTarget, Date.now(), {
-                        days: t.days,
-                        hours: t.hours,
-                        minutes: t.minutes,
-                      })}
-                    </p>
-                  ) : (
-                    <div className="inline-flex items-center justify-center gap-2 bg-stone-800 text-stone-400 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider cursor-not-allowed">
-                      {t.premiere.comingSoon}
-                    </div>
-                  )}
-                </motion.div>
-              )}
-
-              {/* 02 – Pre-Order (vor Release) oder Jetzt hören (Audio schon draußen, Video steht noch aus) */}
+              {/* 01 – Jetzt hören (Audio schon draußen, Video steht noch aus) oder Pre-Order (vor Release) */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/40 backdrop-blur-sm relative"
               >
                 <div className="flex items-center justify-between mb-6">
-                  <span className="text-amber-500/60 font-black text-sm">{showPresaveCard || showPremiereCard ? '02' : '01'}</span>
+                  <span className="text-amber-500/60 font-black text-sm">{showPresaveCard ? '02' : '01'}</span>
                   {phase === 'preorder' ? (
-                    <Headphones className="text-amber-400" size={22} />
+                    single.streamingUrl ? (
+                      <PlatformBadges
+                        url={single.streamingUrl}
+                        platforms={[
+                          { label: 'Spotify', icon: <SpotifyIcon size={14} />, color: '#1DB954' },
+                          { label: 'Apple Music', icon: <AppleIcon size={14} />, color: '#FFFFFF' },
+                          { label: 'YouTube Music', icon: <Youtube size={14} />, color: '#FF0000' },
+                        ]}
+                      />
+                    ) : (
+                      <Headphones className="text-amber-400" size={22} />
+                    )
                   ) : (
                     <ShoppingBag className="text-amber-400" size={22} />
                   )}
@@ -584,32 +549,22 @@ export default function PreOrderPageClient({
                     <h3 className="text-xl font-black mb-3">{t.listen.title}</h3>
                     <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.listen.desc}</p>
                     {single.streamingUrl ? (
-                      <>
-                        <a
-                          href={single.streamingUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => {
-                            trackAction('preorder');
-                            window.fbq?.('trackCustom', 'ListenClick', {
-                              content_name: single.title,
-                              content_category: 'listen',
-                            });
-                          }}
-                          className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
-                        >
-                          {t.listen.button}
-                          <ArrowRight size={16} />
-                        </a>
-                        <PlatformBadges
-                          url={single.streamingUrl}
-                          platforms={[
-                            { label: 'Spotify', icon: <SpotifyIcon size={16} />, color: '#1DB954' },
-                            { label: 'Apple Music', icon: <AppleIcon size={16} />, color: '#FFFFFF' },
-                            { label: 'YouTube Music', icon: <Youtube size={16} />, color: '#FF0000' },
-                          ]}
-                        />
-                      </>
+                      <a
+                        href={single.streamingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => {
+                          trackAction('preorder');
+                          window.fbq?.('trackCustom', 'ListenClick', {
+                            content_name: single.title,
+                            content_category: 'listen',
+                          });
+                        }}
+                        className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
+                      >
+                        {t.listen.button}
+                        <ArrowRight size={16} />
+                      </a>
                     ) : (
                       <div className="inline-flex items-center justify-center gap-2 bg-stone-800 text-stone-400 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider cursor-not-allowed">
                         {t.listen.comingSoon}
@@ -651,6 +606,47 @@ export default function PreOrderPageClient({
                   </>
                 )}
               </motion.div>
+
+              {/* 02 – Premiere */}
+              {showPremiereCard && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
+                >
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-amber-500/60 font-black text-sm">02</span>
+                    <Youtube className="text-amber-400" size={22} />
+                  </div>
+                  <h3 className="text-xl font-black mb-3">{t.premiere.cardTitle}</h3>
+                  <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.premiere.cardDesc}</p>
+                  {single.premiereVideoUrl ? (
+                    <a
+                      href={single.premiereVideoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
+                    >
+                      {t.premiere.button}
+                      <ArrowRight size={16} />
+                    </a>
+                  ) : premiereRevealTarget !== null ? (
+                    <p className="text-xs text-stone-500 text-center">
+                      {t.premiere.countdownLabel}{' '}
+                      {formatRemaining(premiereRevealTarget, Date.now(), {
+                        days: t.days,
+                        hours: t.hours,
+                        minutes: t.minutes,
+                      })}
+                    </p>
+                  ) : (
+                    <div className="inline-flex items-center justify-center gap-2 bg-stone-800 text-stone-400 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider cursor-not-allowed">
+                      {t.premiere.comingSoon}
+                    </div>
+                  )}
+                </motion.div>
+              )}
 
               {/* 03 – Engagement */}
               <motion.div
