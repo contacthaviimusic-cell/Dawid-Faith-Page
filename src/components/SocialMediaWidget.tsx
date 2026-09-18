@@ -171,6 +171,12 @@ const SocialMediaWidget: React.FC = () => {
     </svg>
   );
 
+  const BandcampIcon = ({ size, className }: { size: number, className: string }) => (
+    <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M0 18.75l7.437-13.5H24l-7.438 13.5H0z"/>
+    </svg>
+  );
+
   const socialLinks = [
     {
       name: 'Instagram DE',
@@ -220,6 +226,13 @@ const SocialMediaWidget: React.FC = () => {
       url: 'https://open.spotify.com/intl-de/artist/0CESFIQKIs643l9hV0QXsE',
       iconColor: '#1DB954',
       description: 'Music & Playlists'
+    },
+    {
+      name: 'Bandcamp',
+      icon: BandcampIcon,
+      url: 'https://dawidfaith.bandcamp.com',
+      iconColor: '#1DA0C3',
+      description: 'Buy music'
     },
     {
       name: 'E-Mail',

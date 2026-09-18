@@ -8,6 +8,7 @@ type TranslationType = {
     tiktok: string;
     youtube: string;
     spotify: string;
+    bandcamp: string;
     email: string;
     aboutTitle: string;
     aboutText: string;
@@ -32,6 +33,7 @@ const SocialWidgetTrans: TranslationType = {
     tiktok: 'Kurzvideos',
     youtube: 'Musik Videos & Behind the Scenes',
     spotify: 'Musik & Playlists',
+    bandcamp: 'Musik kaufen',
     email: 'Professionelle Anfragen',
     aboutTitle: 'Über Dawid Faith',
     aboutText: 'Innovativer Künstler, der Musik mit Blockchain-Technologie verbindet. Erlebe die Zukunft der Musikindustrie mit D.FAITH Token und exklusiven Community-Features.',
@@ -53,6 +55,7 @@ const SocialWidgetTrans: TranslationType = {
     tiktok: 'Short Videos',
     youtube: 'Music Videos & Behind the Scenes',
     spotify: 'Music & Playlists',
+    bandcamp: 'Buy music',
     email: 'Professional Inquiries',
     aboutTitle: 'About Dawid Faith',
     aboutText: 'Innovative artist combining music with blockchain technology. Experience the future of the music industry with D.FAITH tokens and exclusive community features.',
@@ -74,6 +77,7 @@ const SocialWidgetTrans: TranslationType = {
     tiktok: 'Krótkie filmy',
     youtube: 'Teledyski & kulisy',
     spotify: 'Muzyka i playlisty',
+    bandcamp: 'Kup muzykę',
     email: 'Zapytania zawodowe',
     aboutTitle: 'O Dawidzie Faith',
     aboutText: 'Innowacyjny artysta łączący muzykę z technologią blockchain. Doświadcz przyszłości branży muzycznej z tokenami D.FAITH i ekskluzywnymi funkcjami społeczności.',

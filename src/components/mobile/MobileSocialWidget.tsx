@@ -51,6 +51,12 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
     </svg>
   );
 
+  const BandcampIcon = ({ size, className }: { size: number, className: string }) => (
+    <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M0 18.75l7.437-13.5H24l-7.438 13.5H0z"/>
+    </svg>
+  );
+
   const socialLinks: SocialLink[] = [
     {
       name: 'Instagram DE',
@@ -123,6 +129,16 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
       description: 'spotify'
     },
     {
+      name: 'Bandcamp',
+      icon: BandcampIcon,
+      url: 'https://dawidfaith.bandcamp.com',
+      color: 'from-cyan-600 via-cyan-500 to-cyan-700',
+      bgColor: 'bg-gradient-to-br from-cyan-600/20 to-cyan-500/20',
+      borderColor: 'border-cyan-500/40',
+      hoverColor: 'hover:border-cyan-400',
+      description: 'bandcamp'
+    },
+    {
       name: 'E-Mail',
       icon: Mail,
       action: () => setShowEmailModal(true),
@@ -174,6 +190,7 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
     'TikTok PL': '#000000',
     'YouTube': '#FF0000',
     'Spotify': '#1DB954',
+    'Bandcamp': '#1DA0C3',
     'E-Mail': '#10B981'
   };
 
