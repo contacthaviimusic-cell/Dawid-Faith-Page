@@ -14,6 +14,7 @@ interface SingleConfig {
   preorderPrice: string;
   bandcampUrl: string;
   streamingUrl: string;
+  audioFileUrl: string;
   premiereVideoUrl: string;
   premiereRevealHours: string;
   active: boolean;
@@ -44,6 +45,7 @@ export default function AdminSinglesPage() {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [uploadingAudio, setUploadingAudio] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   function copyGiveawayLink(id: string) {
@@ -95,6 +97,7 @@ export default function AdminSinglesPage() {
       preorderPrice: '',
       bandcampUrl: '',
       streamingUrl: '',
+      audioFileUrl: '',
       premiereVideoUrl: '',
       premiereRevealHours: '',
       active: true,
@@ -121,6 +124,7 @@ export default function AdminSinglesPage() {
         preorderPrice: form.preorderPrice,
         bandcampUrl: form.bandcampUrl,
         streamingUrl: form.streamingUrl,
+        audioFileUrl: form.audioFileUrl,
         premiereVideoUrl: form.premiereVideoUrl,
         premiereRevealHours: form.premiereRevealHours,
         active: form.active,
@@ -178,6 +182,21 @@ export default function AdminSinglesPage() {
     }
     const data = await res.json();
     setEditing((prev) => (prev ? { ...prev, teaserVideo: data.url } : prev));
+  }
+
+  async function uploadAudioFile(file: File) {
+    setUploadingAudio(true);
+    const fd = new FormData();
+    fd.append('file', file);
+    const res = await fetch('/api/upload', { method: 'POST', body: fd });
+    setUploadingAudio(false);
+    if (!res.ok) {
+      const data = await res.json().catch(() => null);
+      alert(data?.error ?? 'Upload fehlgeschlagen');
+      return;
+    }
+    const data = await res.json();
+    setEditing((prev) => (prev ? { ...prev, audioFileUrl: data.url } : prev));
   }
 
   async function logout() {
@@ -263,7 +282,8 @@ export default function AdminSinglesPage() {
                       Video: {s.videoReleaseDate ? new Date(s.videoReleaseDate).toLocaleString('de-DE') : '–'} ·
                       Preis: {s.preorderPrice ? `${s.preorderPrice} €` : '–'} ·
                       Bandcamp: {s.bandcampUrl ? '✓' : '✗'} ·
-                      Streaming: {s.streamingUrl ? '✓' : '✗'}
+                      Streaming: {s.streamingUrl ? '✓' : '✗'} ·
+                      Song-Datei: {s.audioFileUrl ? '✓' : '✗'}
                     </div>
                   </div>
                   <a
@@ -381,6 +401,24 @@ export default function AdminSinglesPage() {
                 placeholder: 'https://ditto.fm/…',
                 hint: 'Smart-Link (z.B. Ditto/Songwhip) zu allen Streaming-Plattformen. Ersetzt die Pre-Order-Karte, sobald der Song draußen ist, aber das Musikvideo noch aussteht. Leer lassen = Karte zeigt „Bald verfügbar".',
               })}
+
+              <div>
+                {field('Song-Datei (MP3-URL)', editing.audioFileUrl, (v) => setEditing({ ...editing, audioFileUrl: v }), {
+                  hint: 'Sobald hier eine MP3 hinterlegt ist, bekommt jede Gewinnspiel-Teilnahme (Mail + Wohnort) automatisch einen Download-Link zum Song per Mail. Leer lassen = kein Song-Download in der Bestätigungsmail. Max. 20MB.',
+                })}
+                <label className="inline-block mt-2 px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm cursor-pointer">
+                  {uploadingAudio ? 'Lädt hoch…' : '📤 Song hochladen'}
+                  <input
+                    type="file"
+                    accept="audio/mpeg,audio/mp3,audio/wav,audio/x-wav,audio/mp4,audio/x-m4a,audio/m4a"
+                    className="hidden"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) uploadAudioFile(f);
+                    }}
+                  />
+                </label>
+              </div>
 
               {field('Premiere-Link (YouTube)', editing.premiereVideoUrl, (v) => setEditing({ ...editing, premiereVideoUrl: v }), {
                 placeholder: 'https://youtube.com/watch?v=…',

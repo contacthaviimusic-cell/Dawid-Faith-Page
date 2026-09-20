@@ -48,6 +48,7 @@ export async function POST(request: NextRequest) {
     preorderPrice: body.preorderPrice ?? '',
     bandcampUrl: body.bandcampUrl ?? '',
     streamingUrl: body.streamingUrl ?? '',
+    audioFileUrl: body.audioFileUrl ?? '',
     premiereVideoUrl: body.premiereVideoUrl ?? '',
     premiereRevealHours: body.premiereRevealHours ?? '',
     active: !!body.active,

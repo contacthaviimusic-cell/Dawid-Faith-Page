@@ -27,6 +27,9 @@ const giveawayTranslations: Record<MailLang, {
   closing: string;
   unsubscribeQuestion: string;
   unsubscribeLink: string;
+  downloadHeading: string;
+  downloadBody: (songTitle: string) => string;
+  downloadButton: string;
 }> = {
   de: {
     tagline: 'Presave & Gewinnspiel',
@@ -37,6 +40,9 @@ const giveawayTranslations: Record<MailLang, {
     closing: 'Herzliche Grüße,',
     unsubscribeQuestion: 'Keine weiteren Update-Mails erhalten?',
     unsubscribeLink: 'Hier abmelden',
+    downloadHeading: '🎵 Dein Song-Download',
+    downloadBody: (songTitle) => `Als kleines Dankeschön bekommst du „${songTitle}" schon jetzt direkt als Download – viel Spaß beim Hören!`,
+    downloadButton: 'Song herunterladen',
   },
   en: {
     tagline: 'Presave & Giveaway',
@@ -47,6 +53,9 @@ const giveawayTranslations: Record<MailLang, {
     closing: 'Best regards,',
     unsubscribeQuestion: 'Don’t want any more update emails?',
     unsubscribeLink: 'Unsubscribe here',
+    downloadHeading: '🎵 Your song download',
+    downloadBody: (songTitle) => `As a small thank-you, you can download "${songTitle}" right away – enjoy!`,
+    downloadButton: 'Download song',
   },
   pl: {
     tagline: 'Presave i konkurs',
@@ -57,6 +66,9 @@ const giveawayTranslations: Record<MailLang, {
     closing: 'Pozdrawiam serdecznie,',
     unsubscribeQuestion: 'Nie chcesz więcej otrzymywać e-maili z aktualnościami?',
     unsubscribeLink: 'Wypisz się tutaj',
+    downloadHeading: '🎵 Twój download utworu',
+    downloadBody: (songTitle) => `W ramach podziękowania możesz już teraz pobrać „${songTitle}" – miłego słuchania!`,
+    downloadButton: 'Pobierz utwór',
   },
 };
 
@@ -64,10 +76,20 @@ export async function sendGiveawayConfirmationEmail(
   email: string,
   songTitle: string,
   origin: string,
-  lang?: string
+  lang?: string,
+  downloadUrl?: string
 ): Promise<void> {
   const t = giveawayTranslations[normalizeMailLang(lang)];
   const unsubscribeLink = `${origin}/abmelden`;
+
+  const downloadSection = downloadUrl ? `
+        <div style="background: #fff8ec; border: 1px solid #f5d9a8; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;">
+          <p style="margin: 0 0 14px; font-weight: bold; color: #111;">${t.downloadHeading}</p>
+          <p style="line-height: 1.6; color: #555; margin: 0 0 16px;">${t.downloadBody(songTitle)}</p>
+          <a href="${downloadUrl}" style="display: inline-block; background: #f59e0b; color: #000; font-weight: bold; padding: 14px 28px; border-radius: 999px; text-decoration: none;">
+            ${t.downloadButton}
+          </a>
+        </div>` : '';
 
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
@@ -80,6 +102,7 @@ export async function sendGiveawayConfirmationEmail(
         <p style="line-height: 1.6; color: #555;">
           ${t.body(songTitle)}
         </p>
+        ${downloadSection}
         <p style="line-height: 1.6; color: #555;">
           ${t.closing}<br/>
           <strong>Dawid Faith</strong>
@@ -95,7 +118,16 @@ export async function sendGiveawayConfirmationEmail(
     </div>
   `;
 
-  const text = `${t.body(songTitle)}\n\n${t.closing}\nDawid Faith\n\n---\n${t.unsubscribeQuestion} ${t.unsubscribeLink}: ${unsubscribeLink}`;
+  const text = [
+    t.body(songTitle),
+    ...(downloadUrl ? ['', t.downloadBody(songTitle), `${t.downloadButton}: ${downloadUrl}`] : []),
+    '',
+    t.closing,
+    'Dawid Faith',
+    '',
+    '---',
+    `${t.unsubscribeQuestion} ${t.unsubscribeLink}: ${unsubscribeLink}`,
+  ].join('\n');
 
   await getResendClient().emails.send({
     from: FROM_ADDRESS,

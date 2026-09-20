@@ -29,6 +29,7 @@ export async function PUT(
     'preorderPrice',
     'bandcampUrl',
     'streamingUrl',
+    'audioFileUrl',
     'premiereVideoUrl',
     'premiereRevealHours',
   ] as const;

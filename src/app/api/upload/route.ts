@@ -27,20 +27,22 @@ export async function POST(request: NextRequest) {
     // Validierung der Dateierweiterung
     const allowedImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
     const allowedVideoTypes = ['video/mp4', 'video/webm'];
+    const allowedAudioTypes = ['audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/x-wav', 'audio/mp4', 'audio/x-m4a', 'audio/m4a'];
     const isVideo = allowedVideoTypes.includes(file.type);
     const isImage = allowedImageTypes.includes(file.type);
+    const isAudio = allowedAudioTypes.includes(file.type);
 
-    if (!isImage && !isVideo) {
+    if (!isImage && !isVideo && !isAudio) {
       return NextResponse.json({
-        error: 'Invalid file type. Only JPEG, PNG, WebP, GIF, MP4, and WebM are allowed.'
+        error: 'Invalid file type. Only JPEG, PNG, WebP, GIF, MP4, WebM, MP3, and WAV are allowed.'
       }, { status: 400 });
     }
 
-    // Dateigröße validieren (Bilder max 5MB, Videos max 25MB)
-    const maxSize = isVideo ? 25 * 1024 * 1024 : 5 * 1024 * 1024;
+    // Dateigröße validieren (Bilder max 5MB, Videos max 25MB, Audio max 20MB)
+    const maxSize = isVideo ? 25 * 1024 * 1024 : isAudio ? 20 * 1024 * 1024 : 5 * 1024 * 1024;
     if (file.size > maxSize) {
       return NextResponse.json({
-        error: `File too large. Maximum size is ${isVideo ? '25MB' : '5MB'}.`
+        error: `File too large. Maximum size is ${isVideo ? '25MB' : isAudio ? '20MB' : '5MB'}.`
       }, { status: 400 });
     }
 
@@ -50,7 +52,8 @@ export async function POST(request: NextRequest) {
     if (shouldUseBlob()) {
       // Vercel Blob Storage für Produktion
       try {
-        const filename = `${isVideo ? 'teaser-videos' : 'news-images'}/${Date.now()}-${file.name}`;
+        const folder = isVideo ? 'teaser-videos' : isAudio ? 'song-files' : 'news-images';
+        const filename = `${folder}/${Date.now()}-${file.name}`;
         const blob = await put(filename, buffer, {
           access: 'public',
           contentType: file.type,
