@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { upload } from '@vercel/blob/client';
 
 interface SingleConfig {
   id: string;
@@ -157,46 +158,47 @@ export default function AdminSinglesPage() {
 
   async function uploadCover(file: File) {
     setUploading(true);
-    const fd = new FormData();
-    fd.append('file', file);
-    const res = await fetch('/api/upload', { method: 'POST', body: fd });
-    setUploading(false);
-    if (!res.ok) {
-      alert('Upload fehlgeschlagen');
-      return;
+    try {
+      const blob = await upload(`news-images/${Date.now()}-${file.name}`, file, {
+        access: 'public',
+        handleUploadUrl: '/api/upload/client-token',
+      });
+      setEditing((prev) => (prev ? { ...prev, coverImage: blob.url } : prev));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : 'Upload fehlgeschlagen');
+    } finally {
+      setUploading(false);
     }
-    const data = await res.json();
-    setEditing((prev) => (prev ? { ...prev, coverImage: data.url } : prev));
   }
 
   async function uploadTeaserVideo(file: File) {
     setUploadingVideo(true);
-    const fd = new FormData();
-    fd.append('file', file);
-    const res = await fetch('/api/upload', { method: 'POST', body: fd });
-    setUploadingVideo(false);
-    if (!res.ok) {
-      const data = await res.json().catch(() => null);
-      alert(data?.error ?? 'Upload fehlgeschlagen');
-      return;
+    try {
+      const blob = await upload(`teaser-videos/${Date.now()}-${file.name}`, file, {
+        access: 'public',
+        handleUploadUrl: '/api/upload/client-token',
+      });
+      setEditing((prev) => (prev ? { ...prev, teaserVideo: blob.url } : prev));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : 'Upload fehlgeschlagen');
+    } finally {
+      setUploadingVideo(false);
     }
-    const data = await res.json();
-    setEditing((prev) => (prev ? { ...prev, teaserVideo: data.url } : prev));
   }
 
   async function uploadAudioFile(file: File) {
     setUploadingAudio(true);
-    const fd = new FormData();
-    fd.append('file', file);
-    const res = await fetch('/api/upload', { method: 'POST', body: fd });
-    setUploadingAudio(false);
-    if (!res.ok) {
-      const data = await res.json().catch(() => null);
-      alert(data?.error ?? 'Upload fehlgeschlagen');
-      return;
+    try {
+      const blob = await upload(`song-files/${Date.now()}-${file.name}`, file, {
+        access: 'public',
+        handleUploadUrl: '/api/upload/client-token',
+      });
+      setEditing((prev) => (prev ? { ...prev, audioFileUrl: blob.url } : prev));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : 'Upload fehlgeschlagen');
+    } finally {
+      setUploadingAudio(false);
     }
-    const data = await res.json();
-    setEditing((prev) => (prev ? { ...prev, audioFileUrl: data.url } : prev));
   }
 
   async function logout() {
