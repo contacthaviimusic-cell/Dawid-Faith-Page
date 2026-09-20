@@ -22,7 +22,7 @@ export type PrizeType = 'mythic' | 'song-nft';
 
 // Pro Song gibt es 1 Mythic-NFT-Gewinner und bis zu SONG_NFT_SLOTS separate
 // Song-NFT-Gewinner – niemand gewinnt zwei Preise für denselben Song.
-export const SONG_NFT_SLOTS = 5;
+export const SONG_NFT_SLOTS = 10;
 
 export interface GiveawayWinner {
   id: string;

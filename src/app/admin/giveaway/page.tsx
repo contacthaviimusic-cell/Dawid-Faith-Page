@@ -21,7 +21,7 @@ interface GiveawayEntry {
 const LANG_LABELS: Record<string, string> = { de: '🇩🇪 DE', en: '🇬🇧 EN', pl: '🇵🇱 PL' };
 
 type PrizeType = 'mythic' | 'song-nft';
-const SONG_NFT_SLOTS = 5;
+const SONG_NFT_SLOTS = 10;
 
 interface GiveawayWinner {
   id: string;
