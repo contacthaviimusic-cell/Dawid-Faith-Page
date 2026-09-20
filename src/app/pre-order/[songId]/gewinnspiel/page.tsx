@@ -15,6 +15,7 @@ interface PublicSingle {
   coverImage: string;
   teaserVideo: string;
   presaveUrl: string;
+  skipPresave: boolean;
   active: boolean;
 }
 
@@ -201,8 +202,12 @@ export default function GewinnspielPage() {
       <div className="relative z-10 max-w-md mx-auto px-6 py-20 md:py-28 flex flex-col items-center text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <p className="text-amber-400 text-sm uppercase tracking-[0.3em] mb-4">Dawid Faith</p>
-          <h1 className="text-3xl md:text-4xl font-black leading-tight mb-4">{t.giveawayPage.title}</h1>
-          <p className="text-stone-300 text-sm leading-relaxed mb-6">{t.giveawayPage.intro(single.title)}</p>
+          <h1 className="text-3xl md:text-4xl font-black leading-tight mb-4">
+            {single.skipPresave ? t.giveawayPage.directTitle : t.giveawayPage.title}
+          </h1>
+          <p className="text-stone-300 text-sm leading-relaxed mb-6">
+            {single.skipPresave ? t.giveawayPage.directIntro(single.title) : t.giveawayPage.intro(single.title)}
+          </p>
 
           <div className="inline-flex items-center gap-1.5 mb-8 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/40 max-w-full">
             <Trophy size={14} className="text-amber-400 flex-shrink-0" />

@@ -17,6 +17,7 @@ interface PublicSingle {
   audioReleaseDate: string;
   videoReleaseDate: string;
   presaveUrl: string;
+  skipPresave: boolean;
   discountCode: string;
   preorderPrice: string;
   bandcampUrl: string;
@@ -347,7 +348,7 @@ export default function PreOrderPageClient({
     );
   }
 
-  const showPresaveCard = phase === 'presave' && !!single.presaveUrl;
+  const showPresaveCard = phase === 'presave' && (!!single.presaveUrl || single.skipPresave);
   const showPremiereCard = phase === 'preorder';
 
   return (
@@ -468,26 +469,43 @@ export default function PreOrderPageClient({
                     <span className="text-amber-400 text-[11px] font-black uppercase tracking-wide">{t.presave.prizeLabel}</span>
                   </div>
 
-                  <h3 className="text-xl font-black mb-3">{t.presave.title}</h3>
-                  <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.presave.desc}</p>
-                  <a
-                    href={single.presaveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => {
-                      trackAction('presave');
-                      window.fbq?.('trackCustom', 'PresaveClick', {
-                        content_name: single.title,
-                        content_category: 'presave',
-                      });
-                    }}
-                    className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all mb-5"
-                  >
-                    {t.presave.button}
-                    <ArrowRight size={16} />
-                  </a>
+                  <h3 className="text-xl font-black mb-3">{single.skipPresave ? t.presave.directTitle : t.presave.title}</h3>
+                  <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{single.skipPresave ? t.presave.directDesc : t.presave.desc}</p>
+                  {single.skipPresave ? (
+                    <Link
+                      href={`/pre-order/${single.id}/gewinnspiel`}
+                      onClick={() => {
+                        trackAction('presave');
+                        window.fbq?.('trackCustom', 'PresaveClick', {
+                          content_name: single.title,
+                          content_category: 'presave',
+                        });
+                      }}
+                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all mb-5"
+                    >
+                      {t.presave.directButton}
+                      <ArrowRight size={16} />
+                    </Link>
+                  ) : (
+                    <a
+                      href={single.presaveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => {
+                        trackAction('presave');
+                        window.fbq?.('trackCustom', 'PresaveClick', {
+                          content_name: single.title,
+                          content_category: 'presave',
+                        });
+                      }}
+                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all mb-5"
+                    >
+                      {t.presave.button}
+                      <ArrowRight size={16} />
+                    </a>
+                  )}
 
-                  {single.discountCode && (
+                  {!single.skipPresave && single.discountCode && (
                     <div>
                       <label className="flex items-center gap-3 cursor-pointer select-none text-sm text-stone-300">
                         <input

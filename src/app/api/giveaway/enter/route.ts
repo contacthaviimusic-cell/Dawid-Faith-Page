@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const single = await getSingle(songId);
-    if (!single || !single.active || !single.presaveUrl) {
+    if (!single || !single.active || (!single.presaveUrl && !single.skipPresave)) {
       return NextResponse.json({ error: 'Für diese Single läuft kein Gewinnspiel.' }, { status: 404 });
     }
 

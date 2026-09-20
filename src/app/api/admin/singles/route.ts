@@ -44,6 +44,7 @@ export async function POST(request: NextRequest) {
     audioReleaseDate: body.audioReleaseDate ?? '',
     videoReleaseDate: body.videoReleaseDate ?? '',
     presaveUrl: body.presaveUrl ?? '',
+    skipPresave: !!body.skipPresave,
     discountCode: body.discountCode ?? '',
     preorderPrice: body.preorderPrice ?? '',
     bandcampUrl: body.bandcampUrl ?? '',

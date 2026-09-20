@@ -10,6 +10,7 @@ export interface SingleConfig {
   audioReleaseDate: string; // ISO-Datum: bis dahin läuft der Countdown / Presave
   videoReleaseDate: string; // ISO-Datum: bis dahin ist Pre-Order möglich
   presaveUrl: string;
+  skipPresave: boolean; // true = keine externe Presave-Verlinkung; Karte 01 sammelt Mail+Wohnort direkt und verlinkt intern auf die Gewinnspiel-Seite
   discountCode: string;
   preorderPrice: string; // z.B. '4.99' (rein informativ, Preis wird auf Bandcamp gepflegt)
   bandcampUrl: string; // Link zum Bandcamp-Track/Album (leer, bis konfiguriert)

@@ -30,6 +30,9 @@ export async function GET(
 
     return NextResponse.json({
       ...single,
+      // Die Song-Datei wird nie öffentlich ausgeliefert – nur per Mail nach
+      // Gewinnspiel-Teilnahme (Mail + Wohnort), sonst wäre die Gate-Funktion sinnlos.
+      audioFileUrl: undefined,
       premiereVideoUrl: revealed ? single.premiereVideoUrl : '',
     });
   } catch (err) {

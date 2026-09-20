@@ -16,6 +16,9 @@ const PreOrderTranslations: Record<LangKey, {
     desc: string;
     prizeLabel: string;
     button: string;
+    directTitle: string;
+    directDesc: string;
+    directButton: string;
     checkbox: string;
     codeLabel: string;
     codeHint: string;
@@ -38,6 +41,8 @@ const PreOrderTranslations: Record<LangKey, {
   giveawayPage: {
     title: string;
     intro: (songTitle: string) => string;
+    directTitle: string;
+    directIntro: (songTitle: string) => string;
     submitButton: string;
     success: string;
   };
@@ -91,6 +96,9 @@ const PreOrderTranslations: Record<LangKey, {
       desc: 'Speichere den Song jetzt in deiner Musik-Bibliothek vor und sichere dir automatisch die Chance auf ein exklusives Mythic-NFT aus den D.FAITH Collectibles – eine der seltensten Song-Karten überhaupt. Die Song-NFTs sind nur bis zum Release des Musikvideos verfügbar.',
       prizeLabel: 'Zu gewinnen: Mythic-NFT + 10 limitierte Song NFTs',
       button: 'Jetzt presaven',
+      directTitle: 'Song jetzt sichern',
+      directDesc: 'Trag dich mit Mail und Wohnort ein und bekomm den Song sofort direkt per Mail zugeschickt – außerdem nimmst du automatisch an der Verlosung eines exklusiven Mythic-NFTs und limitierter Song-NFTs aus den D.FAITH Collectibles teil.',
+      directButton: 'Song erhalten',
       checkbox: 'Ich habe presaved',
       codeLabel: 'Dein Rabattcode',
       codeHint: 'Gib den Code beim Pre-Order-Checkout ein.',
@@ -113,6 +121,8 @@ const PreOrderTranslations: Record<LangKey, {
     giveawayPage: {
       title: 'Danke fürs Presaven!',
       intro: (songTitle) => `Du hast „${songTitle}" gerade presaved – klasse! Trag dich jetzt noch fürs Gewinnspiel ein.`,
+      directTitle: 'Jetzt eintragen',
+      directIntro: (songTitle) => `Trag dich mit Mail und Wohnort ein und bekomm „${songTitle}" sofort per Mail zugeschickt – außerdem nimmst du automatisch am Gewinnspiel teil.`,
       submitButton: 'Am Gewinnspiel teilnehmen',
       success: '✔ Du nimmst jetzt am Gewinnspiel teil! Falls du gewinnst, melden wir uns per E-Mail bei dir.',
     },
@@ -166,6 +176,9 @@ const PreOrderTranslations: Record<LangKey, {
       desc: 'Presave the song to your music library now and automatically get a chance to win an exclusive Mythic NFT from the D.FAITH Collectibles – one of the rarest song cards there is. The Song NFTs are only available until the music video release.',
       prizeLabel: 'To win: Mythic NFT + 10 limited Song NFTs',
       button: 'Presave now',
+      directTitle: 'Get the song now',
+      directDesc: 'Enter your email and location to get the song sent to you directly by email right away – you\'ll also be automatically entered into the draw for an exclusive Mythic NFT and limited Song NFTs from the D.FAITH Collectibles.',
+      directButton: 'Get the song',
       checkbox: 'I have presaved',
       codeLabel: 'Your discount code',
       codeHint: 'Enter the code at the pre-order checkout.',
@@ -188,6 +201,8 @@ const PreOrderTranslations: Record<LangKey, {
     giveawayPage: {
       title: 'Thanks for presaving!',
       intro: (songTitle) => `You just presaved "${songTitle}" – awesome! Now enter the giveaway too.`,
+      directTitle: 'Enter now',
+      directIntro: (songTitle) => `Enter your email and location to get "${songTitle}" sent to you right away by email – you'll also be automatically entered into the giveaway.`,
       submitButton: 'Enter the giveaway',
       success: '✔ You’re now entered in the giveaway! If you win, we’ll reach out by email.',
     },
@@ -241,6 +256,9 @@ const PreOrderTranslations: Record<LangKey, {
       desc: 'Zrób presave utworu już teraz i automatycznie zyskaj szansę na wygranie ekskluzywnego Mythic NFT z kolekcji D.FAITH Collectibles – jednej z najrzadszych kart utworów. Song NFT są dostępne tylko do premiery teledysku.',
       prizeLabel: 'Do wygrania: Mythic NFT + 10 limitowanych Song NFT',
       button: 'Presave teraz',
+      directTitle: 'Zdobądź utwór już teraz',
+      directDesc: 'Podaj mail i miejscowość, a utwór wyślemy Ci od razu bezpośrednio na maila – dodatkowo automatycznie bierzesz udział w losowaniu ekskluzywnego Mythic NFT oraz limitowanych Song NFT z kolekcji D.FAITH Collectibles.',
+      directButton: 'Odbierz utwór',
       checkbox: 'Zrobiłem/am presave',
       codeLabel: 'Twój kod rabatowy',
       codeHint: 'Wpisz kod przy zakupie pre-order.',
@@ -263,6 +281,8 @@ const PreOrderTranslations: Record<LangKey, {
     giveawayPage: {
       title: 'Dzięki za presave!',
       intro: (songTitle) => `Właśnie zrobiłeś/aś presave „${songTitle}" – super! Teraz weź jeszcze udział w konkursie.`,
+      directTitle: 'Zapisz się teraz',
+      directIntro: (songTitle) => `Podaj mail i miejscowość, a „${songTitle}" wyślemy Ci od razu na maila – dodatkowo automatycznie bierzesz udział w konkursie.`,
       submitButton: 'Weź udział w konkursie',
       success: '✔ Bierzesz teraz udział w konkursie! Jeśli wygrasz, odezwiemy się mailowo.',
     },

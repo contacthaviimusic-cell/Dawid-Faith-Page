@@ -11,6 +11,7 @@ interface SingleConfig {
   audioReleaseDate: string;
   videoReleaseDate: string;
   presaveUrl: string;
+  skipPresave: boolean;
   discountCode: string;
   preorderPrice: string;
   bandcampUrl: string;
@@ -94,6 +95,7 @@ export default function AdminSinglesPage() {
       audioReleaseDate: '',
       videoReleaseDate: '',
       presaveUrl: '',
+      skipPresave: false,
       discountCode: '',
       preorderPrice: '',
       bandcampUrl: '',
@@ -121,6 +123,7 @@ export default function AdminSinglesPage() {
         audioReleaseDate: form.audioReleaseDate,
         videoReleaseDate: form.videoReleaseDate,
         presaveUrl: form.presaveUrl,
+        skipPresave: form.skipPresave,
         discountCode: form.discountCode,
         preorderPrice: form.preorderPrice,
         bandcampUrl: form.bandcampUrl,
@@ -386,6 +389,20 @@ export default function AdminSinglesPage() {
                 placeholder: 'https://hypeddit.com/…',
                 hint: 'Hypeddit-Presave-Link (dort Redirect nach Presave auf /pre-order/' + (editing.id || '<song-id>') + '/gewinnspiel einstellen). Leer lassen = Presave-Karte ausblenden.',
               })}
+              <div className="md:col-span-2">
+                <label className="flex items-center gap-2 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={editing.skipPresave}
+                    onChange={(e) => setEditing({ ...editing, skipPresave: e.target.checked })}
+                    className="w-4 h-4 accent-amber-500"
+                  />
+                  <span className="text-sm">Presave überspringen – Karte 01 sammelt direkt Mail + Wohnort (Song per Mail)</span>
+                </label>
+                <span className="block text-xs text-slate-500 mt-1">
+                  Für das neue Modell ohne Presave-Phase: Statt zum Presave-Link führt Karte 01 direkt zur Gewinnspiel-Seite (/pre-order/{editing.id || '<song-id>'}/gewinnspiel). Funktioniert nur sinnvoll zusammen mit einer hinterlegten Song-Datei oben.
+                </span>
+              </div>
               {field('Rabattcode', editing.discountCode, (v) => setEditing({ ...editing, discountCode: v }), {
                 placeholder: 'z.B. PRESAVE20',
                 hint: 'Wird nach „Ich habe presaved" angezeigt. Muss auf Bandcamp als Discount-Code angelegt sein.',
