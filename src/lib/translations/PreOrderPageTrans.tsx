@@ -49,6 +49,7 @@ const PreOrderTranslations: Record<LangKey, {
   preorder: {
     title: string;
     desc: string;
+    directDesc: string;
     button: string;
     comingSoon: string;
     availableUntil: string;
@@ -129,6 +130,7 @@ const PreOrderTranslations: Record<LangKey, {
     preorder: {
       title: 'Pre-Order',
       desc: 'Sichere dir den Song als MP3 plus das noch unveröffentlichte Musikvideo – über Bandcamp, ohne Registrierung.',
+      directDesc: 'Sichere dir exklusiven Frühzugriff auf das noch unveröffentlichte Musikvideo – über Bandcamp, ohne Registrierung. Den Song hast du ja bereits per Mail erhalten.',
       button: 'Jetzt auf Bandcamp kaufen',
       comingSoon: 'Bald verfügbar',
       availableUntil: 'Verfügbar bis zum Musikvideo-Release',
@@ -209,6 +211,7 @@ const PreOrderTranslations: Record<LangKey, {
     preorder: {
       title: 'Pre-Order',
       desc: 'Get the song as MP3 plus the unreleased music video – via Bandcamp, no registration needed.',
+      directDesc: 'Get exclusive early access to the unreleased music video – via Bandcamp, no registration needed. You already got the song by email.',
       button: 'Buy now on Bandcamp',
       comingSoon: 'Coming soon',
       availableUntil: 'Available until the music video release',
@@ -289,6 +292,7 @@ const PreOrderTranslations: Record<LangKey, {
     preorder: {
       title: 'Przedsprzedaż',
       desc: 'Zdobądź utwór jako MP3 plus niepublikowany teledysk – przez Bandcamp, bez rejestracji.',
+      directDesc: 'Zdobądź ekskluzywny wcześniejszy dostęp do niepublikowanego teledysku – przez Bandcamp, bez rejestracji. Utwór otrzymałeś/aś już mailowo.',
       button: 'Kup teraz na Bandcamp',
       comingSoon: 'Wkrótce dostępne',
       availableUntil: 'Dostępne do premiery teledysku',

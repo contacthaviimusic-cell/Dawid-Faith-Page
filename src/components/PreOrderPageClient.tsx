@@ -592,7 +592,9 @@ export default function PreOrderPageClient({
                 ) : (
                   <>
                     <h3 className="text-xl font-black mb-3">{t.preorder.title}</h3>
-                    <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.preorder.desc}</p>
+                    <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">
+                      {single.skipPresave ? t.preorder.directDesc : t.preorder.desc}
+                    </p>
 
                     {single.preorderPrice && (
                       <p className="text-3xl font-black text-amber-400 mb-4">{single.preorderPrice} €</p>
