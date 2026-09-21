@@ -53,6 +53,9 @@ const PreOrderTranslations: Record<LangKey, {
     button: string;
     comingSoon: string;
     availableUntil: string;
+    videoAccessTitle: string;
+    videoAccessDesc: string;
+    videoAccessButton: string;
   };
   listen: {
     title: string;
@@ -134,6 +137,9 @@ const PreOrderTranslations: Record<LangKey, {
       button: 'Jetzt auf Bandcamp kaufen',
       comingSoon: 'Bald verfügbar',
       availableUntil: 'Verfügbar bis zum Musikvideo-Release',
+      videoAccessTitle: 'Früher Zugang zum Musikvideo',
+      videoAccessDesc: 'Der Song ist bereits überall verfügbar! Trag dich mit Mail und Wohnort ein und bekomm das noch unveröffentlichte Musikvideo vor allen anderen zu sehen – außerdem nimmst du automatisch an der Verlosung eines exklusiven Mythic-NFTs und limitierter Song-NFTs teil.',
+      videoAccessButton: 'Frühzugriff sichern',
     },
     listen: {
       title: 'Jetzt überall hören',
@@ -215,6 +221,9 @@ const PreOrderTranslations: Record<LangKey, {
       button: 'Buy now on Bandcamp',
       comingSoon: 'Coming soon',
       availableUntil: 'Available until the music video release',
+      videoAccessTitle: 'Early access to the music video',
+      videoAccessDesc: 'The song is already out everywhere! Enter your email and location to see the unreleased music video before everyone else – you\'ll also be automatically entered into the draw for an exclusive Mythic NFT and limited Song NFTs.',
+      videoAccessButton: 'Get early access',
     },
     listen: {
       title: 'Listen everywhere now',
@@ -296,6 +305,9 @@ const PreOrderTranslations: Record<LangKey, {
       button: 'Kup teraz na Bandcamp',
       comingSoon: 'Wkrótce dostępne',
       availableUntil: 'Dostępne do premiery teledysku',
+      videoAccessTitle: 'Wcześniejszy dostęp do teledysku',
+      videoAccessDesc: 'Utwór jest już dostępny wszędzie! Podaj mail i miejscowość, a zobaczysz niepublikowany jeszcze teledysk przed wszystkimi – dodatkowo automatycznie bierzesz udział w losowaniu ekskluzywnego Mythic NFT oraz limitowanych Song NFT.',
+      videoAccessButton: 'Odbierz wcześniejszy dostęp',
     },
     listen: {
       title: 'Słuchaj już wszędzie',

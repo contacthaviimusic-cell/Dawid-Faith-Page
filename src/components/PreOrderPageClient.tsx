@@ -546,7 +546,20 @@ export default function PreOrderPageClient({
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-amber-500/60 font-black text-sm">{showPresaveCard ? '02' : '01'}</span>
                   {phase === 'preorder' ? (
-                    single.streamingUrl ? (
+                    single.skipPresave ? (
+                      single.streamingUrl ? (
+                        <PlatformBadges
+                          url={single.streamingUrl}
+                          platforms={[
+                            { label: 'Spotify', icon: <SpotifyIcon size={14} />, color: '#1DB954' },
+                            { label: 'Apple Music', icon: <AppleIcon size={14} />, color: '#FFFFFF' },
+                            { label: 'YouTube Music', icon: <Youtube size={14} />, color: '#FF0000' },
+                          ]}
+                        />
+                      ) : (
+                        <Trophy className="text-amber-400" size={22} />
+                      )
+                    ) : single.streamingUrl ? (
                       <PlatformBadges
                         url={single.streamingUrl}
                         platforms={[
@@ -562,7 +575,30 @@ export default function PreOrderPageClient({
                     <ShoppingBag className="text-amber-400" size={22} />
                   )}
                 </div>
-                {phase === 'preorder' ? (
+                {phase === 'preorder' && single.skipPresave ? (
+                  <>
+                    <div className="self-start inline-flex items-center gap-1.5 mb-4 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/40 max-w-full">
+                      <Trophy size={14} className="text-amber-400 flex-shrink-0" />
+                      <span className="text-amber-400 text-[11px] font-black uppercase tracking-wide">{t.presave.prizeLabel}</span>
+                    </div>
+                    <h3 className="text-xl font-black mb-3">{t.preorder.videoAccessTitle}</h3>
+                    <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.preorder.videoAccessDesc}</p>
+                    <Link
+                      href={`/pre-order/${single.id}/gewinnspiel`}
+                      onClick={() => {
+                        trackAction('preorder');
+                        window.fbq?.('trackCustom', 'PresaveClick', {
+                          content_name: single.title,
+                          content_category: 'video-access',
+                        });
+                      }}
+                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
+                    >
+                      {t.preorder.videoAccessButton}
+                      <ArrowRight size={16} />
+                    </Link>
+                  </>
+                ) : phase === 'preorder' ? (
                   <>
                     <h3 className="text-xl font-black mb-3">{t.listen.title}</h3>
                     <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.listen.desc}</p>
