@@ -95,7 +95,7 @@ export default function AdminSinglesPage() {
       audioReleaseDate: '',
       videoReleaseDate: '',
       presaveUrl: '',
-      skipPresave: false,
+      skipPresave: true,
       discountCode: '',
       preorderPrice: '',
       bandcampUrl: '',
