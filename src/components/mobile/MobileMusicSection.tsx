@@ -57,8 +57,8 @@ export default function MobileMusicSection() {
       artist: 'Dawid Faith',
       duration: '0:36',
       audioSrc: '/musik/niebianski-groove/Niebianski.mp3',
-      coverImage: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png',
-      video: '/musik/niebianski-groove/Teaser Groove.mp4',
+      coverImage: '/musik/niebianski-groove/Teaser%20Groove.mp4',
+      video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
       description: 'Ein weiterer Track aus der Release Kampagne'
     },
     {

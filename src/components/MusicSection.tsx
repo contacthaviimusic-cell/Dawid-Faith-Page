@@ -39,8 +39,8 @@ const songs: Song[] = [
   {
     id: 'niebianski-groove',
     title: 'Niebianski Groove',
-    image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png',
-    video: '/musik/niebianski-groove/Teaser Groove.mp4',
+    image: '/musik/niebianski-groove/Teaser%20Groove.mp4',
+    video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
     description: 'Ein weiterer Track aus der Release Kampagne'
   },
   {
