@@ -285,6 +285,11 @@ export default function PreOrderPageClient({
     return video - hours * 3_600_000;
   }, [single]);
 
+  const giveawayDeadlineMs = useMemo(
+    () => (single ? parseDate(single.giveawayDeadline) : null),
+    [single]
+  );
+
   const langSwitcher = (
     <div className="fixed top-4 right-4 z-50" ref={langRef}>
       <button
@@ -356,7 +361,6 @@ export default function PreOrderPageClient({
   // D.FAITH-Webapp (bislang kaum angenommen, daher aktuell ausgeblendet).
   // Mit gesetzter giveawayDeadline bleibt sie auch nach dem Musikvideo-Release
   // sichtbar (eigener Stichtag statt automatisch ans Video-Release gekoppelt).
-  const giveawayDeadlineMs = useMemo(() => parseDate(single.giveawayDeadline), [single.giveawayDeadline]);
   const giveawayOpen =
     single.skipPresave && (giveawayDeadlineMs !== null ? Date.now() < giveawayDeadlineMs : phase === 'preorder');
   const showNftCard = phase === 'preorder' && giveawayOpen;
