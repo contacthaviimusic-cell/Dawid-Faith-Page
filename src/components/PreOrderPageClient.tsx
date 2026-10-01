@@ -17,6 +17,7 @@ interface PublicSingle {
   videoReleaseDate: string;
   presaveUrl: string;
   skipPresave: boolean;
+  giveawayDeadline: string;
   discountCode: string;
   preorderPrice: string;
   bandcampUrl: string;
@@ -353,7 +354,13 @@ export default function PreOrderPageClient({
   // sobald der Song schon draußen ist und die Single die Presave-Phase
   // überspringt – Fokus bewusst nur auf Song / Musikvideo / NFT, ohne die
   // D.FAITH-Webapp (bislang kaum angenommen, daher aktuell ausgeblendet).
-  const showNftCard = phase === 'preorder' && single.skipPresave;
+  // Mit gesetzter giveawayDeadline bleibt sie auch nach dem Musikvideo-Release
+  // sichtbar (eigener Stichtag statt automatisch ans Video-Release gekoppelt).
+  const giveawayDeadlineMs = useMemo(() => parseDate(single.giveawayDeadline), [single.giveawayDeadline]);
+  const giveawayOpen =
+    single.skipPresave && (giveawayDeadlineMs !== null ? Date.now() < giveawayDeadlineMs : phase === 'preorder');
+  const showNftCard = phase === 'preorder' && giveawayOpen;
+  const showNftCardReleased = phase === 'released' && giveawayOpen;
   const cardNumbers = (() => {
     let n = 0;
     const presaveNum = showPresaveCard ? String(++n).padStart(2, '0') : null;
@@ -451,7 +458,26 @@ export default function PreOrderPageClient({
                   <ArrowRight size={18} />
                 </a>
               )}
+              {showNftCardReleased && (
+                <Link
+                  href={`/pre-order/${single.id}/gewinnspiel`}
+                  onClick={() => {
+                    trackAction('preorder');
+                    window.fbq?.('trackCustom', 'PresaveClick', {
+                      content_name: single.title,
+                      content_category: 'nft-giveaway',
+                    });
+                  }}
+                  className="inline-flex items-center gap-3 border border-amber-500/50 hover:bg-amber-500/10 text-amber-400 px-10 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
+                >
+                  <Trophy size={18} />
+                  {t.preorder.videoAccessButton}
+                </Link>
+              )}
             </div>
+            {showNftCardReleased && (
+              <p className="mt-6 text-xs text-stone-500 uppercase tracking-widest">{t.presave.prizeLabel}</p>
+            )}
           </motion.div>
         ) : (
           <>

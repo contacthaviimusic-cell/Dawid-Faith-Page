@@ -12,6 +12,7 @@ interface SingleConfig {
   videoReleaseDate: string;
   presaveUrl: string;
   skipPresave: boolean;
+  giveawayDeadline: string;
   discountCode: string;
   preorderPrice: string;
   bandcampUrl: string;
@@ -96,6 +97,7 @@ export default function AdminSinglesPage() {
       videoReleaseDate: '',
       presaveUrl: '',
       skipPresave: true,
+      giveawayDeadline: '',
       discountCode: '',
       preorderPrice: '',
       bandcampUrl: '',
@@ -124,6 +126,7 @@ export default function AdminSinglesPage() {
         videoReleaseDate: form.videoReleaseDate,
         presaveUrl: form.presaveUrl,
         skipPresave: form.skipPresave,
+        giveawayDeadline: form.giveawayDeadline,
         discountCode: form.discountCode,
         preorderPrice: form.preorderPrice,
         bandcampUrl: form.bandcampUrl,
@@ -403,6 +406,10 @@ export default function AdminSinglesPage() {
                   Für das neue Modell ohne Presave-Phase: Statt zum Presave-Link führt Karte 01 direkt zur Gewinnspiel-Seite (/pre-order/{editing.id || '<song-id>'}/gewinnspiel). Funktioniert nur sinnvoll zusammen mit einer hinterlegten Song-Datei oben.
                 </span>
               </div>
+              {field('Gewinnspiel-Deadline', isoToLocal(editing.giveawayDeadline), (v) => setEditing({ ...editing, giveawayDeadline: localToIso(v) }), {
+                type: 'datetime-local',
+                hint: 'Bis dahin bleibt die NFT-Gewinnspiel-Karte sichtbar – auch nachdem das Musikvideo schon draußen ist. Leer lassen = Karte verschwindet wie bisher automatisch mit dem Video-Release.',
+              })}
               {field('Rabattcode', editing.discountCode, (v) => setEditing({ ...editing, discountCode: v }), {
                 placeholder: 'z.B. PRESAVE20',
                 hint: 'Wird nach „Ich habe presaved" angezeigt. Muss auf Bandcamp als Discount-Code angelegt sein.',

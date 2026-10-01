@@ -29,6 +29,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Für diese Single läuft kein Gewinnspiel.' }, { status: 404 });
     }
 
+    // Deadline: eigene giveawayDeadline falls gesetzt, sonst (altes Verhalten)
+    // automatisch das Musikvideo-Release als Stichtag.
+    const deadlineRaw = single.giveawayDeadline || single.videoReleaseDate;
+    const deadlineMs = deadlineRaw ? new Date(deadlineRaw).getTime() : NaN;
+    if (!Number.isNaN(deadlineMs) && Date.now() >= deadlineMs) {
+      return NextResponse.json({ error: 'Das Gewinnspiel für diese Single ist bereits beendet.' }, { status: 410 });
+    }
+
     const { entry, error } = await createEntry(songId, email, location, entryLang, entryFingerprint);
     if (!entry) {
       return NextResponse.json({ error: error ?? 'Konnte nicht eintragen.' }, { status: 409 });

@@ -30,6 +30,7 @@ export async function PUT(
     'bandcampUrl',
     'streamingUrl',
     'audioFileUrl',
+    'giveawayDeadline',
     'premiereVideoUrl',
     'premiereRevealHours',
   ] as const;
