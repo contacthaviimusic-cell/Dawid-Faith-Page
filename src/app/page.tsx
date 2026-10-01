@@ -149,7 +149,7 @@ export default function Home() {
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-4">
                 <Link
-                  href="/pre-order/katze"
+                  href="/pre-order/Groove"
                   className="bg-amber-500 hover:bg-amber-400 text-black font-bold px-9 py-4 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/30 text-sm uppercase tracking-wider flex items-center gap-2"
                 >
                   <Play size={16} />
