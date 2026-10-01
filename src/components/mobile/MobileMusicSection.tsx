@@ -32,14 +32,14 @@ export default function MobileMusicSection() {
       description: 'Der erste Song der Release Kampagne'
     },
     {
-      id: 'znikla',
-      title: 'Znikła',
+      id: 'niebianski-groove',
+      title: 'Niebianski Groove',
       artist: 'Dawid Faith',
-      duration: '4:15',
-      audioSrc: '/musik/znikla/Znikła.mp3',
-      coverImage: '/musik/znikla/Znikła pic.jpg',
-      video: '/musik/znikla/Znikłą Vid1.mp4',
-      description: 'Melancholische Töne treffen auf moderne Beats'
+      duration: '0:36',
+      audioSrc: '/musik/niebianski-groove/Niebianski.mp3',
+      coverImage: '/musik/niebianski-groove/Teaser%20Groove.mp4',
+      video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
+      description: 'Ein weiterer Track aus der Release Kampagne'
     },
     {
       id: 'maria',
@@ -52,14 +52,14 @@ export default function MobileMusicSection() {
       description: 'Eine emotionale Ballade über verlorene Liebe'
     },
     {
-      id: 'niebianski-groove',
-      title: 'Niebianski Groove',
+      id: 'znikla',
+      title: 'Znikła',
       artist: 'Dawid Faith',
-      duration: '0:36',
-      audioSrc: '/musik/niebianski-groove/Niebianski.mp3',
-      coverImage: '/musik/niebianski-groove/Teaser%20Groove.mp4',
-      video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
-      description: 'Ein weiterer Track aus der Release Kampagne'
+      duration: '4:15',
+      audioSrc: '/musik/znikla/Znikła.mp3',
+      coverImage: '/musik/znikla/Znikła pic.jpg',
+      video: '/musik/znikla/Znikłą Vid1.mp4',
+      description: 'Melancholische Töne treffen auf moderne Beats'
     },
     {
       id: 'jupiter',

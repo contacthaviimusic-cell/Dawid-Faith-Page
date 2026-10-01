@@ -23,11 +23,11 @@ const songs: Song[] = [
     description: 'Der erste Song der Release Kampagne'
   },
   {
-    id: 'znikla',
-    title: 'Znikła',
-    image: '/musik/znikla/Znikła pic.jpg',
-    video: '/musik/znikla/Znikłą Vid1.mp4',
-    description: 'Die polnische Version - eine intensive Reise durch Verlust, Sehnsucht und die Suche nach dem was verschwunden ist'
+    id: 'niebianski-groove',
+    title: 'Niebianski Groove',
+    image: '/musik/niebianski-groove/Teaser%20Groove.mp4',
+    video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
+    description: 'Ein weiterer Track aus der Release Kampagne'
   },
   {
     id: 'maria',
@@ -37,11 +37,11 @@ const songs: Song[] = [
     description: 'Eine herzzerreißende Ballade über Einsamkeit, verlorene Liebe und die schmerzhafte Erkenntnis des Alleinseins'
   },
   {
-    id: 'niebianski-groove',
-    title: 'Niebianski Groove',
-    image: '/musik/niebianski-groove/Teaser%20Groove.mp4',
-    video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
-    description: 'Ein weiterer Track aus der Release Kampagne'
+    id: 'znikla',
+    title: 'Znikła',
+    image: '/musik/znikla/Znikła pic.jpg',
+    video: '/musik/znikla/Znikłą Vid1.mp4',
+    description: 'Die polnische Version - eine intensive Reise durch Verlust, Sehnsucht und die Suche nach dem was verschwunden ist'
   },
   {
     id: 'jupiter',
