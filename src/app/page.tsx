@@ -104,10 +104,10 @@ export default function Home() {
 
         {/* Hero Landing Section */}
         <section id="home" className="relative min-h-screen flex flex-col justify-end overflow-hidden">
-          {/* Full-screen Background: Katze teaser video with cinematic overlays */}
+          {/* Full-screen Background: Niebianski Groove teaser video with cinematic overlays */}
           <div className="absolute inset-0 z-0 bg-black">
             <video
-              src="/musik/katze/katze-teaser-web.mp4"
+              src="/musik/niebianski-groove/Teaser%20Groove.mp4"
               autoPlay
               muted
               loop

@@ -49,10 +49,10 @@ export default function MobilePage() {
         
         {/* Mobile Hero Section */}
         <section id="home" className="min-h-screen flex flex-col justify-end relative overflow-hidden">
-          {/* Background: Katze teaser video */}
+          {/* Background: Niebianski Groove teaser video */}
           <div className="absolute inset-0 z-0 bg-black">
             <video
-              src="/musik/katze/katze-teaser-web.mp4"
+              src="/musik/niebianski-groove/Teaser%20Groove.mp4"
               autoPlay
               muted
               loop
