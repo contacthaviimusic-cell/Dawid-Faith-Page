@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAdminAuthenticated } from '@/lib/adminSession';
-import {
-  getNewsletterSubscribers,
-  saveNewsletterSubscribers,
-  type NewsletterSubscriber,
-  type SubscriberLang,
-} from '@/lib/newsletterStore';
+import { sql } from '@/lib/db';
+import { getNewsletterSubscribers, type SubscriberLang } from '@/lib/newsletterStore';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,12 +9,10 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Admin-Bulk-Import für bestehende Kontaktlisten (z. B. aus dem Fanbuch), die
 // nicht über das öffentliche Formular (mit Pflichtfeld Wohnort) angemeldet
-// wurden. Liest den aktuellen Stand EINMAL, fügt alle neuen E-Mails im
-// Speicher zusammen und schreibt EINMAL zurück – viele schnelle einzelne
-// Lese-Ändere-Schreibe-Zyklen hintereinander (wie zuvor über createSubscriber
-// pro E-Mail) laufen sonst in eine Race Condition, weil die Blob-Propagation
-// nicht mit der Schreibgeschwindigkeit mithält und spätere Schreibvorgänge
-// eine veraltete Version überschreiben.
+// wurden. Jede neue E-Mail wird einzeln per INSERT geschrieben – anders als
+// bei der alten Blob-Variante sind einzelne, schnell aufeinanderfolgende
+// Schreibvorgänge in Postgres unproblematisch (keine Race Condition, da jede
+// Zeile atomar eingefügt wird statt die ganze Datei neu zu schreiben).
 export async function POST(request: NextRequest) {
   if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -32,8 +26,8 @@ export async function POST(request: NextRequest) {
   }
   const lang: SubscriberLang = language === 'en' || language === 'pl' ? language : 'de';
 
-  const subscribers = await getNewsletterSubscribers();
-  const existingEmails = new Set(subscribers.map((s) => s.email.toLowerCase()));
+  const existingSubscribers = await getNewsletterSubscribers();
+  const existingEmails = new Set(existingSubscribers.map((s) => s.email.toLowerCase()));
 
   const added: string[] = [];
   const skipped: { email: string; reason: string }[] = [];
@@ -50,21 +44,12 @@ export async function POST(request: NextRequest) {
       continue;
     }
     existingEmails.add(email);
-    const subscriber: NewsletterSubscriber = {
-      id: `sub_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      email,
-      location: '',
-      language: lang,
-      subscribedAt: now,
-      ipAddress: 'admin-import',
-      userAgent: 'admin-import',
-    };
-    subscribers.push(subscriber);
+    const id = `sub_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    await sql`
+      INSERT INTO site_newsletter_subscribers (id, email, location, language, subscribed_at, ip_address, user_agent)
+      VALUES (${id}, ${email}, '', ${lang}, ${now}, 'admin-import', 'admin-import')
+    `;
     added.push(email);
-  }
-
-  if (added.length > 0) {
-    await saveNewsletterSubscribers(subscribers);
   }
 
   return NextResponse.json({
@@ -73,6 +58,6 @@ export async function POST(request: NextRequest) {
     skipped,
     addedCount: added.length,
     skippedCount: skipped.length,
-    totalAfter: subscribers.length,
+    totalAfter: existingSubscribers.length + added.length,
   });
 }
