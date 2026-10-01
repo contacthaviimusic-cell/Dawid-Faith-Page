@@ -1,4 +1,4 @@
-import { put, list } from '@vercel/blob';
+import { sql } from './db';
 
 export type SubscriberLang = 'de' | 'en' | 'pl';
 
@@ -12,34 +12,22 @@ export interface NewsletterSubscriber {
   userAgent?: string;
 }
 
-const BLOB_FILENAME = 'newsletter-subscribers.json';
-
-// Nur "kein Blob vorhanden" (leere Liste von list()) gilt als echte Leere.
-// Jeder andere Fehler wird durchgereicht, damit ein vorübergehender Lesefehler
-// nicht fälschlich als "keine Abonnenten" gilt und echte Daten überschrieben werden.
-export async function getNewsletterSubscribers(): Promise<NewsletterSubscriber[]> {
-  const { blobs } = await list({ prefix: BLOB_FILENAME });
-
-  if (blobs.length === 0) {
-    return [];
-  }
-
-  const latestBlob = blobs[0];
-  const response = await fetch(`${latestBlob.url}?t=${Date.now()}`, { cache: 'no-store' });
-  if (!response.ok) {
-    throw new Error(`[newsletterStore] Blob-Fetch fehlgeschlagen: HTTP ${response.status}`);
-  }
-  const data = await response.json();
-  return Array.isArray(data) ? data : [];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function rowToSubscriber(r: any): NewsletterSubscriber {
+  return {
+    id: r.id,
+    email: r.email,
+    location: r.location,
+    language: r.language,
+    subscribedAt: new Date(r.subscribed_at).toISOString(),
+    ipAddress: r.ip_address,
+    userAgent: r.user_agent,
+  };
 }
 
-export async function saveNewsletterSubscribers(subscribers: NewsletterSubscriber[]): Promise<void> {
-  await put(BLOB_FILENAME, JSON.stringify(subscribers, null, 2), {
-    access: 'public',
-    contentType: 'application/json',
-    addRandomSuffix: false,
-    allowOverwrite: true,
-  });
+export async function getNewsletterSubscribers(): Promise<NewsletterSubscriber[]> {
+  const rows = await sql`SELECT * FROM site_newsletter_subscribers ORDER BY subscribed_at DESC`;
+  return rows.map(rowToSubscriber);
 }
 
 export async function createSubscriber(
@@ -49,58 +37,42 @@ export async function createSubscriber(
   userAgent: string,
   language: SubscriberLang = 'de'
 ): Promise<{ subscriber: NewsletterSubscriber | null; error?: string }> {
-  const subscribers = await getNewsletterSubscribers();
   const normalizedEmail = email.toLowerCase().trim();
 
-  if (subscribers.some((s) => s.email.toLowerCase() === normalizedEmail)) {
+  const existing = await sql`SELECT id FROM site_newsletter_subscribers WHERE lower(email) = ${normalizedEmail}`;
+  if (existing.length > 0) {
     return { subscriber: null, error: 'Diese E-Mail-Adresse ist bereits angemeldet' };
   }
 
-  const subscriber: NewsletterSubscriber = {
-    id: `sub_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-    email: normalizedEmail,
-    location: location.trim(),
-    language,
-    subscribedAt: new Date().toISOString(),
-    ipAddress,
-    userAgent,
-  };
-
-  subscribers.push(subscriber);
-  await saveNewsletterSubscribers(subscribers);
-  return { subscriber };
+  const id = `sub_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  const rows = await sql`
+    INSERT INTO site_newsletter_subscribers (id, email, location, language, ip_address, user_agent)
+    VALUES (${id}, ${normalizedEmail}, ${location.trim()}, ${language}, ${ipAddress}, ${userAgent})
+    RETURNING *
+  `;
+  return { subscriber: rowToSubscriber(rows[0]) };
 }
 
 export async function deleteSubscriberByEmail(email: string): Promise<boolean> {
-  const subscribers = await getNewsletterSubscribers();
   const normalizedEmail = email.toLowerCase().trim();
-  const remaining = subscribers.filter((s) => s.email.toLowerCase() !== normalizedEmail);
-  if (remaining.length === subscribers.length) return false;
-  await saveNewsletterSubscribers(remaining);
-  return true;
+  const rows = await sql`DELETE FROM site_newsletter_subscribers WHERE lower(email) = ${normalizedEmail} RETURNING id`;
+  return rows.length > 0;
 }
 
-// Entfernt mehrere E-Mail-Adressen in einem einzigen Lese-Ändere-Schreibe-
-// Zyklus (statt mehrerer separater deleteSubscriberByEmail-Aufrufe), um die
-// Race Condition bei schnell aufeinanderfolgenden Blob-Schreibvorgängen zu
-// vermeiden.
 export async function deleteSubscribersByEmails(emails: string[]): Promise<{ removed: string[]; notFound: string[] }> {
-  const subscribers = await getNewsletterSubscribers();
-  const toRemove = new Set(emails.map((e) => e.toLowerCase().trim()));
+  const normalized = emails.map((e) => e.toLowerCase().trim());
+  const existingRows = await sql`SELECT email FROM site_newsletter_subscribers WHERE lower(email) = ANY(${normalized})`;
+  const existingSet = new Set(existingRows.map((r) => (r as { email: string }).email.toLowerCase()));
+
   const removed: string[] = [];
   const notFound: string[] = [];
-
-  for (const email of toRemove) {
-    if (subscribers.some((s) => s.email.toLowerCase() === email)) {
-      removed.push(email);
-    } else {
-      notFound.push(email);
-    }
+  for (const email of normalized) {
+    if (existingSet.has(email)) removed.push(email);
+    else notFound.push(email);
   }
 
-  const remaining = subscribers.filter((s) => !toRemove.has(s.email.toLowerCase()));
   if (removed.length > 0) {
-    await saveNewsletterSubscribers(remaining);
+    await sql`DELETE FROM site_newsletter_subscribers WHERE lower(email) = ANY(${removed})`;
   }
   return { removed, notFound };
 }

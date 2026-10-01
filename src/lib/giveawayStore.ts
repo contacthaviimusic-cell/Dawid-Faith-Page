@@ -1,7 +1,5 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
 import crypto from 'node:crypto';
-import { put, head, BlobNotFoundError } from '@vercel/blob';
+import { sql } from './db';
 
 export type EntryLang = 'de' | 'en' | 'pl';
 
@@ -33,158 +31,49 @@ export interface GiveawayWinner {
   drawnAt: string;
 }
 
-const BLOB_PATHNAME = 'data/giveaway.json';
-const BACKUP_BLOB_PATHNAME = 'data/giveaway.backup.json';
-const LOCAL_FILE = path.join(process.cwd(), 'data', 'giveaway.json');
-
-const WINNERS_BLOB_PATHNAME = 'data/giveaway-winners.json';
-const WINNERS_LOCAL_FILE = path.join(process.cwd(), 'data', 'giveaway-winners.json');
-
-function isBlob(): boolean {
-  return !!process.env.BLOB_READ_WRITE_TOKEN;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function rowToEntry(r: any): GiveawayEntry {
+  return {
+    id: r.id,
+    songId: r.song_id,
+    email: r.email,
+    location: r.location,
+    language: r.language,
+    deviceFingerprint: r.device_fingerprint,
+    token: r.token,
+    clickedAt: r.clicked_at ? new Date(r.clicked_at).toISOString() : null,
+    unsubscribed: r.unsubscribed,
+    createdAt: new Date(r.created_at).toISOString(),
+  };
 }
 
-// ── Vercel Blob helpers ──────────────────────────────────────────────────────
-
-// Nur ein "Datei existiert nicht" darf als leere Liste gewertet werden – jeder
-// andere Fehler muss durchgereicht werden, sonst würde ein vorübergehender
-// Lesefehler bei einem nachfolgenden Schreibvorgang die echten Daten löschen.
-async function readFromBlob(): Promise<GiveawayEntry[]> {
-  let blob;
-  try {
-    blob = await head(BLOB_PATHNAME);
-  } catch (e) {
-    if (e instanceof BlobNotFoundError) return [];
-    console.error('[giveawayStore] head() fehlgeschlagen:', e);
-    throw e;
-  }
-  const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
-  if (!res.ok) {
-    throw new Error(`[giveawayStore] Blob-Fetch fehlgeschlagen: HTTP ${res.status}`);
-  }
-  return (await res.json()) as GiveawayEntry[];
-}
-
-async function writeToBlob(entries: GiveawayEntry[]): Promise<void> {
-  try {
-    const previous = await readFromBlob();
-    if (previous.length > 0) {
-      await put(BACKUP_BLOB_PATHNAME, JSON.stringify(previous, null, 2), {
-        access: 'public',
-        contentType: 'application/json',
-        addRandomSuffix: false,
-        allowOverwrite: true,
-      });
-    }
-  } catch (e) {
-    console.error('[giveawayStore] Backup vor dem Schreiben fehlgeschlagen:', e);
-  }
-
-  await put(BLOB_PATHNAME, JSON.stringify(entries, null, 2), {
-    access: 'public',
-    contentType: 'application/json',
-    addRandomSuffix: false,
-    allowOverwrite: true,
-  });
-}
-
-// ── Local file-system helpers ────────────────────────────────────────────────
-
-async function readFromFile(): Promise<GiveawayEntry[]> {
-  try {
-    const raw = await fs.readFile(LOCAL_FILE, 'utf8');
-    return JSON.parse(raw) as GiveawayEntry[];
-  } catch {
-    return [];
-  }
-}
-
-async function writeToFile(entries: GiveawayEntry[]): Promise<void> {
-  await fs.mkdir(path.dirname(LOCAL_FILE), { recursive: true });
-  await fs.writeFile(LOCAL_FILE, JSON.stringify(entries, null, 2), 'utf8');
-}
-
-// ── Unified read / write ─────────────────────────────────────────────────────
-
-async function readAll(): Promise<GiveawayEntry[]> {
-  return isBlob() ? await readFromBlob() : await readFromFile();
-}
-
-async function writeAll(entries: GiveawayEntry[]): Promise<void> {
-  if (isBlob()) {
-    await writeToBlob(entries);
-  } else {
-    await writeToFile(entries);
-  }
-}
-
-// ── Winners: Blob helpers ────────────────────────────────────────────────────
-
-async function readWinnersFromBlob(): Promise<GiveawayWinner[]> {
-  let blob;
-  try {
-    blob = await head(WINNERS_BLOB_PATHNAME);
-  } catch (e) {
-    if (e instanceof BlobNotFoundError) return [];
-    console.error('[giveawayStore] Winner head() fehlgeschlagen:', e);
-    throw e;
-  }
-  const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
-  if (!res.ok) {
-    throw new Error(`[giveawayStore] Winner-Blob-Fetch fehlgeschlagen: HTTP ${res.status}`);
-  }
-  return (await res.json()) as GiveawayWinner[];
-}
-
-async function writeWinnersToBlob(winners: GiveawayWinner[]): Promise<void> {
-  await put(WINNERS_BLOB_PATHNAME, JSON.stringify(winners, null, 2), {
-    access: 'public',
-    contentType: 'application/json',
-    addRandomSuffix: false,
-    allowOverwrite: true,
-  });
-}
-
-async function readWinnersFromFile(): Promise<GiveawayWinner[]> {
-  try {
-    const raw = await fs.readFile(WINNERS_LOCAL_FILE, 'utf8');
-    return JSON.parse(raw) as GiveawayWinner[];
-  } catch {
-    return [];
-  }
-}
-
-async function writeWinnersToFile(winners: GiveawayWinner[]): Promise<void> {
-  await fs.mkdir(path.dirname(WINNERS_LOCAL_FILE), { recursive: true });
-  await fs.writeFile(WINNERS_LOCAL_FILE, JSON.stringify(winners, null, 2), 'utf8');
-}
-
-async function readAllWinners(): Promise<GiveawayWinner[]> {
-  return isBlob() ? await readWinnersFromBlob() : await readWinnersFromFile();
-}
-
-async function writeAllWinners(winners: GiveawayWinner[]): Promise<void> {
-  if (isBlob()) {
-    await writeWinnersToBlob(winners);
-  } else {
-    await writeWinnersToFile(winners);
-  }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function rowToWinner(r: any): GiveawayWinner {
+  return {
+    id: r.id,
+    songId: r.song_id,
+    prizeType: r.prize_type,
+    entryId: r.entry_id,
+    email: r.email,
+    drawnAt: new Date(r.drawn_at).toISOString(),
+  };
 }
 
 // ── API ──────────────────────────────────────────────────────────────────────
 
 export async function getAllEntries(): Promise<GiveawayEntry[]> {
-  return readAll();
+  const rows = await sql`SELECT * FROM site_giveaway_entries ORDER BY created_at DESC`;
+  return rows.map(rowToEntry);
 }
 
 export async function getEntriesForSong(songId: string): Promise<GiveawayEntry[]> {
-  const entries = await readAll();
-  return entries.filter((e) => e.songId === songId);
+  const rows = await sql`SELECT * FROM site_giveaway_entries WHERE song_id = ${songId} ORDER BY created_at DESC`;
+  return rows.map(rowToEntry);
 }
 
 export async function findEntryByToken(token: string): Promise<GiveawayEntry | null> {
-  const entries = await readAll();
-  return entries.find((e) => e.token === token) ?? null;
+  const rows = await sql`SELECT * FROM site_giveaway_entries WHERE token = ${token}`;
+  return rows.length > 0 ? rowToEntry(rows[0]) : null;
 }
 
 export async function createEntry(
@@ -194,68 +83,49 @@ export async function createEntry(
   language: EntryLang = 'de',
   deviceFingerprint = ''
 ): Promise<{ entry: GiveawayEntry | null; error?: string }> {
-  const entries = await readAll();
   const normalizedEmail = email.trim().toLowerCase();
-  const exists = entries.some((e) => e.songId === songId && e.email.toLowerCase() === normalizedEmail);
-  if (exists) {
+  const existing = await sql`
+    SELECT id FROM site_giveaway_entries WHERE song_id = ${songId} AND lower(email) = ${normalizedEmail}
+  `;
+  if (existing.length > 0) {
     return { entry: null, error: 'Diese E-Mail-Adresse nimmt bereits teil.' };
   }
 
-  const entry: GiveawayEntry = {
-    id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-    songId,
-    email: normalizedEmail,
-    location: location.trim(),
-    language,
-    deviceFingerprint: deviceFingerprint.slice(0, 64),
-    token: crypto.randomBytes(24).toString('hex'),
-    clickedAt: null,
-    unsubscribed: false,
-    createdAt: new Date().toISOString(),
-  };
-  entries.unshift(entry);
-  await writeAll(entries);
-  return { entry };
+  const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+  const token = crypto.randomBytes(24).toString('hex');
+  const rows = await sql`
+    INSERT INTO site_giveaway_entries (id, song_id, email, location, language, device_fingerprint, token, clicked_at, unsubscribed)
+    VALUES (${id}, ${songId}, ${normalizedEmail}, ${location.trim()}, ${language}, ${deviceFingerprint.slice(0, 64)}, ${token}, NULL, false)
+    RETURNING *
+  `;
+  return { entry: rowToEntry(rows[0]) };
 }
 
 // Markiert alle Einträge dieser E-Mail-Adresse (über alle Songs hinweg) als
 // abgemeldet – die Gewinnspiel-Teilnahme selbst bleibt für die Auslosung
 // erhalten, nur künftige Update-Mails werden dann nicht mehr verschickt.
 export async function unsubscribeByEmail(email: string): Promise<number> {
-  const entries = await readAll();
   const normalizedEmail = email.trim().toLowerCase();
-  let count = 0;
-  for (const entry of entries) {
-    if (entry.email.toLowerCase() === normalizedEmail && !entry.unsubscribed) {
-      entry.unsubscribed = true;
-      count++;
-    }
-  }
-  if (count > 0) await writeAll(entries);
-  return count;
+  const rows = await sql`
+    UPDATE site_giveaway_entries SET unsubscribed = true
+    WHERE lower(email) = ${normalizedEmail} AND unsubscribed = false
+    RETURNING id
+  `;
+  return rows.length;
 }
 
 export async function deleteEntry(id: string): Promise<boolean> {
-  const entries = await readAll();
-  const remaining = entries.filter((e) => e.id !== id);
-  if (remaining.length === entries.length) return false;
-  await writeAll(remaining);
-  return true;
+  const rows = await sql`DELETE FROM site_giveaway_entries WHERE id = ${id} RETURNING id`;
+  return rows.length > 0;
 }
 
 export async function markClicked(id: string): Promise<void> {
-  const entries = await readAll();
-  const idx = entries.findIndex((e) => e.id === id);
-  if (idx === -1) return;
-  if (!entries[idx].clickedAt) {
-    entries[idx].clickedAt = new Date().toISOString();
-    await writeAll(entries);
-  }
+  await sql`UPDATE site_giveaway_entries SET clicked_at = now() WHERE id = ${id} AND clicked_at IS NULL`;
 }
 
 export async function getWinnersForSong(songId: string): Promise<GiveawayWinner[]> {
-  const winners = await readAllWinners();
-  return winners.filter((w) => w.songId === songId);
+  const rows = await sql`SELECT * FROM site_giveaway_winners WHERE song_id = ${songId}`;
+  return rows.map(rowToWinner);
 }
 
 function pickRandom<T>(pool: T[]): T {
@@ -302,8 +172,7 @@ export async function drawWinner(
   songId: string,
   prizeType: PrizeType
 ): Promise<{ winner: GiveawayWinner | null; error?: string }> {
-  const winners = await readAllWinners();
-  const songWinners = winners.filter((w) => w.songId === songId);
+  const songWinners = await getWinnersForSong(songId);
   const entries = await getEntriesForSong(songId);
   const entryById = new Map(entries.map((e) => [e.id, e]));
 
@@ -319,17 +188,13 @@ export async function drawWinner(
       };
     }
     const picked = pickRandom(songNftWinners);
-    const winner: GiveawayWinner = {
-      id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-      songId,
-      prizeType: 'mythic',
-      entryId: picked.entryId,
-      email: picked.email,
-      drawnAt: new Date().toISOString(),
-    };
-    winners.push(winner);
-    await writeAllWinners(winners);
-    return { winner };
+    const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+    const rows = await sql`
+      INSERT INTO site_giveaway_winners (id, song_id, prize_type, entry_id, email)
+      VALUES (${id}, ${songId}, 'mythic', ${picked.entryId}, ${picked.email})
+      RETURNING *
+    `;
+    return { winner: rowToWinner(rows[0]) };
   }
 
   const existingSongNftWinners = songWinners.filter((w) => w.prizeType === 'song-nft');
@@ -346,18 +211,13 @@ export async function drawWinner(
   }
 
   const picked = pickRandom(eligible);
-  const winner: GiveawayWinner = {
-    id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-    songId,
-    prizeType: 'song-nft',
-    entryId: picked.id,
-    email: picked.email,
-    drawnAt: new Date().toISOString(),
-  };
-
-  winners.push(winner);
-  await writeAllWinners(winners);
-  return { winner };
+  const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+  const rows = await sql`
+    INSERT INTO site_giveaway_winners (id, song_id, prize_type, entry_id, email)
+    VALUES (${id}, ${songId}, 'song-nft', ${picked.id}, ${picked.email})
+    RETURNING *
+  `;
+  return { winner: rowToWinner(rows[0]) };
 }
 
 // Ersetzt einen bestehenden Gewinner (z. B. weil er sich nicht gemeldet hat)
@@ -366,15 +226,14 @@ export async function redrawWinner(
   songId: string,
   winnerId: string
 ): Promise<{ winner: GiveawayWinner | null; error?: string }> {
-  const winners = await readAllWinners();
-  const target = winners.find((w) => w.id === winnerId && w.songId === songId);
+  const songWinners = await getWinnersForSong(songId);
+  const target = songWinners.find((w) => w.id === winnerId);
   if (!target) {
     return { winner: null, error: 'Gewinner nicht gefunden.' };
   }
 
   const entries = await getEntriesForSong(songId);
   const entryById = new Map(entries.map((e) => [e.id, e]));
-  const songWinners = winners.filter((w) => w.songId === songId);
 
   if (target.prizeType === 'mythic') {
     // Neu ziehen unter den übrigen Song-NFT-Gewinnern (der bisherige
@@ -389,18 +248,14 @@ export async function redrawWinner(
       };
     }
     const picked = pickRandom(candidates);
-    const newWinner: GiveawayWinner = {
-      id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-      songId,
-      prizeType: 'mythic',
-      entryId: picked.entryId,
-      email: picked.email,
-      drawnAt: new Date().toISOString(),
-    };
-    const remaining = winners.filter((w) => w.id !== winnerId);
-    remaining.push(newWinner);
-    await writeAllWinners(remaining);
-    return { winner: newWinner };
+    await sql`DELETE FROM site_giveaway_winners WHERE id = ${winnerId}`;
+    const newId = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+    const rows = await sql`
+      INSERT INTO site_giveaway_winners (id, song_id, prize_type, entry_id, email)
+      VALUES (${newId}, ${songId}, 'mythic', ${picked.entryId}, ${picked.email})
+      RETURNING *
+    `;
+    return { winner: rowToWinner(rows[0]) };
   }
 
   // target.prizeType === 'song-nft'
@@ -421,17 +276,12 @@ export async function redrawWinner(
   }
 
   const picked = pickRandom(eligible);
-  const newWinner: GiveawayWinner = {
-    id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-    songId,
-    prizeType: 'song-nft',
-    entryId: picked.id,
-    email: picked.email,
-    drawnAt: new Date().toISOString(),
-  };
-
-  const remaining = winners.filter((w) => w.id !== winnerId);
-  remaining.push(newWinner);
-  await writeAllWinners(remaining);
-  return { winner: newWinner };
+  await sql`DELETE FROM site_giveaway_winners WHERE id = ${winnerId}`;
+  const newId = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+  const rows = await sql`
+    INSERT INTO site_giveaway_winners (id, song_id, prize_type, entry_id, email)
+    VALUES (${newId}, ${songId}, 'song-nft', ${picked.id}, ${picked.email})
+    RETURNING *
+  `;
+  return { winner: rowToWinner(rows[0]) };
 }

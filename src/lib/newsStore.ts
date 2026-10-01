@@ -1,43 +1,26 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import { put, head, BlobNotFoundError } from '@vercel/blob';
+import { sql } from './db';
 import { NewsItem, NewsCreateInput, NewsUpdateInput } from '@/types/news';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
-const DATA_FILE = path.join(DATA_DIR, 'news.json');
-const BLOB_PATHNAME = 'data/news.json';
-
-function shouldUseBlob() {
-  return !!process.env.BLOB_READ_WRITE_TOKEN;
-}
-
-// Nur "Blob existiert noch nicht" darf null zurückgeben (erlaubt das Seeden mit
-// Startdaten). Jeder andere Fehler wird durchgereicht, damit ein vorübergehender
-// Lesefehler nicht fälschlich als "leer" gilt und die echten News-Daten mit
-// Demo-Platzhaltern überschrieben werden.
-async function readFromBlob(): Promise<NewsItem[] | null> {
-  let blob;
-  try {
-    blob = await head(BLOB_PATHNAME);
-  } catch (e) {
-    if (e instanceof BlobNotFoundError) return null;
-    console.error('[newsStore] head() fehlgeschlagen:', e);
-    throw e;
-  }
-  const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
-  if (!res.ok) {
-    throw new Error(`[newsStore] Blob-Fetch fehlgeschlagen: HTTP ${res.status}`);
-  }
-  return (await res.json()) as NewsItem[];
-}
-
-async function writeToBlob(items: NewsItem[]): Promise<void> {
-  await put(BLOB_PATHNAME, JSON.stringify(items, null, 2), {
-    access: 'public',
-    contentType: 'application/json',
-    addRandomSuffix: false,
-    allowOverwrite: true,
-  });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function rowToNews(r: any): NewsItem {
+  return {
+    id: r.id,
+    title: r.title,
+    excerpt: r.excerpt,
+    title_en: r.title_en ?? undefined,
+    title_pl: r.title_pl ?? undefined,
+    excerpt_en: r.excerpt_en ?? undefined,
+    excerpt_pl: r.excerpt_pl ?? undefined,
+    content: r.content ?? undefined,
+    content_en: r.content_en ?? undefined,
+    content_pl: r.content_pl ?? undefined,
+    date: r.date,
+    readTime: r.read_time,
+    category: r.category,
+    image: r.image,
+    gallery: Array.isArray(r.gallery) ? r.gallery : undefined,
+    featured: r.featured,
+  };
 }
 
 function seedItems(): NewsItem[] {
@@ -79,88 +62,65 @@ function seedItems(): NewsItem[] {
   ];
 }
 
-async function ensureFile() {
-  try {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    await fs.access(DATA_FILE);
-  } catch {
-    const existingData = await getInitialData();
-    await fs.writeFile(DATA_FILE, JSON.stringify(existingData, null, 2), 'utf8');
-  }
-}
-
-async function getInitialData(): Promise<NewsItem[]> {
-  try {
-    const raw = await fs.readFile(DATA_FILE, 'utf8');
-    const parsed = JSON.parse(raw) as NewsItem[];
-    if (Array.isArray(parsed) && parsed.length > 0) {
-      return parsed;
-    }
-  } catch {
-    // File doesn't exist or is invalid
-  }
-  return seedItems();
+async function insertNews(item: NewsItem): Promise<void> {
+  await sql`
+    INSERT INTO site_news_items (
+      id, title, excerpt, title_en, title_pl, excerpt_en, excerpt_pl,
+      content, content_en, content_pl, date, read_time, category, image, gallery, featured
+    ) VALUES (
+      ${item.id}, ${item.title}, ${item.excerpt}, ${item.title_en ?? null}, ${item.title_pl ?? null},
+      ${item.excerpt_en ?? null}, ${item.excerpt_pl ?? null}, ${item.content ?? null},
+      ${item.content_en ?? null}, ${item.content_pl ?? null}, ${item.date}, ${item.readTime},
+      ${item.category}, ${item.image}, ${JSON.stringify(item.gallery ?? [])}, ${item.featured}
+    )
+  `;
 }
 
 export async function getAllNews(): Promise<NewsItem[]> {
-  if (shouldUseBlob()) {
-    const items = await readFromBlob();
-    if (items && items.length > 0) {
-      return items.sort((a, b) => (a.date < b.date ? 1 : -1));
-    }
-    // No blob data yet – seed from committed file
-    const seed = await getInitialData();
-    await writeToBlob(seed);
+  const rows = await sql`SELECT * FROM site_news_items`;
+  if (rows.length === 0) {
+    const seed = seedItems();
+    for (const item of seed) await insertNews(item);
     return seed.sort((a, b) => (a.date < b.date ? 1 : -1));
   }
-
-  await ensureFile();
-  const raw = await fs.readFile(DATA_FILE, 'utf8');
-  let items = JSON.parse(raw) as NewsItem[];
-  if (!Array.isArray(items) || items.length === 0) {
-    items = await getInitialData();
-    await fs.writeFile(DATA_FILE, JSON.stringify(items, null, 2), 'utf8');
-  }
-  return items.sort((a, b) => (a.date < b.date ? 1 : -1));
+  return rows.map(rowToNews).sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
 export async function createNews(input: NewsCreateInput): Promise<NewsItem> {
-  const items = await getAllNews();
   const id = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const item: NewsItem = { id, ...input };
-  items.push(item);
-  if (shouldUseBlob()) {
-    await writeToBlob(items);
-  } else {
-    await fs.writeFile(DATA_FILE, JSON.stringify(items, null, 2), 'utf8');
-  }
+  await insertNews(item);
   return item;
 }
 
 export async function updateNews(update: NewsUpdateInput): Promise<NewsItem | null> {
-  const items = await getAllNews();
-  const idx = items.findIndex((n) => n.id === update.id);
-  if (idx === -1) return null;
-  const merged = { ...items[idx], ...update } as NewsItem;
-  items[idx] = merged;
-  if (shouldUseBlob()) {
-    await writeToBlob(items);
-  } else {
-    await fs.writeFile(DATA_FILE, JSON.stringify(items, null, 2), 'utf8');
-  }
+  const rows = await sql`SELECT * FROM site_news_items WHERE id = ${update.id}`;
+  if (rows.length === 0) return null;
+  const merged: NewsItem = { ...rowToNews(rows[0]), ...update };
+
+  await sql`
+    UPDATE site_news_items SET
+      title = ${merged.title},
+      excerpt = ${merged.excerpt},
+      title_en = ${merged.title_en ?? null},
+      title_pl = ${merged.title_pl ?? null},
+      excerpt_en = ${merged.excerpt_en ?? null},
+      excerpt_pl = ${merged.excerpt_pl ?? null},
+      content = ${merged.content ?? null},
+      content_en = ${merged.content_en ?? null},
+      content_pl = ${merged.content_pl ?? null},
+      date = ${merged.date},
+      read_time = ${merged.readTime},
+      category = ${merged.category},
+      image = ${merged.image},
+      gallery = ${JSON.stringify(merged.gallery ?? [])},
+      featured = ${merged.featured}
+    WHERE id = ${update.id}
+  `;
   return merged;
 }
 
 export async function deleteNews(id: string): Promise<boolean> {
-  const items = await getAllNews();
-  const next = items.filter((n) => n.id !== id);
-  const changed = next.length !== items.length;
-  if (changed) {
-    if (shouldUseBlob()) {
-      await writeToBlob(next);
-    } else {
-      await fs.writeFile(DATA_FILE, JSON.stringify(next, null, 2), 'utf8');
-    }
-  }
-  return changed;
+  const rows = await sql`DELETE FROM site_news_items WHERE id = ${id} RETURNING id`;
+  return rows.length > 0;
 }

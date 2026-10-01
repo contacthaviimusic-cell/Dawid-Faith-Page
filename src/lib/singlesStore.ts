@@ -1,6 +1,4 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import { put, head, BlobNotFoundError } from '@vercel/blob';
+import { sql } from './db';
 
 export interface SingleConfig {
   id: string; // Song-ID, z.B. 'katze' (muss zu den Song-IDs der Musik-Sektion passen)
@@ -15,141 +13,106 @@ export interface SingleConfig {
   preorderPrice: string; // z.B. '4.99' (rein informativ, Preis wird auf Bandcamp gepflegt)
   bandcampUrl: string; // Link zum Bandcamp-Track/Album (leer, bis konfiguriert)
   streamingUrl: string; // "Jetzt überall hören"-Link (z.B. Ditto/Songwhip-Smartlink), ersetzt die Pre-Order-Karte, sobald der Song veröffentlicht ist
-  audioFileUrl: string; // MP3-Datei des Songs; wenn gesetzt, bekommt jede Gewinnspiel-Teilnahme direkt einen Download-Link per Mail
-  premiereVideoUrl: string; // YouTube-Premiere-Link; wird öffentlich erst ab premiereRevealHours vor videoReleaseDate ausgeliefert
+  audioFileUrl: string; // MP3-Datei des Songs; wenn gesetzt, bekommt jede Gewinnspiel-Teilnahme direkt einen Download-Link zum Song per Mail
+  premiereVideoUrl: string;
   premiereRevealHours: string; // Stunden vor videoReleaseDate, ab denen premiereVideoUrl öffentlich sichtbar wird (Default 48, siehe api/singles)
   active: boolean;
   createdAt: string;
   updatedAt: string;
 }
 
-const BLOB_PATHNAME = 'data/singles.json';
-const BACKUP_BLOB_PATHNAME = 'data/singles.backup.json';
-const LOCAL_FILE = path.join(process.cwd(), 'data', 'singles.json');
-
-function isBlob(): boolean {
-  return !!process.env.BLOB_READ_WRITE_TOKEN;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function rowToSingle(r: any): SingleConfig {
+  return {
+    id: r.id,
+    title: r.title,
+    coverImage: r.cover_image,
+    teaserVideo: r.teaser_video,
+    audioReleaseDate: r.audio_release_date,
+    videoReleaseDate: r.video_release_date,
+    presaveUrl: r.presave_url,
+    skipPresave: r.skip_presave,
+    discountCode: r.discount_code,
+    preorderPrice: r.preorder_price,
+    bandcampUrl: r.bandcamp_url,
+    streamingUrl: r.streaming_url,
+    audioFileUrl: r.audio_file_url,
+    premiereVideoUrl: r.premiere_video_url,
+    premiereRevealHours: r.premiere_reveal_hours,
+    active: r.active,
+    createdAt: new Date(r.created_at).toISOString(),
+    updatedAt: new Date(r.updated_at).toISOString(),
+  };
 }
-
-// ── Vercel Blob helpers ──────────────────────────────────────────────────────
-
-// Wichtig: Nur ein "Datei existiert nicht" darf als leere Liste gewertet werden.
-// Jeder andere Fehler (Netzwerk, Parsing, …) muss durchgereicht werden – sonst
-// interpretiert ein Aufrufer einen vorübergehenden Lesefehler fälschlich als
-// "keine Singles vorhanden" und ein nachfolgender Schreibvorgang würde die
-// echten Daten dauerhaft mit einer leeren Liste überschreiben.
-async function readFromBlob(): Promise<SingleConfig[]> {
-  let blob;
-  try {
-    blob = await head(BLOB_PATHNAME);
-  } catch (e) {
-    if (e instanceof BlobNotFoundError) return [];
-    console.error('[singlesStore] head() fehlgeschlagen:', e);
-    throw e;
-  }
-  const res = await fetch(`${blob.downloadUrl}?t=${Date.now()}`, { cache: 'no-store' });
-  if (!res.ok) {
-    throw new Error(`[singlesStore] Blob-Fetch fehlgeschlagen: HTTP ${res.status}`);
-  }
-  return (await res.json()) as SingleConfig[];
-}
-
-async function writeToBlob(entries: SingleConfig[]): Promise<void> {
-  // Vor jedem Schreiben den bisherigen Stand als Backup sichern, damit sich
-  // Datenverlust im Notfall manuell rückgängig machen lässt.
-  try {
-    const previous = await readFromBlob();
-    if (previous.length > 0) {
-      await put(BACKUP_BLOB_PATHNAME, JSON.stringify(previous, null, 2), {
-        access: 'public',
-        contentType: 'application/json',
-        addRandomSuffix: false,
-        allowOverwrite: true,
-      });
-    }
-  } catch (e) {
-    console.error('[singlesStore] Backup vor dem Schreiben fehlgeschlagen:', e);
-  }
-
-  await put(BLOB_PATHNAME, JSON.stringify(entries, null, 2), {
-    access: 'public',
-    contentType: 'application/json',
-    addRandomSuffix: false,
-    allowOverwrite: true,
-  });
-}
-
-// ── Local file-system helpers ────────────────────────────────────────────────
-
-async function readFromFile(): Promise<SingleConfig[]> {
-  try {
-    const raw = await fs.readFile(LOCAL_FILE, 'utf8');
-    return JSON.parse(raw) as SingleConfig[];
-  } catch {
-    return [];
-  }
-}
-
-async function writeToFile(entries: SingleConfig[]): Promise<void> {
-  await fs.mkdir(path.dirname(LOCAL_FILE), { recursive: true });
-  await fs.writeFile(LOCAL_FILE, JSON.stringify(entries, null, 2), 'utf8');
-}
-
-// ── Unified read / write ─────────────────────────────────────────────────────
-
-async function readAll(): Promise<SingleConfig[]> {
-  return isBlob() ? await readFromBlob() : await readFromFile();
-}
-
-async function writeAll(entries: SingleConfig[]): Promise<void> {
-  if (isBlob()) {
-    await writeToBlob(entries);
-  } else {
-    await writeToFile(entries);
-  }
-}
-
-// ── CRUD ─────────────────────────────────────────────────────────────────────
 
 export async function getAllSingles(): Promise<SingleConfig[]> {
-  return readAll();
+  const rows = await sql`SELECT * FROM site_singles ORDER BY created_at DESC`;
+  return rows.map(rowToSingle);
 }
 
 export async function getSingle(id: string): Promise<SingleConfig | null> {
-  const entries = await readAll();
-  return entries.find((s) => s.id === id) ?? null;
+  const rows = await sql`SELECT * FROM site_singles WHERE id = ${id}`;
+  return rows.length > 0 ? rowToSingle(rows[0]) : null;
 }
 
 export type SingleInput = Omit<SingleConfig, 'createdAt' | 'updatedAt'>;
 
 export async function createSingle(input: SingleInput): Promise<{ single: SingleConfig | null; error?: string }> {
-  const entries = await readAll();
-  if (entries.some((s) => s.id === input.id)) {
+  const existing = await sql`SELECT id FROM site_singles WHERE id = ${input.id}`;
+  if (existing.length > 0) {
     return { single: null, error: 'Eine Single mit dieser ID existiert bereits.' };
   }
-  const now = new Date().toISOString();
-  const single: SingleConfig = { ...input, createdAt: now, updatedAt: now };
-  entries.unshift(single);
-  await writeAll(entries);
-  return { single };
+
+  const rows = await sql`
+    INSERT INTO site_singles (
+      id, title, cover_image, teaser_video, audio_release_date, video_release_date,
+      presave_url, skip_presave, discount_code, preorder_price, bandcamp_url,
+      streaming_url, audio_file_url, premiere_video_url, premiere_reveal_hours, active
+    ) VALUES (
+      ${input.id}, ${input.title}, ${input.coverImage}, ${input.teaserVideo},
+      ${input.audioReleaseDate}, ${input.videoReleaseDate}, ${input.presaveUrl},
+      ${input.skipPresave}, ${input.discountCode}, ${input.preorderPrice},
+      ${input.bandcampUrl}, ${input.streamingUrl}, ${input.audioFileUrl},
+      ${input.premiereVideoUrl}, ${input.premiereRevealHours}, ${input.active}
+    )
+    RETURNING *
+  `;
+  return { single: rowToSingle(rows[0]) };
 }
 
 export async function updateSingle(
   id: string,
   patch: Partial<Omit<SingleConfig, 'id' | 'createdAt' | 'updatedAt'>>
 ): Promise<SingleConfig | null> {
-  const entries = await readAll();
-  const idx = entries.findIndex((s) => s.id === id);
-  if (idx === -1) return null;
-  entries[idx] = { ...entries[idx], ...patch, id, updatedAt: new Date().toISOString() };
-  await writeAll(entries);
-  return entries[idx];
+  const existing = await getSingle(id);
+  if (!existing) return null;
+
+  const merged: Record<string, unknown> = { ...existing, ...patch };
+  const rows = await sql`
+    UPDATE site_singles SET
+      title = ${merged.title as string},
+      cover_image = ${merged.coverImage as string},
+      teaser_video = ${merged.teaserVideo as string},
+      audio_release_date = ${merged.audioReleaseDate as string},
+      video_release_date = ${merged.videoReleaseDate as string},
+      presave_url = ${merged.presaveUrl as string},
+      skip_presave = ${merged.skipPresave as boolean},
+      discount_code = ${merged.discountCode as string},
+      preorder_price = ${merged.preorderPrice as string},
+      bandcamp_url = ${merged.bandcampUrl as string},
+      streaming_url = ${merged.streamingUrl as string},
+      audio_file_url = ${merged.audioFileUrl as string},
+      premiere_video_url = ${merged.premiereVideoUrl as string},
+      premiere_reveal_hours = ${merged.premiereRevealHours as string},
+      active = ${merged.active as boolean},
+      updated_at = now()
+    WHERE id = ${id}
+    RETURNING *
+  `;
+  return rows.length > 0 ? rowToSingle(rows[0]) : null;
 }
 
 export async function deleteSingle(id: string): Promise<boolean> {
-  const entries = await readAll();
-  const filtered = entries.filter((s) => s.id !== id);
-  if (filtered.length === entries.length) return false;
-  await writeAll(filtered);
-  return true;
+  const rows = await sql`DELETE FROM site_singles WHERE id = ${id} RETURNING id`;
+  return rows.length > 0;
 }
