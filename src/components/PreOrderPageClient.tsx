@@ -3,9 +3,8 @@
 import { useState, useEffect, useMemo, useRef, type ReactNode } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ArrowRight, Music, ShoppingBag, Sparkles, ChevronDown, Trophy, Youtube, Headphones } from 'lucide-react';
+import { ArrowRight, Music, ShoppingBag, ChevronDown, Trophy, Youtube, Headphones } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import PreOrderTranslations, { type LangKey } from '@/lib/translations/PreOrderPageTrans';
 import FlagForLang, { FlagDE, FlagGB, FlagPL } from '@/components/FlagIcon';
 
@@ -350,6 +349,19 @@ export default function PreOrderPageClient({
 
   const showPresaveCard = phase === 'presave' && (!!single.presaveUrl || single.skipPresave);
   const showPremiereCard = phase === 'preorder';
+  // Eigene NFT-Gewinnspiel-Karte (statt in die "Jetzt hören"-Karte gemischt),
+  // sobald der Song schon draußen ist und die Single die Presave-Phase
+  // überspringt – Fokus bewusst nur auf Song / Musikvideo / NFT, ohne die
+  // D.FAITH-Webapp (bislang kaum angenommen, daher aktuell ausgeblendet).
+  const showNftCard = phase === 'preorder' && single.skipPresave;
+  const cardNumbers = (() => {
+    let n = 0;
+    const presaveNum = showPresaveCard ? String(++n).padStart(2, '0') : null;
+    const listenNum = String(++n).padStart(2, '0');
+    const nftNum = showNftCard ? String(++n).padStart(2, '0') : null;
+    const premiereNum = showPremiereCard ? String(++n).padStart(2, '0') : null;
+    return { presaveNum, listenNum, nftNum, premiereNum, total: n };
+  })();
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
@@ -424,19 +436,21 @@ export default function PreOrderPageClient({
                   <ArrowRight size={18} />
                 </a>
               )}
-              <a
-                href="https://app.dawidfaith.de"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-3 px-10 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all ${
-                  single.premiereVideoUrl
-                    ? 'border border-amber-500/50 hover:bg-amber-500/10 text-amber-400'
-                    : 'bg-amber-500 hover:bg-amber-400 text-black hover:shadow-lg hover:shadow-amber-500/30'
-                }`}
-              >
-                {t.released.appButton}
-                <ArrowRight size={18} />
-              </a>
+              {single.streamingUrl && (
+                <a
+                  href={single.streamingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-3 px-10 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all ${
+                    single.premiereVideoUrl
+                      ? 'border border-amber-500/50 hover:bg-amber-500/10 text-amber-400'
+                      : 'bg-amber-500 hover:bg-amber-400 text-black hover:shadow-lg hover:shadow-amber-500/30'
+                  }`}
+                >
+                  {t.released.streamButton}
+                  <ArrowRight size={18} />
+                </a>
+              )}
             </div>
           </motion.div>
         ) : (
@@ -450,8 +464,8 @@ export default function PreOrderPageClient({
               {t.chooseYourWay}
             </motion.p>
 
-            <div className={`grid gap-6 w-full items-start ${showPresaveCard || showPremiereCard ? 'md:grid-cols-3' : 'md:grid-cols-2 max-w-3xl'}`}>
-              {/* 01 – Presave */}
+            <div className={`grid gap-6 w-full items-start ${cardNumbers.total >= 3 ? 'md:grid-cols-3' : 'md:grid-cols-2 max-w-3xl'}`}>
+              {/* Presave */}
               {showPresaveCard && (
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -460,7 +474,7 @@ export default function PreOrderPageClient({
                   className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-amber-500/60 font-black text-sm">01</span>
+                    <span className="text-amber-500/60 font-black text-sm">{cardNumbers.presaveNum}</span>
                     <Music className="text-amber-400" size={22} />
                   </div>
 
@@ -536,7 +550,7 @@ export default function PreOrderPageClient({
                 </motion.div>
               )}
 
-              {/* 01 – Jetzt hören (Audio schon draußen, Video steht noch aus) oder Pre-Order (vor Release) */}
+              {/* Jetzt hören (Audio schon draußen, Video steht noch aus) oder Pre-Order (vor Release) */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -544,22 +558,9 @@ export default function PreOrderPageClient({
                 className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/40 backdrop-blur-sm relative"
               >
                 <div className="flex items-center justify-between mb-6">
-                  <span className="text-amber-500/60 font-black text-sm">{showPresaveCard ? '02' : '01'}</span>
+                  <span className="text-amber-500/60 font-black text-sm">{cardNumbers.listenNum}</span>
                   {phase === 'preorder' ? (
-                    single.skipPresave ? (
-                      single.streamingUrl ? (
-                        <PlatformBadges
-                          url={single.streamingUrl}
-                          platforms={[
-                            { label: 'Spotify', icon: <SpotifyIcon size={14} />, color: '#1DB954' },
-                            { label: 'Apple Music', icon: <AppleIcon size={14} />, color: '#FFFFFF' },
-                            { label: 'YouTube Music', icon: <Youtube size={14} />, color: '#FF0000' },
-                          ]}
-                        />
-                      ) : (
-                        <Trophy className="text-amber-400" size={22} />
-                      )
-                    ) : single.streamingUrl ? (
+                    single.streamingUrl ? (
                       <PlatformBadges
                         url={single.streamingUrl}
                         platforms={[
@@ -575,30 +576,7 @@ export default function PreOrderPageClient({
                     <ShoppingBag className="text-amber-400" size={22} />
                   )}
                 </div>
-                {phase === 'preorder' && single.skipPresave ? (
-                  <>
-                    <div className="self-start inline-flex items-center gap-1.5 mb-4 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/40 max-w-full">
-                      <Trophy size={14} className="text-amber-400 flex-shrink-0" />
-                      <span className="text-amber-400 text-[11px] font-black uppercase tracking-wide">{t.presave.prizeLabel}</span>
-                    </div>
-                    <h3 className="text-xl font-black mb-3">{t.preorder.videoAccessTitle}</h3>
-                    <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.preorder.videoAccessDesc}</p>
-                    <Link
-                      href={`/pre-order/${single.id}/gewinnspiel`}
-                      onClick={() => {
-                        trackAction('preorder');
-                        window.fbq?.('trackCustom', 'PresaveClick', {
-                          content_name: single.title,
-                          content_category: 'video-access',
-                        });
-                      }}
-                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
-                    >
-                      {t.preorder.videoAccessButton}
-                      <ArrowRight size={16} />
-                    </Link>
-                  </>
-                ) : phase === 'preorder' ? (
+                {phase === 'preorder' ? (
                   <>
                     <h3 className="text-xl font-black mb-3">{t.listen.title}</h3>
                     <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.listen.desc}</p>
@@ -663,7 +641,44 @@ export default function PreOrderPageClient({
                 )}
               </motion.div>
 
-              {/* 02 – Premiere */}
+              {/* NFT-Gewinnspiel (eigene Karte, nur wenn Presave übersprungen und Song schon draußen) */}
+              {showNftCard && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.45 }}
+                  className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-amber-500/60 font-black text-sm">{cardNumbers.nftNum}</span>
+                    <Trophy className="text-amber-400" size={22} />
+                  </div>
+
+                  <div className="self-start inline-flex items-center gap-1.5 mb-4 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/40 max-w-full">
+                    <Trophy size={14} className="text-amber-400 flex-shrink-0" />
+                    <span className="text-amber-400 text-[11px] font-black uppercase tracking-wide">{t.presave.prizeLabel}</span>
+                  </div>
+
+                  <h3 className="text-xl font-black mb-3">{t.preorder.videoAccessTitle}</h3>
+                  <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.preorder.videoAccessDesc}</p>
+                  <Link
+                    href={`/pre-order/${single.id}/gewinnspiel`}
+                    onClick={() => {
+                      trackAction('preorder');
+                      window.fbq?.('trackCustom', 'PresaveClick', {
+                        content_name: single.title,
+                        content_category: 'nft-giveaway',
+                      });
+                    }}
+                    className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
+                  >
+                    {t.preorder.videoAccessButton}
+                    <ArrowRight size={16} />
+                  </Link>
+                </motion.div>
+              )}
+
+              {/* Premiere */}
               {showPremiereCard && (
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -672,7 +687,7 @@ export default function PreOrderPageClient({
                   className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
                 >
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-amber-500/60 font-black text-sm">02</span>
+                    <span className="text-amber-500/60 font-black text-sm">{cardNumbers.premiereNum}</span>
                     <Youtube className="text-amber-400" size={22} />
                   </div>
                   <h3 className="text-xl font-black mb-3">{t.premiere.cardTitle}</h3>
@@ -703,61 +718,6 @@ export default function PreOrderPageClient({
                   )}
                 </motion.div>
               )}
-
-              {/* 03 – Engagement */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
-              >
-                <div className="flex items-center justify-between mb-6">
-                  <span className="text-amber-500/60 font-black text-sm">{showPresaveCard || showPremiereCard ? '03' : '02'}</span>
-                  <Sparkles className="text-amber-400" size={22} />
-                </div>
-
-                {single.coverImage && (
-                  <div className="flex items-center gap-3 mb-5 p-3 rounded-xl bg-white/[0.03] border border-white/10">
-                    <div className="relative w-14 h-14 rounded-lg overflow-hidden border border-amber-500/30 flex-shrink-0">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={single.coverImage} alt={single.title} className="w-full h-full object-cover" />
-                      <div className="absolute top-1 left-1 bg-black/70 border border-amber-500/40 text-amber-400 text-[8px] font-bold px-1.5 py-0.5 rounded-full backdrop-blur-sm">
-                        NFT
-                      </div>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <div className="relative w-4 h-4 rounded-full overflow-hidden border border-amber-500/40 flex-shrink-0">
-                          <Image src="/dfaith-token.png" alt="D.FAITH Token" fill className="object-cover" />
-                        </div>
-                        <span className="text-[11px] font-bold text-amber-400 uppercase tracking-wide truncate">
-                          {t.engagement.nftLabel}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-stone-500">{t.engagement.nftSupply}</p>
-                    </div>
-                  </div>
-                )}
-
-                <h3 className="text-xl font-black mb-3">{t.engagement.title}</h3>
-                <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.engagement.desc}</p>
-                <a
-                  href="https://app.dawidfaith.de"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => {
-                    trackAction('engagement');
-                    window.fbq?.('trackCustom', 'AppClick', {
-                      content_name: single.title,
-                      content_category: 'engagement',
-                    });
-                  }}
-                  className="inline-flex items-center justify-center gap-2 border border-amber-500/50 hover:bg-amber-500/10 text-amber-400 px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
-                >
-                  {t.engagement.button}
-                  <ArrowRight size={16} />
-                </a>
-              </motion.div>
 
             </div>
           </>

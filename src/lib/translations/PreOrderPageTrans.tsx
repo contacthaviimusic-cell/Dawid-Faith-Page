@@ -63,17 +63,10 @@ const PreOrderTranslations: Record<LangKey, {
     button: string;
     comingSoon: string;
   };
-  engagement: {
-    title: string;
-    desc: string;
-    button: string;
-    nftLabel: string;
-    nftSupply: string;
-  };
   released: {
     title: string;
     desc: string;
-    appButton: string;
+    streamButton: string;
     watchButton: string;
   };
   premiere: {
@@ -137,9 +130,9 @@ const PreOrderTranslations: Record<LangKey, {
       button: 'Jetzt auf Bandcamp kaufen',
       comingSoon: 'Bald verfügbar',
       availableUntil: 'Verfügbar bis zum Musikvideo-Release',
-      videoAccessTitle: 'Früher Zugang zum Musikvideo',
-      videoAccessDesc: 'Der Song ist bereits überall verfügbar! Trag dich mit Mail und Wohnort ein und bekomm das noch unveröffentlichte Musikvideo vor allen anderen zu sehen – außerdem nimmst du automatisch an der Verlosung eines exklusiven Mythic-NFTs und limitierter Song-NFTs teil.',
-      videoAccessButton: 'Frühzugriff sichern',
+      videoAccessTitle: 'NFT-Gewinnspiel',
+      videoAccessDesc: 'Trag dich mit Mail und Wohnort bis zu einem bestimmten Datum ein und nimm automatisch an der Verlosung eines exklusiven Mythic-NFTs und limitierter Song-NFTs aus den D.FAITH Collectibles teil.',
+      videoAccessButton: 'Am Gewinnspiel teilnehmen',
     },
     listen: {
       title: 'Jetzt überall hören',
@@ -147,17 +140,10 @@ const PreOrderTranslations: Record<LangKey, {
       button: 'Jetzt anhören',
       comingSoon: 'Bald verfügbar',
     },
-    engagement: {
-      title: 'Zahle mit Engagement',
-      desc: 'Kein Geld nötig: Verdiene Tokens durch Quests in der D.FAITH Webapp und sichere dir damit die NFT-Edition des Songs – verfügbar nur bis zum Release des Musikvideos.',
-      button: 'Zur D.FAITH Webapp',
-      nftLabel: 'D.FAITH Token',
-      nftSupply: 'Nur verfügbar bis zum Musikvideo-Release',
-    },
     released: {
       title: 'Jetzt überall verfügbar',
-      desc: 'Der Song und das Musikvideo sind offiziell erschienen – streame sie auf deiner Lieblingsplattform oder entdecke mehr in der D.FAITH Webapp.',
-      appButton: 'D.FAITH Webapp besuchen',
+      desc: 'Der Song und das Musikvideo sind offiziell erschienen – streame sie jetzt auf deiner Lieblingsplattform.',
+      streamButton: 'Jetzt überall hören',
       watchButton: 'Video jetzt ansehen',
     },
     premiere: {
@@ -221,9 +207,9 @@ const PreOrderTranslations: Record<LangKey, {
       button: 'Buy now on Bandcamp',
       comingSoon: 'Coming soon',
       availableUntil: 'Available until the music video release',
-      videoAccessTitle: 'Early access to the music video',
-      videoAccessDesc: 'The song is already out everywhere! Enter your email and location to see the unreleased music video before everyone else – you\'ll also be automatically entered into the draw for an exclusive Mythic NFT and limited Song NFTs.',
-      videoAccessButton: 'Get early access',
+      videoAccessTitle: 'NFT giveaway',
+      videoAccessDesc: 'Enter your email and location by a set date to be automatically entered into the draw for an exclusive Mythic NFT and limited Song NFTs from the D.FAITH Collectibles.',
+      videoAccessButton: 'Enter the giveaway',
     },
     listen: {
       title: 'Listen everywhere now',
@@ -231,17 +217,10 @@ const PreOrderTranslations: Record<LangKey, {
       button: 'Listen now',
       comingSoon: 'Coming soon',
     },
-    engagement: {
-      title: 'Pay with engagement',
-      desc: 'No money needed: earn tokens through quests in the D.FAITH webapp and secure the song\'s NFT edition – available only until the music video release.',
-      button: 'Go to D.FAITH Webapp',
-      nftLabel: 'D.FAITH Token',
-      nftSupply: 'Only available until the music video release',
-    },
     released: {
       title: 'Now available everywhere',
-      desc: 'The song and music video are officially out – stream them on your favorite platform or discover more on the D.FAITH webapp.',
-      appButton: 'Visit D.FAITH Webapp',
+      desc: 'The song and music video are officially out – stream them now on your favorite platform.',
+      streamButton: 'Listen everywhere now',
       watchButton: 'Watch the video now',
     },
     premiere: {
@@ -305,9 +284,9 @@ const PreOrderTranslations: Record<LangKey, {
       button: 'Kup teraz na Bandcamp',
       comingSoon: 'Wkrótce dostępne',
       availableUntil: 'Dostępne do premiery teledysku',
-      videoAccessTitle: 'Wcześniejszy dostęp do teledysku',
-      videoAccessDesc: 'Utwór jest już dostępny wszędzie! Podaj mail i miejscowość, a zobaczysz niepublikowany jeszcze teledysk przed wszystkimi – dodatkowo automatycznie bierzesz udział w losowaniu ekskluzywnego Mythic NFT oraz limitowanych Song NFT.',
-      videoAccessButton: 'Odbierz wcześniejszy dostęp',
+      videoAccessTitle: 'Konkurs NFT',
+      videoAccessDesc: 'Podaj mail i miejscowość do określonego terminu, aby automatycznie wziąć udział w losowaniu ekskluzywnego Mythic NFT oraz limitowanych Song NFT z kolekcji D.FAITH Collectibles.',
+      videoAccessButton: 'Weź udział w konkursie',
     },
     listen: {
       title: 'Słuchaj już wszędzie',
@@ -315,17 +294,10 @@ const PreOrderTranslations: Record<LangKey, {
       button: 'Posłuchaj teraz',
       comingSoon: 'Wkrótce dostępne',
     },
-    engagement: {
-      title: 'Zapłać zaangażowaniem',
-      desc: 'Bez pieniędzy: zdobywaj tokeny poprzez questy w aplikacji D.FAITH i zdobądź edycję NFT utworu – dostępną tylko do premiery teledysku.',
-      button: 'Do aplikacji D.FAITH',
-      nftLabel: 'Token D.FAITH',
-      nftSupply: 'Dostępne tylko do premiery teledysku',
-    },
     released: {
       title: 'Teraz dostępne wszędzie',
-      desc: 'Utwór i teledysk zostały oficjalnie wydane – streamuj je na ulubionej platformie lub odkryj więcej w aplikacji D.FAITH.',
-      appButton: 'Odwiedź aplikację D.FAITH',
+      desc: 'Utwór i teledysk zostały oficjalnie wydane – streamuj je już teraz na ulubionej platformie.',
+      streamButton: 'Posłuchaj już wszędzie',
       watchButton: 'Obejrzyj teledysk teraz',
     },
     premiere: {
