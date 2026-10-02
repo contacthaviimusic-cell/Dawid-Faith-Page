@@ -117,13 +117,13 @@ export default function BookingPage() {
     { id: 'katze', name: 'Katze', image: '/musik/katze/Katze-Cover.mp4', video: '/musik/katze/video_2026-04-10_14-55-08.mp4', desc: { de: 'Der erste Song der Release Kampagne', en: 'The first song of the Release Campaign', pl: 'Pierwszy utwór Kampanii Release' } },
     { id: 'znikla', name: 'Znikła', image: '/musik/znikla/Znikła pic.jpg', video: '/musik/znikla/Znikłą Vid1.mp4', desc: { de: 'Eine intensive Reise durch Verlust und Sehnsucht', en: 'An intense journey through loss and longing', pl: 'Intensywna podróż przez stratę i tęsknotę' } },
     { id: 'maria', name: 'Maria', image: '/musik/maria/Maria.jpg', video: '/musik/maria/Maria Vid1.mp4', desc: { de: 'Eine herzzerreißende Ballade über Einsamkeit und verlorene Liebe', en: 'A heartbreaking ballad about loneliness and lost love', pl: 'Ballada o samotności i utraconej miłości' } },
-    { id: 'niebianski-groove', name: 'Niebianski Groove', image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png', video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4', desc: { de: 'Ein weiterer Track aus der Release Kampagne', en: 'Another track from the Release Campaign', pl: 'Kolejny utwór z Kampanii Release' } },
+    { id: 'niebianski-groove', name: 'Niebiański Groove', image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png', video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4', desc: { de: 'Ein weiterer Track aus der Release Kampagne', en: 'Another track from the Release Campaign', pl: 'Kolejny utwór z Kampanii Release' } },
     { id: 'jupiter', name: 'Jupiter', image: '/musik/jupiter/Jupiter-Cover.jpg', video: '/musik/jupiter/Jupiter.mp4', desc: { de: 'Der fünfte Song der Release Kampagne', en: 'The fifth song of the Release Campaign', pl: 'Piąty utwór Kampanii Release' } },
   ];
 
   const videos = [
     { name: 'Katze - Live Performance', file: '/booking/videos/Katze 1.mp4' },
-    { name: 'Niebianski Groove - Live', file: '/booking/videos/Niebianski Groove.mp4' }
+    { name: 'Niebiański Groove - Live', file: '/booking/videos/Niebianski Groove.mp4' }
   ];
 
   const fotos = [
@@ -762,7 +762,7 @@ export default function BookingPage() {
                 <ul className="space-y-2.5 text-slate-300 text-sm">
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>
-                    Niebianski Groove <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
+                    Niebiański Groove <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-500 ml-auto">PL</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-1 h-1 bg-amber-500 rounded-full"></span>

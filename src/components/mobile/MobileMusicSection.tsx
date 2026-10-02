@@ -33,7 +33,7 @@ export default function MobileMusicSection() {
     },
     {
       id: 'niebianski-groove',
-      title: 'Niebianski Groove',
+      title: 'Niebiański Groove',
       artist: 'Dawid Faith',
       duration: '0:36',
       audioSrc: '/musik/niebianski-groove/Niebianski.mp3',

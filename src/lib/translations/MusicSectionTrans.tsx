@@ -35,7 +35,7 @@ const MusicTranslations: Record<LangKey, {
         description: 'Eine herzzerreißende Ballade über Einsamkeit, verlorene Liebe und die schmerzhafte Erkenntnis des Alleinseins'
       },
       'niebianski-groove': {
-        title: 'Niebianski Groove',
+        title: 'Niebiański Groove',
         description: 'Ein weiterer Track aus der Release Kampagne'
       },
       jupiter: {
@@ -68,7 +68,7 @@ const MusicTranslations: Record<LangKey, {
         description: 'A heart-wrenching ballad about loneliness, lost love and the painful realization of being alone'
       },
       'niebianski-groove': {
-        title: 'Niebianski Groove',
+        title: 'Niebiański Groove',
         description: 'Another track from the Release Campaign'
       },
       jupiter: {
@@ -101,7 +101,7 @@ const MusicTranslations: Record<LangKey, {
         description: 'Rozdzierająca serce ballada o samotności, utraconej miłości i bolesnym uświadomieniu sobie bycia samemu'
       },
       'niebianski-groove': {
-        title: 'Niebianski Groove',
+        title: 'Niebiański Groove',
         description: 'Kolejny utwór z Kampanii Release'
       },
       jupiter: {
