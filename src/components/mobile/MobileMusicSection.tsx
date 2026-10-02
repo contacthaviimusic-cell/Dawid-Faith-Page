@@ -75,6 +75,9 @@ export default function MobileMusicSection() {
 
   const [showVideo, setShowVideo] = useState<string | null>(null);
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
+  // Sobald das offizielle Musikvideo released ist, führt der Play-Button auf
+  // das echte YouTube-Video statt auf den lokalen Platzhalter-Clip.
+  const [releasedVideoUrls, setReleasedVideoUrls] = useState<Record<string, string>>({});
 
   useEffect(() => {
     try {
@@ -93,6 +96,31 @@ export default function MobileMusicSection() {
 
     window.addEventListener('site-lang-changed', onLang as EventListener);
     return () => window.removeEventListener('site-lang-changed', onLang as EventListener);
+  }, []);
+
+  useEffect(() => {
+    const preorderSingleId: Record<string, string> = { katze: 'katze', 'niebianski-groove': 'Groove' };
+    (async () => {
+      const entries = await Promise.all(
+        Object.entries(preorderSingleId).map(async ([songId, singleId]) => {
+          try {
+            const res = await fetch(`/api/singles/${singleId}`, { cache: 'no-store' });
+            if (!res.ok) return null;
+            const single = await res.json();
+            const videoReleaseMs = single.videoReleaseDate ? new Date(single.videoReleaseDate).getTime() : NaN;
+            if (!Number.isNaN(videoReleaseMs) && Date.now() >= videoReleaseMs && single.premiereVideoUrl) {
+              return [songId, single.premiereVideoUrl] as const;
+            }
+          } catch {}
+          return null;
+        })
+      );
+      const map: Record<string, string> = {};
+      for (const e of entries) {
+        if (e) map[e[0]] = e[1];
+      }
+      setReleasedVideoUrls(map);
+    })();
   }, []);
 
   return (
@@ -154,14 +182,27 @@ export default function MobileMusicSection() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                     
                     {/* Video Play Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => setShowVideo(track.id)}
-                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-yellow-500/80 hover:bg-yellow-500 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 shadow-xl border-2 border-white/20"
-                    >
-                      <Video className="text-white" size={24} />
-                    </motion.button>
+                    {releasedVideoUrls[track.id] ? (
+                      <motion.a
+                        href={releasedVideoUrls[track.id]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-yellow-500/80 hover:bg-yellow-500 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 shadow-xl border-2 border-white/20"
+                      >
+                        <Video className="text-white" size={24} />
+                      </motion.a>
+                    ) : (
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => setShowVideo(track.id)}
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-yellow-500/80 hover:bg-yellow-500 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 shadow-xl border-2 border-white/20"
+                      >
+                        <Video className="text-white" size={24} />
+                      </motion.button>
+                    )}
                   </>
                 )}
 

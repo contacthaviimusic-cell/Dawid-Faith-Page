@@ -54,9 +54,44 @@ const songs: Song[] = [
 
 import MusicTranslations from '../lib/translations/MusicSectionTrans';
 
+// Mapping von Tracklist-Song-ID auf die Single-ID im Pre-Order-System (Groove
+// heißt dort "Groove", nicht "niebianski-groove") – nur für Songs, die dort
+// gepflegt werden.
+const PREORDER_SINGLE_ID: Record<string, string> = {
+  katze: 'katze',
+  'niebianski-groove': 'Groove',
+};
+
 const MusicSection = () => {
   const [showVideo, setShowVideo] = useState<string | null>(null);
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
+  // Sobald das offizielle Musikvideo released ist, führt "Video ansehen" auf
+  // das echte YouTube-Video statt auf den lokalen Platzhalter-Clip.
+  const [releasedVideoUrls, setReleasedVideoUrls] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    (async () => {
+      const entries = await Promise.all(
+        Object.entries(PREORDER_SINGLE_ID).map(async ([songId, singleId]) => {
+          try {
+            const res = await fetch(`/api/singles/${singleId}`, { cache: 'no-store' });
+            if (!res.ok) return null;
+            const single = await res.json();
+            const videoReleaseMs = single.videoReleaseDate ? new Date(single.videoReleaseDate).getTime() : NaN;
+            if (!Number.isNaN(videoReleaseMs) && Date.now() >= videoReleaseMs && single.premiereVideoUrl) {
+              return [songId, single.premiereVideoUrl] as const;
+            }
+          } catch {}
+          return null;
+        })
+      );
+      const map: Record<string, string> = {};
+      for (const e of entries) {
+        if (e) map[e[0]] = e[1];
+      }
+      setReleasedVideoUrls(map);
+    })();
+  }, []);
 
   useEffect(() => {
     try {
@@ -128,15 +163,29 @@ const MusicSection = () => {
                     alt={song.title}
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <button
-                    onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
-                    aria-label={showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}
-                    className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  >
-                    <span className="w-12 h-12 bg-amber-500 hover:bg-amber-400 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/30 transition-colors">
-                      <Video className="w-5 h-5 text-black" />
-                    </span>
-                  </button>
+                  {releasedVideoUrls[song.id] ? (
+                    <a
+                      href={releasedVideoUrls[song.id]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={MusicTranslations[lang].videoOpen}
+                      className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    >
+                      <span className="w-12 h-12 bg-amber-500 hover:bg-amber-400 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/30 transition-colors">
+                        <Video className="w-5 h-5 text-black" />
+                      </span>
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
+                      aria-label={showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}
+                      className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    >
+                      <span className="w-12 h-12 bg-amber-500 hover:bg-amber-400 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/30 transition-colors">
+                        <Video className="w-5 h-5 text-black" />
+                      </span>
+                    </button>
+                  )}
                 </div>
 
                 {/* Info + actions */}
@@ -157,13 +206,25 @@ const MusicSection = () => {
                         {MusicTranslations[lang].preorderButton}
                       </Link>
                     )}
-                    <button
-                      onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
-                      className="inline-flex items-center gap-2 border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider transition-all"
-                    >
-                      <Video className="w-3.5 h-3.5" />
-                      {showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}
-                    </button>
+                    {releasedVideoUrls[song.id] ? (
+                      <a
+                        href={releasedVideoUrls[song.id]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider transition-all"
+                      >
+                        <Video className="w-3.5 h-3.5" />
+                        {MusicTranslations[lang].videoOpen}
+                      </a>
+                    ) : (
+                      <button
+                        onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
+                        className="inline-flex items-center gap-2 border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider transition-all"
+                      >
+                        <Video className="w-3.5 h-3.5" />
+                        {showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}
+                      </button>
+                    )}
                     <a
                       href="https://app.dawidfaith.de"
                       target="_blank"
