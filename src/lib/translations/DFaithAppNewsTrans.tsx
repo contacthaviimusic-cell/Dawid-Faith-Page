@@ -1,60 +1,63 @@
 const DFaithAppNewsTranslations = {
   de: {
-    title: 'D.FAITH Ecosystem – so einfach machst du mit',
-    intro: 'Kein Vorwissen nötig: Du unterstützt Dawid Faith wie gewohnt auf Social Media – und bekommst dafür Belohnungen, die dir gehören.',
-    featuresTitle: '1. Quests erfüllen',
+    title: 'NFT-Gewinnspiel bei „Niebiański Groove" – jetzt mitmachen!',
+    intro: 'Trag dich einfach mit deiner E-Mail-Adresse und deinem Wohnort ein – und sichere dir gleich drei Dinge auf einmal.',
+    featuresTitle: 'Das bekommst du sofort',
     features: [
-      'Kommentiere, like oder teile Beiträge auf YouTube, Instagram, TikTok & Co.',
-      'Dafür bekommst du automatisch "Tokens" – digitale Belohnungspunkte.',
-      'Tausche deine Tokens jederzeit in Solana um, eine bekannte Kryptowährung.'
+      'Das Musikvideo zu „Niebiański Groove" exklusiv vorab – noch vor dem offiziellen Release.',
+      'Der Song ist ohnehin schon überall zum Streamen verfügbar.',
+      'Eine Bestätigungsmail mit allen Links direkt nach der Eintragung.'
     ],
-    rewardsTitle: '2. Exklusive Inhalte kaufen',
+    rewardsTitle: 'Das kannst du gewinnen',
     rewards: [
-      'Gib deine Tokens stattdessen für exklusive Sachen von Dawid Faith aus.',
-      'Songs gibt es als limitierte, nummerierte NFTs in deiner eigenen Wallet.',
-      'Musikvideos bekommst du inklusive Song schon vor dem offiziellen Release als Download.'
+      '1× exklusiver Mythic-NFT aus den D.FAITH Collectibles.',
+      '10× limitierte Song-NFTs – verlost unter allen Teilnehmern.',
+      'Teilnahmeschluss: 30. Oktober.'
     ],
-    shopTitle: '3. Sammelkarten sammeln',
-    shopDesc: 'Zu jedem Song gibt es eigene Sammelkarten – manche häufig, manche selten. Je aktiver du bist, desto seltener deine Karten – und seltene Karten bringen dauerhaft mehr Belohnungen.',
-    badges: ['Einfach mitmachen', 'Belohnungen sammeln', 'Sammelkarten']
+    shopTitle: 'So einfach geht\'s',
+    shopDesc: 'Mail + Wohnort eintragen, fertig. Die Auslosung findet nach Teilnahmeschluss statt, Gewinner werden per E-Mail benachrichtigt.',
+    badges: ['Kostenlos', 'Keine Verpflichtung', '2 Minuten'],
+    ctaButton: 'Jetzt am Gewinnspiel teilnehmen',
   },
   en: {
-    title: 'D.FAITH Ecosystem – how to join in',
-    intro: 'No prior knowledge needed: support Dawid Faith on social media like you always would – and get rewards that belong to you.',
-    featuresTitle: '1. Complete quests',
+    title: 'NFT giveaway for "Niebiański Groove" – enter now!',
+    intro: 'Just enter your email address and location – and secure three things at once.',
+    featuresTitle: 'What you get right away',
     features: [
-      'Comment, like or share posts on YouTube, Instagram, TikTok & more.',
-      'You automatically earn "Tokens" – digital reward points.',
-      'Convert your Tokens into Solana at any time, a well-known cryptocurrency.'
+      'Exclusive early access to the "Niebiański Groove" music video – before its official release.',
+      'The song is already available to stream everywhere anyway.',
+      'A confirmation email with all the links right after you enter.'
     ],
-    rewardsTitle: '2. Buy exclusive content',
+    rewardsTitle: 'What you can win',
     rewards: [
-      'Spend your Tokens on exclusive things from Dawid Faith instead.',
-      'Songs are available as limited, numbered NFTs in your own wallet.',
-      'Music videos come with the song as an early download before the official release.'
+      '1× exclusive Mythic NFT from the D.FAITH Collectibles.',
+      '10× limited Song NFTs – drawn among all entrants.',
+      'Entry deadline: October 30th.'
     ],
-    shopTitle: '3. Collect Collectible Cards',
-    shopDesc: 'Every song has its own collectible cards – some common, some rare. The more active you are, the rarer your cards get – and rare cards give you permanently higher rewards.',
-    badges: ['Easy to join', 'Collect rewards', 'Collectible cards']
+    shopTitle: 'How it works',
+    shopDesc: 'Enter your email + location, done. The draw takes place after the entry deadline, winners are notified by email.',
+    badges: ['Free', 'No commitment', '2 minutes'],
+    ctaButton: 'Enter the giveaway now',
   },
   pl: {
-    title: 'D.FAITH Ecosystem – jak dołączyć',
-    intro: 'Nie potrzebujesz żadnej wiedzy: wspieraj Dawida Faith w mediach społecznościowych jak zawsze – i zdobywaj nagrody, które należą do ciebie.',
-    featuresTitle: '1. Wykonuj questy',
+    title: 'Konkurs NFT dla „Niebiański Groove" – weź udział już teraz!',
+    intro: 'Po prostu podaj swój adres e-mail i miejscowość – i zapewnij sobie od razu trzy rzeczy naraz.',
+    featuresTitle: 'To otrzymujesz od razu',
     features: [
-      'Komentuj, polub lub udostępniaj posty na YouTube, Instagramie, TikToku i innych.',
-      'W zamian automatycznie otrzymujesz "Tokeny" – cyfrowe punkty nagród.',
-      'Wymieniaj swoje Tokeny w każdej chwili na Solana, znaną kryptowalutę.'
+      'Ekskluzywny wcześniejszy dostęp do teledysku „Niebiański Groove" – jeszcze przed oficjalną premierą.',
+      'Utwór jest już i tak dostępny wszędzie do streamowania.',
+      'E-mail potwierdzający ze wszystkimi linkami od razu po zapisaniu się.'
     ],
-    rewardsTitle: '2. Kupuj ekskluzywne treści',
+    rewardsTitle: 'To możesz wygrać',
     rewards: [
-      'Wydaj swoje Tokeny na ekskluzywne rzeczy od Dawida Faith.',
-      'Utwory dostępne są jako limitowane, ponumerowane NFT w twoim portfelu.',
-      'Teledyski otrzymujesz wraz z utworem do pobrania jeszcze przed oficjalną premierą.'
+      '1× ekskluzywny Mythic NFT z kolekcji D.FAITH Collectibles.',
+      '10× limitowane Song NFT – rozlosowane wśród wszystkich uczestników.',
+      'Termin zgłoszeń: 30 października.'
     ],
-    shopTitle: '3. Zbieraj karty kolekcjonerskie',
-    shopDesc: 'Do każdego utworu istnieją własne karty kolekcjonerskie – niektóre częste, niektóre rzadkie. Im aktywniej bierzesz udział, tym rzadsze karty otrzymujesz – a rzadkie karty dają trwale wyższe nagrody.',
-    badges: ['Łatwy start', 'Zbieraj nagrody', 'Karty kolekcjonerskie']
+    shopTitle: 'Jak to działa',
+    shopDesc: 'Podaj mail + miejscowość, to wszystko. Losowanie odbywa się po terminie zgłoszeń, zwycięzcy zostają powiadomieni mailowo.',
+    badges: ['Bezpłatnie', 'Bez zobowiązań', '2 minuty'],
+    ctaButton: 'Weź udział w konkursie',
   }
 };
 

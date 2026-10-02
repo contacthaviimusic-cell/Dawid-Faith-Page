@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Trophy } from 'lucide-react';
 import Translations from '@/lib/translations/DFaithAppNewsTrans';
 
 const DFaithAppNews = () => {
@@ -58,6 +60,13 @@ const DFaithAppNews = () => {
           ))}
         </div>
       </div>
+      <Link
+        href="/pre-order/Groove/gewinnspiel"
+        className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-colors"
+      >
+        <Trophy size={15} />
+        {t.ctaButton}
+      </Link>
     </div>
   );
 };
