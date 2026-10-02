@@ -193,8 +193,8 @@ export default function MobileMusicSection() {
               {/* Track Info & Controls */}
               <div className="p-4">
                 {/* Pre-Order Button */}
-                {track.id === 'katze' && (
-                  <Link href="/pre-order/katze" className="block mb-3">
+                {(track.id === 'katze' || track.id === 'niebianski-groove') && (
+                  <Link href={track.id === 'katze' ? '/pre-order/katze' : '/pre-order/Groove'} className="block mb-3">
                     <motion.div
                       whileTap={{ scale: 0.98 }}
                       className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 rounded-xl px-4 py-3 text-black font-bold flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"

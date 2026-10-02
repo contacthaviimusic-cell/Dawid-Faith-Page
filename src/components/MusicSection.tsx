@@ -148,9 +148,9 @@ const MusicSection = () => {
                   </div>
 
                   <div className="flex flex-wrap gap-3">
-                    {song.id === 'katze' && (
+                    {(song.id === 'katze' || song.id === 'niebianski-groove') && (
                       <Link
-                        href="/pre-order/katze"
+                        href={song.id === 'katze' ? '/pre-order/katze' : '/pre-order/Groove'}
                         className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-colors shadow-lg shadow-amber-500/20"
                       >
                         <ShoppingBag className="w-3.5 h-3.5" />
