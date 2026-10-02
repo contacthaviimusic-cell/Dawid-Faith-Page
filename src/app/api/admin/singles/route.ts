@@ -51,6 +51,7 @@ export async function POST(request: NextRequest) {
     bandcampUrl: body.bandcampUrl ?? '',
     streamingUrl: body.streamingUrl ?? '',
     audioFileUrl: body.audioFileUrl ?? '',
+    nftShowcaseMedia: body.nftShowcaseMedia ?? '',
     premiereVideoUrl: body.premiereVideoUrl ?? '',
     premiereRevealHours: body.premiereRevealHours ?? '',
     active: !!body.active,

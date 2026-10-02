@@ -30,6 +30,7 @@ export async function PUT(
     'bandcampUrl',
     'streamingUrl',
     'audioFileUrl',
+    'nftShowcaseMedia',
     'giveawayDeadline',
     'premiereVideoUrl',
     'premiereRevealHours',

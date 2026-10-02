@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Music, ShoppingBag, ChevronDown, Trophy, Youtube, Headphones } from 'lucide-react';
 import Link from 'next/link';
 import PreOrderTranslations, { type LangKey } from '@/lib/translations/PreOrderPageTrans';
+import CoverMedia from '@/components/CoverMedia';
 import FlagForLang, { FlagDE, FlagGB, FlagPL } from '@/components/FlagIcon';
 
 interface PublicSingle {
@@ -18,6 +19,7 @@ interface PublicSingle {
   presaveUrl: string;
   skipPresave: boolean;
   giveawayDeadline: string;
+  nftShowcaseMedia: string;
   discountCode: string;
   preorderPrice: string;
   bandcampUrl: string;
@@ -683,6 +685,12 @@ export default function PreOrderPageClient({
                     <span className="text-amber-500/60 font-black text-sm">{cardNumbers.nftNum}</span>
                     <Trophy className="text-amber-400" size={22} />
                   </div>
+
+                  {single.nftShowcaseMedia && (
+                    <div className="relative w-full h-36 rounded-xl overflow-hidden mb-4 border border-amber-500/20">
+                      <CoverMedia src={single.nftShowcaseMedia} alt={t.preorder.videoAccessTitle} className="object-cover" />
+                    </div>
+                  )}
 
                   <div className="self-start inline-flex items-center gap-1.5 mb-4 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/40 max-w-full">
                     <Trophy size={14} className="text-amber-400 flex-shrink-0" />

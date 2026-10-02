@@ -18,6 +18,7 @@ interface SingleConfig {
   bandcampUrl: string;
   streamingUrl: string;
   audioFileUrl: string;
+  nftShowcaseMedia: string;
   premiereVideoUrl: string;
   premiereRevealHours: string;
   active: boolean;
@@ -49,6 +50,7 @@ export default function AdminSinglesPage() {
   const [uploading, setUploading] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
   const [uploadingAudio, setUploadingAudio] = useState(false);
+  const [uploadingNftMedia, setUploadingNftMedia] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   function copyGiveawayLink(id: string) {
@@ -103,6 +105,7 @@ export default function AdminSinglesPage() {
       bandcampUrl: '',
       streamingUrl: '',
       audioFileUrl: '',
+      nftShowcaseMedia: '',
       premiereVideoUrl: '',
       premiereRevealHours: '',
       active: true,
@@ -132,6 +135,7 @@ export default function AdminSinglesPage() {
         bandcampUrl: form.bandcampUrl,
         streamingUrl: form.streamingUrl,
         audioFileUrl: form.audioFileUrl,
+        nftShowcaseMedia: form.nftShowcaseMedia,
         premiereVideoUrl: form.premiereVideoUrl,
         premiereRevealHours: form.premiereRevealHours,
         active: form.active,
@@ -189,6 +193,23 @@ export default function AdminSinglesPage() {
       alert(e instanceof Error ? e.message : 'Upload fehlgeschlagen');
     } finally {
       setUploadingVideo(false);
+    }
+  }
+
+  async function uploadNftShowcaseMedia(file: File) {
+    setUploadingNftMedia(true);
+    try {
+      const isVideo = file.type.startsWith('video/');
+      const folder = isVideo ? 'teaser-videos' : 'news-images';
+      const blob = await upload(`${folder}/${Date.now()}-${file.name}`, file, {
+        access: 'public',
+        handleUploadUrl: '/api/upload/client-token',
+      });
+      setEditing((prev) => (prev ? { ...prev, nftShowcaseMedia: blob.url } : prev));
+    } catch (e) {
+      alert(e instanceof Error ? e.message : 'Upload fehlgeschlagen');
+    } finally {
+      setUploadingNftMedia(false);
     }
   }
 
@@ -441,6 +462,24 @@ export default function AdminSinglesPage() {
                     onChange={(e) => {
                       const f = e.target.files?.[0];
                       if (f) uploadAudioFile(f);
+                    }}
+                  />
+                </label>
+              </div>
+
+              <div>
+                {field('NFT-Showcase (Bild/Video-URL)', editing.nftShowcaseMedia, (v) => setEditing({ ...editing, nftShowcaseMedia: v }), {
+                  hint: 'Wird als Vorschau in der NFT-Gewinnspiel-Karte gezeigt. Leer lassen = keine Vorschau. Video max. 25MB.',
+                })}
+                <label className="inline-block mt-2 px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm cursor-pointer">
+                  {uploadingNftMedia ? 'Lädt hoch…' : '📤 Bild/Video hochladen'}
+                  <input
+                    type="file"
+                    accept="image/*,video/mp4,video/webm"
+                    className="hidden"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) uploadNftShowcaseMedia(f);
                     }}
                   />
                 </label>
