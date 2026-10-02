@@ -11,7 +11,7 @@ const DFaithAppNewsTranslations = {
     rewardsTitle: 'Das kannst du gewinnen',
     rewards: [
       '1× exklusiver Mythic-NFT aus den D.FAITH Collectibles.',
-      '10× limitierte Song-NFTs – verlost unter allen Teilnehmern.',
+      '5× limitierte Song-NFTs – verlost unter allen Teilnehmern.',
       'Teilnahmeschluss: 30. Oktober.'
     ],
     shopTitle: 'So einfach geht\'s',
@@ -31,7 +31,7 @@ const DFaithAppNewsTranslations = {
     rewardsTitle: 'What you can win',
     rewards: [
       '1× exclusive Mythic NFT from the D.FAITH Collectibles.',
-      '10× limited Song NFTs – drawn among all entrants.',
+      '5× limited Song NFTs – drawn among all entrants.',
       'Entry deadline: October 30th.'
     ],
     shopTitle: 'How it works',
@@ -51,7 +51,7 @@ const DFaithAppNewsTranslations = {
     rewardsTitle: 'To możesz wygrać',
     rewards: [
       '1× ekskluzywny Mythic NFT z kolekcji D.FAITH Collectibles.',
-      '10× limitowane Song NFT – rozlosowane wśród wszystkich uczestników.',
+      '5× limitowane Song NFT – rozlosowane wśród wszystkich uczestników.',
       'Termin zgłoszeń: 30 października.'
     ],
     shopTitle: 'Jak to działa',

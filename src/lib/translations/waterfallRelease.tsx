@@ -10,7 +10,7 @@ const WaterfallReleaseTranslations = {
     campaignDetails: 'Details',
     details: [
       'Song und Musikvideo erscheinen gleichzeitig am 3. Oktober',
-      'NFT-Gewinnspiel: Mythic-NFT + 10 limitierte Song-NFTs, Teilnahmeschluss 30. Oktober',
+      'NFT-Gewinnspiel: Mythic-NFT + 5 limitierte Song-NFTs, Teilnahmeschluss 30. Oktober',
       'Neuer Song alle 6 Wochen, Releases durchgehend bis Oktober 2027',
     ],
     presaveButton: 'Niebiański Groove jetzt hören'
@@ -26,7 +26,7 @@ const WaterfallReleaseTranslations = {
     campaignDetails: 'Details',
     details: [
       'Song and music video drop at the same time on October 3rd',
-      'NFT giveaway: Mythic NFT + 10 limited Song NFTs, entry deadline October 30th',
+      'NFT giveaway: Mythic NFT + 5 limited Song NFTs, entry deadline October 30th',
       'A new song every 6 weeks, releases continuing through October 2027',
     ],
     presaveButton: 'Listen to Niebiański Groove now'
@@ -42,7 +42,7 @@ const WaterfallReleaseTranslations = {
     campaignDetails: 'Szczegóły',
     details: [
       'Utwór i teledysk pojawiają się jednocześnie 3 października',
-      'Konkurs NFT: Mythic NFT + 10 limitowanych Song NFT, termin zgłoszeń 30 października',
+      'Konkurs NFT: Mythic NFT + 5 limitowanych Song NFT, termin zgłoszeń 30 października',
       'Nowa piosenka co 6 tygodni, wydania nieprzerwanie do października 2027',
     ],
     presaveButton: 'Posłuchaj Niebiański Groove już teraz'

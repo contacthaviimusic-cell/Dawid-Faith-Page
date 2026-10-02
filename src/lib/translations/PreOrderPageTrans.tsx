@@ -91,7 +91,7 @@ const PreOrderTranslations: Record<LangKey, {
     presave: {
       title: 'Presave',
       desc: 'Speichere den Song jetzt in deiner Musik-Bibliothek vor und sichere dir automatisch die Chance auf ein exklusives Mythic-NFT aus den D.FAITH Collectibles – eine der seltensten Song-Karten überhaupt. Die Song-NFTs sind nur bis zum Release des Musikvideos verfügbar.',
-      prizeLabel: 'Zu gewinnen: Mythic-NFT + 10 limitierte Song NFTs',
+      prizeLabel: 'Zu gewinnen: Mythic-NFT + 5 limitierte Song NFTs',
       button: 'Jetzt presaven',
       directTitle: 'Song jetzt sichern',
       directDesc: 'Trag dich mit Mail und Wohnort ein und bekomm den Song sofort direkt per Mail zugeschickt – außerdem nimmst du automatisch an der Verlosung eines exklusiven Mythic-NFTs und limitierter Song-NFTs aus den D.FAITH Collectibles teil.',
@@ -168,7 +168,7 @@ const PreOrderTranslations: Record<LangKey, {
     presave: {
       title: 'Presave',
       desc: 'Presave the song to your music library now and automatically get a chance to win an exclusive Mythic NFT from the D.FAITH Collectibles – one of the rarest song cards there is. The Song NFTs are only available until the music video release.',
-      prizeLabel: 'To win: Mythic NFT + 10 limited Song NFTs',
+      prizeLabel: 'To win: Mythic NFT + 5 limited Song NFTs',
       button: 'Presave now',
       directTitle: 'Get the song now',
       directDesc: 'Enter your email and location to get the song sent to you directly by email right away – you\'ll also be automatically entered into the draw for an exclusive Mythic NFT and limited Song NFTs from the D.FAITH Collectibles.',
@@ -245,7 +245,7 @@ const PreOrderTranslations: Record<LangKey, {
     presave: {
       title: 'Presave',
       desc: 'Zrób presave utworu już teraz i automatycznie zyskaj szansę na wygranie ekskluzywnego Mythic NFT z kolekcji D.FAITH Collectibles – jednej z najrzadszych kart utworów. Song NFT są dostępne tylko do premiery teledysku.',
-      prizeLabel: 'Do wygrania: Mythic NFT + 10 limitowanych Song NFT',
+      prizeLabel: 'Do wygrania: Mythic NFT + 5 limitowanych Song NFT',
       button: 'Presave teraz',
       directTitle: 'Zdobądź utwór już teraz',
       directDesc: 'Podaj mail i miejscowość, a utwór wyślemy Ci od razu bezpośrednio na maila – dodatkowo automatycznie bierzesz udział w losowaniu ekskluzywnego Mythic NFT oraz limitowanych Song NFT z kolekcji D.FAITH Collectibles.',
