@@ -48,7 +48,14 @@ export async function POST(request: NextRequest) {
     await markClicked(entry.id);
 
     const origin = new URL(request.url).origin;
-    await sendGiveawayConfirmationEmail(entry.email, single.title, origin, entry.language, single.audioFileUrl || undefined);
+    await sendGiveawayConfirmationEmail(
+      entry.email,
+      single.title,
+      origin,
+      entry.language,
+      single.audioFileUrl || undefined,
+      single.premiereVideoUrl || undefined
+    );
 
     return NextResponse.json({ success: true, presaveUrl: single.presaveUrl });
   } catch (err) {

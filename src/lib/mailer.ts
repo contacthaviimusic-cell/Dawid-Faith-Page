@@ -30,6 +30,9 @@ const giveawayTranslations: Record<MailLang, {
   downloadHeading: string;
   downloadBody: (songTitle: string) => string;
   downloadButton: string;
+  videoHeading: string;
+  videoBody: (songTitle: string) => string;
+  videoButton: string;
 }> = {
   de: {
     tagline: 'Presave & Gewinnspiel',
@@ -43,6 +46,9 @@ const giveawayTranslations: Record<MailLang, {
     downloadHeading: '🎵 Dein Song-Download',
     downloadBody: (songTitle) => `Als kleines Dankeschön bekommst du „${songTitle}" schon jetzt direkt als Download – viel Spaß beim Hören!`,
     downloadButton: 'Song herunterladen',
+    videoHeading: '🎬 Exklusiv: Das Musikvideo vorab sehen',
+    videoBody: (songTitle) => `Als Dankeschön fürs Eintragen bekommst du das Musikvideo zu „${songTitle}" schon jetzt – noch vor dem offiziellen Release!`,
+    videoButton: 'Musikvideo jetzt ansehen',
   },
   en: {
     tagline: 'Presave & Giveaway',
@@ -56,6 +62,9 @@ const giveawayTranslations: Record<MailLang, {
     downloadHeading: '🎵 Your song download',
     downloadBody: (songTitle) => `As a small thank-you, you can download "${songTitle}" right away – enjoy!`,
     downloadButton: 'Download song',
+    videoHeading: '🎬 Exclusive: watch the music video early',
+    videoBody: (songTitle) => `As a thank-you for entering, you get the music video for "${songTitle}" right now – before its official release!`,
+    videoButton: 'Watch the music video now',
   },
   pl: {
     tagline: 'Presave i konkurs',
@@ -69,6 +78,9 @@ const giveawayTranslations: Record<MailLang, {
     downloadHeading: '🎵 Twój download utworu',
     downloadBody: (songTitle) => `W ramach podziękowania możesz już teraz pobrać „${songTitle}" – miłego słuchania!`,
     downloadButton: 'Pobierz utwór',
+    videoHeading: '🎬 Ekskluzywnie: obejrzyj teledysk wcześniej',
+    videoBody: (songTitle) => `W ramach podziękowania za zapisanie się otrzymujesz teledysk do „${songTitle}" już teraz – jeszcze przed oficjalną premierą!`,
+    videoButton: 'Obejrzyj teledysk teraz',
   },
 };
 
@@ -77,7 +89,8 @@ export async function sendGiveawayConfirmationEmail(
   songTitle: string,
   origin: string,
   lang?: string,
-  downloadUrl?: string
+  downloadUrl?: string,
+  premiereVideoUrl?: string
 ): Promise<void> {
   const t = giveawayTranslations[normalizeMailLang(lang)];
   const unsubscribeLink = `${origin}/abmelden`;
@@ -88,6 +101,15 @@ export async function sendGiveawayConfirmationEmail(
           <p style="line-height: 1.6; color: #555; margin: 0 0 16px;">${t.downloadBody(songTitle)}</p>
           <a href="${downloadUrl}" style="display: inline-block; background: #f59e0b; color: #000; font-weight: bold; padding: 14px 28px; border-radius: 999px; text-decoration: none;">
             ${t.downloadButton}
+          </a>
+        </div>` : '';
+
+  const videoSection = premiereVideoUrl ? `
+        <div style="background: #fff8ec; border: 1px solid #f5d9a8; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;">
+          <p style="margin: 0 0 14px; font-weight: bold; color: #111;">${t.videoHeading}</p>
+          <p style="line-height: 1.6; color: #555; margin: 0 0 16px;">${t.videoBody(songTitle)}</p>
+          <a href="${premiereVideoUrl}" style="display: inline-block; background: #f59e0b; color: #000; font-weight: bold; padding: 14px 28px; border-radius: 999px; text-decoration: none;">
+            ${t.videoButton}
           </a>
         </div>` : '';
 
@@ -103,6 +125,7 @@ export async function sendGiveawayConfirmationEmail(
           ${t.body(songTitle)}
         </p>
         ${downloadSection}
+        ${videoSection}
         <p style="line-height: 1.6; color: #555;">
           ${t.closing}<br/>
           <strong>Dawid Faith</strong>
@@ -121,6 +144,7 @@ export async function sendGiveawayConfirmationEmail(
   const text = [
     t.body(songTitle),
     ...(downloadUrl ? ['', t.downloadBody(songTitle), `${t.downloadButton}: ${downloadUrl}`] : []),
+    ...(premiereVideoUrl ? ['', t.videoBody(songTitle), `${t.videoButton}: ${premiereVideoUrl}`] : []),
     '',
     t.closing,
     'Dawid Faith',
