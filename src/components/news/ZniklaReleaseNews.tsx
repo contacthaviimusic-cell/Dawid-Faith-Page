@@ -66,7 +66,7 @@ const WaterfallReleaseNews = () => {
       </div>
 
       <Link
-        href="/pre-order/katze"
+        href="/pre-order/Groove"
         className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-colors"
       >
         <Music size={15} />
