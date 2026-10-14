@@ -1,13 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Play } from 'lucide-react';
+import { Play, Calendar } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import MobileNavigation from '../../components/mobile/MobileNavigation';
 import MobileNewsSection from '../../components/mobile/MobileNewsSection';
-import MobileDFaithSection from '../../components/mobile/MobileDFaithSection';
 import MobileMusicSection from '../../components/mobile/MobileMusicSection';
 import MobileKonzerteEventsSection from '../../components/mobile/MobileKonzerteEventsSection';
 import MobileNewsletterSection from '../../components/mobile/MobileNewsletterSection';
@@ -103,21 +102,14 @@ export default function MobilePage() {
                 whileTap={{ scale: 0.98 }}
                 className="w-full border border-white/25 active:border-amber-400/50 text-white px-5 py-3.5 rounded-full font-semibold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
                 onClick={() => {
-                  const el = document.querySelector('#dfaith');
+                  const el = document.querySelector('#konzerte');
                   if (el) {
                     const top = el.getBoundingClientRect().top + window.scrollY - 56;
                     window.scrollTo({ top, behavior: 'smooth' });
                   }
                 }}
               >
-                <div className="relative w-5 h-5">
-                  <Image
-                    src="/dfaith-token.png"
-                    alt="D.FAITH Token"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
+                <Calendar size={18} />
                 <span>{PageTranslations[lang].ctaExperience}</span>
               </motion.button>
             </motion.div>
@@ -133,7 +125,6 @@ export default function MobilePage() {
   {/* Mobile Sections */}
   <MobileNewsSection />
   <MobileMusicSection />
-  <MobileDFaithSection />
   <MobileKonzerteEventsSection />
   <MobileNewsletterSection />
 
@@ -185,13 +176,10 @@ export default function MobilePage() {
 
             <div className="text-stone-500 text-xs">
               <p>{PageTranslations[lang].copyright}</p>
-              <p className="mt-1 text-stone-600">{PageTranslations[lang].poweredBy}</p>
               <p className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
                 <Link href="/impressum" className="hover:text-amber-400 transition-colors">Impressum</Link>
                 <span className="text-stone-700">·</span>
                 <Link href="/datenschutz" className="hover:text-amber-400 transition-colors">Datenschutz</Link>
-                <span className="text-stone-700">·</span>
-                <Link href="/teilnahmebedingungen" className="hover:text-amber-400 transition-colors">Teilnahmebedingungen</Link>
               </p>
             </div>
           </div>

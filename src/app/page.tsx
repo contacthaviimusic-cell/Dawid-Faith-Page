@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Play } from 'lucide-react';
+import { Play, Calendar } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -9,7 +9,6 @@ import { useMobileDetection } from '../hooks/useMobileDetection';
 import PageTranslations from '@/lib/translations/page';
 import Navigation from '../components/Navigation';
 import NewsSection from '../components/NewsSection';
-import DFaithSection from '../components/DFaithSection';
 import MusicSection from '../components/MusicSection';
 import KonzerteEventsSection from '../components/KonzerteEventsSection';
 import NewsletterSection from '../components/NewsletterSection';
@@ -158,21 +157,14 @@ export default function Home() {
                 <button
                   className="border border-white/25 hover:border-amber-400/50 text-white font-semibold px-9 py-4 rounded-full transition-all hover:bg-white/5 backdrop-blur-sm text-sm uppercase tracking-wider flex items-center gap-2"
                   onClick={() => {
-                    const el = document.querySelector('#dfaith');
+                    const el = document.querySelector('#konzerte');
                     if (el) {
                       const top = el.getBoundingClientRect().top + window.scrollY - 64;
                       window.scrollTo({ top, behavior: 'smooth' });
                     }
                   }}
                 >
-                  <span className="relative w-4 h-4">
-                    <Image
-                      src="/dfaith-token.png"
-                      alt="D.FAITH Token"
-                      fill
-                      className="object-contain"
-                    />
-                  </span>
+                  <Calendar size={16} />
                   {PageTranslations[lang].ctaExperience}
                 </button>
               </div>
@@ -196,9 +188,6 @@ export default function Home() {
 
         {/* Music Section */}
         <MusicSection />
-
-        {/* D.FAITH Ecosystem Section */}
-        <DFaithSection />
 
         {/* Konzerte Section */}
         <KonzerteEventsSection />
@@ -228,13 +217,10 @@ export default function Home() {
 
               <div className="text-center md:text-right text-stone-500 text-sm">
                 <p>{PageTranslations[lang].copyright}</p>
-                <p className="mt-1 text-stone-600">{PageTranslations[lang].poweredBy}</p>
                 <p className="mt-3 flex items-center justify-center md:justify-end gap-3 text-xs">
                   <Link href="/impressum" className="hover:text-amber-400 transition-colors">Impressum</Link>
                   <span className="text-stone-700">·</span>
                   <Link href="/datenschutz" className="hover:text-amber-400 transition-colors">Datenschutz</Link>
-                  <span className="text-stone-700">·</span>
-                  <Link href="/teilnahmebedingungen" className="hover:text-amber-400 transition-colors">Teilnahmebedingungen</Link>
                 </p>
               </div>
             </motion.div>

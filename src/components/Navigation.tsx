@@ -55,17 +55,16 @@ export default function Navigation() {
     return () => document.removeEventListener('click', onDoc);
   }, []);
 
-  const translations: Record<string, { home: string; news: string; dfaith: string; musik: string; booking: string }> = {
-    de: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Musik', booking: 'Booking' },
-    en: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Music', booking: 'Booking' },
-    pl: { home: 'Home', news: 'Aktualności', dfaith: 'D.FAITH', musik: 'Muzyka', booking: 'Booking' },
+  const translations: Record<string, { home: string; news: string; musik: string; booking: string }> = {
+    de: { home: 'Home', news: 'News', musik: 'Musik', booking: 'Booking' },
+    en: { home: 'Home', news: 'News', musik: 'Music', booking: 'Booking' },
+    pl: { home: 'Home', news: 'Aktualności', musik: 'Muzyka', booking: 'Booking' },
   };
 
   const navItems = [
     { key: 'home', name: translations[lang].home, href: '#home', type: 'scroll' },
     { key: 'news', name: translations[lang].news, href: '#news', type: 'scroll' },
     { key: 'musik', name: translations[lang].musik, href: '#music', type: 'scroll' },
-    { key: 'dfaith', name: translations[lang].dfaith, href: '#dfaith', type: 'scroll' },
     { key: 'booking', name: translations[lang].booking, href: '#konzerte', type: 'scroll' },
   ];
 
@@ -162,14 +161,6 @@ export default function Navigation() {
                 {item.name}
               </button>
             ))}
-            <a
-              href="https://app.dawidfaith.de"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-3 bg-amber-500 hover:bg-amber-400 text-black text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/30"
-            >
-              App
-            </a>
           </div>
 
           {/* Mobile hamburger */}

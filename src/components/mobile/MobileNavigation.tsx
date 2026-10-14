@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, Newspaper, Coins, Music, Calendar, Heart, ChevronDown } from 'lucide-react';
+import { Menu, X, Home, Newspaper, Music, Calendar, Heart, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import FlagForLang, { FlagDE, FlagGB, FlagPL } from '../FlagIcon';
 
@@ -43,16 +43,15 @@ export default function MobileNavigation() {
     return () => document.removeEventListener('click', onDoc);
   }, []);
 
-  const translations: Record<string, { home: string; news: string; dfaith: string; musik: string; booking: string }> = {
-    de: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Musik', booking: 'Booking' },
-    en: { home: 'Home', news: 'News', dfaith: 'D.FAITH', musik: 'Music', booking: 'Booking' },
-    pl: { home: 'Home', news: 'Aktualności', dfaith: 'D.FAITH', musik: 'Muzyka', booking: 'Booking' },
+  const translations: Record<string, { home: string; news: string; musik: string; booking: string }> = {
+    de: { home: 'Home', news: 'News', musik: 'Musik', booking: 'Booking' },
+    en: { home: 'Home', news: 'News', musik: 'Music', booking: 'Booking' },
+    pl: { home: 'Home', news: 'Aktualności', musik: 'Muzyka', booking: 'Booking' },
   };
 
   const navItems = [
     { icon: Home, label: translations[lang].home, href: '#home' },
     { icon: Newspaper, label: translations[lang].news, href: '#news' },
-    { icon: Coins, label: translations[lang].dfaith, href: '#dfaith' },
     { icon: Music, label: translations[lang].musik, href: '#music' },
     { icon: Calendar, label: translations[lang].booking, href: '#konzerte' },
   ];
