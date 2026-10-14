@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Play } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Translations from '@/lib/translations/DFaithAppNewsTrans';
+
+const KATZE_YOUTUBE_ID = '-h7US3tHuyo';
 
 const DFaithAppNews = () => {
   const [lang, setLang] = useState<'de'|'en'|'pl'>('de');
@@ -33,40 +34,24 @@ const DFaithAppNews = () => {
     <div className="space-y-6">
       <h3 className="text-2xl font-bold text-white mb-4">{t.title}</h3>
       <p className="text-stone-300 leading-relaxed">{t.intro}</p>
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="bg-stone-800/50 p-4 rounded-xl">
-          <h4 className="text-amber-300 font-semibold mb-2">{t.featuresTitle}</h4>
-          <ul className="text-stone-300 text-sm space-y-1">
-            {t.features.map((f, i) => (
-              <li key={i}>• {f}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="bg-stone-800/50 p-4 rounded-xl">
-          <h4 className="text-amber-300 font-semibold mb-2">{t.rewardsTitle}</h4>
-          <ul className="text-stone-300 text-sm space-y-1">
-            {t.rewards.map((r, i) => (
-              <li key={i}>• {r}</li>
-            ))}
-          </ul>
-        </div>
+      <div className="relative w-full rounded-2xl overflow-hidden" style={{ paddingTop: '56.25%' }}>
+        <iframe
+          src={`https://www.youtube.com/embed/${KATZE_YOUTUBE_ID}`}
+          title="Katze – Musikvideo"
+          className="absolute inset-0 w-full h-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
       </div>
-      <div className="bg-amber-900/30 p-6 rounded-2xl border border-amber-500/20">
-        <h4 className="text-lg font-semibold text-amber-300 mb-3">{t.shopTitle}</h4>
-        <p className="text-stone-300 text-sm mb-3">{t.shopDesc}</p>
-        <div className="flex flex-wrap gap-3">
-          {t.badges.map((b, i) => (
-            <span key={i} className="bg-amber-600 text-white px-4 py-2 rounded-full text-sm font-medium">{b}</span>
-          ))}
-        </div>
-      </div>
-      <Link
-        href="/pre-order/Groove"
+      <a
+        href={`https://www.youtube.com/watch?v=${KATZE_YOUTUBE_ID}`}
+        target="_blank"
+        rel="noopener noreferrer"
         className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-colors"
       >
-        <Play size={15} />
         {t.ctaButton}
-      </Link>
+        <ArrowRight size={15} />
+      </a>
     </div>
   );
 };
