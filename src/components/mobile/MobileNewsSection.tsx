@@ -286,19 +286,7 @@ export default function MobileNewsSection() {
               {/* Action Buttons - Fixed am unteren Rand, je nach News-Typ */}
               <div className="border-t border-stone-700/50 p-4 bg-stone-900/80 backdrop-blur-sm">
                 <div className="flex gap-3">
-                  {selectedNews?.category === 'Blockchain' ? (
-                    <motion.a
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      href="https://app.dawidfaith.de"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 bg-amber-600 hover:bg-amber-700 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-colors"
-                    >
-                      <ExternalLink size={18} />
-                      {NewsTranslations[lang].toWebapp}
-                    </motion.a>
-                  ) : selectedNews?.title?.toLowerCase().includes('bandmitglieder') || selectedNews?.title?.toLowerCase().includes('band members') || selectedNews?.title?.toLowerCase().includes('członkowie') ? (
+                  {selectedNews?.title?.toLowerCase().includes('bandmitglieder') || selectedNews?.title?.toLowerCase().includes('band members') || selectedNews?.title?.toLowerCase().includes('członkowie') ? (
                     <motion.a
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}

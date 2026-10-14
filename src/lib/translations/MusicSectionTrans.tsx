@@ -13,10 +13,10 @@ const MusicTranslations: Record<LangKey, {
 }> = {
   de: {
     title: 'Musik Vorschau',
-    appNote: 'Songs verfügbar in der D.FAITH Webapp als limitierte NFT-Edition',
-    exclusiveTitle: 'Exklusive Songs als NFT',
-    exclusiveDesc: 'In der D.FAITH Webapp gibt es jeden Song als nummerierte NFT-Edition, die nur bis zum Release des jeweiligen Musikvideos verfügbar ist. Sichere dir deine Edition mit Tokens aus dem D.FAITH Ecosystem und unterstütze Dawid Faith direkt.',
-    webappButton: 'D.FAITH Webapp besuchen',
+    appNote: 'Alle Songs auf Spotify, Apple Music & überall sonst erhältlich',
+    exclusiveTitle: 'Du willst mich live sehen?',
+    exclusiveDesc: 'Ich trete regelmäßig live auf – für Konzerte, Events oder private Feiern. Schick mir einfach eine Buchungsanfrage, ich melde mich zeitnah zurück.',
+    webappButton: 'Jetzt buchen',
     videoOpen: 'Video ansehen',
     videoClose: 'Video schließen',
     preorderButton: 'Jetzt anhören'
@@ -46,10 +46,10 @@ const MusicTranslations: Record<LangKey, {
   },
   en: {
     title: 'Music Preview',
-    appNote: 'Songs available in the D.FAITH webapp as a limited NFT edition',
-    exclusiveTitle: 'Exclusive songs as NFTs',
-    exclusiveDesc: 'In the D.FAITH webapp, every song is available as a numbered NFT edition that\'s only available until that song\'s music video release. Secure your edition with Tokens from the D.FAITH Ecosystem and support Dawid Faith directly.',
-    webappButton: 'Visit D.FAITH Webapp',
+    appNote: 'All songs available on Spotify, Apple Music & everywhere else',
+    exclusiveTitle: 'Want to see me live?',
+    exclusiveDesc: 'I regularly perform live – for concerts, events or private celebrations. Just send me a booking request and I\'ll get back to you shortly.',
+    webappButton: 'Book now',
     videoOpen: 'Watch video',
     videoClose: 'Close video',
     preorderButton: 'Listen now'
@@ -79,10 +79,10 @@ const MusicTranslations: Record<LangKey, {
   },
   pl: {
     title: 'Podgląd muzyki',
-    appNote: 'Utwory dostępne w aplikacji D.FAITH jako limitowana edycja NFT',
-    exclusiveTitle: 'Ekskluzywne utwory jako NFT',
-    exclusiveDesc: 'W aplikacji D.FAITH każdy utwór dostępny jest jako numerowana edycja NFT, dostępna tylko do premiery danego teledysku. Zdobądź swoją edycję za Tokeny z D.FAITH Ecosystem i wspieraj Dawida Faith bezpośrednio.',
-    webappButton: 'Odwiedź aplikację D.FAITH',
+    appNote: 'Wszystkie utwory dostępne na Spotify, Apple Music i wszędzie indziej',
+    exclusiveTitle: 'Chcesz zobaczyć mnie na żywo?',
+    exclusiveDesc: 'Regularnie występuję na żywo – na koncertach, eventach czy prywatnych uroczystościach. Wyślij mi po prostu zapytanie o rezerwację, odpowiem wkrótce.',
+    webappButton: 'Zarezerwuj teraz',
     videoOpen: 'Obejrzyj wideo',
     videoClose: 'Zamknij wideo',
     preorderButton: 'Posłuchaj teraz'

@@ -366,19 +366,7 @@ const NewsSection = () => {
               {/* Action Buttons */}
               <div className="flex gap-4 mt-8 pt-6 border-t border-stone-700">
                 {/* Button-Logik je nach News-Typ */}
-                {selectedArticle?.category === 'Blockchain' ? (
-                  <motion.a
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    href="https://app.dawidfaith.de"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-amber-500 hover:bg-amber-400 text-black px-7 py-3 rounded-full font-bold text-sm uppercase tracking-wider flex items-center gap-2 transition-colors"
-                  >
-                    <span>{NewsTranslations[lang].toWebapp}</span>
-                    <ArrowRight size={16} />
-                  </motion.a>
-                ) : selectedArticle?.title?.includes('Bandmitglieder gesucht') || selectedArticle?.title?.includes('Band Members Wanted') || selectedArticle?.title?.includes('Poszukiwani członkowie') ? (
+                {selectedArticle?.title?.includes('Bandmitglieder gesucht') || selectedArticle?.title?.includes('Band Members Wanted') || selectedArticle?.title?.includes('Poszukiwani członkowie') ? (
                   <motion.a
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}

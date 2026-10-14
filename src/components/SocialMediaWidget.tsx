@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Instagram, Youtube, Star, Mail, Copy, X, CheckCircle } from 'lucide-react';
+import { Instagram, Youtube, Mail, Copy, X, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 import { FlagDE, FlagPL } from '@/components/FlagIcon';
 
@@ -302,13 +302,6 @@ const SocialMediaWidget: React.FC = () => {
       url: 'mailto:dawid.faith@gmail.com',
       iconColor: '#f59e0b',
       description: 'dawid.faith@gmail.com'
-    },
-    {
-      name: 'D.FAITH',
-      icon: Star,
-      url: '#',
-      iconColor: '#f59e0b',
-      description: 'Exklusiver Zugang'
     }
   ];
 

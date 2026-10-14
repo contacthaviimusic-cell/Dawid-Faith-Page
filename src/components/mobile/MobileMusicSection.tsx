@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Music, Video, ExternalLink, ShoppingBag } from 'lucide-react';
+import { Music, Video, Calendar, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import CoverMedia from '../CoverMedia';
 
@@ -259,23 +259,22 @@ export default function MobileMusicSection() {
           className="bg-gradient-to-r from-amber-900/30 to-yellow-900/30 rounded-2xl border border-amber-500/30 backdrop-blur-sm p-6 text-center"
         >
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Music className="text-amber-400" size={24} />
-            <h3 className="text-xl font-bold text-white">{MusicTranslations[lang].exclusiveTitle || 'Komplette Songs'}</h3>
+            <Calendar className="text-amber-400" size={24} />
+            <h3 className="text-xl font-bold text-white">{MusicTranslations[lang].exclusiveTitle}</h3>
           </div>
           <p className="text-stone-300 text-sm mb-4">
-            {MusicTranslations[lang].exclusiveDesc || 'Höre die vollständigen Songs in der D.FAITH Webapp und verdiene Token'}
+            {MusicTranslations[lang].exclusiveDesc}
           </p>
-          <motion.a
-            href="https://app.dawidfaith.de"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-amber-500 active:bg-amber-400 px-6 py-3 rounded-full text-black font-bold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 w-full"
-          >
-            <ExternalLink size={18} />
-            {MusicTranslations[lang].webappButton || 'D.FAITH Webapp besuchen'}
-          </motion.a>
+          <Link href="/booking" className="block">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-amber-500 active:bg-amber-400 px-6 py-3 rounded-full text-black font-bold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 w-full"
+            >
+              <Calendar size={18} />
+              {MusicTranslations[lang].webappButton}
+            </motion.div>
+          </Link>
         </motion.div>
       </div>
     </section>

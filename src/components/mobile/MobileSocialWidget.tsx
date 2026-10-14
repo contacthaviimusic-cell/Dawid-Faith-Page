@@ -19,12 +19,6 @@ const REGION_LINKS: Record<RegionChooserKey, { label: string; de: string; pl: st
   facebook: { label: 'Facebook', de: 'https://www.facebook.com/dawidfaithgermany', pl: 'https://www.facebook.com/Dawidfaith/' },
 };
 
-type CustomIconProps = {
-  size: number;
-  className?: string;
-  style?: React.CSSProperties;
-};
-
 type SocialLink = {
   name: string;
   icon: LucideIcon | ((props: { size: number; className: string }) => React.ReactNode);
@@ -136,42 +130,11 @@ export default function MobileSocialWidget({ onClose }: MobileSocialWidgetProps)
       borderColor: 'border-green-500/40',
       hoverColor: 'hover:border-green-400',
       description: 'email'
-    },
-    {
-      name: 'D.FAITH',
-      icon: ({ size, className }: CustomIconProps) => (
-        <svg
-          width={size}
-          height={size}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={className}
-        >
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-        </svg>
-      ),
-      action: () => {
-        onClose();
-        setTimeout(() => {
-          const el = document.querySelector('#dfaith');
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 300);
-      },
-      color: 'from-amber-600 via-yellow-500 to-amber-500',
-      bgColor: 'bg-gradient-to-br from-amber-600/20 to-yellow-500/20',
-      borderColor: 'border-amber-500/40',
-      hoverColor: 'hover:border-amber-400',
-      description: 'tokenDesc'
     }
   ];
 
   // Brand colors for icons
   const brandColors: Record<string, string> = {
-    'D.FAITH': '#A78BFA',
     'Instagram': '#E1306C',
     'Facebook': '#1877F2',
     'TikTok': '#000000',

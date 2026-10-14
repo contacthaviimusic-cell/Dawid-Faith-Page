@@ -11,7 +11,6 @@ export const NewsletterTranslations: Record<LangKey, {
   locationHint: string;
   subscribeLabel: string;
   subscribingLabel: string;
-  ticketButtonScroll: string;
 }> = {
   de: {
     newsletterTitle: 'Newsletter abonnieren',
@@ -24,7 +23,6 @@ export const NewsletterTranslations: Record<LangKey, {
     locationHint: 'Damit ich weiß, in welchen Städten ich als Nächstes Konzerte spielen sollte.',
     subscribeLabel: 'Anmelden',
     subscribingLabel: 'Anmelden...',
-    ticketButtonScroll: 'D.FAITH Token erhalten',
   },
   en: {
     newsletterTitle: 'Subscribe to newsletter',
@@ -37,7 +35,6 @@ export const NewsletterTranslations: Record<LangKey, {
     locationHint: "So I know which cities to play concerts in next.",
     subscribeLabel: 'Subscribe',
     subscribingLabel: 'Subscribing...',
-    ticketButtonScroll: 'Get D.FAITH tokens',
   },
   pl: {
     newsletterTitle: 'Subskrybuj newsletter',
@@ -50,7 +47,6 @@ export const NewsletterTranslations: Record<LangKey, {
     locationHint: 'Dzięki temu wiem, w jakich miastach zagrać kolejne koncerty.',
     subscribeLabel: 'Zapisz się',
     subscribingLabel: 'Zapisywanie...',
-    ticketButtonScroll: 'Otrzymaj tokeny D.FAITH',
   }
 };
 

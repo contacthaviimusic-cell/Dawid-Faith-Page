@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import CoverMedia from './CoverMedia';
-import { Music, Video, Smartphone, ExternalLink, ShoppingBag } from 'lucide-react';
+import { Video, Smartphone, Calendar, ShoppingBag } from 'lucide-react';
 
 interface Song {
   id: string;
@@ -225,15 +225,6 @@ const MusicSection = () => {
                         {showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}
                       </button>
                     )}
-                    <a
-                      href="https://app.dawidfaith.de"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider transition-all"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      {MusicTranslations[lang].webappButton}
-                    </a>
                   </div>
                 </div>
               </div>
@@ -262,7 +253,7 @@ const MusicSection = () => {
           ))}
         </div>
 
-        {/* Webapp CTA banner */}
+        {/* Booking CTA banner */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -272,21 +263,19 @@ const MusicSection = () => {
         >
           <div className="relative rounded-2xl border border-amber-500/20 bg-gradient-to-r from-amber-500/[0.07] via-transparent to-amber-500/[0.07] p-8 md:p-10 text-center overflow-hidden">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <Music className="w-6 h-6 text-amber-400" />
+              <Calendar className="w-6 h-6 text-amber-400" />
               <h3 className="text-2xl md:text-3xl font-black text-white">{MusicTranslations[lang].exclusiveTitle}</h3>
             </div>
             <p className="text-stone-400 mb-7 max-w-2xl mx-auto leading-relaxed">
               {MusicTranslations[lang].exclusiveDesc}
             </p>
-            <a
-              href="https://app.dawidfaith.de"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/booking"
               className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-9 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all hover:shadow-lg hover:shadow-amber-500/30"
             >
-              <ExternalLink className="w-4 h-4" />
+              <Calendar className="w-4 h-4" />
               {MusicTranslations[lang].webappButton}
-            </a>
+            </Link>
           </div>
         </motion.div>
       </div>

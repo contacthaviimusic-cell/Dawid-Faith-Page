@@ -178,16 +178,6 @@ export default function Newsletter() {
                 </div>
               </form>
             )}
-
-            <button
-              className="text-amber-400 hover:text-amber-300 text-xs font-semibold uppercase tracking-wider transition-colors"
-              onClick={() => {
-                const el = document.querySelector('#dfaith');
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-            >
-              {NewsletterTranslations[lang].ticketButtonScroll}
-            </button>
           </div>
         </motion.div>
       </div>

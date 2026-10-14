@@ -2,7 +2,6 @@ type TranslationType = {
   [key in 'de' | 'en' | 'pl']: {
     title: string;
     subtitle: string;
-    tokenDesc: string;
     instagram: string;
     facebook: string;
     tiktok: string;
@@ -27,7 +26,6 @@ const SocialWidgetTrans: TranslationType = {
   de: {
     title: 'Dawid Faith',
     subtitle: 'Künstler • Visionär',
-    tokenDesc: 'Token & Community',
     instagram: 'Stories & Updates',
     facebook: 'Community & News',
     tiktok: 'Kurzvideos',
@@ -36,7 +34,7 @@ const SocialWidgetTrans: TranslationType = {
     bandcamp: 'Musik kaufen',
     email: 'Professionelle Anfragen',
     aboutTitle: 'Über Dawid Faith',
-    aboutText: 'Innovativer Künstler, der Musik mit Blockchain-Technologie verbindet. Erlebe die Zukunft der Musikindustrie mit D.FAITH Token und exklusiven Community-Features.',
+    aboutText: 'Singer-Songwriter mit einer Leidenschaft für ehrliche, emotionale Musik. Folge mir für neue Songs, Konzerte und Einblicke hinter die Kulissen.',
     stayConnected: 'Stay Connected',
     newsletterDesc: 'Erhalte Updates zu neuen Songs und Konzerten',
     subscribe: 'Newsletter abonnieren',
@@ -49,7 +47,6 @@ const SocialWidgetTrans: TranslationType = {
   en: {
     title: 'Dawid Faith',
     subtitle: 'Artist • Visionary',
-    tokenDesc: 'Token & Community',
     instagram: 'Stories & Updates',
     facebook: 'Community & News',
     tiktok: 'Short Videos',
@@ -58,7 +55,7 @@ const SocialWidgetTrans: TranslationType = {
     bandcamp: 'Buy music',
     email: 'Professional Inquiries',
     aboutTitle: 'About Dawid Faith',
-    aboutText: 'Innovative artist combining music with blockchain technology. Experience the future of the music industry with D.FAITH tokens and exclusive community features.',
+    aboutText: 'Singer-songwriter with a passion for honest, emotional music. Follow along for new songs, concerts and behind-the-scenes insights.',
     stayConnected: 'Stay Connected',
     newsletterDesc: 'Get updates about new songs and concerts',
     subscribe: 'Subscribe to newsletter',
@@ -71,7 +68,6 @@ const SocialWidgetTrans: TranslationType = {
   pl: {
     title: 'Dawid Faith',
     subtitle: 'Artysta • Wizjoner',
-    tokenDesc: 'Token & Społeczność',
     instagram: 'Relacje & Aktualizacje',
     facebook: 'Społeczność & Aktualności',
     tiktok: 'Krótkie filmy',
@@ -80,7 +76,7 @@ const SocialWidgetTrans: TranslationType = {
     bandcamp: 'Kup muzykę',
     email: 'Zapytania zawodowe',
     aboutTitle: 'O Dawidzie Faith',
-    aboutText: 'Innowacyjny artysta łączący muzykę z technologią blockchain. Doświadcz przyszłości branży muzycznej z tokenami D.FAITH i ekskluzywnymi funkcjami społeczności.',
+    aboutText: 'Piosenkarz i autor tekstów z pasją do szczerej, emocjonalnej muzyki. Śledź mnie, aby być na bieżąco z nowymi utworami, koncertami i tym, co dzieje się za kulisami.',
     stayConnected: 'Pozostań w kontakcie',
     newsletterDesc: 'Otrzymuj aktualizacje o nowych piosenkach i koncertach',
     subscribe: 'Zapisz się do newslettera',
