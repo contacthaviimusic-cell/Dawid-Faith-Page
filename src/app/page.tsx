@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { useMobileDetection } from '../hooks/useMobileDetection';
 import PageTranslations from '@/lib/translations/page';
 import Navigation from '../components/Navigation';
-import NewsSection from '../components/NewsSection';
+import VideoSection from '../components/VideoSection';
 import MusicSection from '../components/MusicSection';
 import KonzerteEventsSection from '../components/KonzerteEventsSection';
 import NewsletterSection from '../components/NewsletterSection';
@@ -183,8 +183,8 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* News Section */}
-        <NewsSection />
+        {/* Video Section */}
+        <VideoSection />
 
         {/* Music Section */}
         <MusicSection />

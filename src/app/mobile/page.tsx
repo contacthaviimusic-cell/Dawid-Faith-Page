@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import MobileNavigation from '../../components/mobile/MobileNavigation';
-import MobileNewsSection from '../../components/mobile/MobileNewsSection';
+import MobileVideoSection from '../../components/mobile/MobileVideoSection';
 import MobileMusicSection from '../../components/mobile/MobileMusicSection';
 import MobileKonzerteEventsSection from '../../components/mobile/MobileKonzerteEventsSection';
 import MobileNewsletterSection from '../../components/mobile/MobileNewsletterSection';
@@ -123,7 +123,7 @@ export default function MobilePage() {
         </section>
 
   {/* Mobile Sections */}
-  <MobileNewsSection />
+  <MobileVideoSection />
   <MobileMusicSection />
   <MobileKonzerteEventsSection />
   <MobileNewsletterSection />
