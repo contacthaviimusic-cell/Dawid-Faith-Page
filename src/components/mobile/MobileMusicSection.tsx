@@ -13,6 +13,7 @@ interface Track {
   duration: string;
   audioSrc: string;
   coverImage: string;
+  poster?: string;
   video: string;
   description?: string;
 }
@@ -38,6 +39,7 @@ export default function MobileMusicSection() {
       duration: '0:36',
       audioSrc: '/musik/niebianski-groove/Niebianski.mp3',
       coverImage: '/musik/niebianski-groove/Teaser%20Groove.mp4',
+      poster: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png',
       video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
       description: 'Ein weiterer Track aus der Release Kampagne'
     },
@@ -177,6 +179,7 @@ export default function MobileMusicSection() {
                     <CoverMedia
                       src={track.coverImage}
                       alt={track.title}
+                      poster={track.poster}
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />

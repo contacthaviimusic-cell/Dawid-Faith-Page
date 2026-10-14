@@ -8,20 +8,25 @@ interface CoverMediaProps {
   src: string;
   alt: string;
   className?: string;
+  poster?: string;
 }
 
 // Rendert ein Cover als Bild oder, falls die Datei ein Video ist (z.B. ein
 // animiertes "GIF"-Cover als mp4), als lautlos loopendes Video – für alle
 // Stellen, die bisher ein statisches <Image fill> als Cover genutzt haben.
-export default function CoverMedia({ src, alt, className }: CoverMediaProps) {
+// Optionales poster-Bild, damit sofort etwas sichtbar ist, bevor das Video
+// geladen hat (statt eines leeren/schwarzen Felds).
+export default function CoverMedia({ src, alt, className, poster }: CoverMediaProps) {
   if (VIDEO_EXT.test(src)) {
     return (
       <video
         src={src}
+        poster={poster}
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
         className={`absolute inset-0 w-full h-full ${className ?? ''}`}
       />
     );

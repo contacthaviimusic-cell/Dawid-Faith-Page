@@ -10,6 +10,7 @@ interface Song {
   id: string;
   title: string;
   image: string;
+  poster?: string;
   video: string;
   description: string;
 }
@@ -26,6 +27,7 @@ const songs: Song[] = [
     id: 'niebianski-groove',
     title: 'Niebiański Groove',
     image: '/musik/niebianski-groove/Teaser%20Groove.mp4',
+    poster: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png',
     video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
     description: 'Ein weiterer Track aus der Release Kampagne'
   },
@@ -161,6 +163,7 @@ const MusicSection = () => {
                   <CoverMedia
                     src={song.image}
                     alt={song.title}
+                    poster={song.poster}
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   {releasedVideoUrls[song.id] ? (
