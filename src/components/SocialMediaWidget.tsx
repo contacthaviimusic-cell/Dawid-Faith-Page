@@ -379,7 +379,7 @@ const SocialMediaWidget: React.FC = () => {
         {/* Footer */}
         <div className="relative z-10 mt-5 pt-4 border-t border-white/10">
           <p className="text-center text-xs text-stone-500">
-            {lang === 'de' ? 'Musik · Blockchain · Community' : lang === 'pl' ? 'Muzyka · Blockchain · Społeczność' : 'Music · Blockchain · Community'}
+            {lang === 'de' ? 'Musik · Konzerte · Community' : lang === 'pl' ? 'Muzyka · Koncerty · Społeczność' : 'Music · Concerts · Community'}
           </p>
         </div>
       </motion.div>

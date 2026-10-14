@@ -11,14 +11,10 @@ interface SingleConfig {
   audioReleaseDate: string;
   videoReleaseDate: string;
   presaveUrl: string;
-  skipPresave: boolean;
-  giveawayDeadline: string;
   discountCode: string;
   preorderPrice: string;
   bandcampUrl: string;
   streamingUrl: string;
-  audioFileUrl: string;
-  nftShowcaseMedia: string;
   premiereVideoUrl: string;
   premiereRevealHours: string;
   active: boolean;
@@ -49,16 +45,7 @@ export default function AdminSinglesPage() {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
-  const [uploadingAudio, setUploadingAudio] = useState(false);
-  const [uploadingNftMedia, setUploadingNftMedia] = useState(false);
-  const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  function copyGiveawayLink(id: string) {
-    const url = `${window.location.origin}/pre-order/${id}/gewinnspiel`;
-    navigator.clipboard.writeText(url);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
-  }
   const router = useRouter();
 
   async function fetchSingles() {
@@ -98,14 +85,10 @@ export default function AdminSinglesPage() {
       audioReleaseDate: '',
       videoReleaseDate: '',
       presaveUrl: '',
-      skipPresave: true,
-      giveawayDeadline: '',
       discountCode: '',
       preorderPrice: '',
       bandcampUrl: '',
       streamingUrl: '',
-      audioFileUrl: '',
-      nftShowcaseMedia: '',
       premiereVideoUrl: '',
       premiereRevealHours: '',
       active: true,
@@ -128,14 +111,10 @@ export default function AdminSinglesPage() {
         audioReleaseDate: form.audioReleaseDate,
         videoReleaseDate: form.videoReleaseDate,
         presaveUrl: form.presaveUrl,
-        skipPresave: form.skipPresave,
-        giveawayDeadline: form.giveawayDeadline,
         discountCode: form.discountCode,
         preorderPrice: form.preorderPrice,
         bandcampUrl: form.bandcampUrl,
         streamingUrl: form.streamingUrl,
-        audioFileUrl: form.audioFileUrl,
-        nftShowcaseMedia: form.nftShowcaseMedia,
         premiereVideoUrl: form.premiereVideoUrl,
         premiereRevealHours: form.premiereRevealHours,
         active: form.active,
@@ -196,38 +175,6 @@ export default function AdminSinglesPage() {
     }
   }
 
-  async function uploadNftShowcaseMedia(file: File) {
-    setUploadingNftMedia(true);
-    try {
-      const isVideo = file.type.startsWith('video/');
-      const folder = isVideo ? 'teaser-videos' : 'news-images';
-      const blob = await upload(`${folder}/${Date.now()}-${file.name}`, file, {
-        access: 'public',
-        handleUploadUrl: '/api/upload/client-token',
-      });
-      setEditing((prev) => (prev ? { ...prev, nftShowcaseMedia: blob.url } : prev));
-    } catch (e) {
-      alert(e instanceof Error ? e.message : 'Upload fehlgeschlagen');
-    } finally {
-      setUploadingNftMedia(false);
-    }
-  }
-
-  async function uploadAudioFile(file: File) {
-    setUploadingAudio(true);
-    try {
-      const blob = await upload(`song-files/${Date.now()}-${file.name}`, file, {
-        access: 'public',
-        handleUploadUrl: '/api/upload/client-token',
-      });
-      setEditing((prev) => (prev ? { ...prev, audioFileUrl: blob.url } : prev));
-    } catch (e) {
-      alert(e instanceof Error ? e.message : 'Upload fehlgeschlagen');
-    } finally {
-      setUploadingAudio(false);
-    }
-  }
-
   async function logout() {
     await fetch('/api/admin/logout', { method: 'POST' });
     router.push('/admin/login');
@@ -276,12 +223,6 @@ export default function AdminSinglesPage() {
             📰 News Admin
           </button>
           <button
-            onClick={() => router.push('/admin/giveaway')}
-            className="px-4 py-2 rounded bg-slate-800 hover:bg-slate-700"
-          >
-            🎁 Gewinnspiel-Teilnehmer
-          </button>
-          <button
             onClick={() => router.push('/admin/abmeldungen')}
             className="px-4 py-2 rounded bg-slate-800 hover:bg-slate-700"
           >
@@ -311,8 +252,7 @@ export default function AdminSinglesPage() {
                       Video: {s.videoReleaseDate ? new Date(s.videoReleaseDate).toLocaleString('de-DE') : '–'} ·
                       Preis: {s.preorderPrice ? `${s.preorderPrice} €` : '–'} ·
                       Bandcamp: {s.bandcampUrl ? '✓' : '✗'} ·
-                      Streaming: {s.streamingUrl ? '✓' : '✗'} ·
-                      Song-Datei: {s.audioFileUrl ? '✓' : '✗'}
+                      Streaming: {s.streamingUrl ? '✓' : '✗'}
                     </div>
                   </div>
                   <a
@@ -323,13 +263,6 @@ export default function AdminSinglesPage() {
                   >
                     Seite öffnen
                   </a>
-                  <button
-                    onClick={() => copyGiveawayLink(s.id)}
-                    className="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm"
-                    title="Für Hypeddit: als Redirect-Ziel nach dem Presave eintragen"
-                  >
-                    {copiedId === s.id ? '✓ Kopiert!' : '🎁 Gewinnspiel-Link'}
-                  </button>
                   <button
                     onClick={() => router.push(`/admin/singles/${s.id}/stats`)}
                     className="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm"
@@ -411,25 +344,7 @@ export default function AdminSinglesPage() {
 
               {field('Presave-URL', editing.presaveUrl, (v) => setEditing({ ...editing, presaveUrl: v }), {
                 placeholder: 'https://hypeddit.com/…',
-                hint: 'Hypeddit-Presave-Link (dort Redirect nach Presave auf /pre-order/' + (editing.id || '<song-id>') + '/gewinnspiel einstellen). Leer lassen = Presave-Karte ausblenden.',
-              })}
-              <div className="md:col-span-2">
-                <label className="flex items-center gap-2 cursor-pointer select-none">
-                  <input
-                    type="checkbox"
-                    checked={editing.skipPresave}
-                    onChange={(e) => setEditing({ ...editing, skipPresave: e.target.checked })}
-                    className="w-4 h-4 accent-amber-500"
-                  />
-                  <span className="text-sm">Presave überspringen – Karte 01 sammelt direkt Mail + Wohnort (Song per Mail)</span>
-                </label>
-                <span className="block text-xs text-slate-500 mt-1">
-                  Für das neue Modell ohne Presave-Phase: Statt zum Presave-Link führt Karte 01 direkt zur Gewinnspiel-Seite (/pre-order/{editing.id || '<song-id>'}/gewinnspiel). Funktioniert nur sinnvoll zusammen mit einer hinterlegten Song-Datei oben.
-                </span>
-              </div>
-              {field('Gewinnspiel-Deadline', isoToLocal(editing.giveawayDeadline), (v) => setEditing({ ...editing, giveawayDeadline: localToIso(v) }), {
-                type: 'datetime-local',
-                hint: 'Bis dahin bleibt die NFT-Gewinnspiel-Karte sichtbar – auch nachdem das Musikvideo schon draußen ist. Leer lassen = Karte verschwindet wie bisher automatisch mit dem Video-Release.',
+                hint: 'Presave-Link (z.B. Hypeddit). Leer lassen = Presave-Karte ausblenden.',
               })}
               {field('Rabattcode', editing.discountCode, (v) => setEditing({ ...editing, discountCode: v }), {
                 placeholder: 'z.B. PRESAVE20',
@@ -449,45 +364,9 @@ export default function AdminSinglesPage() {
                 hint: 'Smart-Link (z.B. Ditto/Songwhip) zu allen Streaming-Plattformen. Ersetzt die Pre-Order-Karte, sobald der Song draußen ist, aber das Musikvideo noch aussteht. Leer lassen = Karte zeigt „Bald verfügbar".',
               })}
 
-              <div>
-                {field('Song-Datei (MP3-URL)', editing.audioFileUrl, (v) => setEditing({ ...editing, audioFileUrl: v }), {
-                  hint: 'Sobald hier eine MP3 hinterlegt ist, bekommt jede Gewinnspiel-Teilnahme (Mail + Wohnort) automatisch einen Download-Link zum Song per Mail. Leer lassen = kein Song-Download in der Bestätigungsmail. Max. 20MB.',
-                })}
-                <label className="inline-block mt-2 px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm cursor-pointer">
-                  {uploadingAudio ? 'Lädt hoch…' : '📤 Song hochladen'}
-                  <input
-                    type="file"
-                    accept="audio/mpeg,audio/mp3,audio/wav,audio/x-wav,audio/mp4,audio/x-m4a,audio/m4a"
-                    className="hidden"
-                    onChange={(e) => {
-                      const f = e.target.files?.[0];
-                      if (f) uploadAudioFile(f);
-                    }}
-                  />
-                </label>
-              </div>
-
-              <div>
-                {field('NFT-Showcase (Bild/Video-URL)', editing.nftShowcaseMedia, (v) => setEditing({ ...editing, nftShowcaseMedia: v }), {
-                  hint: 'Wird als Vorschau in der NFT-Gewinnspiel-Karte gezeigt. Leer lassen = keine Vorschau. Video max. 25MB.',
-                })}
-                <label className="inline-block mt-2 px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-sm cursor-pointer">
-                  {uploadingNftMedia ? 'Lädt hoch…' : '📤 Bild/Video hochladen'}
-                  <input
-                    type="file"
-                    accept="image/*,video/mp4,video/webm"
-                    className="hidden"
-                    onChange={(e) => {
-                      const f = e.target.files?.[0];
-                      if (f) uploadNftShowcaseMedia(f);
-                    }}
-                  />
-                </label>
-              </div>
-
               {field('Premiere-Link (YouTube)', editing.premiereVideoUrl, (v) => setEditing({ ...editing, premiereVideoUrl: v }), {
                 placeholder: 'https://youtube.com/watch?v=…',
-                hint: 'Link zur YouTube-Premiere. Wird öffentlich erst kurz vor dem Video-Release freigeschaltet, damit Pre-Order-Käufer und App-Nutzer ihren Vorsprung behalten. Die Premiere-Karte zeigt sich auch ohne Link (mit Countdown bzw. „Termin wird bald bekanntgegeben") – du kannst den Link einfach kurz vorher ergänzen.',
+                hint: 'Link zur YouTube-Premiere. Wird öffentlich erst kurz vor dem Video-Release freigeschaltet, damit Pre-Order-Käufer ihren Vorsprung behalten. Die Premiere-Karte zeigt sich auch ohne Link (mit Countdown bzw. „Termin wird bald bekanntgegeben") – du kannst den Link einfach kurz vorher ergänzen.',
               })}
               {field('Vorlauf bis Premiere-Link sichtbar (Std.)', editing.premiereRevealHours, (v) => setEditing({ ...editing, premiereRevealHours: v }), {
                 placeholder: '48',

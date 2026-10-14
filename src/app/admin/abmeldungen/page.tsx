@@ -60,7 +60,7 @@ export default function AdminAbmeldungenPage() {
               Abmeldungen
             </h1>
             <p className="text-gray-400 mt-1">
-              Alle über /abmelden eingegangenen Anfragen. Einträge ohne Treffer in Newsletter/Gewinnspiel
+              Alle über /abmelden eingegangenen Anfragen. Einträge ohne Treffer im Newsletter
               stammen vermutlich aus deinem Fanbuch – dort bitte manuell austragen.
             </p>
           </div>
@@ -80,7 +80,7 @@ export default function AdminAbmeldungenPage() {
           <>
             {unmatchedCount > 0 && (
               <p className="text-sm text-amber-400 mb-4">
-                {unmatchedCount} Abmeldung{unmatchedCount === 1 ? '' : 'en'} ohne Treffer in Newsletter/Gewinnspiel –
+                {unmatchedCount} Abmeldung{unmatchedCount === 1 ? '' : 'en'} ohne Treffer im Newsletter –
                 vermutlich aus dem Fanbuch.
               </p>
             )}

@@ -50,9 +50,10 @@ export default function DatenschutzPage() {
               der EU-Standardvertragsklauseln.
             </p>
             <p className="mt-3">
-              Dateien, die über das Admin-Panel hochgeladen werden (z. B. Cover-Bilder, Video-Teaser), sowie die
-              Newsletter-, Gewinnspiel- und Bestelldaten werden über <strong className="text-white">Vercel Blob
-              Storage</strong> gespeichert, ebenfalls bei Vercel Inc. (USA) gehostet.
+              Dateien, die über das Admin-Panel hochgeladen werden (z. B. Cover-Bilder, Video-Teaser), werden über{' '}
+              <strong className="text-white">Vercel Blob Storage</strong> gespeichert, ebenfalls bei Vercel Inc.
+              (USA) gehostet. Newsletter- und Buchungsdaten werden in einer Datenbank bei{' '}
+              <strong className="text-white">Neon</strong> (PostgreSQL-Hosting) verarbeitet.
             </p>
           </section>
 
@@ -90,28 +91,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-black text-white mb-3">7. Presave-Gewinnspiel</h2>
-            <p>
-              Für die Teilnahme an unserem Presave-Gewinnspiel verarbeiten wir deine E-Mail-Adresse, um dir
-              eine Teilnahmebestätigung zuzusenden und deine Teilnahme zu ermöglichen. Details hierzu
-              findest du in den{' '}
-              <Link href="/teilnahmebedingungen" className="text-amber-400 hover:underline">
-                Teilnahmebedingungen
-              </Link>.
-            </p>
-            <p className="mt-3">
-              Um Mehrfachteilnahmen und Missbrauch zu erkennen, wird beim Absenden des Teilnahmeformulars
-              zusätzlich ein technischer Geräte-Fingerprint (ein aus Browser- und Geräteeigenschaften
-              gebildeter, nicht direkt personenbezogener Kennwert) erzeugt und gemeinsam mit deiner Teilnahme
-              gespeichert. Er dient ausschließlich intern der Erkennung von Mehrfachanmeldungen desselben
-              Geräts unter verschiedenen E-Mail-Adressen und wird nicht an Dritte weitergegeben.
-              Rechtsgrundlage ist unser berechtigtes Interesse an einer fairen, missbrauchsfreien Verlosung
-              (Art. 6 Abs. 1 lit. f DSGVO).
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-black text-white mb-3">8. Pre-Order</h2>
+            <h2 className="text-xl font-black text-white mb-3">7. Pre-Order</h2>
             <p>
               Der Kauf von Musik-Vorbestellungen erfolgt über die Plattform Bandcamp. Für diesen Vorgang gelten
               die Datenschutzbestimmungen von Bandcamp Inc. Wir selbst erhalten hierbei keine
@@ -120,7 +100,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-black text-white mb-3">9. Deine Rechte</h2>
+            <h2 className="text-xl font-black text-white mb-3">8. Deine Rechte</h2>
             <p>Du hast jederzeit das Recht auf:</p>
             <ul className="list-disc list-inside mt-2 space-y-1.5">
               <li>Auskunft über die zu deiner Person gespeicherten Daten (Art. 15 DSGVO)</li>
@@ -137,7 +117,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-black text-white mb-3">10. Speicherdauer</h2>
+            <h2 className="text-xl font-black text-white mb-3">9. Speicherdauer</h2>
             <p>
               Sofern in dieser Erklärung keine speziellere Speicherdauer genannt wurde, verbleiben deine
               personenbezogenen Daten bei uns, bis der Zweck für die Datenverarbeitung entfällt. Gesetzliche
@@ -146,7 +126,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-black text-white mb-3">11. SSL-Verschlüsselung</h2>
+            <h2 className="text-xl font-black text-white mb-3">10. SSL-Verschlüsselung</h2>
             <p>
               Diese Website nutzt aus Sicherheitsgründen eine SSL-Verschlüsselung. Eine verschlüsselte
               Verbindung erkennst du am Kürzel &bdquo;https://&ldquo; in der Adresszeile deines Browsers.

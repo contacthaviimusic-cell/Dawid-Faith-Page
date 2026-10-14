@@ -29,9 +29,6 @@ export async function PUT(
     'preorderPrice',
     'bandcampUrl',
     'streamingUrl',
-    'audioFileUrl',
-    'nftShowcaseMedia',
-    'giveawayDeadline',
     'premiereVideoUrl',
     'premiereRevealHours',
   ] as const;
@@ -39,7 +36,6 @@ export async function PUT(
     if (typeof body[field] === 'string') patch[field] = body[field];
   }
   if (typeof body.active === 'boolean') patch.active = body.active;
-  if (typeof body.skipPresave === 'boolean') patch.skipPresave = body.skipPresave;
 
   try {
     const updated = await updateSingle(id, patch);

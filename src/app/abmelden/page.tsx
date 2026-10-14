@@ -46,13 +46,12 @@ export default function AbmeldenPage() {
 
         {status === 'success' ? (
           <p className="text-stone-300 leading-relaxed">
-            Erledigt — deine E-Mail-Adresse wurde aus dem Newsletter und von künftigen Gewinnspiel-Updates entfernt.
+            Erledigt — deine E-Mail-Adresse wurde aus dem Newsletter entfernt.
           </p>
         ) : (
           <>
             <p className="text-stone-400 leading-relaxed mb-8">
-              Trag deine E-Mail-Adresse ein, um dich von allen Updates (Newsletter und Gewinnspiel-Benachrichtigungen)
-              abzumelden. Bereits gewonnene Preise oder laufende Gewinnspiel-Teilnahmen sind davon nicht betroffen.
+              Trag deine E-Mail-Adresse ein, um dich vom Newsletter abzumelden.
             </p>
             <form onSubmit={handleSubmit} className="space-y-3">
               <input

@@ -8,14 +8,10 @@ export interface SingleConfig {
   audioReleaseDate: string; // ISO-Datum: bis dahin läuft der Countdown / Presave
   videoReleaseDate: string; // ISO-Datum: bis dahin ist Pre-Order möglich
   presaveUrl: string;
-  skipPresave: boolean; // true = keine externe Presave-Verlinkung; Karte 01 sammelt Mail+Wohnort direkt und verlinkt intern auf die Gewinnspiel-Seite
-  giveawayDeadline: string; // ISO-Datum: bis dahin bleibt die NFT-Gewinnspiel-Karte sichtbar (auch nach dem Musikvideo-Release). Leer = Karte folgt der alten Logik (nur während der Zwischenphase vor dem Video-Release)
   discountCode: string;
   preorderPrice: string; // z.B. '4.99' (rein informativ, Preis wird auf Bandcamp gepflegt)
   bandcampUrl: string; // Link zum Bandcamp-Track/Album (leer, bis konfiguriert)
   streamingUrl: string; // "Jetzt überall hören"-Link (z.B. Ditto/Songwhip-Smartlink), ersetzt die Pre-Order-Karte, sobald der Song veröffentlicht ist
-  audioFileUrl: string; // MP3-Datei des Songs; wenn gesetzt, bekommt jede Gewinnspiel-Teilnahme direkt einen Download-Link zum Song per Mail
-  nftShowcaseMedia: string; // Bild/Video, das in der NFT-Gewinnspiel-Karte als Vorschau der Preis-NFTs gezeigt wird (optional)
   premiereVideoUrl: string;
   premiereRevealHours: string; // Stunden vor videoReleaseDate, ab denen premiereVideoUrl öffentlich sichtbar wird (Default 48, siehe api/singles)
   active: boolean;
@@ -33,14 +29,10 @@ function rowToSingle(r: any): SingleConfig {
     audioReleaseDate: r.audio_release_date,
     videoReleaseDate: r.video_release_date,
     presaveUrl: r.presave_url,
-    skipPresave: r.skip_presave,
-    giveawayDeadline: r.giveaway_deadline,
     discountCode: r.discount_code,
     preorderPrice: r.preorder_price,
     bandcampUrl: r.bandcamp_url,
     streamingUrl: r.streaming_url,
-    audioFileUrl: r.audio_file_url,
-    nftShowcaseMedia: r.nft_showcase_media,
     premiereVideoUrl: r.premiere_video_url,
     premiereRevealHours: r.premiere_reveal_hours,
     active: r.active,
@@ -70,13 +62,13 @@ export async function createSingle(input: SingleInput): Promise<{ single: Single
   const rows = await sql`
     INSERT INTO site_singles (
       id, title, cover_image, teaser_video, audio_release_date, video_release_date,
-      presave_url, skip_presave, giveaway_deadline, discount_code, preorder_price, bandcamp_url,
-      streaming_url, audio_file_url, nft_showcase_media, premiere_video_url, premiere_reveal_hours, active
+      presave_url, discount_code, preorder_price, bandcamp_url,
+      streaming_url, premiere_video_url, premiere_reveal_hours, active
     ) VALUES (
       ${input.id}, ${input.title}, ${input.coverImage}, ${input.teaserVideo},
       ${input.audioReleaseDate}, ${input.videoReleaseDate}, ${input.presaveUrl},
-      ${input.skipPresave}, ${input.giveawayDeadline}, ${input.discountCode}, ${input.preorderPrice},
-      ${input.bandcampUrl}, ${input.streamingUrl}, ${input.audioFileUrl}, ${input.nftShowcaseMedia},
+      ${input.discountCode}, ${input.preorderPrice},
+      ${input.bandcampUrl}, ${input.streamingUrl},
       ${input.premiereVideoUrl}, ${input.premiereRevealHours}, ${input.active}
     )
     RETURNING *
@@ -100,14 +92,10 @@ export async function updateSingle(
       audio_release_date = ${merged.audioReleaseDate as string},
       video_release_date = ${merged.videoReleaseDate as string},
       presave_url = ${merged.presaveUrl as string},
-      skip_presave = ${merged.skipPresave as boolean},
-      giveaway_deadline = ${merged.giveawayDeadline as string},
       discount_code = ${merged.discountCode as string},
       preorder_price = ${merged.preorderPrice as string},
       bandcamp_url = ${merged.bandcampUrl as string},
       streaming_url = ${merged.streamingUrl as string},
-      audio_file_url = ${merged.audioFileUrl as string},
-      nft_showcase_media = ${merged.nftShowcaseMedia as string},
       premiere_video_url = ${merged.premiereVideoUrl as string},
       premiere_reveal_hours = ${merged.premiereRevealHours as string},
       active = ${merged.active as boolean},

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Download, Trash2, Calendar, User, ArrowLeft, Search, Filter, Trophy } from 'lucide-react';
+import { Mail, Download, Trash2, Calendar, User, ArrowLeft, Search, Filter } from 'lucide-react';
 import Link from 'next/link';
 
 interface NewsletterSubscriber {
@@ -15,16 +15,6 @@ interface NewsletterSubscriber {
   userAgent?: string;
 }
 
-interface GiveawayEntry {
-  id: string;
-  songId: string;
-  email: string;
-  location: string;
-  language?: 'de' | 'en' | 'pl';
-  unsubscribed: boolean;
-  createdAt: string;
-}
-
 interface ContactRow {
   id: string;
   email: string;
@@ -32,9 +22,6 @@ interface ContactRow {
   language: 'de' | 'en' | 'pl';
   date: string;
   ipAddress: string | null;
-  unsubscribed: boolean;
-  source: 'newsletter' | 'giveaway';
-  songId?: string;
 }
 
 const LANG_LABELS: Record<string, string> = { de: '🇩🇪 DE', en: '🇬🇧 EN', pl: '🇵🇱 PL' };
@@ -51,39 +38,19 @@ export default function AdminNewsletterPage() {
 
   const fetchContacts = async () => {
     try {
-      const [newsletterRes, giveawayRes] = await Promise.all([
-        fetch('/api/newsletter'),
-        fetch('/api/admin/giveaway'),
-      ]);
-
-      const newsletterRows: ContactRow[] = newsletterRes.ok
-        ? ((await newsletterRes.json()) as NewsletterSubscriber[]).map((sub) => ({
-            id: `newsletter_${sub.id}`,
+      const res = await fetch('/api/newsletter');
+      const rows: ContactRow[] = res.ok
+        ? ((await res.json()) as NewsletterSubscriber[]).map((sub) => ({
+            id: sub.id,
             email: sub.email,
             location: sub.location || '',
             language: sub.language ?? 'de',
             date: sub.subscribedAt,
             ipAddress: sub.ipAddress ?? null,
-            unsubscribed: false,
-            source: 'newsletter',
           }))
         : [];
 
-      const giveawayRows: ContactRow[] = giveawayRes.ok
-        ? ((await giveawayRes.json()) as GiveawayEntry[]).map((entry) => ({
-            id: `giveaway_${entry.id}`,
-            email: entry.email,
-            location: entry.location || '',
-            language: entry.language ?? 'de',
-            date: entry.createdAt,
-            ipAddress: null,
-            unsubscribed: entry.unsubscribed,
-            source: 'giveaway',
-            songId: entry.songId,
-          }))
-        : [];
-
-      setContacts([...newsletterRows, ...giveawayRows]);
+      setContacts(rows);
     } catch (error) {
       console.error('Error fetching contacts:', error);
     } finally {
@@ -92,7 +59,6 @@ export default function AdminNewsletterPage() {
   };
 
   const deleteSubscriber = async (row: ContactRow) => {
-    if (row.source !== 'newsletter') return;
     if (!confirm(`Newsletter-Abonnement für ${row.email} wirklich löschen?`)) {
       return;
     }
@@ -116,14 +82,12 @@ export default function AdminNewsletterPage() {
 
   const exportToCSV = () => {
     const csvContent = [
-      ['E-Mail', 'Quelle', 'Wohnort', 'Sprache', 'Datum', 'Abgemeldet', 'IP-Adresse'].join(','),
+      ['E-Mail', 'Wohnort', 'Sprache', 'Datum', 'IP-Adresse'].join(','),
       ...filteredAndSortedContacts.map(row => [
         row.email,
-        row.source === 'newsletter' ? 'Newsletter' : `Gewinnspiel (${row.songId})`,
         row.location || '',
         row.language,
         new Date(row.date).toLocaleString('de-DE'),
-        row.unsubscribed ? 'Ja' : 'Nein',
         row.ipAddress || 'unknown',
       ].join(','))
     ].join('\n');
@@ -132,7 +96,7 @@ export default function AdminNewsletterPage() {
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
     link.setAttribute('href', url);
-    link.setAttribute('download', `kontakte-${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute('download', `newsletter-${new Date().toISOString().split('T')[0]}.csv`);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
@@ -155,8 +119,6 @@ export default function AdminNewsletterPage() {
           return 0;
       }
     });
-
-  const unsubscribedCount = contacts.filter(c => c.unsubscribed).length;
 
   if (loading) {
     return (
@@ -185,13 +147,13 @@ export default function AdminNewsletterPage() {
               Newsletter-Management
             </h1>
             <p className="text-gray-400 mt-2">
-              Newsletter-Abonnenten & Gewinnspiel-Teilnehmer an einem Ort verwalten und exportieren
+              Newsletter-Abonnenten verwalten und exportieren
             </p>
           </div>
         </div>
 
         {/* Stats & Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -203,7 +165,7 @@ export default function AdminNewsletterPage() {
               </div>
               <div>
                 <h3 className="text-2xl font-bold text-white">{contacts.length}</h3>
-                <p className="text-gray-400">Gesamt Kontakte</p>
+                <p className="text-gray-400">Abonnenten</p>
               </div>
             </div>
           </motion.div>
@@ -227,23 +189,6 @@ export default function AdminNewsletterPage() {
                   }).length}
                 </h3>
                 <p className="text-gray-400">Heute hinzugekommen</p>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="bg-gradient-to-r from-red-900/20 to-orange-900/20 backdrop-blur-md rounded-2xl p-6 border border-red-500/20"
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-red-500/20 rounded-2xl flex items-center justify-center">
-                <Trash2 className="text-red-400" size={24} />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-white">{unsubscribedCount}</h3>
-                <p className="text-gray-400">Abgemeldet</p>
               </div>
             </div>
           </motion.div>
@@ -305,7 +250,7 @@ export default function AdminNewsletterPage() {
               {searchTerm ? 'Keine Kontakte gefunden' : 'Noch keine Kontakte'}
             </h3>
             <p className="text-gray-500">
-              {searchTerm ? 'Versuche einen anderen Suchbegriff.' : 'Sobald sich jemand anmeldet oder am Gewinnspiel teilnimmt, erscheinen die Daten hier.'}
+              {searchTerm ? 'Versuche einen anderen Suchbegriff.' : 'Sobald sich jemand anmeldet, erscheinen die Daten hier.'}
             </p>
           </motion.div>
         ) : (
@@ -315,13 +260,11 @@ export default function AdminNewsletterPage() {
             className="bg-gray-900/30 backdrop-blur-md rounded-2xl border border-gray-600/20 overflow-hidden"
           >
             {/* Table Header */}
-            <div className="grid grid-cols-1 md:grid-cols-7 gap-4 p-6 border-b border-gray-600/20 bg-gray-800/30">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 p-6 border-b border-gray-600/20 bg-gray-800/30">
               <div className="font-semibold text-gray-300">E-Mail</div>
-              <div className="font-semibold text-gray-300 hidden md:block">Quelle</div>
               <div className="font-semibold text-gray-300 hidden md:block">Wohnort</div>
               <div className="font-semibold text-gray-300 hidden md:block">Sprache</div>
               <div className="font-semibold text-gray-300 hidden md:block">Datum</div>
-              <div className="font-semibold text-gray-300 hidden md:block">Status</div>
               <div className="font-semibold text-gray-300">Aktionen</div>
             </div>
 
@@ -333,25 +276,13 @@ export default function AdminNewsletterPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="grid grid-cols-1 md:grid-cols-7 gap-4 p-6 hover:bg-gray-800/20 transition-colors"
+                  className="grid grid-cols-1 md:grid-cols-5 gap-4 p-6 hover:bg-gray-800/20 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center">
                       <User size={16} className="text-purple-400" />
                     </div>
                     <span className="text-white font-medium truncate">{row.email}</span>
-                  </div>
-
-                  <div className="hidden md:block">
-                    {row.source === 'newsletter' ? (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-semibold">
-                        <Mail size={12} /> Newsletter
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold">
-                        <Trophy size={12} /> Gewinnspiel · {row.songId}
-                      </span>
-                    )}
                   </div>
 
                   <div className="text-gray-400 hidden md:block">
@@ -372,32 +303,16 @@ export default function AdminNewsletterPage() {
                     })}
                   </div>
 
-                  <div className="hidden md:block">
-                    {row.unsubscribed ? (
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-red-500/20 text-red-400 text-xs font-semibold">
-                        Abgemeldet
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-semibold">
-                        Aktiv
-                      </span>
-                    )}
-                  </div>
-
                   <div className="flex items-center gap-2">
-                    {row.source === 'newsletter' ? (
-                      <motion.button
-                        onClick={() => deleteSubscriber(row)}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-red-500/20 hover:bg-red-500/30 text-red-400 p-2 rounded-lg transition-colors"
-                        title="Abonnement löschen"
-                      >
-                        <Trash2 size={16} />
-                      </motion.button>
-                    ) : (
-                      <span className="text-gray-600 text-xs">—</span>
-                    )}
+                    <motion.button
+                      onClick={() => deleteSubscriber(row)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-red-500/20 hover:bg-red-500/30 text-red-400 p-2 rounded-lg transition-colors"
+                      title="Abonnement löschen"
+                    >
+                      <Trash2 size={16} />
+                    </motion.button>
                   </div>
                 </motion.div>
               ))}

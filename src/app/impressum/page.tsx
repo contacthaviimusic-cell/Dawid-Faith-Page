@@ -83,7 +83,7 @@ export default function ImpressumPage() {
           <section>
             <h2 className="text-xl font-black text-white mb-3">Haftung für Links</h2>
             <p>
-              Unser Angebot enthält Links zu externen Websites Dritter (z. B. Bandcamp, Spotify, D.FAITH Webapp),
+              Unser Angebot enthält Links zu externen Websites Dritter (z. B. Bandcamp, Spotify),
               auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch
               keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter
               oder Betreiber der Seiten verantwortlich.

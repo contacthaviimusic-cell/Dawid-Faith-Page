@@ -3,10 +3,9 @@
 import { useState, useEffect, useMemo, useRef, type ReactNode } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ArrowRight, Music, ShoppingBag, ChevronDown, Trophy, Youtube, Headphones } from 'lucide-react';
+import { ArrowRight, ShoppingBag, ChevronDown, Youtube, Headphones } from 'lucide-react';
 import Link from 'next/link';
 import PreOrderTranslations, { type LangKey } from '@/lib/translations/PreOrderPageTrans';
-import CoverMedia from '@/components/CoverMedia';
 import FlagForLang, { FlagDE, FlagGB, FlagPL } from '@/components/FlagIcon';
 
 interface PublicSingle {
@@ -17,9 +16,6 @@ interface PublicSingle {
   audioReleaseDate: string;
   videoReleaseDate: string;
   presaveUrl: string;
-  skipPresave: boolean;
-  giveawayDeadline: string;
-  nftShowcaseMedia: string;
   discountCode: string;
   preorderPrice: string;
   bandcampUrl: string;
@@ -287,11 +283,6 @@ export default function PreOrderPageClient({
     return video - hours * 3_600_000;
   }, [single]);
 
-  const giveawayDeadlineMs = useMemo(
-    () => (single ? parseDate(single.giveawayDeadline) : null),
-    [single]
-  );
-
   const langSwitcher = (
     <div className="fixed top-4 right-4 z-50" ref={langRef}>
       <button
@@ -355,25 +346,14 @@ export default function PreOrderPageClient({
     );
   }
 
-  const showPresaveCard = phase === 'presave' && (!!single.presaveUrl || single.skipPresave);
+  const showPresaveCard = phase === 'presave' && !!single.presaveUrl;
   const showPremiereCard = phase === 'preorder';
-  // Eigene NFT-Gewinnspiel-Karte (statt in die "Jetzt hören"-Karte gemischt),
-  // sobald der Song schon draußen ist und die Single die Presave-Phase
-  // überspringt – Fokus bewusst nur auf Song / Musikvideo / NFT, ohne die
-  // D.FAITH-Webapp (bislang kaum angenommen, daher aktuell ausgeblendet).
-  // Mit gesetzter giveawayDeadline bleibt sie auch nach dem Musikvideo-Release
-  // sichtbar (eigener Stichtag statt automatisch ans Video-Release gekoppelt).
-  const giveawayOpen =
-    single.skipPresave && (giveawayDeadlineMs !== null ? Date.now() < giveawayDeadlineMs : phase === 'preorder');
-  const showNftCard = phase === 'preorder' && giveawayOpen;
-  const showNftCardReleased = phase === 'released' && giveawayOpen;
   const cardNumbers = (() => {
     let n = 0;
     const presaveNum = showPresaveCard ? String(++n).padStart(2, '0') : null;
     const listenNum = String(++n).padStart(2, '0');
-    const nftNum = showNftCard ? String(++n).padStart(2, '0') : null;
     const premiereNum = showPremiereCard ? String(++n).padStart(2, '0') : null;
-    return { presaveNum, listenNum, nftNum, premiereNum, total: n };
+    return { presaveNum, listenNum, premiereNum, total: n };
   })();
 
   return (
@@ -464,26 +444,7 @@ export default function PreOrderPageClient({
                   <ArrowRight size={18} />
                 </a>
               )}
-              {showNftCardReleased && (
-                <Link
-                  href={`/pre-order/${single.id}/gewinnspiel`}
-                  onClick={() => {
-                    trackAction('preorder');
-                    window.fbq?.('trackCustom', 'PresaveClick', {
-                      content_name: single.title,
-                      content_category: 'nft-giveaway',
-                    });
-                  }}
-                  className="inline-flex items-center gap-3 border border-amber-500/50 hover:bg-amber-500/10 text-amber-400 px-10 py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
-                >
-                  <Trophy size={18} />
-                  {t.preorder.videoAccessButton}
-                </Link>
-              )}
             </div>
-            {showNftCardReleased && (
-              <p className="mt-6 text-xs text-stone-500 uppercase tracking-widest">{t.presave.prizeLabel}</p>
-            )}
           </motion.div>
         ) : (
           <>
@@ -507,51 +468,29 @@ export default function PreOrderPageClient({
                 >
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-amber-500/60 font-black text-sm">{cardNumbers.presaveNum}</span>
-                    <Music className="text-amber-400" size={22} />
+                    <Headphones className="text-amber-400" size={22} />
                   </div>
 
-                  <div className="self-start inline-flex items-center gap-1.5 mb-4 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/40 max-w-full">
-                    <Trophy size={14} className="text-amber-400 flex-shrink-0" />
-                    <span className="text-amber-400 text-[11px] font-black uppercase tracking-wide">{t.presave.prizeLabel}</span>
-                  </div>
+                  <h3 className="text-xl font-black mb-3">{t.presave.title}</h3>
+                  <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.presave.desc}</p>
+                  <a
+                    href={single.presaveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      trackAction('presave');
+                      window.fbq?.('trackCustom', 'PresaveClick', {
+                        content_name: single.title,
+                        content_category: 'presave',
+                      });
+                    }}
+                    className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all mb-5"
+                  >
+                    {t.presave.button}
+                    <ArrowRight size={16} />
+                  </a>
 
-                  <h3 className="text-xl font-black mb-3">{single.skipPresave ? t.presave.directTitle : t.presave.title}</h3>
-                  <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{single.skipPresave ? t.presave.directDesc : t.presave.desc}</p>
-                  {single.skipPresave ? (
-                    <Link
-                      href={`/pre-order/${single.id}/gewinnspiel`}
-                      onClick={() => {
-                        trackAction('presave');
-                        window.fbq?.('trackCustom', 'PresaveClick', {
-                          content_name: single.title,
-                          content_category: 'presave',
-                        });
-                      }}
-                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all mb-5"
-                    >
-                      {t.presave.directButton}
-                      <ArrowRight size={16} />
-                    </Link>
-                  ) : (
-                    <a
-                      href={single.presaveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        trackAction('presave');
-                        window.fbq?.('trackCustom', 'PresaveClick', {
-                          content_name: single.title,
-                          content_category: 'presave',
-                        });
-                      }}
-                      className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all mb-5"
-                    >
-                      {t.presave.button}
-                      <ArrowRight size={16} />
-                    </a>
-                  )}
-
-                  {!single.skipPresave && single.discountCode && (
+                  {single.discountCode && (
                     <div>
                       <label className="flex items-center gap-3 cursor-pointer select-none text-sm text-stone-300">
                         <input
@@ -638,9 +577,7 @@ export default function PreOrderPageClient({
                 ) : (
                   <>
                     <h3 className="text-xl font-black mb-3">{t.preorder.title}</h3>
-                    <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">
-                      {single.skipPresave ? t.preorder.directDesc : t.preorder.desc}
-                    </p>
+                    <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.preorder.desc}</p>
 
                     {single.preorderPrice && (
                       <p className="text-3xl font-black text-amber-400 mb-4">{single.preorderPrice} €</p>
@@ -672,49 +609,6 @@ export default function PreOrderPageClient({
                   </>
                 )}
               </motion.div>
-
-              {/* NFT-Gewinnspiel (eigene Karte, nur wenn Presave übersprungen und Song schon draußen) */}
-              {showNftCard && (
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.45 }}
-                  className="flex flex-col p-8 rounded-2xl bg-black/60 border border-amber-500/20 backdrop-blur-sm"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-amber-500/60 font-black text-sm">{cardNumbers.nftNum}</span>
-                    <Trophy className="text-amber-400" size={22} />
-                  </div>
-
-                  {single.nftShowcaseMedia && (
-                    <div className="relative w-full h-36 rounded-xl overflow-hidden mb-4 border border-amber-500/20">
-                      <CoverMedia src={single.nftShowcaseMedia} alt={t.preorder.videoAccessTitle} className="object-cover" />
-                    </div>
-                  )}
-
-                  <div className="self-start inline-flex items-center gap-1.5 mb-4 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/40 max-w-full">
-                    <Trophy size={14} className="text-amber-400 flex-shrink-0" />
-                    <span className="text-amber-400 text-[11px] font-black uppercase tracking-wide">{t.presave.prizeLabel}</span>
-                  </div>
-
-                  <h3 className="text-xl font-black mb-3">{t.preorder.videoAccessTitle}</h3>
-                  <p className="text-stone-400 text-sm leading-relaxed mb-6 flex-1">{t.preorder.videoAccessDesc}</p>
-                  <Link
-                    href={`/pre-order/${single.id}/gewinnspiel`}
-                    onClick={() => {
-                      trackAction('preorder');
-                      window.fbq?.('trackCustom', 'PresaveClick', {
-                        content_name: single.title,
-                        content_category: 'nft-giveaway',
-                      });
-                    }}
-                    className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
-                  >
-                    {t.preorder.videoAccessButton}
-                    <ArrowRight size={16} />
-                  </Link>
-                </motion.div>
-              )}
 
               {/* Premiere */}
               {showPremiereCard && (

@@ -1,63 +1,63 @@
 const DFaithAppNewsTranslations = {
   de: {
-    title: 'NFT-Gewinnspiel bei „Niebiański Groove" – jetzt mitmachen!',
-    intro: 'Trag dich einfach mit deiner E-Mail-Adresse und deinem Wohnort ein – und sichere dir gleich drei Dinge auf einmal.',
-    featuresTitle: 'Das bekommst du sofort',
+    title: 'Niebiański Groove – jetzt überall hören',
+    intro: 'Mein neuer Song „Niebiański Groove" ist ab sofort auf allen großen Streaming-Plattformen verfügbar – Spotify, Apple Music, YouTube Music und mehr.',
+    featuresTitle: 'Was dich erwartet',
     features: [
-      'Das Musikvideo zu „Niebiański Groove" exklusiv vorab – noch vor dem offiziellen Release.',
-      'Der Song ist ohnehin schon überall zum Streamen verfügbar.',
-      'Eine Bestätigungsmail mit allen Links direkt nach der Eintragung.'
+      'Der Song ist bereits seit dem 3. Oktober überall verfügbar.',
+      'Das offizielle Musikvideo folgt am 30. Oktober.',
+      'Alle Streaming-Links findest du auf der Song-Seite.'
     ],
-    rewardsTitle: 'Das kannst du gewinnen',
+    rewardsTitle: 'Bleib auf dem Laufenden',
     rewards: [
-      '1× exklusiver Mythic-NFT aus den D.FAITH Collectibles.',
-      '5× limitierte Song-NFTs – verlost unter allen Teilnehmern.',
-      'Teilnahmeschluss: 30. Oktober.'
+      'Alle 6 Wochen erscheint ein neuer Song.',
+      'Trag dich in den Newsletter ein, um nichts zu verpassen.',
+      'Folge mir auf Social Media für Updates und Behind the Scenes.'
     ],
-    shopTitle: 'So einfach geht\'s',
-    shopDesc: 'Mail + Wohnort eintragen, fertig. Die Auslosung findet nach Teilnahmeschluss statt, Gewinner werden per E-Mail benachrichtigt.',
-    badges: ['Kostenlos', 'Keine Verpflichtung', '2 Minuten'],
-    ctaButton: 'Jetzt am Gewinnspiel teilnehmen',
+    shopTitle: 'Den Song entdecken',
+    shopDesc: 'Höre „Niebiański Groove" jetzt und sieh dir an, wann das Musikvideo erscheint.',
+    badges: ['Spotify', 'Apple Music', 'YouTube Music'],
+    ctaButton: 'Jetzt anhören',
   },
   en: {
-    title: 'NFT giveaway for "Niebiański Groove" – enter now!',
-    intro: 'Just enter your email address and location – and secure three things at once.',
-    featuresTitle: 'What you get right away',
+    title: 'Niebiański Groove – listen now everywhere',
+    intro: 'My new song "Niebiański Groove" is now available on all major streaming platforms – Spotify, Apple Music, YouTube Music and more.',
+    featuresTitle: 'What to expect',
     features: [
-      'Exclusive early access to the "Niebiański Groove" music video – before its official release.',
-      'The song is already available to stream everywhere anyway.',
-      'A confirmation email with all the links right after you enter.'
+      'The song has been available everywhere since October 3rd.',
+      'The official music video follows on October 30th.',
+      'You\'ll find all streaming links on the song page.'
     ],
-    rewardsTitle: 'What you can win',
+    rewardsTitle: 'Stay up to date',
     rewards: [
-      '1× exclusive Mythic NFT from the D.FAITH Collectibles.',
-      '5× limited Song NFTs – drawn among all entrants.',
-      'Entry deadline: October 30th.'
+      'A new song drops every 6 weeks.',
+      'Sign up for the newsletter so you don\'t miss anything.',
+      'Follow me on social media for updates and behind the scenes.'
     ],
-    shopTitle: 'How it works',
-    shopDesc: 'Enter your email + location, done. The draw takes place after the entry deadline, winners are notified by email.',
-    badges: ['Free', 'No commitment', '2 minutes'],
-    ctaButton: 'Enter the giveaway now',
+    shopTitle: 'Discover the song',
+    shopDesc: 'Listen to "Niebiański Groove" now and see when the music video is coming.',
+    badges: ['Spotify', 'Apple Music', 'YouTube Music'],
+    ctaButton: 'Listen now',
   },
   pl: {
-    title: 'Konkurs NFT dla „Niebiański Groove" – weź udział już teraz!',
-    intro: 'Po prostu podaj swój adres e-mail i miejscowość – i zapewnij sobie od razu trzy rzeczy naraz.',
-    featuresTitle: 'To otrzymujesz od razu',
+    title: 'Niebiański Groove – słuchaj już teraz wszędzie',
+    intro: 'Mój nowy utwór „Niebiański Groove" jest już dostępny na wszystkich głównych platformach streamingowych – Spotify, Apple Music, YouTube Music i innych.',
+    featuresTitle: 'Czego się spodziewać',
     features: [
-      'Ekskluzywny wcześniejszy dostęp do teledysku „Niebiański Groove" – jeszcze przed oficjalną premierą.',
-      'Utwór jest już i tak dostępny wszędzie do streamowania.',
-      'E-mail potwierdzający ze wszystkimi linkami od razu po zapisaniu się.'
+      'Utwór jest dostępny wszędzie od 3 października.',
+      'Oficjalny teledysk pojawi się 30 października.',
+      'Wszystkie linki znajdziesz na stronie utworu.'
     ],
-    rewardsTitle: 'To możesz wygrać',
+    rewardsTitle: 'Bądź na bieżąco',
     rewards: [
-      '1× ekskluzywny Mythic NFT z kolekcji D.FAITH Collectibles.',
-      '5× limitowane Song NFT – rozlosowane wśród wszystkich uczestników.',
-      'Termin zgłoszeń: 30 października.'
+      'Nowa piosenka pojawia się co 6 tygodni.',
+      'Zapisz się do newslettera, aby niczego nie przegapić.',
+      'Śledź mnie w mediach społecznościowych, aby być na bieżąco.'
     ],
-    shopTitle: 'Jak to działa',
-    shopDesc: 'Podaj mail + miejscowość, to wszystko. Losowanie odbywa się po terminie zgłoszeń, zwycięzcy zostają powiadomieni mailowo.',
-    badges: ['Bezpłatnie', 'Bez zobowiązań', '2 minuty'],
-    ctaButton: 'Weź udział w konkursie',
+    shopTitle: 'Odkryj utwór',
+    shopDesc: 'Posłuchaj „Niebiański Groove" już teraz i sprawdź, kiedy pojawi się teledysk.',
+    badges: ['Spotify', 'Apple Music', 'YouTube Music'],
+    ctaButton: 'Posłuchaj teraz',
   }
 };
 
