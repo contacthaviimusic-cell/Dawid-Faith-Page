@@ -3,102 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Video, Smartphone, Calendar, ShoppingBag } from 'lucide-react';
+import { Smartphone, Calendar } from 'lucide-react';
 
 const SPOTIFY_ARTIST_ID = '0CESFIQKIs643l9hV0QXsE';
 
-interface Song {
-  id: string;
-  title: string;
-  image: string;
-  poster?: string;
-  video: string;
-  description: string;
-  comingSoon?: boolean;
-}
-
-const songs: Song[] = [
-  {
-    id: 'katze',
-    title: 'Katze',
-    image: '/musik/katze/Katze-Cover.mp4',
-    video: '/musik/katze/video_2026-04-10_14-55-08.mp4',
-    description: 'Der erste Song der Release Kampagne'
-  },
-  {
-    id: 'niebianski-groove',
-    title: 'Niebiański Groove',
-    image: '/musik/niebianski-groove/Teaser%20Groove.mp4',
-    poster: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png',
-    video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4',
-    description: 'Ein weiterer Track aus der Release Kampagne'
-  },
-  {
-    id: 'maria',
-    title: 'Maria',
-    image: '/musik/maria/Maria.jpg',
-    video: '/musik/maria/Maria Vid1.mp4',
-    description: 'Eine herzzerreißende Ballade über Einsamkeit, verlorene Liebe und die schmerzhafte Erkenntnis des Alleinseins',
-    comingSoon: true
-  },
-  {
-    id: 'znikla',
-    title: 'Znikła',
-    image: '/musik/znikla/Znikła pic.jpg',
-    video: '/musik/znikla/Znikłą Vid1.mp4',
-    description: 'Die polnische Version - eine intensive Reise durch Verlust, Sehnsucht und die Suche nach dem was verschwunden ist',
-    comingSoon: true
-  },
-  {
-    id: 'jupiter',
-    title: 'Jupiter',
-    image: '/musik/jupiter/Jupiter-Cover.jpg',
-    video: '/musik/jupiter/Jupiter.mp4',
-    description: 'Der fünfte Song der Release Kampagne',
-    comingSoon: true
-  }
-];
-
 import MusicTranslations from '../lib/translations/MusicSectionTrans';
 
-// Mapping von Tracklist-Song-ID auf die Single-ID im Pre-Order-System (Groove
-// heißt dort "Groove", nicht "niebianski-groove") – nur für Songs, die dort
-// gepflegt werden.
-const PREORDER_SINGLE_ID: Record<string, string> = {
-  katze: 'katze',
-  'niebianski-groove': 'Groove',
-};
-
 const MusicSection = () => {
-  const [showVideo, setShowVideo] = useState<string | null>(null);
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
-  // Sobald das offizielle Musikvideo released ist, führt "Video ansehen" auf
-  // das echte YouTube-Video statt auf den lokalen Platzhalter-Clip.
-  const [releasedVideoUrls, setReleasedVideoUrls] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    (async () => {
-      const entries = await Promise.all(
-        Object.entries(PREORDER_SINGLE_ID).map(async ([songId, singleId]) => {
-          try {
-            const res = await fetch(`/api/singles/${singleId}`, { cache: 'no-store' });
-            if (!res.ok) return null;
-            const single = await res.json();
-            const videoReleaseMs = single.videoReleaseDate ? new Date(single.videoReleaseDate).getTime() : NaN;
-            if (!Number.isNaN(videoReleaseMs) && Date.now() >= videoReleaseMs && single.premiereVideoUrl) {
-              return [songId, single.premiereVideoUrl] as const;
-            }
-          } catch {}
-          return null;
-        })
-      );
-      const map: Record<string, string> = {};
-      for (const e of entries) {
-        if (e) map[e[0]] = e[1];
-      }
-      setReleasedVideoUrls(map);
-    })();
-  }, []);
 
   useEffect(() => {
     try {
@@ -162,86 +74,6 @@ const MusicSection = () => {
             title="Dawid Faith – Spotify"
           />
         </motion.div>
-
-        {/* Tracklist */}
-        <div className="space-y-2">
-          {songs.map((song, index) => (
-            <motion.div
-              key={song.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.07 }}
-              viewport={{ once: true }}
-              className="group bg-white/[0.03] rounded-xl border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.05] transition-all duration-300 overflow-hidden"
-            >
-              <div className="flex items-center gap-4 px-5 py-4">
-                <span className="text-lg font-black text-stone-600 group-hover:text-amber-500/60 transition-colors w-6 shrink-0 text-center">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-
-                <h3 className="flex-1 min-w-0 truncate text-base md:text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
-                  {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.title) || song.title}
-                </h3>
-
-                <div className="flex items-center gap-2 shrink-0">
-                  {(song.id === 'katze' || song.id === 'niebianski-groove') && (
-                    <Link
-                      href={song.id === 'katze' ? '/pre-order/katze' : '/pre-order/Groove'}
-                      className="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-black px-4 py-2 rounded-full font-bold text-[11px] uppercase tracking-wider transition-colors shadow-lg shadow-amber-500/20"
-                    >
-                      <ShoppingBag className="w-3 h-3" />
-                      <span className="hidden sm:inline">{MusicTranslations[lang].preorderButton}</span>
-                    </Link>
-                  )}
-                  {song.comingSoon ? (
-                    <div className="inline-flex items-center gap-1.5 bg-stone-800 text-stone-400 px-4 py-2 rounded-full font-semibold text-[11px] uppercase tracking-wider cursor-not-allowed whitespace-nowrap">
-                      {MusicTranslations[lang].comingSoonLabel}
-                    </div>
-                  ) : releasedVideoUrls[song.id] ? (
-                    <a
-                      href={releasedVideoUrls[song.id]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white px-4 py-2 rounded-full font-semibold text-[11px] uppercase tracking-wider transition-all whitespace-nowrap"
-                    >
-                      <Video className="w-3 h-3" />
-                      <span className="hidden sm:inline">{MusicTranslations[lang].videoOpen}</span>
-                    </a>
-                  ) : (
-                    <button
-                      onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
-                      className="inline-flex items-center gap-1.5 border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white px-4 py-2 rounded-full font-semibold text-[11px] uppercase tracking-wider transition-all whitespace-nowrap"
-                    >
-                      <Video className="w-3 h-3" />
-                      <span className="hidden sm:inline">{showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}</span>
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {/* Video Player */}
-              {showVideo === song.id && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="border-t border-white/10"
-                >
-                  <video
-                    controls
-                    className="w-full max-h-[28rem] bg-black"
-                    poster={song.image}
-                    preload="metadata"
-                  >
-                    <source src={song.video} type="video/mp4" />
-                    Dein Browser unterstützt keine Videos.
-                  </video>
-                </motion.div>
-              )}
-            </motion.div>
-          ))}
-        </div>
 
         {/* Booking CTA banner */}
         <motion.div
