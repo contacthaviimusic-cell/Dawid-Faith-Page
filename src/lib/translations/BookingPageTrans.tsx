@@ -29,16 +29,6 @@ const BookingPageTrans: Record<LangKey, {
   aboutP2: string;
   aboutQuote: string;
 
-  // USP
-  uspLabel: string;
-  uspTitle1: string;
-  uspTitle2: string;
-  uspDesc: string;
-  uspTag1: string;
-  uspTag2: string;
-  uspTag3: string;
-  uspTag4: string;
-
   // Music
   musicLabel: string;
   musicTitle: string;
@@ -196,16 +186,6 @@ const BookingPageTrans: Record<LangKey, {
     aboutP1: 'Ein Musiker, der die Kulturgrenzen zwischen Deutschland und Polen überbrückt. Mit Songs in Deutsch und Polnisch schaffe ich emotionale Verbindungen, die lange nachwirken.',
     aboutP2: 'Mein Sound: Slavischer Pop-Rock mit authentischer Akustik-Gitarre. Balladen mit Gefühl, eingängige Pop-Rock-Songs – immer live gespielt, immer vom Herzen.',
     aboutQuote: 'Echte Live-Performance ohne Kompromisse. Nur Gitarre, Stimme und eine Menge Leidenschaft für gute Musik.',
-
-    // USP
-    uspLabel: 'Alleinstellungsmerkmal',
-    uspTitle1: 'Die Melancholie Polens',
-    uspTitle2: 'trifft auf moderne Pop-Rock-Einflüsse',
-    uspDesc: 'Nicht noch ein Singer-Songwriter mit Akustikgitarre. Slavischer Pop-Rock vereint emotionale polnische Balladen mit deutschem Pop-Rock und englischen Klassikern – ein Sound, den es so kein zweites Mal gibt.',
-    uspTag1: 'Polnische Melancholie',
-    uspTag2: 'Deutscher Pop-Rock',
-    uspTag3: 'Englische Klassiker',
-    uspTag4: 'Authentische Akustik',
 
     // Music
     musicLabel: 'Musik',
@@ -365,16 +345,6 @@ const BookingPageTrans: Record<LangKey, {
     aboutP2: 'My sound: Slavic Pop-Rock with authentic acoustic guitar. Heartfelt ballads, catchy pop-rock songs – always played live, always from the heart.',
     aboutQuote: 'Authentic live performance without compromise. Just guitar, voice and a whole lot of passion for great music.',
 
-    // USP
-    uspLabel: 'Unique Selling Point',
-    uspTitle1: 'The Melancholy of Poland',
-    uspTitle2: 'meets modern Pop-Rock influences',
-    uspDesc: 'Not just another singer-songwriter with an acoustic guitar. Slavic Pop-Rock combines emotional Polish ballads with German pop-rock and English classics – a sound that is truly one of a kind.',
-    uspTag1: 'Polish Melancholy',
-    uspTag2: 'German Pop-Rock',
-    uspTag3: 'English Classics',
-    uspTag4: 'Authentic Acoustic',
-
     // Music
     musicLabel: 'Music',
     musicTitle: 'Listen now',
@@ -532,16 +502,6 @@ const BookingPageTrans: Record<LangKey, {
     aboutP1: 'Muzyk, który łączy kultury Niemiec i Polski. Piosenkami po niemiecku i polsku tworzę emocjonalne więzi, które zostają na długo.',
     aboutP2: 'Mój dźwięk: Słowiański Pop-Rock z autentyczną gitarą akustyczną. Ballady pełne uczuć, chwytliwe piosenki pop-rockowe – zawsze grane na żywo, zawsze z serca.',
     aboutQuote: 'Autentyczny występ na żywo bez kompromisów. Tylko gitara, głos i mnóstwo pasji do dobrej muzyki.',
-
-    // USP
-    uspLabel: 'Unikalna cecha',
-    uspTitle1: 'Melancholia Polski',
-    uspTitle2: 'spotyka nowoczesne wpływy Pop-Rocka',
-    uspDesc: 'To nie kolejny piosenkarz z gitarą akustyczną. Słowiański Pop-Rock łączy emocjonalne polskie ballady z niemieckim pop-rockiem i angielskimi klasykami – dźwięk, jakiego nie znajdziesz nigdzie indziej.',
-    uspTag1: 'Polska melancholia',
-    uspTag2: 'Niemiecki Pop-Rock',
-    uspTag3: 'Angielskie klasyki',
-    uspTag4: 'Autentyczna akustyka',
 
     // Music
     musicLabel: 'Muzyka',

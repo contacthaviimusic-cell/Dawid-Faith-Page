@@ -365,29 +365,6 @@ export default function BookingPage() {
         </div>
       </section>
 
-      {/* SLAVISCHER POP-ROCK USP */}
-      <section className="py-16 md:py-20 bg-black relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/[0.04] via-transparent to-amber-500/[0.04]"></div>
-        
-        <div className="max-w-4xl mx-auto px-6 text-center relative">
-          <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold mb-4 block">{t.uspLabel}</span>
-          <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">
-            <span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">{t.uspTitle1}</span><br/>
-            {t.uspTitle2}
-          </h2>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            {t.uspDesc}
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">{t.uspTag1}</span>
-            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">{t.uspTag2}</span>
-            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">{t.uspTag3}</span>
-            <span className="px-5 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-semibold">{t.uspTag4}</span>
-          </div>
-        </div>
-      </section>
-
       {/* MUSIC SECTION – Live Session + Spotify Player */}
       <section id="music" className="scroll-mt-16 py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
