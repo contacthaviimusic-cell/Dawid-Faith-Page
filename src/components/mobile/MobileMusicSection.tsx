@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Music, Video, Calendar, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
-import CoverMedia from '../CoverMedia';
+
+const SPOTIFY_ARTIST_ID = '0CESFIQKIs643l9hV0QXsE';
 
 interface Track {
   id: string;
@@ -152,113 +153,98 @@ export default function MobileMusicSection() {
           </div>
         </motion.div>
 
+        {/* Spotify Player – immer aktuell, zeigt automatisch alle veröffentlichten Songs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-6 rounded-2xl overflow-hidden border border-yellow-500/20"
+        >
+          <iframe
+            src={`https://open.spotify.com/embed/artist/${SPOTIFY_ARTIST_ID}?utm_source=generator&theme=0`}
+            width="100%"
+            height="352"
+            style={{ border: 0 }}
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Dawid Faith – Spotify"
+          />
+        </motion.div>
+
         {/* Track List */}
-        <div className="space-y-6 mb-8">
+        <div className="space-y-2 mb-8">
           {tracks.map((track, index) => (
             <motion.div
               key={track.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.07 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-stone-900/60 to-yellow-900/20 backdrop-blur-md rounded-2xl border border-yellow-500/20 overflow-hidden"
+              className="bg-gradient-to-br from-stone-900/60 to-yellow-900/20 backdrop-blur-md rounded-xl border border-yellow-500/20 overflow-hidden"
             >
-              {/* Cover Image with Video Overlay */}
-              <div className="relative h-48 overflow-hidden">
-                {showVideo === track.id ? (
-                  // Video Player direkt anstelle des Covers
+              <div className="flex items-center gap-3 px-4 py-3.5">
+                <span className="text-sm font-black text-stone-500 w-5 shrink-0 text-center">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+
+                <h3 className="flex-1 min-w-0 truncate font-bold text-white text-sm">
+                  {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![track.id]?.title) || track.title}
+                </h3>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  {(track.id === 'katze' || track.id === 'niebianski-groove') && (
+                    <Link
+                      href={track.id === 'katze' ? '/pre-order/katze' : '/pre-order/Groove'}
+                      className="inline-flex items-center gap-1 bg-amber-500 active:bg-amber-400 text-black px-3 py-1.5 rounded-full font-bold text-[10px] uppercase tracking-wider"
+                    >
+                      <ShoppingBag size={11} />
+                    </Link>
+                  )}
+                  {track.comingSoon ? (
+                    <div className="inline-flex items-center bg-stone-800 text-stone-400 px-3 py-1.5 rounded-full font-semibold text-[10px] uppercase tracking-wider whitespace-nowrap">
+                      {MusicTranslations[lang].comingSoonLabel}
+                    </div>
+                  ) : releasedVideoUrls[track.id] ? (
+                    <a
+                      href={releasedVideoUrls[track.id]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center w-8 h-8 border border-white/20 rounded-full"
+                    >
+                      <Video size={14} className="text-stone-300" />
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() => setShowVideo(showVideo === track.id ? null : track.id)}
+                      className="inline-flex items-center justify-center w-8 h-8 border border-white/20 rounded-full"
+                    >
+                      <Video size={14} className="text-stone-300" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Video Player */}
+              {showVideo === track.id && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="border-t border-yellow-500/20"
+                >
                   <video
                     controls
-                    className="w-full h-full object-cover"
+                    className="w-full max-h-72 bg-black"
                     poster={track.coverImage}
                     preload="metadata"
-                    autoPlay
                   >
                     <source src={track.video} type="video/mp4" />
                     Dein Browser unterstützt keine Videos.
                   </video>
-                ) : (
-                  // Cover Image mit Play Button
-                  <>
-                    <CoverMedia
-                      src={track.coverImage}
-                      alt={track.title}
-                      poster={track.poster}
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    
-                    {/* Video Play Button */}
-                    {track.comingSoon ? (
-                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-4 py-2 rounded-full bg-stone-900/80 border border-white/10">
-                        <span className="text-stone-300 text-xs font-bold uppercase tracking-wider">
-                          {MusicTranslations[lang].comingSoonLabel}
-                        </span>
-                      </div>
-                    ) : releasedVideoUrls[track.id] ? (
-                      <motion.a
-                        href={releasedVideoUrls[track.id]}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-yellow-500/80 hover:bg-yellow-500 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 shadow-xl border-2 border-white/20"
-                      >
-                        <Video className="text-white" size={24} />
-                      </motion.a>
-                    ) : (
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => setShowVideo(track.id)}
-                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-yellow-500/80 hover:bg-yellow-500 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 shadow-xl border-2 border-white/20"
-                      >
-                        <Video className="text-white" size={24} />
-                      </motion.button>
-                    )}
-                  </>
-                )}
-
-                {/* Title Overlay - nur anzeigen wenn kein Video läuft */}
-                {showVideo !== track.id && (
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="font-bold text-white text-lg mb-1 truncate">
-                      {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![track.id]?.title) || track.title}
-                    </h3>
-                    <p className="text-stone-300 text-sm">
-                      {track.artist}
-                    </p>
-                  </div>
-                )}
-
-                {/* Close Video Button - nur anzeigen wenn Video läuft */}
-                {showVideo === track.id && (
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => setShowVideo(null)}
-                    className="absolute top-2 right-2 w-8 h-8 bg-black/60 hover:bg-black/80 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 text-white"
-                  >
-                    ✕
-                  </motion.button>
-                )}
-              </div>
-
-              {/* Track Info & Controls */}
-              <div className="p-4">
-                {/* Pre-Order Button */}
-                {(track.id === 'katze' || track.id === 'niebianski-groove') && (
-                  <Link href={track.id === 'katze' ? '/pre-order/katze' : '/pre-order/Groove'} className="block mb-3">
-                    <motion.div
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 rounded-xl px-4 py-3 text-black font-bold flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
-                    >
-                      <ShoppingBag size={18} />
-                      {MusicTranslations[lang].preorderButton}
-                    </motion.div>
-                  </Link>
-                )}
-              </div>
+                </motion.div>
+              )}
             </motion.div>
           ))}
         </div>

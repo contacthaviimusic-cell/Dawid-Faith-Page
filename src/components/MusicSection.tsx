@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import CoverMedia from './CoverMedia';
 import { Video, Smartphone, Calendar, ShoppingBag } from 'lucide-react';
+
+const SPOTIFY_ARTIST_ID = '0CESFIQKIs643l9hV0QXsE';
 
 interface Song {
   id: string;
@@ -143,106 +144,78 @@ const MusicSection = () => {
           </div>
         </motion.div>
 
+        {/* Spotify Player – immer aktuell, zeigt automatisch alle veröffentlichten Songs */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-10 rounded-2xl overflow-hidden border border-white/10"
+        >
+          <iframe
+            src={`https://open.spotify.com/embed/artist/${SPOTIFY_ARTIST_ID}?utm_source=generator&theme=0`}
+            width="100%"
+            height="352"
+            style={{ border: 0 }}
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Dawid Faith – Spotify"
+          />
+        </motion.div>
+
         {/* Tracklist */}
-        <div className="space-y-4">
+        <div className="space-y-2">
           {songs.map((song, index) => (
             <motion.div
               key={song.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.07 }}
               viewport={{ once: true }}
-              className="group bg-white/[0.03] rounded-2xl border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.05] transition-all duration-500 overflow-hidden"
+              className="group bg-white/[0.03] rounded-xl border border-white/10 hover:border-amber-500/40 hover:bg-white/[0.05] transition-all duration-300 overflow-hidden"
             >
-              <div className="flex flex-col sm:flex-row items-stretch">
-                {/* Track number */}
-                <div className="hidden sm:flex items-center justify-center w-20 shrink-0 border-r border-white/5">
-                  <span className="text-3xl font-black text-stone-700 group-hover:text-amber-500/60 transition-colors">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                </div>
+              <div className="flex items-center gap-4 px-5 py-4">
+                <span className="text-lg font-black text-stone-600 group-hover:text-amber-500/60 transition-colors w-6 shrink-0 text-center">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
 
-                {/* Cover */}
-                <div className="relative w-full sm:w-44 h-44 shrink-0 overflow-hidden">
-                  <CoverMedia
-                    src={song.image}
-                    alt={song.title}
-                    poster={song.poster}
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
+                <h3 className="flex-1 min-w-0 truncate text-base md:text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
+                  {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.title) || song.title}
+                </h3>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  {(song.id === 'katze' || song.id === 'niebianski-groove') && (
+                    <Link
+                      href={song.id === 'katze' ? '/pre-order/katze' : '/pre-order/Groove'}
+                      className="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-black px-4 py-2 rounded-full font-bold text-[11px] uppercase tracking-wider transition-colors shadow-lg shadow-amber-500/20"
+                    >
+                      <ShoppingBag className="w-3 h-3" />
+                      <span className="hidden sm:inline">{MusicTranslations[lang].preorderButton}</span>
+                    </Link>
+                  )}
                   {song.comingSoon ? (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                      <span className="px-3 py-1.5 rounded-full bg-stone-900/80 border border-white/10 text-stone-300 text-[11px] font-bold uppercase tracking-wider">
-                        {MusicTranslations[lang].comingSoonLabel}
-                      </span>
+                    <div className="inline-flex items-center gap-1.5 bg-stone-800 text-stone-400 px-4 py-2 rounded-full font-semibold text-[11px] uppercase tracking-wider cursor-not-allowed whitespace-nowrap">
+                      {MusicTranslations[lang].comingSoonLabel}
                     </div>
                   ) : releasedVideoUrls[song.id] ? (
                     <a
                       href={releasedVideoUrls[song.id]}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={MusicTranslations[lang].videoOpen}
-                      className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      className="inline-flex items-center gap-1.5 border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white px-4 py-2 rounded-full font-semibold text-[11px] uppercase tracking-wider transition-all whitespace-nowrap"
                     >
-                      <span className="w-12 h-12 bg-amber-500 hover:bg-amber-400 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/30 transition-colors">
-                        <Video className="w-5 h-5 text-black" />
-                      </span>
+                      <Video className="w-3 h-3" />
+                      <span className="hidden sm:inline">{MusicTranslations[lang].videoOpen}</span>
                     </a>
                   ) : (
                     <button
                       onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
-                      aria-label={showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}
-                      className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      className="inline-flex items-center gap-1.5 border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white px-4 py-2 rounded-full font-semibold text-[11px] uppercase tracking-wider transition-all whitespace-nowrap"
                     >
-                      <span className="w-12 h-12 bg-amber-500 hover:bg-amber-400 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/30 transition-colors">
-                        <Video className="w-5 h-5 text-black" />
-                      </span>
+                      <Video className="w-3 h-3" />
+                      <span className="hidden sm:inline">{showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}</span>
                     </button>
                   )}
-                </div>
-
-                {/* Info + actions */}
-                <div className="flex-1 p-6 flex flex-col justify-center gap-4">
-                  <div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-amber-300 transition-colors mb-1.5">
-                      {(MusicTranslations[lang].songs && MusicTranslations[lang].songs![song.id]?.title) || song.title}
-                    </h3>
-                  </div>
-
-                  <div className="flex flex-wrap gap-3">
-                    {(song.id === 'katze' || song.id === 'niebianski-groove') && (
-                      <Link
-                        href={song.id === 'katze' ? '/pre-order/katze' : '/pre-order/Groove'}
-                        className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-colors shadow-lg shadow-amber-500/20"
-                      >
-                        <ShoppingBag className="w-3.5 h-3.5" />
-                        {MusicTranslations[lang].preorderButton}
-                      </Link>
-                    )}
-                    {song.comingSoon ? (
-                      <div className="inline-flex items-center gap-2 bg-stone-800 text-stone-400 px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider cursor-not-allowed">
-                        {MusicTranslations[lang].comingSoonLabel}
-                      </div>
-                    ) : releasedVideoUrls[song.id] ? (
-                      <a
-                        href={releasedVideoUrls[song.id]}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider transition-all"
-                      >
-                        <Video className="w-3.5 h-3.5" />
-                        {MusicTranslations[lang].videoOpen}
-                      </a>
-                    ) : (
-                      <button
-                        onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
-                        className="inline-flex items-center gap-2 border border-white/20 hover:border-amber-400/50 hover:bg-white/5 text-stone-300 hover:text-white px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider transition-all"
-                      >
-                        <Video className="w-3.5 h-3.5" />
-                        {showVideo === song.id ? MusicTranslations[lang].videoClose : MusicTranslations[lang].videoOpen}
-                      </button>
-                    )}
-                  </div>
                 </div>
               </div>
 
