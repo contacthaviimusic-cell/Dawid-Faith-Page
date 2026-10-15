@@ -115,8 +115,6 @@ export default function BookingPage() {
   }, []);
 
   const videos = [
-    { name: 'Katze', file: '/booking/videos/Katze 1.mp4' },
-    { name: 'Niebiański Groove', file: '/booking/videos/Niebianski Groove.mp4' },
     { name: 'Znikła', file: '/booking/videos/Znikła.mp4' },
     { name: 'Mambo', file: '/booking/videos/Mambo.mp4' },
     { name: 'Schiffchen', file: '/booking/videos/Schiffchen.mp4' },
