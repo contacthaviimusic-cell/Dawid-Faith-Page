@@ -9,6 +9,7 @@ const MusicTranslations: Record<LangKey, {
   videoOpen: string;
   videoClose: string;
   preorderButton: string;
+  comingSoonLabel: string;
   songs?: Record<string, { title?: string; description?: string }>;
 }> = {
   de: {
@@ -19,7 +20,8 @@ const MusicTranslations: Record<LangKey, {
     webappButton: 'Jetzt buchen',
     videoOpen: 'Video ansehen',
     videoClose: 'Video schließen',
-    preorderButton: 'Jetzt anhören'
+    preorderButton: 'Jetzt anhören',
+    comingSoonLabel: 'Bald verfügbar'
     ,
     songs: {
       katze: {
@@ -52,7 +54,8 @@ const MusicTranslations: Record<LangKey, {
     webappButton: 'Book now',
     videoOpen: 'Watch video',
     videoClose: 'Close video',
-    preorderButton: 'Listen now'
+    preorderButton: 'Listen now',
+    comingSoonLabel: 'Coming soon'
     ,
     songs: {
       katze: {
@@ -85,7 +88,8 @@ const MusicTranslations: Record<LangKey, {
     webappButton: 'Zarezerwuj teraz',
     videoOpen: 'Obejrzyj wideo',
     videoClose: 'Zamknij wideo',
-    preorderButton: 'Posłuchaj teraz'
+    preorderButton: 'Posłuchaj teraz',
+    comingSoonLabel: 'Wkrótce dostępne'
     ,
     songs: {
       katze: {

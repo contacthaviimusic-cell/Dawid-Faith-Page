@@ -13,6 +13,7 @@ interface Song {
   poster?: string;
   video: string;
   description: string;
+  comingSoon?: boolean;
 }
 
 const songs: Song[] = [
@@ -36,21 +37,24 @@ const songs: Song[] = [
     title: 'Maria',
     image: '/musik/maria/Maria.jpg',
     video: '/musik/maria/Maria Vid1.mp4',
-    description: 'Eine herzzerreißende Ballade über Einsamkeit, verlorene Liebe und die schmerzhafte Erkenntnis des Alleinseins'
+    description: 'Eine herzzerreißende Ballade über Einsamkeit, verlorene Liebe und die schmerzhafte Erkenntnis des Alleinseins',
+    comingSoon: true
   },
   {
     id: 'znikla',
     title: 'Znikła',
     image: '/musik/znikla/Znikła pic.jpg',
     video: '/musik/znikla/Znikłą Vid1.mp4',
-    description: 'Die polnische Version - eine intensive Reise durch Verlust, Sehnsucht und die Suche nach dem was verschwunden ist'
+    description: 'Die polnische Version - eine intensive Reise durch Verlust, Sehnsucht und die Suche nach dem was verschwunden ist',
+    comingSoon: true
   },
   {
     id: 'jupiter',
     title: 'Jupiter',
     image: '/musik/jupiter/Jupiter-Cover.jpg',
     video: '/musik/jupiter/Jupiter.mp4',
-    description: 'Der fünfte Song der Release Kampagne'
+    description: 'Der fünfte Song der Release Kampagne',
+    comingSoon: true
   }
 ];
 
@@ -166,7 +170,13 @@ const MusicSection = () => {
                     poster={song.poster}
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  {releasedVideoUrls[song.id] ? (
+                  {song.comingSoon ? (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+                      <span className="px-3 py-1.5 rounded-full bg-stone-900/80 border border-white/10 text-stone-300 text-[11px] font-bold uppercase tracking-wider">
+                        {MusicTranslations[lang].comingSoonLabel}
+                      </span>
+                    </div>
+                  ) : releasedVideoUrls[song.id] ? (
                     <a
                       href={releasedVideoUrls[song.id]}
                       target="_blank"
@@ -209,7 +219,11 @@ const MusicSection = () => {
                         {MusicTranslations[lang].preorderButton}
                       </Link>
                     )}
-                    {releasedVideoUrls[song.id] ? (
+                    {song.comingSoon ? (
+                      <div className="inline-flex items-center gap-2 bg-stone-800 text-stone-400 px-5 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider cursor-not-allowed">
+                        {MusicTranslations[lang].comingSoonLabel}
+                      </div>
+                    ) : releasedVideoUrls[song.id] ? (
                       <a
                         href={releasedVideoUrls[song.id]}
                         target="_blank"

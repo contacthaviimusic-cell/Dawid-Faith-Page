@@ -16,6 +16,7 @@ interface Track {
   poster?: string;
   video: string;
   description?: string;
+  comingSoon?: boolean;
 }
 
 import MusicTranslations from '../../lib/translations/MusicSectionTrans';
@@ -51,7 +52,8 @@ export default function MobileMusicSection() {
       audioSrc: '/musik/maria/Maria.mp3',
       coverImage: '/musik/maria/Maria.jpg',
       video: '/musik/maria/Maria Vid1.mp4',
-      description: 'Eine emotionale Ballade über verlorene Liebe'
+      description: 'Eine emotionale Ballade über verlorene Liebe',
+      comingSoon: true
     },
     {
       id: 'znikla',
@@ -61,7 +63,8 @@ export default function MobileMusicSection() {
       audioSrc: '/musik/znikla/Znikła.mp3',
       coverImage: '/musik/znikla/Znikła pic.jpg',
       video: '/musik/znikla/Znikłą Vid1.mp4',
-      description: 'Melancholische Töne treffen auf moderne Beats'
+      description: 'Melancholische Töne treffen auf moderne Beats',
+      comingSoon: true
     },
     {
       id: 'jupiter',
@@ -71,7 +74,8 @@ export default function MobileMusicSection() {
       audioSrc: '/musik/jupiter/Jupiter.mp3',
       coverImage: '/musik/jupiter/Jupiter-Cover.jpg',
       video: '/musik/jupiter/Jupiter.mp4',
-      description: 'Der fünfte Song der Release Kampagne'
+      description: 'Der fünfte Song der Release Kampagne',
+      comingSoon: true
     }
   ]);
 
@@ -185,7 +189,13 @@ export default function MobileMusicSection() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                     
                     {/* Video Play Button */}
-                    {releasedVideoUrls[track.id] ? (
+                    {track.comingSoon ? (
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-4 py-2 rounded-full bg-stone-900/80 border border-white/10">
+                        <span className="text-stone-300 text-xs font-bold uppercase tracking-wider">
+                          {MusicTranslations[lang].comingSoonLabel}
+                        </span>
+                      </div>
+                    ) : releasedVideoUrls[track.id] ? (
                       <motion.a
                         href={releasedVideoUrls[track.id]}
                         target="_blank"
