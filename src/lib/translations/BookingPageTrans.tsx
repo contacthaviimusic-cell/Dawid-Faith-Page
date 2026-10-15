@@ -5,7 +5,6 @@ const BookingPageTrans: Record<LangKey, {
   navAbout: string;
   navMusic: string;
   navLive: string;
-  navReferences: string;
   navServices: string;
   navPhotos: string;
   navBooking: string;
@@ -39,25 +38,6 @@ const BookingPageTrans: Record<LangKey, {
   videosLabel: string;
   videosTitle: string;
   videosSubtitle: string;
-
-  // References
-  refLabel: string;
-  refTitle: string;
-  refSubtitle: string;
-  refQuote: string;
-  refQuoteCite: string;
-  refCardLiveLabel: string;
-  refCardLive: string;
-  refCardLiveLocation: string;
-  refCardStreetLabel: string;
-  refCardStreet: string;
-  refCardStreetLocation: string;
-  refCardEventsLabel: string;
-  refCardEvents: string;
-  refCardEventsLocation: string;
-  refCardGastroLabel: string;
-  refCardGastro: string;
-  refCardGastroLocation: string;
 
   // Services
   svcLabel: string;
@@ -163,7 +143,6 @@ const BookingPageTrans: Record<LangKey, {
     navAbout: 'Über mich',
     navMusic: 'Musik',
     navLive: 'Live',
-    navReferences: 'Referenzen',
     navServices: 'Leistungen',
     navPhotos: 'Fotos',
     navBooking: 'Booking',
@@ -197,25 +176,6 @@ const BookingPageTrans: Record<LangKey, {
     videosLabel: 'Auftritte',
     videosTitle: 'Bisherige Auftritte',
     videosSubtitle: 'Authentische Live-Aufführungen in voller Länge',
-
-    // References
-    refLabel: 'Referenzen',
-    refTitle: 'Bisherige Auftritte',
-    refSubtitle: 'Erfahrungen von der Straße bis zur Bühne',
-    refQuote: 'Dawid hat mit seiner Stimme und Gitarre alle in den Bann gezogen. Authentisch, leidenschaftlich und unglaublich mitreißend.',
-    refQuoteCite: '— Feedback nach einem Private Event in Rostock',
-    refCardLiveLabel: 'Live',
-    refCardLive: 'Private Events',
-    refCardLiveLocation: 'Rostock & Umgebung',
-    refCardStreetLabel: 'Straße',
-    refCardStreet: 'Straßenmusik-Sessions',
-    refCardStreetLocation: 'Innenstädte & Fußgängerzonen',
-    refCardEventsLabel: 'Events',
-    refCardEvents: 'Private Veranstaltungen',
-    refCardEventsLocation: 'Feiern & Gartenpartys',
-    refCardGastroLabel: 'Gastro',
-    refCardGastro: 'Kneipen & Bars',
-    refCardGastroLocation: 'Lokale Live-Musik-Abende',
 
     // Services
     svcLabel: 'Leistungen',
@@ -321,7 +281,6 @@ const BookingPageTrans: Record<LangKey, {
     navAbout: 'About',
     navMusic: 'Music',
     navLive: 'Live',
-    navReferences: 'References',
     navServices: 'Services',
     navPhotos: 'Photos',
     navBooking: 'Booking',
@@ -355,25 +314,6 @@ const BookingPageTrans: Record<LangKey, {
     videosLabel: 'Performances',
     videosTitle: 'Previous Performances',
     videosSubtitle: 'Authentic full-length live performances',
-
-    // References
-    refLabel: 'References',
-    refTitle: 'Previous Performances',
-    refSubtitle: 'Experience from street to stage',
-    refQuote: 'Dawid captivated everyone with his voice and guitar. Authentic, passionate and incredibly electrifying.',
-    refQuoteCite: '— Feedback from a private event in Rostock',
-    refCardLiveLabel: 'Live',
-    refCardLive: 'Private Events',
-    refCardLiveLocation: 'Rostock & Area',
-    refCardStreetLabel: 'Street',
-    refCardStreet: 'Street Music Sessions',
-    refCardStreetLocation: 'City Centers & Pedestrian Zones',
-    refCardEventsLabel: 'Events',
-    refCardEvents: 'Private Functions',
-    refCardEventsLocation: 'Celebrations & Garden Parties',
-    refCardGastroLabel: 'Gastro',
-    refCardGastro: 'Pubs & Bars',
-    refCardGastroLocation: 'Local Live Music Nights',
 
     // Services
     svcLabel: 'Services',
@@ -479,7 +419,6 @@ const BookingPageTrans: Record<LangKey, {
     navAbout: 'O mnie',
     navMusic: 'Muzyka',
     navLive: 'Live',
-    navReferences: 'Referencje',
     navServices: 'Oferta',
     navPhotos: 'Zdjęcia',
     navBooking: 'Booking',
@@ -513,25 +452,6 @@ const BookingPageTrans: Record<LangKey, {
     videosLabel: 'Występy',
     videosTitle: 'Dotychczasowe występy',
     videosSubtitle: 'Autentyczne występy na żywo w pełnej długości',
-
-    // References
-    refLabel: 'Referencje',
-    refTitle: 'Dotychczasowe występy',
-    refSubtitle: 'Doświadczenie od ulicy po scenę',
-    refQuote: 'Dawid oczarował wszystkich swoim głosem i gitarą. Autentyczny, pełen pasji i niesamowicie porywający.',
-    refQuoteCite: '— Opinia po prywatnym wydarzeniu w Rostocku',
-    refCardLiveLabel: 'Live',
-    refCardLive: 'Prywatne wydarzenia',
-    refCardLiveLocation: 'Rostock i okolice',
-    refCardStreetLabel: 'Ulica',
-    refCardStreet: 'Muzyka uliczna',
-    refCardStreetLocation: 'Centra miast i deptaki',
-    refCardEventsLabel: 'Eventy',
-    refCardEvents: 'Imprezy prywatne',
-    refCardEventsLocation: 'Przyjęcia i garden party',
-    refCardGastroLabel: 'Gastro',
-    refCardGastro: 'Puby i bary',
-    refCardGastroLocation: 'Lokalne wieczory z muzyką na żywo',
 
     // Services
     svcLabel: 'Oferta',

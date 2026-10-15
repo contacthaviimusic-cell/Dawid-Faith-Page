@@ -101,7 +101,7 @@ export default function BookingPage() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 100);
       
-      const sections = ['hero', 'about', 'music', 'videos', 'referenzen', 'services', 'gallery', 'booking'];
+      const sections = ['hero', 'about', 'music', 'videos', 'services', 'gallery', 'booking'];
       for (const id of sections.reverse()) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 200) {
@@ -157,7 +157,6 @@ export default function BookingPage() {
     { id: 'about', label: t.navAbout },
     { id: 'music', label: t.navMusic },
     { id: 'videos', label: t.navLive },
-    { id: 'referenzen', label: t.navReferences },
     { id: 'services', label: t.navServices },
     { id: 'gallery', label: t.navPhotos },
     { id: 'booking', label: t.navBooking },
@@ -433,44 +432,6 @@ export default function BookingPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* REFERENZEN / SOCIAL PROOF */}
-      <section id="referenzen" className="scroll-mt-16 py-24 md:py-32 bg-black relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
-        <div className="absolute top-1/2 right-0 w-72 h-72 bg-amber-500/5 rounded-full blur-[100px]"></div>
-        
-        <div className="max-w-6xl mx-auto px-6 relative">
-          <div className="mb-16">
-            <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">{t.refLabel}</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">{t.refTitle}</h2>
-            <p className="text-slate-500">{t.refSubtitle}</p>
-          </div>
-
-          {/* Auftrittsorte */}
-          <div className="grid md:grid-cols-4 gap-4">
-            <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">{t.refCardLiveLabel}</p>
-              <p className="text-white font-bold">{t.refCardLive}</p>
-              <p className="text-slate-500 text-sm mt-1">{t.refCardLiveLocation}</p>
-            </div>
-            <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">{t.refCardStreetLabel}</p>
-              <p className="text-white font-bold">{t.refCardStreet}</p>
-              <p className="text-slate-500 text-sm mt-1">{t.refCardStreetLocation}</p>
-            </div>
-            <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">{t.refCardEventsLabel}</p>
-              <p className="text-white font-bold">{t.refCardEvents}</p>
-              <p className="text-slate-500 text-sm mt-1">{t.refCardEventsLocation}</p>
-            </div>
-            <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
-              <p className="text-amber-400/70 text-[10px] uppercase tracking-[0.2em] mb-2">{t.refCardGastroLabel}</p>
-              <p className="text-white font-bold">{t.refCardGastro}</p>
-              <p className="text-slate-500 text-sm mt-1">{t.refCardGastroLocation}</p>
-            </div>
           </div>
         </div>
       </section>
