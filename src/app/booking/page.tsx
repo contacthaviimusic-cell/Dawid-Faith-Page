@@ -3,9 +3,11 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import CoverMedia from '@/components/CoverMedia';
 import BookingPageTrans from '@/lib/translations/BookingPageTrans';
 import FlagForLang, { FlagDE, FlagGB, FlagPL } from '@/components/FlagIcon';
+
+const SPOTIFY_ARTIST_ID = '0CESFIQKIs643l9hV0QXsE';
+const LIVE_SESSION_YOUTUBE_ID = 'ZyDl1lQGKks';
 
 function OutreachTracker() {
   const searchParams = useSearchParams();
@@ -18,7 +20,6 @@ function OutreachTracker() {
 }
 
 export default function BookingPage() {
-  const [showVideo, setShowVideo] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState('hero');
   const [scrolled, setScrolled] = useState(false);
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
@@ -113,17 +114,15 @@ export default function BookingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const songs = [
-    { id: 'katze', name: 'Katze', image: '/musik/katze/Katze-Cover.mp4', video: '/musik/katze/video_2026-04-10_14-55-08.mp4', desc: { de: 'Der erste Song der Release Kampagne', en: 'The first song of the Release Campaign', pl: 'Pierwszy utwór Kampanii Release' } },
-    { id: 'znikla', name: 'Znikła', image: '/musik/znikla/Znikła pic.jpg', video: '/musik/znikla/Znikłą Vid1.mp4', desc: { de: 'Eine intensive Reise durch Verlust und Sehnsucht', en: 'An intense journey through loss and longing', pl: 'Intensywna podróż przez stratę i tęsknotę' } },
-    { id: 'maria', name: 'Maria', image: '/musik/maria/Maria.jpg', video: '/musik/maria/Maria Vid1.mp4', desc: { de: 'Eine herzzerreißende Ballade über Einsamkeit und verlorene Liebe', en: 'A heartbreaking ballad about loneliness and lost love', pl: 'Ballada o samotności i utraconej miłości' } },
-    { id: 'niebianski-groove', name: 'Niebiański Groove', image: '/musik/niebianski-groove/vlcsnap-2026-04-10-15h24m56s318.png', video: '/musik/niebianski-groove/video_2026-04-10_15-15-15.mp4', desc: { de: 'Ein weiterer Track aus der Release Kampagne', en: 'Another track from the Release Campaign', pl: 'Kolejny utwór z Kampanii Release' } },
-    { id: 'jupiter', name: 'Jupiter', image: '/musik/jupiter/Jupiter-Cover.jpg', video: '/musik/jupiter/Jupiter.mp4', desc: { de: 'Der fünfte Song der Release Kampagne', en: 'The fifth song of the Release Campaign', pl: 'Piąty utwór Kampanii Release' } },
-  ];
-
   const videos = [
-    { name: 'Katze - Live Performance', file: '/booking/videos/Katze 1.mp4' },
-    { name: 'Niebiański Groove - Live', file: '/booking/videos/Niebianski Groove.mp4' }
+    { name: 'Katze', file: '/booking/videos/Katze 1.mp4' },
+    { name: 'Niebiański Groove', file: '/booking/videos/Niebianski Groove.mp4' },
+    { name: 'Znikła', file: '/booking/videos/Znikła.mp4' },
+    { name: 'Mambo', file: '/booking/videos/Mambo.mp4' },
+    { name: 'Schiffchen', file: '/booking/videos/Schiffchen.mp4' },
+    { name: 'Pocahontas', file: '/booking/videos/Pocahontas.mp4' },
+    { name: 'Kompliment', file: '/booking/videos/Kompliment.mp4' },
+    { name: 'Czarny Chleb i Czarna Kawa', file: '/booking/videos/Czarny Chleb i Czarna Kawa.mp4' },
   ];
 
   const fotos = [
@@ -389,84 +388,51 @@ export default function BookingPage() {
         </div>
       </section>
 
-      {/* VIDEO PREVIEW SECTION */}
+      {/* MUSIC SECTION – Live Session + Spotify Player */}
       <section id="music" className="scroll-mt-16 py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="absolute top-1/3 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-[100px]"></div>
-        
-        <div className="max-w-6xl mx-auto px-6 relative">
+
+        <div className="max-w-4xl mx-auto px-6 relative">
           <div className="mb-16">
             <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">{t.musicLabel}</span>
             <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">{t.musicTitle}</h2>
             <p className="text-slate-500">{t.musicSubtitle}</p>
           </div>
 
-          {/* Songs Video Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {songs.map((song) => (
-              <div
-                key={song.id}
-                className="group relative bg-white/[0.03] border border-white/10 rounded-2xl hover:border-amber-500/30 transition-all duration-500 overflow-hidden"
-              >
-                {/* Thumbnail / Video Container */}
-                <div className="relative h-64 rounded-t-2xl overflow-hidden">
-                  {/* Thumbnail */}
-                  <CoverMedia
-                    src={song.image}
-                    alt={song.name}
-                    className={`object-cover transition-transform duration-500 ${showVideo === song.id ? 'opacity-0' : 'group-hover:scale-105'}`}
-                  />
-                  <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent transition-opacity duration-300 ${showVideo === song.id ? 'opacity-0' : ''}`} />
+          {/* Live Session Video */}
+          <div className="mb-10">
+            <p className="text-white font-bold mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+              {t.musicLiveSessionBadge}
+            </p>
+            <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl" style={{ paddingTop: '56.25%' }}>
+              <iframe
+                src={`https://www.youtube.com/embed/${LIVE_SESSION_YOUTUBE_ID}`}
+                title="Dawid Faith – Live Session"
+                className="absolute inset-0 w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
 
-                  {/* Video overlay – ersetzt das Thumbnail */}
-                  {showVideo === song.id && (
-                    <video
-                      autoPlay
-                      controls
-                      className="absolute inset-0 w-full h-full object-cover"
-                      poster={song.image}
-                      preload="metadata"
-                    >
-                      <source src={song.video} type="video/mp4" />
-                      Dein Browser unterstützt keine Videos.
-                    </video>
-                  )}
-
-                  {/* Play Button – nur wenn kein Video läuft */}
-                  {showVideo !== song.id && (
-                    <button
-                      onClick={() => setShowVideo(song.id)}
-                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-amber-500 hover:bg-amber-400 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg shadow-amber-500/30"
-                    >
-                      <span className="text-black text-xl ml-1">▶</span>
-                    </button>
-                  )}
-
-                  {/* Title Overlay – nur wenn kein Video läuft */}
-                  {showVideo !== song.id && (
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="text-2xl font-black text-white mb-1">{song.name}</h3>
-                      <p className="text-slate-300 text-sm">{song.desc[lang]}</p>
-                    </div>
-                  )}
-                </div>
-
-                {/* Card Controls */}
-                <div className="p-6">
-                  <button
-                    onClick={() => setShowVideo(showVideo === song.id ? null : song.id)}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 rounded-xl text-black font-bold transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-amber-500/20"
-                  >
-                    <span className="text-sm">{showVideo === song.id ? t.musicVideoClose : t.musicVideoOpen}</span>
-                  </button>
-                </div>
-              </div>
-            ))}
+          {/* Spotify Player */}
+          <div className="rounded-2xl overflow-hidden border border-white/10">
+            <iframe
+              src={`https://open.spotify.com/embed/artist/${SPOTIFY_ARTIST_ID}?utm_source=generator&theme=0`}
+              width="100%"
+              height="352"
+              style={{ border: 0 }}
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              title="Dawid Faith – Spotify"
+            />
           </div>
         </div>
       </section>
 
-      {/* VIDEO SECTION */}
+      {/* BISHERIGE AUFTRITTE SECTION */}
       <section id="videos" className="scroll-mt-16 py-24 md:py-32 bg-black relative">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="max-w-6xl mx-auto px-6">

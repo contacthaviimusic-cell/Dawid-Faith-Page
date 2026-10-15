@@ -43,9 +43,7 @@ const BookingPageTrans: Record<LangKey, {
   musicLabel: string;
   musicTitle: string;
   musicSubtitle: string;
-  musicNowPlaying: string;
-  musicVideoOpen: string;
-  musicVideoClose: string;
+  musicLiveSessionBadge: string;
 
   // Videos
   videosLabel: string;
@@ -211,15 +209,13 @@ const BookingPageTrans: Record<LangKey, {
 
     // Music
     musicLabel: 'Musik',
-    musicTitle: 'Meine Songs',
-    musicSubtitle: 'Videovorschau meiner Original-Kompositionen',
-    musicNowPlaying: 'Jetzt spielen',
-    musicVideoOpen: 'Video ansehen',
-    musicVideoClose: 'Video schließen',
+    musicTitle: 'Jetzt anhören',
+    musicSubtitle: 'Alle Songs auf Spotify, Apple Music & überall sonst – plus eine Live Session',
+    musicLiveSessionBadge: 'Live Session',
 
     // Videos
-    videosLabel: 'Live Performance',
-    videosTitle: 'Live Auftritte',
+    videosLabel: 'Auftritte',
+    videosTitle: 'Bisherige Auftritte',
     videosSubtitle: 'Authentische Live-Aufführungen in voller Länge',
 
     // References
@@ -381,15 +377,13 @@ const BookingPageTrans: Record<LangKey, {
 
     // Music
     musicLabel: 'Music',
-    musicTitle: 'My Songs',
-    musicSubtitle: 'Video preview of my original compositions',
-    musicNowPlaying: 'Now playing',
-    musicVideoOpen: 'Watch video',
-    musicVideoClose: 'Close video',
+    musicTitle: 'Listen now',
+    musicSubtitle: 'All songs on Spotify, Apple Music & everywhere else – plus a live session',
+    musicLiveSessionBadge: 'Live Session',
 
     // Videos
-    videosLabel: 'Live Performance',
-    videosTitle: 'Live Performances',
+    videosLabel: 'Performances',
+    videosTitle: 'Previous Performances',
     videosSubtitle: 'Authentic full-length live performances',
 
     // References
@@ -551,15 +545,13 @@ const BookingPageTrans: Record<LangKey, {
 
     // Music
     musicLabel: 'Muzyka',
-    musicTitle: 'Moje utwory',
-    musicSubtitle: 'Podgląd wideo moich autorskich kompozycji',
-    musicNowPlaying: 'Teraz gra',
-    musicVideoOpen: 'Obejrzyj wideo',
-    musicVideoClose: 'Zamknij wideo',
+    musicTitle: 'Posłuchaj teraz',
+    musicSubtitle: 'Wszystkie utwory na Spotify, Apple Music i wszędzie indziej – plus sesja live',
+    musicLiveSessionBadge: 'Live Session',
 
     // Videos
-    videosLabel: 'Występy na żywo',
-    videosTitle: 'Występy Live',
+    videosLabel: 'Występy',
+    videosTitle: 'Dotychczasowe występy',
     videosSubtitle: 'Autentyczne występy na żywo w pełnej długości',
 
     // References
