@@ -169,12 +169,12 @@ const BookingPageTrans: Record<LangKey, {
     // Music
     musicLabel: 'Musik',
     musicTitle: 'Jetzt anhören',
-    musicSubtitle: 'Alle Songs auf Spotify, Apple Music & überall sonst – plus eine Live Session',
+    musicSubtitle: 'Alle Songs auf Spotify, Apple Music & überall sonst',
     musicLiveSessionBadge: 'Live Session',
 
     // Videos
     videosLabel: 'Auftritte',
-    videosTitle: 'Bisherige Auftritte',
+    videosTitle: 'So klinge ich etwa live',
     videosSubtitle: 'Authentische Live-Aufführungen in voller Länge',
 
     // Services
@@ -307,12 +307,12 @@ const BookingPageTrans: Record<LangKey, {
     // Music
     musicLabel: 'Music',
     musicTitle: 'Listen now',
-    musicSubtitle: 'All songs on Spotify, Apple Music & everywhere else – plus a live session',
+    musicSubtitle: 'All songs on Spotify, Apple Music & everywhere else',
     musicLiveSessionBadge: 'Live Session',
 
     // Videos
     videosLabel: 'Performances',
-    videosTitle: 'Previous Performances',
+    videosTitle: 'This is what I sound like live',
     videosSubtitle: 'Authentic full-length live performances',
 
     // Services
@@ -445,12 +445,12 @@ const BookingPageTrans: Record<LangKey, {
     // Music
     musicLabel: 'Muzyka',
     musicTitle: 'Posłuchaj teraz',
-    musicSubtitle: 'Wszystkie utwory na Spotify, Apple Music i wszędzie indziej – plus sesja live',
+    musicSubtitle: 'Wszystkie utwory na Spotify, Apple Music i wszędzie indziej',
     musicLiveSessionBadge: 'Live Session',
 
     // Videos
     videosLabel: 'Występy',
-    videosTitle: 'Dotychczasowe występy',
+    videosTitle: 'Tak brzmię na żywo',
     videosSubtitle: 'Autentyczne występy na żywo w pełnej długości',
 
     // Services

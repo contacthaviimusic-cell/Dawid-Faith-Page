@@ -364,7 +364,7 @@ export default function BookingPage() {
         </div>
       </section>
 
-      {/* MUSIC SECTION – Live Session + Spotify Player */}
+      {/* MUSIC SECTION – Spotify Player */}
       <section id="music" className="scroll-mt-16 py-24 md:py-32 bg-black relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="absolute top-1/3 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-[100px]"></div>
@@ -374,23 +374,6 @@ export default function BookingPage() {
             <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">{t.musicLabel}</span>
             <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">{t.musicTitle}</h2>
             <p className="text-slate-500">{t.musicSubtitle}</p>
-          </div>
-
-          {/* Live Session Video */}
-          <div className="mb-10">
-            <p className="text-white font-bold mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-              {t.musicLiveSessionBadge}
-            </p>
-            <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl" style={{ paddingTop: '56.25%' }}>
-              <iframe
-                src={`https://www.youtube.com/embed/${LIVE_SESSION_YOUTUBE_ID}`}
-                title="Dawid Faith – Live Session"
-                className="absolute inset-0 w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
           </div>
 
           {/* Spotify Player */}
@@ -408,7 +391,7 @@ export default function BookingPage() {
         </div>
       </section>
 
-      {/* BISHERIGE AUFTRITTE SECTION */}
+      {/* SO KLINGE ICH ETWA LIVE SECTION */}
       <section id="videos" className="scroll-mt-16 py-24 md:py-32 bg-black relative">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
         <div className="max-w-6xl mx-auto px-6">
@@ -416,6 +399,23 @@ export default function BookingPage() {
             <span className="text-amber-400/70 text-[10px] uppercase tracking-[0.3em] font-semibold">{t.videosLabel}</span>
             <h2 className="text-4xl md:text-5xl font-black mt-3 mb-3">{t.videosTitle}</h2>
             <p className="text-slate-500">{t.videosSubtitle}</p>
+          </div>
+
+          {/* Live Session Video */}
+          <div className="mb-12">
+            <p className="text-white font-bold mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+              {t.musicLiveSessionBadge}
+            </p>
+            <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl" style={{ paddingTop: '56.25%' }}>
+              <iframe
+                src={`https://www.youtube.com/embed/${LIVE_SESSION_YOUTUBE_ID}`}
+                title="Dawid Faith – Live Session"
+                className="absolute inset-0 w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
