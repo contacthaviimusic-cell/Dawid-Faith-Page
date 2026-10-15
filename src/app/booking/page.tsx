@@ -449,46 +449,6 @@ export default function BookingPage() {
             <p className="text-slate-500">{t.refSubtitle}</p>
           </div>
 
-          {/* Fan Book Testimonials */}
-          <div className="grid md:grid-cols-2 gap-6 mb-16">
-            {[
-              {
-                quote: 'Die schwarze Katze war der Knaller! \u2665',
-                name: 'Harvey',
-                venue: "Katy's Garage · Dresden",
-              },
-              {
-                quote: 'Bleib wie du bist, du verbreitest gute Laune, dein Vibe ist phenomenal, geile Arbeit \u2665',
-                name: 'Lukas',
-                venue: 'Bierblume · Görlitz',
-              },
-              {
-                quote: 'Great Song, Shame cannot be there to watch you again. Hope you remember, we where sat behind you, you were fantastic and love your music. Best wishes, Charlotte.',
-                name: 'Charlotte',
-                venue: "Katy's Garage · Dresden · zum Song \"Katze\"",
-              },
-              {
-                quote: '🥰 👍🏻👍🏻🙏🏻\nDie Texte sind mega & Deine Stimme ist der Hammer.\nAch Dawid. Super 💚',
-                name: 'Kathy',
-                venue: 'Strandbar P14 · Heringsdorf',
-              },
-            ].map(({ quote, name, venue }) => (
-              <div
-                key={name}
-                className="bg-white/[0.03] border border-amber-500/20 rounded-2xl p-8 relative flex flex-col gap-4 hover:border-amber-500/40 transition-all duration-300"
-              >
-                <div className="text-5xl text-amber-500/20 font-serif leading-none select-none">&ldquo;</div>
-                <blockquote className="text-white/90 text-lg leading-relaxed flex-1 whitespace-pre-line">
-                  {quote}
-                </blockquote>
-                <div>
-                  <p className="text-white font-bold text-sm">{name}</p>
-                  <p className="text-slate-500 text-xs mt-0.5">{venue}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
           {/* Auftrittsorte */}
           <div className="grid md:grid-cols-4 gap-4">
             <div className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-all">
