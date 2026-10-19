@@ -154,19 +154,13 @@ export default function Home() {
                   <Play size={16} />
                   {PageTranslations[lang].ctaInvite}
                 </Link>
-                <button
+                <Link
+                  href="/booking"
                   className="border border-white/25 hover:border-amber-400/50 text-white font-semibold px-9 py-4 rounded-full transition-all hover:bg-white/5 backdrop-blur-sm text-sm uppercase tracking-wider flex items-center gap-2"
-                  onClick={() => {
-                    const el = document.querySelector('#konzerte');
-                    if (el) {
-                      const top = el.getBoundingClientRect().top + window.scrollY - 64;
-                      window.scrollTo({ top, behavior: 'smooth' });
-                    }
-                  }}
                 >
                   <Calendar size={16} />
                   {PageTranslations[lang].ctaExperience}
-                </button>
+                </Link>
               </div>
             </motion.div>
           </div>

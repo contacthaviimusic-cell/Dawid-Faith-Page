@@ -98,20 +98,15 @@ export default function MobilePage() {
                 </motion.div>
               </Link>
 
-              <motion.button
-                whileTap={{ scale: 0.98 }}
-                className="w-full border border-white/25 active:border-amber-400/50 text-white px-5 py-3.5 rounded-full font-semibold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
-                onClick={() => {
-                  const el = document.querySelector('#konzerte');
-                  if (el) {
-                    const top = el.getBoundingClientRect().top + window.scrollY - 56;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <Calendar size={18} />
-                <span>{PageTranslations[lang].ctaExperience}</span>
-              </motion.button>
+              <Link href="/booking" className="block">
+                <motion.div
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full border border-white/25 active:border-amber-400/50 text-white px-5 py-3.5 rounded-full font-semibold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
+                >
+                  <Calendar size={18} />
+                  <span>{PageTranslations[lang].ctaExperience}</span>
+                </motion.div>
+              </Link>
             </motion.div>
 
             {/* Scroll Indicator */}
