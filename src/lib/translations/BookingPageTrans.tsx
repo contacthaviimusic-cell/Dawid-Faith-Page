@@ -17,7 +17,6 @@ const BookingPageTrans: Record<LangKey, {
   heroCtaListen: string;
   heroLanguages: string;
   heroGuitar: string;
-  heroRepertoire: string;
   heroScroll: string;
 
   // About
@@ -155,7 +154,6 @@ const BookingPageTrans: Record<LangKey, {
     heroCtaListen: 'Musik anhören',
     heroLanguages: 'Deutsch · Polnisch · Englisch',
     heroGuitar: 'Solo Akustik-Gitarre',
-    heroRepertoire: '28 Songs Repertoire',
     heroScroll: 'Scroll',
 
     // About
@@ -293,7 +291,6 @@ const BookingPageTrans: Record<LangKey, {
     heroCtaListen: 'Listen to music',
     heroLanguages: 'German · Polish · English',
     heroGuitar: 'Solo Acoustic Guitar',
-    heroRepertoire: '28 Songs Repertoire',
     heroScroll: 'Scroll',
 
     // About
@@ -431,7 +428,6 @@ const BookingPageTrans: Record<LangKey, {
     heroCtaListen: 'Posłuchaj muzyki',
     heroLanguages: 'Niemiecki · Polski · Angielski',
     heroGuitar: 'Solo gitara akustyczna',
-    heroRepertoire: '28 utworów w repertuarze',
     heroScroll: 'Scroll',
 
     // About

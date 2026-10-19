@@ -314,10 +314,6 @@ export default function BookingPage() {
                 <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
                 {t.heroGuitar}
               </span>
-              <span className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
-                {t.heroRepertoire}
-              </span>
             </div>
           </div>
         </div>
