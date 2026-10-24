@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react';
 import VideoTranslations from '@/lib/translations/VideoSectionTrans';
 
 const KATZE_YOUTUBE_ID = '-h7US3tHuyo';
+const GROOVE_YOUTUBE_ID = 'bt2JsiMYlM4';
 
 const VideoSection = () => {
   const [lang, setLang] = useState<'de' | 'en' | 'pl'>('de');
@@ -78,6 +79,54 @@ const VideoSection = () => {
         >
           <a
             href={`https://www.youtube.com/watch?v=${KATZE_YOUTUBE_ID}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
+          >
+            {t.ctaButton}
+            <ArrowRight size={16} />
+          </a>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mt-20 mb-10"
+        >
+          <h2 className="text-3xl md:text-4xl font-black leading-tight mb-3">
+            {t.grooveTitle}
+          </h2>
+          <p className="text-stone-400 leading-relaxed">{t.grooveIntro}</p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          viewport={{ once: true }}
+          className="relative w-full rounded-2xl overflow-hidden border border-white/10"
+          style={{ paddingTop: '56.25%' }}
+        >
+          <iframe
+            src={`https://www.youtube.com/embed/${GROOVE_YOUTUBE_ID}`}
+            title="Niebiański Groove – Musikvideo"
+            className="absolute inset-0 w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="mt-8"
+        >
+          <a
+            href={`https://www.youtube.com/watch?v=${GROOVE_YOUTUBE_ID}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-black px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all"
