@@ -8,6 +8,8 @@ import Link from 'next/link';
 import PreOrderTranslations, { type LangKey } from '@/lib/translations/PreOrderPageTrans';
 import FlagForLang, { FlagDE, FlagGB, FlagPL } from '@/components/FlagIcon';
 
+const MARIA_HERO_TEASER = '/musik/maria/Maria%20Teaser.mp4';
+
 interface PublicSingle {
   id: string;
   title: string;
@@ -356,14 +358,18 @@ export default function PreOrderPageClient({
     return { presaveNum, listenNum, premiereNum, total: n };
   })();
 
+  // Maria nutzt immer dasselbe Teaser-Video wie der Hero auf der Startseite,
+  // unabhängig vom im Admin hinterlegten Wert.
+  const teaserVideoSrc = songId?.toLowerCase() === 'maria' ? MARIA_HERO_TEASER : single.teaserVideo;
+
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
       {langSwitcher}
       {/* Fullscreen background: teaser video or cover */}
       <div className="fixed inset-0 z-0">
-        {single.teaserVideo ? (
+        {teaserVideoSrc ? (
           <video
-            src={single.teaserVideo}
+            src={teaserVideoSrc}
             autoPlay
             muted
             loop
