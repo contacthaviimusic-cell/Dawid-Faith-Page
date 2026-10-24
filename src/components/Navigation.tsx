@@ -83,8 +83,8 @@ export default function Navigation() {
       transition={{ duration: 0.8 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-black/80 backdrop-blur-xl border-b border-white/10'
-          : 'bg-gradient-to-b from-black/60 to-transparent border-b border-transparent'
+          ? 'bg-black/80 backdrop-blur-xl'
+          : 'bg-gradient-to-b from-black/60 to-transparent'
       }`}
     >
       <div className="max-w-6xl mx-auto px-6">
