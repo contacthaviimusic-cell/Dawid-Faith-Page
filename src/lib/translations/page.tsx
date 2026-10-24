@@ -2,8 +2,8 @@ const PageTranslations = {
   de: {
     loaderText: 'Lade Dawid Faith...',
     heroSubtitle: 'Singer-Songwriter',
-    newSingleBadge: 'Neue Single „Niebiański Groove" – ab 3. Oktober',
-    ctaInvite: 'Niebiański Groove entdecken',
+    newSingleBadge: 'Neue Single „Maria" – ab 31. Oktober',
+    ctaInvite: 'Maria entdecken',
     ctaExperience: 'Für dein Event buchen',
     footerTagline: 'Singer-Songwriter',
     copyright: '© 2026 Dawid Faith. Alle Rechte vorbehalten.',
@@ -11,8 +11,8 @@ const PageTranslations = {
   en: {
     loaderText: "Loading Dawid Faith...",
     heroSubtitle: 'Singer-Songwriter',
-    newSingleBadge: 'New single "Niebiański Groove" – from October 3rd',
-    ctaInvite: 'Discover Niebiański Groove',
+    newSingleBadge: 'New single "Maria" – from October 31st',
+    ctaInvite: 'Discover Maria',
     ctaExperience: 'Book for your event',
     footerTagline: 'Singer-Songwriter',
     copyright: '© 2026 Dawid Faith. All rights reserved.',
@@ -20,8 +20,8 @@ const PageTranslations = {
   pl: {
     loaderText: 'Ładowanie Dawid Faith...',
     heroSubtitle: 'Singer-Songwriter',
-    newSingleBadge: 'Nowy singiel „Niebiański Groove" – od 3 października',
-    ctaInvite: 'Odkryj Niebiański Groove',
+    newSingleBadge: 'Nowy singiel „Maria" – od 31 października',
+    ctaInvite: 'Odkryj Maria',
     ctaExperience: 'Zarezerwuj na wydarzenie',
     footerTagline: 'Singer-Songwriter',
     copyright: '© 2026 Dawid Faith. Wszelkie prawa zastrzeżone.',

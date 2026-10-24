@@ -103,10 +103,10 @@ export default function Home() {
 
         {/* Hero Landing Section */}
         <section id="home" className="relative min-h-screen flex flex-col justify-end overflow-hidden">
-          {/* Full-screen Background: Niebianski Groove teaser video with cinematic overlays */}
+          {/* Full-screen Background: Maria teaser video with cinematic overlays */}
           <div className="absolute inset-0 z-0 bg-black">
             <video
-              src="/musik/niebianski-groove/Teaser%20Groove.mp4"
+              src="/musik/maria/Maria%20Teaser.mp4"
               autoPlay
               muted
               loop
@@ -148,7 +148,7 @@ export default function Home() {
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-4">
                 <Link
-                  href="/pre-order/Groove"
+                  href="/pre-order/maria"
                   className="bg-amber-500 hover:bg-amber-400 text-black font-bold px-9 py-4 rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/30 text-sm uppercase tracking-wider flex items-center gap-2"
                 >
                   <Play size={16} />

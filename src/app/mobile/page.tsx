@@ -48,10 +48,10 @@ export default function MobilePage() {
         
         {/* Mobile Hero Section */}
         <section id="home" className="min-h-screen flex flex-col justify-end relative overflow-hidden">
-          {/* Background: Niebianski Groove teaser video */}
+          {/* Background: Maria teaser video */}
           <div className="absolute inset-0 z-0 bg-black">
             <video
-              src="/musik/niebianski-groove/Teaser%20Groove.mp4"
+              src="/musik/maria/Maria%20Teaser.mp4"
               autoPlay
               muted
               loop
@@ -88,7 +88,7 @@ export default function MobilePage() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="space-y-3"
             >
-              <Link href="/pre-order/Groove" className="block">
+              <Link href="/pre-order/maria" className="block">
                 <motion.div
                   whileTap={{ scale: 0.98 }}
                   className="w-full bg-amber-500 active:bg-amber-400 text-black px-5 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
