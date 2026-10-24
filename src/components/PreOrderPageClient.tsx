@@ -9,6 +9,7 @@ import PreOrderTranslations, { type LangKey } from '@/lib/translations/PreOrderP
 import FlagForLang, { FlagDE, FlagGB, FlagPL } from '@/components/FlagIcon';
 
 const MARIA_HERO_TEASER = '/musik/maria/Maria%20Teaser.mp4';
+const MARIA_HERO_POSTER = '/musik/maria/Maria-Teaser-Poster.jpg';
 
 interface PublicSingle {
   id: string;
@@ -370,6 +371,8 @@ export default function PreOrderPageClient({
         {teaserVideoSrc ? (
           <video
             src={teaserVideoSrc}
+            poster={songId?.toLowerCase() === 'maria' ? MARIA_HERO_POSTER : undefined}
+            preload="auto"
             autoPlay
             muted
             loop
@@ -380,7 +383,7 @@ export default function PreOrderPageClient({
           // eslint-disable-next-line @next/next/no-img-element
           <img src={single.coverImage} alt={single.title} className="w-full h-full object-cover" />
         ) : null}
-        <div className="absolute inset-0 bg-black/70" />
+        <div className={`absolute inset-0 ${songId?.toLowerCase() === 'maria' ? 'bg-black/35' : 'bg-black/70'}`} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black" />
       </div>
 

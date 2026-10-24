@@ -52,6 +52,7 @@ export default function MobilePage() {
           <div className="absolute inset-0 z-0 bg-black">
             <video
               src="/musik/maria/Maria%20Teaser.mp4"
+              poster="/musik/maria/Maria-Teaser-Poster.jpg"
               autoPlay
               muted
               loop
@@ -59,7 +60,7 @@ export default function MobilePage() {
               preload="auto"
               className="w-full h-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
           </div>
 
           <div className="relative z-10 px-6 pb-20 text-center">

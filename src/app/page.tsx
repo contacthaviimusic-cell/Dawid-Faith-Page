@@ -107,6 +107,7 @@ export default function Home() {
           <div className="absolute inset-0 z-0 bg-black">
             <video
               src="/musik/maria/Maria%20Teaser.mp4"
+              poster="/musik/maria/Maria-Teaser-Poster.jpg"
               autoPlay
               muted
               loop
@@ -114,8 +115,8 @@ export default function Home() {
               preload="auto"
               className="w-full h-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/30" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-black/10" />
           </div>
 
           {/* Ambient glow accents */}
